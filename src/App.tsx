@@ -1,10 +1,11 @@
-import "./base.scss";
+import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import MainPage from "./pages/Main";
 import PostPage from "./pages/Post";
 import Navbar from "./components/ui/Navbar";
+import "./base.scss";
 
-function App() {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Navbar />

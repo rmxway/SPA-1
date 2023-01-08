@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import cl from "./navbar.module.scss";
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
     <div className={cl.navbar}>
       <div className="container">
