@@ -1,0 +1,17 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background-color: #eee;
+
+  a {
+    display: inline-block;
+    margin-right: 30px;    
+    color: black;
+    text-decoration: none;
+
+    &:hover {
+      color: red;
+    }
+  }
+}
