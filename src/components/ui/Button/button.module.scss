@@ -1,5 +1,4 @@
-$successColor: #31b55d;
-$dangerColor: #d0c9ca;
+@import '@styles/vars.scss';
 
 @mixin typeButton($backgrd, $color: #fff) {
 	border-color: transparent;
@@ -19,7 +18,7 @@ $dangerColor: #d0c9ca;
 	appearance: none;
 	border: 1px solid #aaa;
 	background: none;
-	border-radius: 5px;
+	border-radius: $borderRadius;
 	padding: 11px 16px 10px;
 	color: #777;
 	font-size: 12px;

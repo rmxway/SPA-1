@@ -1,9 +1,10 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import MainPage from './pages/Main';
-import PostPage from './pages/Post';
-import Navbar from './components/ui/Navbar';
 import './styles/base.scss';
+import Navbar from '@ui/Navbar';
+import MainPage from '@pages/Main';
+import PostPage from '@pages/Post';
+import AboutPage from '@pages/About';
 
 const App: React.FC = () => {
 	return (
@@ -13,6 +14,7 @@ const App: React.FC = () => {
 				<Routes>
 					<Route path="/" element={<MainPage />} />
 					<Route path="posts" element={<PostPage />} />
+					<Route path="about" element={<AboutPage />} />
 				</Routes>
 			</div>
 		</BrowserRouter>

@@ -1,4 +1,4 @@
-@import './mixins.scss';
+@import './vars.scss';
 
 body {
 	margin: 0;
@@ -19,6 +19,13 @@ code {
 	width: 100%;
 	max-width: 1024px;
 	margin: 0 auto;
+}
+
+.layerBlock {
+	padding: 20px;
+	border: 1px solid $dangerColor;
+	border-radius: $borderRadius;
+	margin-bottom: 20px;
 }
 
 .transition {
