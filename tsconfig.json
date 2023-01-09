@@ -2,19 +2,19 @@
   "compilerOptions": {
     "target": "ES6",
     "module": "commonjs",
-    "allowJs": false,
-    "checkJs": false,
+    "allowJs": true,
     "jsx": "react",
     "outDir": "./build",
-    "rootDir": "./",
+    "rootDir": "./src",
+    "baseUrl": ".",
     "removeComments": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node"
   },
-  "include": ["./declarations.d.ts"],
-  "exclude": ["node_modules"],
-  "display": "Recommended",
-  "extends": "@tsconfig/recommended/tsconfig.json"
+  "include": ["src/**/*.tsx", "./declarations.d.ts"],
+  "exclude": ["node_modules", ".vscode"],
+  "display": "Recommended"
 }

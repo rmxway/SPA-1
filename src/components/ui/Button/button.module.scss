@@ -1,0 +1,40 @@
+$successColor: #31b55d;
+$dangerColor: #d0c9ca;
+
+@mixin typeButton($backgrd, $color: #fff) {
+	border-color: transparent;
+	background: $backgrd;
+	color: $color;
+
+	&:hover {
+		background-color: darken($backgrd, 5%);
+	}
+
+	&:active {
+		background-color: darken($backgrd, 10%);
+	}
+}
+
+.button {
+	appearance: none;
+	border: 1px solid #aaa;
+	background: none;
+	border-radius: 5px;
+	padding: 11px 16px 10px;
+	color: #777;
+	font-size: 12px;
+	font-weight: 800;
+	text-transform: uppercase;
+
+	cursor: pointer;
+	line-height: 1;
+	transition: 0.1s all;
+
+	&.success {
+		@include typeButton($successColor);
+	}
+
+	&.danger {
+		@include typeButton($dangerColor);
+	}
+}
