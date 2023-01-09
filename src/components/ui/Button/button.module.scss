@@ -36,4 +36,8 @@
 	&.danger {
 		@include typeButton($dangerColor);
 	}
+
+	&.white {
+		@include typeButton(#fff, $successColor);
+	}
 }

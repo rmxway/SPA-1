@@ -1,0 +1,42 @@
+@import '@styles/vars.scss';
+
+.post {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	flex-direction: column;
+	padding: 10px;
+	border-radius: $borderRadius;
+	background-color: $successColor;
+	color: white;
+	margin-bottom: 10px;
+
+	& > div {
+		font-size: 22px;
+		flex-shrink: 0;
+		margin-bottom: 10px;
+
+		& > span {
+			display: inline-block;
+			flex-shrink: 0;
+			width: 25px;
+			height: 25px;
+			border-radius: 25px;
+			color: $successColor;
+			text-align: center;
+			font-size: 12px;
+			line-height: 25px;
+			font-weight: 600;
+			background-color: #fff;
+		}
+	}
+
+	p {
+		margin: 0;
+		margin-bottom: 10px;
+	}
+
+	button {
+		align-self: flex-end;
+	}
+}

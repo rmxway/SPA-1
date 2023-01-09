@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import './styles/base.scss';
 import Navbar from '@ui/Navbar';
 import MainPage from '@pages/Main';
-import PostPage from '@pages/Post';
+import PostPage from '@pages/Posts';
 import AboutPage from '@pages/About';
 
 const App: React.FC = () => {
