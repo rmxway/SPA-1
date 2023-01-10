@@ -4,6 +4,7 @@ import classes from './input.module.scss';
 interface InputProps extends React.HTMLAttributes<HTMLInputElement> {
 	label?: string;
 	name: string;
+	value: string;
 }
 
 const InputUI: FC<InputProps> = ({ name, label, ...props }) => {
