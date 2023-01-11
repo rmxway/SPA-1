@@ -7,7 +7,7 @@ const Navbar: React.FC = () => {
 		<div className={classes.navbar}>
 			<div className="container">
 				<Link to="/">Main</Link>
-				<Link to="/posts">Posts</Link>
+				<Link to="/products">Products</Link>
 				<Link to="/about">About</Link>
 				<Link to="/contacts">Contacts</Link>
 			</div>

@@ -1,6 +1,6 @@
 @import '@styles/vars.scss';
 
-@mixin typeButton($backgrd, $color: #fff) {
+@mixin typeButton($backgrd: #fff, $color: #fff) {
 	border-color: transparent;
 	background: $backgrd;
 	color: $color;
@@ -28,6 +28,19 @@
 	cursor: pointer;
 	line-height: 1;
 	transition: 0.1s all;
+
+	&:disabled {
+		background-color: $dangerColor;
+		cursor: default;
+	}
+
+	&:hover {
+		background-color: #f9f9f9;
+	}
+
+	&:active {
+		background-color: #f1f1f1;
+	}
 
 	&.success {
 		@include typeButton($successColor);

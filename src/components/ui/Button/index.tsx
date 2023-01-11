@@ -2,7 +2,8 @@ import * as React from 'react';
 import cl from 'classnames';
 import classes from './button.module.scss';
 
-export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps
+	extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	success?: Boolean;
 	danger?: Boolean;
 	white?: Boolean;
@@ -22,7 +23,7 @@ export default function ButtonUI({
 			className={cl(classes.button, {
 				[classes.success]: success,
 				[classes.danger]: danger,
-				[classes.white]: white
+				[classes.white]: white,
 			})}
 		>
 			{children}

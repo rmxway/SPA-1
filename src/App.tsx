@@ -3,7 +3,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import './styles/base.scss';
 import Navbar from '@ui/Navbar';
 import MainPage from '@pages/Main';
-import PostPage from '@pages/Posts';
+import ProductsPage from '@pages/Products';
 import AboutPage from '@pages/About';
 
 const App: React.FC = () => {
@@ -13,7 +13,7 @@ const App: React.FC = () => {
 			<div className="container">
 				<Routes>
 					<Route path="/" element={<MainPage />} />
-					<Route path="posts" element={<PostPage />} />
+					<Route path="products" element={<ProductsPage />} />
 					<Route path="about" element={<AboutPage />} />
 				</Routes>
 			</div>
