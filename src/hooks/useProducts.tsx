@@ -34,7 +34,7 @@ function useProducts(): HookProductTypes {
 
 	const createProduct = (product: IProduct) => {
 		product.id = Math.floor(Math.random() * 1000000);
-		setProducts((prev) => [...prev, product]);
+		setProducts((prev) => [product, ...prev]);
 	};
 
 	useEffect(() => {

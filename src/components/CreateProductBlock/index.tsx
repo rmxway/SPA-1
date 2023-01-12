@@ -1,4 +1,5 @@
-import React, { FC, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { FC, useState, useEffect } from 'react';
 import ButtonUI from '@components/ui/Button';
 import InputUI from '@components/ui/Input';
 import { IProduct } from '@src/interfaces';
@@ -8,9 +9,10 @@ interface CreateProductType {
 }
 
 const defaultProduct = {
-	id: null,
+	id: '',
 	title: '',
 	description: '',
+	price: '',
 };
 
 const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
@@ -19,31 +21,31 @@ const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 
 	const createProductHandle = () => {
 		validateFields();
+		if (isError) return;
 
-		console.log(isError);
-
-		if (!isError) {
-			addProduct(newProduct);
-			setNewProduct(defaultProduct);
-		}
+		addProduct(newProduct);
+		setNewProduct(defaultProduct);
 	};
 
 	const validateFields = () => {
-		// console.log(newProduct);
+		const condition =
+			!newProduct.title.trim().length ||
+			!newProduct.description.trim().length ||
+			!newProduct.price;
 
-		if (
-			newProduct.title.trim().length ||
-			newProduct.description.trim().length
-		) {
-			setIsError(true);
-		}
-		setIsError(false);
+		setIsError(condition);
 	};
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// resolve this problem
-		// setNewProduct(prev => { ...prev, [e.target.id]: e.target.value });		
+		setNewProduct((prev) => ({
+			...prev,
+			[e.target.id]: e.target.value,
+		}));
 	};
+
+	useEffect(() => {
+		validateFields();
+	}, [newProduct]);
 
 	return (
 		<div className="layerBlock">
@@ -53,17 +55,23 @@ const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 				value={newProduct.title}
 				onChange={onChange}
 			/>
-
 			<InputUI
 				name="description"
 				label="Description"
 				value={newProduct.description}
 				onChange={onChange}
 			/>
-			{isError && (
-				<p style={{ color: 'red' }}>Please enter correct information</p>
-			)}
-			<ButtonUI onClick={createProductHandle}>Create Product</ButtonUI>
+			<InputUI
+				name="price"
+				label="Price"
+				value={newProduct.price}
+				onChange={onChange}
+			/>
+
+			<ButtonUI success onClick={createProductHandle}>
+				Create Product
+			</ButtonUI>
+			{isError && <div>Enter correct information</div>}
 		</div>
 	);
 };
