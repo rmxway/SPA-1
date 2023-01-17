@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
-const Space: FC = () => {
-	return <div className="space" />;
-};
+const Space: FC = () => <div className="space" />;
 
+export { Space };
 export default Space;

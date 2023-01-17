@@ -3,10 +3,9 @@
 		"target": "ES6",
 		"module": "commonjs",
 		"allowJs": true,
-		"jsx": "react",
+		"jsx": "react-jsx",
 		"outDir": "./build",
-		"rootDir": "./src",
-		"baseUrl": ".",
+		"baseUrl": "./src",
 		"removeComments": true,
 		"strict": true,
 		"esModuleInterop": true,
@@ -14,11 +13,10 @@
 		"forceConsistentCasingInFileNames": true,
 		"moduleResolution": "node",
 		"paths": {
-			"@src/*": ["./src/*"],
-			"@components/*": ["./src/components/*"],
-      		"@ui/*": ["./src/components/ui/*"],
-			"@styles/*": ["./src/styles/*"],
-			"@pages/*": ["./src/pages/*"],
+			"@/*": ["./*"],
+			"@/components/*": ["./components/*"],
+			"@/styles/*": ["./styles/*"],
+			"@/pages/*": ["./pages/*"]
 		}
 	},
 	"include": ["src/**/*.tsx", "./declarations.d.ts"],

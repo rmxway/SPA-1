@@ -1,11 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { FC, useState, useEffect } from 'react';
-import ButtonUI from '@components/ui/Button';
-import InputUI from '@components/ui/Input';
-import { IProduct } from '@src/interfaces';
+import { FC, useEffect, useState } from 'react';
+
+import { ButtonUI } from '@/components/ui/Button';
+import { InputUI } from '@/components/ui/Input';
+import { IProduct } from '@/interfaces';
 
 interface CreateProductType {
-	addProduct: Function;
+	addProduct: (product: IProduct) => void;
 }
 
 const defaultProduct = {
@@ -17,7 +18,13 @@ const defaultProduct = {
 
 const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 	const [newProduct, setNewProduct] = useState<IProduct>(defaultProduct);
-	const [isError, setIsError] = useState<Boolean>(false);
+	const [isError, setIsError] = useState<boolean>(false);
+
+	const validateFields = () => {
+		const condition = !newProduct.title.trim().length || !newProduct.description.trim().length || !newProduct.price;
+
+		setIsError(condition);
+	};
 
 	const createProductHandle = () => {
 		validateFields();
@@ -25,15 +32,6 @@ const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 
 		addProduct(newProduct);
 		setNewProduct(defaultProduct);
-	};
-
-	const validateFields = () => {
-		const condition =
-			!newProduct.title.trim().length ||
-			!newProduct.description.trim().length ||
-			!newProduct.price;
-
-		setIsError(condition);
 	};
 
 	const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,24 +47,9 @@ const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 
 	return (
 		<div className="layerBlock">
-			<InputUI
-				name="title"
-				label="Title"
-				value={newProduct.title}
-				onChange={onChange}
-			/>
-			<InputUI
-				name="description"
-				label="Description"
-				value={newProduct.description}
-				onChange={onChange}
-			/>
-			<InputUI
-				name="price"
-				label="Price"
-				value={newProduct.price}
-				onChange={onChange}
-			/>
+			<InputUI name="title" label="Title" value={newProduct.title} onChange={onChange} />
+			<InputUI name="description" label="Description" value={newProduct.description} onChange={onChange} />
+			<InputUI name="price" label="Price" value={newProduct.price} onChange={onChange} />
 
 			<ButtonUI success onClick={createProductHandle}>
 				Create Product
@@ -76,4 +59,5 @@ const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 	);
 };
 
+export { CreateProductBlock };
 export default CreateProductBlock;

@@ -1,0 +1,20 @@
+@import '@/styles/vars.scss';
+
+.toggle {
+    border: none;
+    background: none;
+	position: relative;
+	color: $gray7;
+	margin-right: 30px;
+	cursor: pointer;
+
+	&:hover {
+		color: $gray9;
+	}
+
+	&.active {
+		&:before {
+			content: '>';
+		}
+	}
+}

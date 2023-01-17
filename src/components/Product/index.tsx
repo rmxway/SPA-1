@@ -1,25 +1,26 @@
-import React, { FC, useState } from 'react';
-import ButtonUI from '@components/ui/Button';
-import Space from '@components/Space';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import classes from './product.module.scss';
-import { IProduct } from '@src/interfaces';
 import cl from 'classnames';
+import { FC, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+import { Space } from '@/components/Space';
+import { ButtonUI } from '@/components/ui/Button';
+import { IProduct } from '@/interfaces';
+
+import classes from './product.module.scss';
 
 interface TypePost {
 	product: IProduct;
 	index: number;
-	delProduct: Function;
+	delProduct: (productId: number) => void;
 }
 
-const Product: FC<TypePost> = ({ product, index, delProduct, ...props }) => {
-	const [viewDescription, setViewDescription] = useState<Boolean>(false);
+const Product: FC<TypePost> = ({ product, delProduct, ...props }) => {
+	const [viewDescription, setViewDescription] = useState<boolean>(false);
 
 	const ratingColor = (): string => {
 		if (product.rating?.rate) {
 			if (product.rating.rate > 4) return '#02af27'; // green
-			if (product.rating.rate < 4 && product.rating.rate > 3)
-				return '#c5b010'; //yellow
+			if (product.rating.rate < 4 && product.rating.rate > 3) return '#c5b010'; // yellow
 			if (product.rating.rate < 3) return '#e64b4b'; // red
 		}
 		return '#222';
@@ -28,17 +29,10 @@ const Product: FC<TypePost> = ({ product, index, delProduct, ...props }) => {
 	return (
 		<div {...props} className={classes.product}>
 			<div className={classes.title}>{product.title}</div>
-			<LazyLoadImage
-				src={product.image}
-				alt={product.title}
-				loading="lazy"
-			/>
-			<div
-				className={classes.help}
-				onClick={() => setViewDescription((prev) => !prev)}
-			>
+			<LazyLoadImage src={product.image} alt={product.title} loading="lazy" />
+			<button type="button" className={classes.help} onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}
-			</div>
+			</button>
 			<div
 				className={cl(classes.description, {
 					[classes.open]: viewDescription,
@@ -55,15 +49,14 @@ const Product: FC<TypePost> = ({ product, index, delProduct, ...props }) => {
 					</div>
 					<div>
 						<span>rating: </span>
-						<span style={{ color: `${ratingColor()}` }}>
-							{product.rating?.rate}
-						</span>
+						<span style={{ color: `${ratingColor()}` }}>{product.rating?.rate}</span>
 					</div>
 				</div>
 			</div>
-			<ButtonUI>Add to card</ButtonUI>
+			<ButtonUI onClick={() => delProduct(Number(product.id))}>Delete</ButtonUI>
 		</div>
 	);
 };
 
+export { Product };
 export default Product;

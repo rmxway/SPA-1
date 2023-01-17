@@ -1,13 +1,11 @@
-const path = require(`path`);
+/* eslint-disable @typescript-eslint/no-var-requires */
+const {CracoAliasPlugin} = require('react-app-alias')
 
 module.exports = {
-  webpack: {
-    alias: {
-      '@src': path.resolve(__dirname, 'src'),
-      '@components': path.resolve(__dirname, 'src/components'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
-      '@ui': path.resolve(__dirname, 'src/components/ui'),
-      '@styles': path.resolve(__dirname, 'src/styles'),
+  plugins: [
+    {
+      plugin: CracoAliasPlugin,
+      options: {}
     }
-  },
-};
+  ]
+}

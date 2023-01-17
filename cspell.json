@@ -1,0 +1,14 @@
+{
+    "language": "en,ru",
+    "version": "0.2",
+    "ignorePaths": [],
+    "dictionaryDefinitions": [],
+    "dictionaries": [],
+    "words": [
+        "Craco",
+        "fakestoreapi",
+        "wayer"
+    ],
+    "ignoreWords": [],
+    "import": []
+}

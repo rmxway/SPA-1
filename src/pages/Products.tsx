@@ -1,33 +1,21 @@
-import React from 'react';
-import Product from '@src/components/Product';
-import CreateProductBlock from '@src/components/CreateProductBlock';
-import { IProduct } from '@src/interfaces';
-import useProducts from '@src/hooks/useProducts';
+import { FC } from 'react';
 
-const ProductsPage: React.FC = () => {
-	const { products, loading, error, deleteProduct, createProduct } =
-		useProducts();
+import { ProductsGrid } from '@/components/ProductsGrid';
+import { ProductsLoader } from '@/components/ProductsLoader';
+import ProductsProvider from '@/components/providers/ProductsProvider';
+// import CreateProductBlock from '@/components/CreateProductBlock';
+import { Filter } from '@/components/ui/Filter';
 
-	return (
-		<div>
-			<h1>Products Page</h1>
-			<CreateProductBlock addProduct={createProduct} />
+const ProductsPage: FC = () => (
+	<ProductsProvider>
+		<h1>Products Page</h1>
+		{/* <CreateProductBlock addProduct={createProduct} /> */}
+		<Filter />
+		<ProductsLoader />
+		{/* {error && <div>{error}</div>} */}
+		<ProductsGrid />
+	</ProductsProvider>
+);
 
-			{loading && <div>Loading...</div>}
-			{error && <div>{error}</div>}
-			<div className="products-wrapper">
-				{products &&
-					products.map((product: IProduct, index) => (
-						<Product
-							product={product}
-							key={product.id}
-							delProduct={deleteProduct}
-							index={index}
-						/>
-					))}
-			</div>
-		</div>
-	);
-};
-
+export { ProductsPage };
 export default ProductsPage;
