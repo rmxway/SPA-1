@@ -8,6 +8,7 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"pretty": "npx prettier --write ./src",
+		"icofont": "fantasticon -n icofont -p icofont",
 		"lint": "eslint . -c .eslintrc.js --ext ts,tsx",
 		"lint:fix": "eslint . -c .eslintrc.js --ext ts,tsx --fix"
 	},
@@ -63,6 +64,7 @@
 		"eslint-plugin-react-hooks": "4.6.0",
 		"eslint-plugin-simple-import-sort": "^8.0.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
+		"fantasticon": "^2.0.0",
 		"node-sass": "^8.0.0",
 		"prettier": "^2.8.2",
 		"react-router": "^6.6.1",
