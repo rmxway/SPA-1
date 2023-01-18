@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import { useProductsContext } from '@/components/providers/ProductsProvider';
 import { IProduct } from '@/interfaces';
@@ -11,15 +11,19 @@ interface ComponentTypes {
 }
 
 const ToggleSort: FC<ComponentTypes> = ({ children, sort, ...props }) => {
-	const { sortPriceProduct, sortRatingProduct } = useProductsContext();
+	const { sortProduct, sortRatingProduct } = useProductsContext();
+	const [toggle, setToggle] = useState(false);
+
 	const handleClick = () => {
-		if (sort === 'price') sortPriceProduct(sort);
-		if (sort === 'rating') sortRatingProduct(sort);
+		setToggle((prev) => !prev);
+		if (sort !== 'rating') {
+			sortProduct(sort, toggle);
+		} else sortRatingProduct(toggle);
 	};
 
 	return (
 		<button type="button" className={classes.toggle} onClick={handleClick} {...props}>
-			{children}
+			{children} {toggle ? '>>' : '<<'}
 		</button>
 	);
 };

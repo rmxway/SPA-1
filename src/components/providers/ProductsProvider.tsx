@@ -8,8 +8,8 @@ interface ProductsProviderContextResult {
 	error: string;
 	deleteProduct: (id: number) => void;
 	createProduct: (product: IProduct) => void;
-	sortPriceProduct: (param: string) => void;
-	sortRatingProduct: (param: string) => void;
+	sortProduct: (param: keyof IProduct, toggle?: boolean) => void;
+	sortRatingProduct: (param: boolean) => void;
 }
 
 const ProductsContext = createContext<ProductsProviderContextResult>({} as ProductsProviderContextResult);
@@ -42,19 +42,21 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 		setProducts((prev) => [product, ...prev]);
 	}, []);
 
-	const sortPriceProduct = useCallback(() => {
+	const sortProduct = useCallback((param: keyof IProduct, toggle?: boolean) => {
 		setProducts((prev) => [
 			...prev.sort((a, b) => {
-				if (a.price && b.price) {
-					if (Number(a.price) > Number(b.price)) return 1;
-					if (Number(a.price) < Number(b.price)) return -1;
+				if (a[param] && b[param]) {
+					if (Number(a[param]) > Number(b[param])) return 1;
+					if (Number(a[param]) < Number(b[param])) return -1;
 				}
 				return 0;
 			}),
 		]);
+
+		if (toggle) setProducts((prev) => [...prev.reverse()]);
 	}, []);
 
-	const sortRatingProduct = useCallback(() => {
+	const sortRatingProduct = useCallback((toggle: boolean) => {
 		setProducts((prev) => [
 			...prev.sort((a, b) => {
 				if (a.rating?.rate && b.rating?.rate) {
@@ -64,6 +66,8 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 				return 0;
 			}),
 		]);
+
+		if (toggle) setProducts((prev) => [...prev.reverse()]);
 	}, []);
 
 	useEffect(() => {
@@ -77,10 +81,10 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 			error,
 			deleteProduct,
 			createProduct,
-			sortPriceProduct,
+			sortProduct,
 			sortRatingProduct,
 		}),
-		[products, loading, error, deleteProduct, createProduct, sortPriceProduct, sortRatingProduct]
+		[products, loading, error, deleteProduct, createProduct, sortProduct, sortRatingProduct]
 	);
 	return <ProductsContext.Provider value={contextValue}>{children}</ProductsContext.Provider>;
 };
