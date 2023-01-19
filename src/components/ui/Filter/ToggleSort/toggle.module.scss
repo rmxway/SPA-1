@@ -1,20 +1,53 @@
 @import '@/styles/vars.scss';
 
 .toggle {
-    border: none;
-    background: none;
+	display: inline-block;
+	border: none;
+	background: none;
 	position: relative;
 	color: $gray7;
-	margin-right: 30px;
+	margin-right: 20px;
 	cursor: pointer;
+	padding-right: 20px;
 
 	&:hover {
 		color: $gray9;
 	}
 
-	&.active {
-		&:before {
-			content: '>';
+	input {
+		display: none;
+	}
+
+	label {
+		cursor: pointer;
+	}
+
+	& > input:checked + label {
+		color: $dangerColor;
+
+		i {
+			display: block;
 		}
 	}
+
+	&.reverse {
+		:global {
+			.icofont {
+				transform: scale(1, -1);
+			}
+		}
+	}
+}
+
+:global {
+    .icofont {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        display: none;
+        line-height: 2.1;
+        transition: 0.2s all;
+    }
 }

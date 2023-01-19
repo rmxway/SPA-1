@@ -1,3 +1,4 @@
+import cl from 'classnames';
 import React, { FC, useState } from 'react';
 
 import { useProductsContext } from '@/components/providers/ProductsProvider';
@@ -6,11 +7,11 @@ import { IProduct } from '@/interfaces';
 import classes from './toggle.module.scss';
 
 interface ComponentTypes {
-	children: React.ReactNode;
+	value: string;
 	sort: keyof IProduct;
 }
 
-const ToggleSort: FC<ComponentTypes> = ({ children, sort, ...props }) => {
+const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
 	const { sortProduct, sortRatingProduct } = useProductsContext();
 	const [toggle, setToggle] = useState(false);
 
@@ -22,8 +23,12 @@ const ToggleSort: FC<ComponentTypes> = ({ children, sort, ...props }) => {
 	};
 
 	return (
-		<button type="button" className={classes.toggle} onClick={handleClick} {...props}>
-			{children} {toggle ? '>>' : '<<'}
+		<button type="button" className={cl(classes.toggle, { [classes.reverse]: toggle })} onMouseDown={handleClick}>
+			<input type="radio" name="toggle-sort" id={sort} {...props} />
+			<label htmlFor={sort}>
+				{value}
+				<i className="icofont icofont-arrow-down" />
+			</label>
 		</button>
 	);
 };

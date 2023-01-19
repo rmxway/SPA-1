@@ -6,8 +6,8 @@ import { ToggleSort } from './ToggleSort';
 const Filter: FC = () => (
 	<div className={classes.filter}>
 		<div className={classes.title}>Sorting</div>
-		<ToggleSort sort="price">Price</ToggleSort>
-        <ToggleSort sort="rating">Rating</ToggleSort>
+		<ToggleSort sort="price" value="Price" />
+		<ToggleSort sort="rating" value="Rating" />
 	</div>
 );
 
