@@ -11,9 +11,20 @@
 	text-align: center;
 	transition: 0.3s all;
 	background-color: #fff;
+	opacity: 0;
+	animation: fadeIn 0.2s linear 0s 1 forwards;
 
 	&:hover {
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+	}
+
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+		}
+		to {
+			opacity: 1;
+		}
 	}
 
 	.title {
@@ -65,8 +76,8 @@
 		font-size: 12px;
 		font-weight: 600;
 		align-self: center;
-        background: none;
-        border: none;
+		background: none;
+		border: none;
 		display: inline-block;
 		cursor: pointer;
 		text-transform: uppercase;

@@ -1,10 +1,11 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
 import { useProductsContext } from './providers/ProductsProvider';
+import { Loader } from './ui/Loader';
 
 const ProductsLoader: FC = () => {
 	const { loading } = useProductsContext();
-	return loading ? <div>Loading...</div> : null;
+	return <Loader loading={loading} />;
 };
 
 export { ProductsLoader };

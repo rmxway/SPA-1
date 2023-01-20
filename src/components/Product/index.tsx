@@ -11,10 +11,10 @@ import classes from './product.module.scss';
 interface TypePost {
 	product: IProduct;
 	index: number;
-	delProduct: (productId: number) => void;
+	addToCard: (id: number) => void;
 }
 
-const Product: FC<TypePost> = ({ product, delProduct, ...props }) => {
+const Product: FC<TypePost> = ({ product, addToCard, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 
 	const ratingColor = (): string => {
@@ -53,7 +53,7 @@ const Product: FC<TypePost> = ({ product, delProduct, ...props }) => {
 					</div>
 				</div>
 			</div>
-			<ButtonUI onClick={() => delProduct(Number(product.id))}>Delete</ButtonUI>
+			<ButtonUI onClick={() => addToCard(Number(product.id))}>Add to card</ButtonUI>
 		</div>
 	);
 };

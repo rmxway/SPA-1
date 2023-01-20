@@ -8,6 +8,7 @@ interface ProductsProviderContextResult {
 	error: string;
 	deleteProduct: (id: number) => void;
 	createProduct: (product: IProduct) => void;
+	addToCard: (id: number) => void;
 	sortProduct: (param: keyof IProduct, toggle?: boolean) => void;
 	sortRatingProduct: (param: boolean) => void;
 }
@@ -16,6 +17,7 @@ const ProductsContext = createContext<ProductsProviderContextResult>({} as Produ
 
 const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 	const [products, setProducts] = useState<IProduct[]>([]);
+	const [card, setCard] = useState<IProduct[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string>('');
 
@@ -41,6 +43,13 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 		product.id = Math.floor(Math.random() * 1000000);
 		setProducts((prev) => [product, ...prev]);
 	}, []);
+
+	const addToCard = useCallback(
+		(id: number) => {
+			setCard((prev) => [...prev, ...products.filter((a) => a.id === id)]);
+		},
+		[products]
+	);
 
 	const sortProduct = useCallback((param: keyof IProduct, toggle?: boolean) => {
 		setProducts((prev) => [
@@ -74,6 +83,10 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 		getProducts();
 	}, []);
 
+	// useEffect(() => {
+	// 	console.log(card);
+	// }, [card]);
+
 	const contextValue = useMemo(
 		() => ({
 			products,
@@ -81,10 +94,11 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 			error,
 			deleteProduct,
 			createProduct,
+			addToCard,
 			sortProduct,
 			sortRatingProduct,
 		}),
-		[products, loading, error, deleteProduct, createProduct, sortProduct, sortRatingProduct]
+		[products, loading, error, deleteProduct, createProduct, addToCard, sortProduct, sortRatingProduct]
 	);
 	return <ProductsContext.Provider value={contextValue}>{children}</ProductsContext.Provider>;
 };
