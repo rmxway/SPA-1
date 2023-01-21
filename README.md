@@ -33,4 +33,4 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 ### `yarn icofont`
 
-If you want some icon, add svg file to **./src/fantasticon/icons/** and this command will generate new font with icons. New fonts available in **./src/fonts/icofont**, they are already imported into the project.
+If you want some icon, add svg file to **./src/fantasticon/icons/** and this command will generate new font with icons. New fonts available in **./src/fonts/icofont**, it's already imported into the project.
