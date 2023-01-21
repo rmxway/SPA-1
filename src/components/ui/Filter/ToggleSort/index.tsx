@@ -1,5 +1,5 @@
 import cl from 'classnames';
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { useProductsContext } from '@/components/providers/ProductsProvider';
 import { IProduct } from '@/interfaces';
@@ -14,6 +14,7 @@ interface ComponentTypes {
 const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
 	const { sortProduct, sortRatingProduct } = useProductsContext();
 	const [toggle, setToggle] = useState(false);
+	const idName = `sort-${sort}`;
 
 	const handleClick = () => {
 		setToggle((prev) => !prev);
@@ -24,8 +25,8 @@ const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
 
 	return (
 		<button type="button" className={cl(classes.toggle, { [classes.reverse]: toggle })} onMouseDown={handleClick}>
-			<input type="radio" name="toggle-sort" id={sort} {...props} />
-			<label htmlFor={sort}>
+			<input {...props} type="radio" name="sort" id={idName} />
+			<label htmlFor={idName}>
 				{value}
 				<i className="icofont icofont-arrow-down" />
 			</label>

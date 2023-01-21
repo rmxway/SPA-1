@@ -10,8 +10,8 @@ interface ProductsProviderContextResult {
 	deleteProduct: (id: number) => void;
 	createProduct: (product: IProduct) => void;
 	addToCard: (id: number) => void;
-	sortProduct: (param: keyof IProduct, toggle?: boolean) => void;
-	sortRatingProduct: (param: boolean) => void;
+	sortProduct: (param: keyof IProduct, toggle: boolean) => void;
+	sortRatingProduct: (toggle: boolean) => void;
 }
 
 const ProductsContext = createContext<ProductsProviderContextResult>({} as ProductsProviderContextResult);
@@ -47,12 +47,15 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 
 	const addToCard = useCallback(
 		(id: number) => {
-			if (products) setCart((prev) => [...prev, ...products.filter((a) => a.id === id)]);
+			if (products) {
+				const uniCart = new Set([...cart, ...products.filter((a) => a.id === id)]);
+				setCart([...uniCart]);
+			}
 		},
-		[products]
+		[cart, products]
 	);
 
-	const sortProduct = useCallback((param: keyof IProduct, toggle?: boolean) => {
+	const sortProduct = useCallback((param: keyof IProduct, toggle: boolean) => {
 		setProducts((prev) => [
 			...prev.sort((a, b) => {
 				if (a[param] && b[param]) {

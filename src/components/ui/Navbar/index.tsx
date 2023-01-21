@@ -17,7 +17,9 @@ const Navbar: FC = () => (
 				<Link to="/">Main</Link>
 				<Link to="/products">Products</Link>
 				<Link to="/about">About</Link>
-				<CartWrapper />
+				<Link to="/cart">
+					<CartWrapper />
+				</Link>
 			</div>
 		</div>
 	</nav>

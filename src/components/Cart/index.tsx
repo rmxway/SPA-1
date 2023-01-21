@@ -8,6 +8,7 @@ const Cart: FC = () => {
 
 	return (
 		<div className={classes.cart}>
+			Cart
 			<i className="icofont icofont-cart" />
 			{cart.length ? <div className={classes.count}>{cart.length}</div> : null}
 		</div>

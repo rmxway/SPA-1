@@ -12,7 +12,6 @@ const ProductsPage: FC = () => {
 			<h1>Products Page</h1>
 			<CreateProductBlock addProduct={createProduct} />
 			<Filter />
-			{/* {error && <div>{error}</div>} */}
 			<ProductsGrid />
 		</>
 	);
