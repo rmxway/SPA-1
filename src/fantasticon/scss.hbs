@@ -18,7 +18,7 @@ ${{ name }}-font: "{{ name }}";
     font-weight: normal !important;
     font-variant: normal;
     text-transform: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
     line-height: 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -34,7 +34,7 @@ ${{ name }}-map: (
 {{# if ../selector }}
 {{ ../selector }}.{{ ../prefix }}{{ @key }}:before {
 {{ else }}
-{{ tag }}.{{ ../prefix }}{{ @key }}:before {
+{{ tag }}.{{ ../prefix }}-{{ @key }}:before {
 {{/ if }}
     content: map-get(${{ ../name }}-map, "{{ @key }}");
 }

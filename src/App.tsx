@@ -7,16 +7,20 @@ import { AboutPage } from '@/pages/About';
 import { MainPage } from '@/pages/Main';
 import { ProductsPage } from '@/pages/Products';
 
+import ProductsProvider from './components/providers/ProductsProvider';
+
 const App: React.FC = () => (
 	<BrowserRouter>
-		<Navbar />
-		<div className="container">
-			<Routes>
-				<Route path="/" element={<MainPage />} />
-				<Route path="products" element={<ProductsPage />} />
-				<Route path="about" element={<AboutPage />} />
-			</Routes>
-		</div>
+		<ProductsProvider>
+			<Navbar />
+			<div className="container">
+				<Routes>
+					<Route path="/" element={<MainPage />} />
+					<Route path="products" element={<ProductsPage />} />
+					<Route path="about" element={<AboutPage />} />
+				</Routes>
+			</div>
+		</ProductsProvider>
 	</BrowserRouter>
 );
 

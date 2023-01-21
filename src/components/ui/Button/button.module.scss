@@ -51,6 +51,10 @@
 		@include typeButton($dangerColor);
 	}
 
+    &.primary {
+		@include typeButton($primary, #6d410a);
+	}
+
 	&.white {
 		@include typeButton(#fff, $successColor);
 	}

@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
+import { CartWrapper } from '@/components/CartWrapper';
 import { Space } from '@/components/Space';
 
 import classes from './navbar.module.scss';
@@ -16,6 +17,7 @@ const Navbar: FC = () => (
 				<Link to="/">Main</Link>
 				<Link to="/products">Products</Link>
 				<Link to="/about">About</Link>
+				<CartWrapper />
 			</div>
 		</div>
 	</nav>

@@ -14,7 +14,7 @@
 		font-size: 35px;
 		line-height: 50px;
 		margin-right: 35px;
-		color: $successColor;
+		color: $primary;
 	}
 
 	a {
@@ -24,7 +24,7 @@
 		text-decoration: none;
 
 		&:hover {
-			color: $successColor;
+			color: $primary;
 		}
 
 		&:last-child {
