@@ -10,10 +10,10 @@ interface CreateProductType {
 }
 
 const defaultProduct = {
-	id: '',
+	id: null,
 	title: '',
 	description: '',
-	price: '',
+	price: null,
 };
 
 const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
@@ -49,7 +49,7 @@ const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 		<div className="layerBlock">
 			<InputUI name="title" label="Title" value={newProduct.title} onChange={onChange} />
 			<InputUI name="description" label="Description" value={newProduct.description} onChange={onChange} />
-			<InputUI name="price" label="Price" value={newProduct.price} onChange={onChange} />
+			<InputUI name="price" label="Price" value={Number(newProduct.price)} onChange={onChange} />
 
 			<ButtonUI success onClick={createProductHandle}>
 				Create Product

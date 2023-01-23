@@ -1,12 +1,12 @@
 export interface IProduct {
-	id: string | number;
+	id: number | null;
 	title: string;
-	price?: string | number;
+	price?: number | null;
 	description: string;
 	category?: string;
 	image?: string;
 	rating?: {
-		rate: string | number;
-		count: string | number;
+		rate: number | null;
+		count: number | null;
 	};
 }

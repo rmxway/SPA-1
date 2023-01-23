@@ -3,7 +3,7 @@ import './styles/base.scss';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Navbar } from '@/components/ui/Navbar';
-import { AboutPage } from '@/pages/About';
+import { CartPage } from '@/pages/Cart';
 import { MainPage } from '@/pages/Main';
 import { ProductsPage } from '@/pages/Products';
 
@@ -17,7 +17,7 @@ const App: React.FC = () => (
 				<Routes>
 					<Route path="/" element={<MainPage />} />
 					<Route path="products" element={<ProductsPage />} />
-					<Route path="about" element={<AboutPage />} />
+					<Route path="cart" element={<CartPage />} />
 				</Routes>
 			</div>
 		</ProductsProvider>

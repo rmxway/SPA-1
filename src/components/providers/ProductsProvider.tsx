@@ -10,6 +10,7 @@ interface ProductsProviderContextResult {
 	deleteProduct: (id: number) => void;
 	createProduct: (product: IProduct) => void;
 	addToCard: (id: number) => void;
+	totalPrice: () => number;
 	sortProduct: (param: keyof IProduct, toggle: boolean) => void;
 	sortRatingProduct: (toggle: boolean) => void;
 }
@@ -55,6 +56,14 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 		[cart, products]
 	);
 
+	const totalPrice = useCallback(() => {
+		let total = 0;
+		cart.forEach((item) => {
+			if (item.price) total += item.price;
+		});
+		return total;
+	}, [cart]);
+
 	const sortProduct = useCallback((param: keyof IProduct, toggle: boolean) => {
 		setProducts((prev) => [
 			...prev.sort((a, b) => {
@@ -96,10 +105,22 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 			deleteProduct,
 			createProduct,
 			addToCard,
+			totalPrice,
 			sortProduct,
 			sortRatingProduct,
 		}),
-		[cart, products, loading, error, deleteProduct, createProduct, addToCard, sortProduct, sortRatingProduct]
+		[
+			cart,
+			products,
+			loading,
+			error,
+			deleteProduct,
+			createProduct,
+			addToCard,
+			totalPrice,
+			sortProduct,
+			sortRatingProduct,
+		]
 	);
 	return <ProductsContext.Provider value={contextValue}>{children}</ProductsContext.Provider>;
 };
