@@ -4,7 +4,7 @@ import React from 'react';
 import classes from './button.module.scss';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-    primary?: boolean;
+	primary?: boolean;
 	success?: boolean;
 	danger?: boolean;
 	white?: boolean;
@@ -16,7 +16,7 @@ const ButtonUI = ({ children, primary, success, danger, white, ...props }: Butto
 		type="button"
 		{...props}
 		className={cl(classes.button, {
-            [classes.primary]: primary,
+			[classes.primary]: primary,
 			[classes.success]: success,
 			[classes.danger]: danger,
 			[classes.white]: white,

@@ -38,6 +38,17 @@
 		}
 	}
 
+	.search {
+		margin: 0;
+		margin-right: 20px;
+		flex-grow: 1;
+
+		input {
+			margin: 0;
+			width: 100%;
+		}
+	}
+
 	a {
 		display: inline-block;
 		margin-right: 30px;

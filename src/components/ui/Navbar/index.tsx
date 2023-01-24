@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Space } from '@/components/Space';
+import { InputUI } from '@/components/ui/Input';
 
 import classes from './navbar.module.scss';
 import { NavbarCart } from './NavbarCart';
@@ -12,9 +12,12 @@ const Navbar: FC = () => (
 			<div className={classes.wrapper}>
 				<Link to="/" className={classes.logo}>
 					GS
-                    <span>Green Shop <br />Brand</span>
+					<span>
+						Green Shop <br />
+						Brand
+					</span>
 				</Link>
-				<Space />
+				<InputUI name="search-field" placeholder="Search a product" className={classes.search} />
 				<Link to="/">Main</Link>
 				<Link to="/products">Products</Link>
 				<Link to="/cart">

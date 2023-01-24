@@ -1,4 +1,4 @@
-${{ name }}-font: "{{ name }}";
+${{ name }}-font: '{{ name }}';
 
 @font-face {
     font-family: ${{ name }}-font;
@@ -26,7 +26,7 @@ ${{ name }}-font: "{{ name }}";
 
 ${{ name }}-map: (
 {{# each codepoints }}
-    "{{ @key }}": "\\{{ codepoint this }}",
+    '{{ @key }}': '\\{{ codepoint this }}',
 {{/ each }}
 );
 
@@ -36,6 +36,6 @@ ${{ name }}-map: (
 {{ else }}
 {{ tag }}.{{ ../prefix }}-{{ @key }}:before {
 {{/ if }}
-    content: map-get(${{ ../name }}-map, "{{ @key }}");
+    content: map-get(${{ ../name }}-map, '{{ @key }}');
 }
 {{/ each }}

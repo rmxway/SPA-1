@@ -11,7 +11,7 @@ import ProductsProvider from './components/providers/ProductsProvider';
 
 const App: React.FC = () => (
 	<BrowserRouter>
-		<ProductsProvider>
+		<ProductsProvider productCount={8}>
 			<Navbar />
 			<div className="container">
 				<Routes>

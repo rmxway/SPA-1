@@ -1,4 +1,4 @@
-$icofont-font: "icofont";
+$icofont-font: 'icofont';
 
 @font-face {
     font-family: $icofont-font;
@@ -23,17 +23,17 @@ url(".//icofont.woff2?f7b4039b47d71a36f9428053eeb24521") format("woff2");
 }
 
 $icofont-map: (
-    "arrow-down": "\f101",
-    "arrow-up": "\f102",
-    "cart": "\f103",
+    'arrow-down': '\f101',
+    'arrow-up': '\f102',
+    'cart': '\f103',
 );
 
 .icofont-arrow-down:before {
-    content: map-get($icofont-map, "arrow-down");
+    content: map-get($icofont-map, 'arrow-down');
 }
 .icofont-arrow-up:before {
-    content: map-get($icofont-map, "arrow-up");
+    content: map-get($icofont-map, 'arrow-up');
 }
 .icofont-cart:before {
-    content: map-get($icofont-map, "cart");
+    content: map-get($icofont-map, 'cart');
 }
