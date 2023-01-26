@@ -51,7 +51,7 @@
 		@include typeButton($dangerColor);
 	}
 
-    &.primary {
+	&.primary {
 		@include typeButton($primary, #6d410a);
 	}
 

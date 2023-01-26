@@ -1,0 +1,35 @@
+@import '@/styles/vars.scss';
+
+.item {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	background-color: #fff;
+	width: 100%;
+	padding: 20px;
+	border-radius: $borderRadius;
+	margin-bottom: 10px;
+
+	img {
+		width: 50px;
+		height: 50px;
+		object-fit: contain;
+		margin-right: 10px;
+	}
+
+	.title {
+		display: flex;
+		flex-direction: column;
+
+		strong {
+			margin-bottom: 5px;
+		}
+	}
+
+	.price {
+		margin-left: 10px;
+		font-size: 22px;
+		min-width: 120px;
+		text-align: right;
+	}
+}

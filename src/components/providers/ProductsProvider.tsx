@@ -10,13 +10,18 @@ interface ProductsProviderContextResult {
 	deleteProduct: (id: number) => void;
 	createProduct: (product: IProduct) => void;
 	addToCard: (id: number) => void;
+	totalPrice: () => number;
 	sortProduct: (param: keyof IProduct, toggle: boolean) => void;
 	sortRatingProduct: (toggle: boolean) => void;
 }
 
+interface PropsTypes extends PropsWithChildren {
+	productCount: number;
+}
+
 const ProductsContext = createContext<ProductsProviderContextResult>({} as ProductsProviderContextResult);
 
-const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
+const ProductsProvider: FC<PropsTypes> = ({ productCount, children }) => {
 	const [cart, setCart] = useState<IProduct[]>([]);
 	const [products, setProducts] = useState<IProduct[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
@@ -26,7 +31,7 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 		setError('');
 		try {
 			setLoading(true);
-			const result = await fetch('https://fakestoreapi.com/products?limit=6');
+			const result = await fetch(`https://fakestoreapi.com/products?limit=${productCount}`);
 			const json = await result.json();
 			setProducts(json);
 			return json;
@@ -54,6 +59,14 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 		},
 		[cart, products]
 	);
+
+	const totalPrice = useCallback(() => {
+		let total = 0;
+		cart.forEach((item) => {
+			if (item.price) total += item.price;
+		});
+		return total;
+	}, [cart]);
 
 	const sortProduct = useCallback((param: keyof IProduct, toggle: boolean) => {
 		setProducts((prev) => [
@@ -85,6 +98,7 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 
 	useEffect(() => {
 		getProducts();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const contextValue = useMemo(
@@ -96,10 +110,22 @@ const ProductsProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 			deleteProduct,
 			createProduct,
 			addToCard,
+			totalPrice,
 			sortProduct,
 			sortRatingProduct,
 		}),
-		[cart, products, loading, error, deleteProduct, createProduct, addToCard, sortProduct, sortRatingProduct]
+		[
+			cart,
+			products,
+			loading,
+			error,
+			deleteProduct,
+			createProduct,
+			addToCard,
+			totalPrice,
+			sortProduct,
+			sortRatingProduct,
+		]
 	);
 	return <ProductsContext.Provider value={contextValue}>{children}</ProductsContext.Provider>;
 };

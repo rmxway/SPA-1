@@ -53,7 +53,9 @@ const Product: FC<TypePost> = ({ product, addToCard, ...props }) => {
 					</div>
 				</div>
 			</div>
-			<ButtonUI primary onClick={() => addToCard(Number(product.id))}>Add to card</ButtonUI>
+			<ButtonUI primary onClick={() => addToCard(Number(product.id))}>
+				Add to card
+			</ButtonUI>
 		</div>
 	);
 };
