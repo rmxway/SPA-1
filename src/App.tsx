@@ -1,5 +1,6 @@
 import './styles/base.scss';
 
+import { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { Navbar } from '@/components/ui/Navbar';
@@ -9,7 +10,7 @@ import { ProductsPage } from '@/pages/Products';
 
 import ProductsProvider from './components/providers/ProductsProvider';
 
-const App: React.FC = () => (
+const App: FC = () => (
 	<BrowserRouter>
 		<ProductsProvider productCount={8}>
 			<Navbar />

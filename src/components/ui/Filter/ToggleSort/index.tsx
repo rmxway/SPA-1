@@ -1,7 +1,7 @@
 import cl from 'classnames';
 import { FC, useState } from 'react';
 
-import { useProductsContext } from '@/components/providers/ProductsProvider';
+// import { useProductsContext } from '@/components/providers/ProductsProvider';
 import { IProduct } from '@/interfaces';
 
 import classes from './toggle.module.scss';
@@ -12,15 +12,17 @@ interface ComponentTypes {
 }
 
 const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
-	const { sortProduct, sortRatingProduct } = useProductsContext();
+	// const { sortProduct, sortRatingProduct } = useProductsContext();
 	const [toggle, setToggle] = useState(false);
 	const idName = `sort-${sort}`;
 
 	const handleClick = () => {
 		setToggle((prev) => !prev);
-		if (sort !== 'rating') {
-			sortProduct(sort, toggle);
-		} else sortRatingProduct(toggle);
+		// if (sort !== 'rating') {
+		// 	sortProduct(sort, toggle);
+		// } else {
+		// 	sortRatingProduct(toggle);
+		// }
 	};
 
 	return (

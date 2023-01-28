@@ -1,18 +1,11 @@
-import { createContext, FC, PropsWithChildren, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, FC, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
 
-import { IProduct } from '@/interfaces';
+import { useAppDispatch } from '@/hooks';
+import { getProducts } from '@/store/reducers/products';
 
 interface ProductsProviderContextResult {
-	cart: IProduct[];
-	products: IProduct[];
 	loading: boolean;
 	error: string;
-	deleteProduct: (id: number) => void;
-	createProduct: (product: IProduct) => void;
-	addToCard: (id: number) => void;
-	totalPrice: () => number;
-	sortProduct: (param: keyof IProduct, toggle: boolean) => void;
-	sortRatingProduct: (toggle: boolean) => void;
 }
 
 interface PropsTypes extends PropsWithChildren {
@@ -22,18 +15,17 @@ interface PropsTypes extends PropsWithChildren {
 const ProductsContext = createContext<ProductsProviderContextResult>({} as ProductsProviderContextResult);
 
 const ProductsProvider: FC<PropsTypes> = ({ productCount, children }) => {
-	const [cart, setCart] = useState<IProduct[]>([]);
-	const [products, setProducts] = useState<IProduct[]>([]);
+	const dispatch = useAppDispatch();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [error, setError] = useState<string>('');
 
-	const getProducts = async () => {
+	const getFetch = async () => {
 		setError('');
 		try {
 			setLoading(true);
 			const result = await fetch(`https://fakestoreapi.com/products?limit=${productCount}`);
 			const json = await result.json();
-			setProducts(json);
+			dispatch(getProducts(json));
 			return json;
 		} catch (e) {
 			setError((e as Error).message);
@@ -43,89 +35,70 @@ const ProductsProvider: FC<PropsTypes> = ({ productCount, children }) => {
 		}
 	};
 
-	const deleteProduct = useCallback((id: number) => setProducts(products.filter((a) => a.id !== id)), [products]);
+	// const deleteProduct = useCallback((id: number) => setProducts(products.filter((a) => a.id !== id)), [products]);
 
-	const createProduct = useCallback((product: IProduct) => {
-		product.id = Math.floor(Math.random() * 1000000);
-		setProducts((prev) => [product, ...prev]);
-	}, []);
+	// const createProduct = useCallback((product: IProduct) => {
+	// 	product.id = Math.floor(Math.random() * 1000000);
+	// 	setProducts((prev) => [product, ...prev]);
+	// }, []);
 
-	const addToCard = useCallback(
-		(id: number) => {
-			if (products) {
-				const uniCart = new Set([...cart, ...products.filter((a) => a.id === id)]);
-				setCart([...uniCart]);
-			}
-		},
-		[cart, products]
-	);
+	// const addToCard = useCallback(
+	// 	(id: number) => {
+	// 		if (products) {
+	// 			const uniCart = new Set([...cart, ...products.filter((a) => a.id === id)]);
+	// 			setCart([...uniCart]);
+	// 		}
+	// 	},
+	// 	[cart, products]
+	// );
 
-	const totalPrice = useCallback(() => {
-		let total = 0;
-		cart.forEach((item) => {
-			if (item.price) total += item.price;
-		});
-		return total;
-	}, [cart]);
+	// const totalPrice = useCallback(() => {
+	// 	let total = 0;
+	// 	cart.forEach((item) => {
+	// 		if (item.price) total += item.price;
+	// 	});
+	// 	return total;
+	// }, [cart]);
 
-	const sortProduct = useCallback((param: keyof IProduct, toggle: boolean) => {
-		setProducts((prev) => [
-			...prev.sort((a, b) => {
-				if (a[param] && b[param]) {
-					if (Number(a[param]) > Number(b[param])) return 1;
-					if (Number(a[param]) < Number(b[param])) return -1;
-				}
-				return 0;
-			}),
-		]);
+	// const sortProduct = useCallback((param: keyof IProduct, toggle: boolean) => {
+	// 	setProducts((prev) => [
+	// 		...prev.sort((a, b) => {
+	// 			if (a[param] && b[param]) {
+	// 				if (Number(a[param]) > Number(b[param])) return 1;
+	// 				if (Number(a[param]) < Number(b[param])) return -1;
+	// 			}
+	// 			return 0;
+	// 		}),
+	// 	]);
 
-		if (toggle) setProducts((prev) => [...prev.reverse()]);
-	}, []);
+	// 	if (toggle) setProducts((prev) => [...prev.reverse()]);
+	// }, []);
 
-	const sortRatingProduct = useCallback((toggle: boolean) => {
-		setProducts((prev) => [
-			...prev.sort((a, b) => {
-				if (a.rating?.rate && b.rating?.rate) {
-					if (Number(a.rating.rate) > Number(b.rating.rate)) return 1;
-					if (Number(a.rating.rate) < Number(b.rating.rate)) return -1;
-				}
-				return 0;
-			}),
-		]);
+	// const sortRatingProduct = useCallback((toggle: boolean) => {
+	// 	setProducts((prev) => [
+	// 		...prev.sort((a, b) => {
+	// 			if (a.rating?.rate && b.rating?.rate) {
+	// 				if (Number(a.rating.rate) > Number(b.rating.rate)) return 1;
+	// 				if (Number(a.rating.rate) < Number(b.rating.rate)) return -1;
+	// 			}
+	// 			return 0;
+	// 		}),
+	// 	]);
 
-		if (toggle) setProducts((prev) => [...prev.reverse()]);
-	}, []);
+	// 	if (toggle) setProducts((prev) => [...prev.reverse()]);
+	// }, []);
 
 	useEffect(() => {
-		getProducts();
+		getFetch();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const contextValue = useMemo(
 		() => ({
-			cart,
-			products,
 			loading,
 			error,
-			deleteProduct,
-			createProduct,
-			addToCard,
-			totalPrice,
-			sortProduct,
-			sortRatingProduct,
 		}),
-		[
-			cart,
-			products,
-			loading,
-			error,
-			deleteProduct,
-			createProduct,
-			addToCard,
-			totalPrice,
-			sortProduct,
-			sortRatingProduct,
-		]
+		[loading, error]
 	);
 	return <ProductsContext.Provider value={contextValue}>{children}</ProductsContext.Provider>;
 };

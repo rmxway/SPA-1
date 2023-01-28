@@ -1,21 +1,20 @@
 import { FC } from 'react';
 
+import { useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
+import { productsStore } from '@/store/store';
 
 import { Product } from './Product';
 import { ProductsLoader } from './ProductsLoader';
-import { useProductsContext } from './providers/ProductsProvider';
 
 const ProductsGrid: FC = () => {
-	const { products } = useProductsContext();
+	const { items } = useAppSelector(productsStore);
 
 	return (
 		<div className="products-wrapper">
 			<ProductsLoader />
-			{products &&
-				products.map((product: IProduct, index) => (
-					<Product product={product} key={product.id} index={index} />
-				))}
+			{items &&
+				items.map((product: IProduct, index) => <Product product={product} key={product.id} index={index} />)}
 		</div>
 	);
 };

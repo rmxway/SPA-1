@@ -16,6 +16,7 @@
 			"@/*": ["./*"],
 			"@/components/*": ["./components/*"],
 			"@/styles/*": ["./styles/*"],
+			"@/store/*": ["./store/*"],
 			"@/pages/*": ["./pages/*"]
 		}
 	},

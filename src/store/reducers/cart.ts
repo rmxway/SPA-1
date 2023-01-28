@@ -2,8 +2,6 @@ import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/interfaces';
 
-import type { RootState } from '../store';
-
 interface CartState {
 	items: IProduct[];
 	totalPrice: number;
@@ -29,7 +27,5 @@ const cartReducer = createSlice({
 });
 
 export const { addToCart } = cartReducer.actions;
-
-export const cartStore = (state: RootState) => state.cart;
 
 export default cartReducer.reducer;
