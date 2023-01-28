@@ -2,21 +2,22 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { CartItem } from '@/components/CartItem';
-import { useProductsContext } from '@/components/providers/ProductsProvider';
+import { useAppSelector } from '@/hooks';
+import { cartStore } from '@/store/reducers/cart';
 
 import classes from './cart.module.scss';
 
 const CartPage: FC = () => {
-	const { cart, totalPrice } = useProductsContext();
+	const { items, totalPrice } = useAppSelector(cartStore);
 
 	return (
 		<>
 			<h1>Cart</h1>
 			<div className={classes.cart}>
-				{cart.length ? (
+				{items.length ? (
 					<>
 						<div className={classes.wrapper}>
-							{cart.map((item) => (
+							{items.map((item) => (
 								<CartItem product={item} key={item.id} />
 							))}
 						</div>
@@ -24,7 +25,7 @@ const CartPage: FC = () => {
 							<div className={classes.title}>Your order</div>
 							<div className={classes.total}>
 								Total:
-								<span>{totalPrice()} €</span>
+								<span>{totalPrice} €</span>
 							</div>
 						</div>
 					</>

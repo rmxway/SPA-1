@@ -7,14 +7,14 @@ import { ProductsLoader } from './ProductsLoader';
 import { useProductsContext } from './providers/ProductsProvider';
 
 const ProductsGrid: FC = () => {
-	const { products, addToCard } = useProductsContext();
+	const { products } = useProductsContext();
 
 	return (
 		<div className="products-wrapper">
 			<ProductsLoader />
 			{products &&
 				products.map((product: IProduct, index) => (
-					<Product product={product} key={product.id} addToCard={addToCard} index={index} />
+					<Product product={product} key={product.id} index={index} />
 				))}
 		</div>
 	);

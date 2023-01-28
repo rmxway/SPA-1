@@ -1,21 +1,22 @@
 import cl from 'classnames';
 import { FC, useState } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { Space } from '@/components/Space';
 import { ButtonUI } from '@/components/ui/Button';
+import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
+import { addToCart } from '@/store/reducers/cart';
 
 import classes from './product.module.scss';
 
 interface TypePost {
 	product: IProduct;
 	index: number;
-	addToCard: (id: number) => void;
 }
 
-const Product: FC<TypePost> = ({ product, addToCard, ...props }) => {
+const Product: FC<TypePost> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
+	const dispatch = useAppDispatch();
 
 	const ratingColor = (): string => {
 		if (product.rating?.rate) {
@@ -29,7 +30,7 @@ const Product: FC<TypePost> = ({ product, addToCard, ...props }) => {
 	return (
 		<div {...props} className={classes.product}>
 			<div className={classes.title}>{product.title}</div>
-			<LazyLoadImage src={product.image} alt={product.title} loading="lazy" />
+			<img src={product.image} alt={product.title} />
 			<button type="button" className={classes.help} onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}
 			</button>
@@ -53,7 +54,7 @@ const Product: FC<TypePost> = ({ product, addToCard, ...props }) => {
 					</div>
 				</div>
 			</div>
-			<ButtonUI primary onClick={() => addToCard(Number(product.id))}>
+			<ButtonUI primary onClick={() => dispatch(addToCart(product))}>
 				Add to card
 			</ButtonUI>
 		</div>
