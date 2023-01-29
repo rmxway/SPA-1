@@ -21,12 +21,14 @@ export const productsReducer = createSlice({
 		getProducts: (state, action: PayloadAction<IProduct[]>) => {
 			state.items = action.payload;
 		},
-		checkedProduct: (state, action: PayloadAction<number>) => {
-			console.log('Checked', state.items, action);
+		toggleProduct: (state, action: PayloadAction<IProduct>) => {
+			state.items.forEach((item) => {
+				if (item.id === action.payload.id) item.checked = !item.checked;
+			});
 		},
 	},
 });
 
-export const { getProducts, checkedProduct } = productsReducer.actions;
+export const { getProducts, toggleProduct } = productsReducer.actions;
 
 export default productsReducer.reducer;

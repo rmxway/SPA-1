@@ -6,6 +6,7 @@ import { ButtonUI } from '@/components/ui/Button';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { addToCart } from '@/store/reducers/cart';
+import { toggleProduct } from '@/store/reducers/products';
 
 import classes from './product.module.scss';
 
@@ -28,6 +29,7 @@ const Product: FC<TypePost> = ({ product, ...props }) => {
 	};
 
 	const handleClickAddToCart = () => {
+		dispatch(toggleProduct(product));
 		dispatch(addToCart(product));
 	};
 
