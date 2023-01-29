@@ -24,9 +24,12 @@ const cartReducer = createSlice({
 			const priceArray: number[] = state.items.map((item) => Number(item.price));
 			state.totalPrice = Number(priceArray.reduce((acc, curr) => acc + curr).toFixed(2));
 		},
+		deleteFromCart: (state, action: PayloadAction<IProduct>) => {
+			state.items = current(state).items.filter((item) => item.id !== action.payload.id);
+		},
 	},
 });
 
-export const { addToCart } = cartReducer.actions;
+export const { addToCart, deleteFromCart } = cartReducer.actions;
 
 export default cartReducer.reducer;

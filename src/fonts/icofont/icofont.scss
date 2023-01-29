@@ -2,9 +2,9 @@ $icofont-font: 'icofont';
 
 @font-face {
     font-family: $icofont-font;
-    src: url(".//icofont.ttf?f7b4039b47d71a36f9428053eeb24521") format("truetype"),
-url(".//icofont.woff?f7b4039b47d71a36f9428053eeb24521") format("woff"),
-url(".//icofont.woff2?f7b4039b47d71a36f9428053eeb24521") format("woff2");
+    src: url(".//icofont.ttf?344949975f991a19c44443bdcfb74bac") format("truetype"),
+url(".//icofont.woff?344949975f991a19c44443bdcfb74bac") format("woff"),
+url(".//icofont.woff2?344949975f991a19c44443bdcfb74bac") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -26,6 +26,7 @@ $icofont-map: (
     'arrow-down': '\f101',
     'arrow-up': '\f102',
     'cart': '\f103',
+    'times-small': '\f104',
 );
 
 .icofont-arrow-down:before {
@@ -36,4 +37,7 @@ $icofont-map: (
 }
 .icofont-cart:before {
     content: map-get($icofont-map, 'cart');
+}
+.icofont-times-small:before {
+    content: map-get($icofont-map, 'times-small');
 }

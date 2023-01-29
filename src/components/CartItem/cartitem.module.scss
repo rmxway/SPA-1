@@ -32,4 +32,31 @@
 		min-width: 120px;
 		text-align: right;
 	}
+
+	.delete {
+		position: relative;
+		margin-left: 30px;
+		background: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: 2px solid $gray3;
+		color: $gray4;
+		width: 27px;
+		height: 27px;
+		border-radius: 30px;
+		cursor: pointer;
+		font-size: 1.9rem;
+		transition: 0.1s all;
+
+		@extend .icofont, .icofont-times-small;
+
+		&:hover {
+			border-color: $dangerColor;
+
+			&:before {
+				color: $dangerColor;
+			}
+		}
+	}
 }
