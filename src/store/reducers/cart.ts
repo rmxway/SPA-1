@@ -12,6 +12,11 @@ const initialState: CartState = {
 	totalPrice: 0,
 };
 
+const calculateTotalPrice = (state: CartState) => {
+	const priceArray: number[] = state.items.map((item) => Number(item.price));
+	state.totalPrice = !priceArray.length ? 0 : Number(priceArray.reduce((acc, curr) => acc + curr).toFixed(2));
+};
+
 const cartReducer = createSlice({
 	name: 'cart',
 	initialState,
@@ -20,12 +25,11 @@ const cartReducer = createSlice({
 			const uniqElements = new Set([...current(state.items)]);
 			uniqElements.add(action.payload);
 			state.items = Array.from(uniqElements);
-
-			const priceArray: number[] = state.items.map((item) => Number(item.price));
-			state.totalPrice = Number(priceArray.reduce((acc, curr) => acc + curr).toFixed(2));
+			calculateTotalPrice(state);
 		},
 		deleteFromCart: (state, action: PayloadAction<IProduct>) => {
 			state.items = current(state).items.filter((item) => item.id !== action.payload.id);
+			calculateTotalPrice(state);
 		},
 	},
 });

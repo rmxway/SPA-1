@@ -14,26 +14,23 @@ const CartPage: FC = () => {
 		<>
 			<h1>Cart</h1>
 			<div className={classes.cart}>
-				{items.length ? (
-					<>
-						<div className={classes.wrapper}>
-							{items.map((item) => (
-								<CartItem product={item} key={item.id} />
-							))}
-						</div>
-						<div className={classes.sidebar}>
-							<div className={classes.title}>Your order</div>
-							<div className={classes.total}>
-								Total:
-								<span>{totalPrice} €</span>
-							</div>
-						</div>
-					</>
-				) : (
-					<>
-						No items, please go to&nbsp;<Link to="/products">products page</Link>
-					</>
-				)}
+				<div className={classes.wrapper}>
+					{items.length ? (
+						items.map((item) => <CartItem product={item} key={item.id} />)
+					) : (
+						<>
+							No items, please go to&nbsp;<Link to="/products">products page</Link>
+						</>
+					)}
+				</div>
+
+				<div className={classes.sidebar}>
+					<div className={classes.title}>Your order</div>
+					<div className={classes.total}>
+						Total:
+						<span>{totalPrice} €</span>
+					</div>
+				</div>
 			</div>
 		</>
 	);
