@@ -1,4 +1,5 @@
 export interface IProduct {
+	checked: boolean;
 	id: number | null;
 	title: string;
 	price: number | null;

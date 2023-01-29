@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 import { CartItem } from '@/components/CartItem';
 import { useAppSelector } from '@/hooks';
-import { cartStore } from '@/store/store';
+import { cartStore } from '@/store';
 
 import classes from './cart.module.scss';
 

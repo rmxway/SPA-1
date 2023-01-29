@@ -27,6 +27,10 @@ const Product: FC<TypePost> = ({ product, ...props }) => {
 		return '#222';
 	};
 
+	const handleClickAddToCart = () => {
+		dispatch(addToCart(product));
+	};
+
 	return (
 		<div {...props} className={classes.product}>
 			<div className={classes.title}>{product.title}</div>
@@ -54,8 +58,8 @@ const Product: FC<TypePost> = ({ product, ...props }) => {
 					</div>
 				</div>
 			</div>
-			<ButtonUI primary onClick={() => dispatch(addToCart(product))}>
-				Add to card
+			<ButtonUI primary onClick={handleClickAddToCart} disabled={product.checked}>
+				{product.checked ? 'Added to card' : 'Add to card'}
 			</ButtonUI>
 		</div>
 	);

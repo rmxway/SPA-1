@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
-import { productsStore } from '@/store/store';
+import { productsStore } from '@/store';
 
 import { Product } from './Product';
 import { ProductsLoader } from './ProductsLoader';

@@ -1,6 +1,7 @@
 import { createContext, FC, PropsWithChildren, useContext, useEffect, useMemo, useState } from 'react';
 
 import { useAppDispatch } from '@/hooks';
+import { IProduct } from '@/interfaces';
 import { getProducts } from '@/store/reducers/products';
 
 interface ProductsProviderContextResult {
@@ -24,12 +25,13 @@ const ProductsProvider: FC<PropsTypes> = ({ productCount, children }) => {
 		try {
 			setLoading(true);
 			const result = await fetch(`https://fakestoreapi.com/products?limit=${productCount}`);
-			const json = await result.json();
+			const json: IProduct[] = await result.json();
+			json.forEach((item) => {
+				item.checked = false;
+			});
 			dispatch(getProducts(json));
-			return json;
 		} catch (e) {
 			setError((e as Error).message);
-			return '';
 		} finally {
 			setLoading(false);
 		}

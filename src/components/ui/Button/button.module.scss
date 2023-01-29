@@ -30,11 +30,6 @@
 	line-height: 1;
 	transition: 0.1s all;
 
-	&:disabled {
-		background-color: $dangerColor;
-		cursor: default;
-	}
-
 	&:hover {
 		background-color: #f9f9f9;
 	}
@@ -57,5 +52,11 @@
 
 	&.white {
 		@include typeButton(#fff, $successColor);
+	}
+
+    &:disabled, &:disabled:hover {
+		background-color: $gray2;
+        color: $gray5;
+		cursor: default;
 	}
 }

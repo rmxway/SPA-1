@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useAppSelector } from '@/hooks';
-import { cartStore } from '@/store/store';
+import { cartStore } from '@/store';
 
 import classes from './cart.module.scss';
 

@@ -17,8 +17,9 @@ const cartReducer = createSlice({
 	initialState,
 	reducers: {
 		addToCart: (state, action: PayloadAction<IProduct>) => {
-			const uniqItems = new Set([...current(state.items), action.payload]);
-			state.items = [...uniqItems];
+			const uniqElements = new Set([...current(state.items)]);
+			uniqElements.add(action.payload);
+			state.items = Array.from(uniqElements);
 
 			const priceArray: number[] = state.items.map((item) => Number(item.price));
 			state.totalPrice = Number(priceArray.reduce((acc, curr) => acc + curr).toFixed(2));
