@@ -50,11 +50,27 @@
 	}
 
 	a {
+		position: relative;
 		display: inline-block;
 		margin-right: 30px;
 		font-size: 20px;
 		color: #222;
 		text-decoration: none;
+		border-bottom: 2px solid transparent;
+
+		&::after {
+			content: '';
+			position: absolute;
+			bottom: -5px;
+            left: 50%;
+            transform: translate(-50%, 0);
+			width: 0;
+			height: 3px;
+            border-radius: 10px;
+			background-color: darken($successColor, 25%);
+			opacity: 0;
+			transition: 0.2s;
+		}
 
 		&:hover {
 			color: #444;
@@ -62,6 +78,13 @@
 
 		&:last-child {
 			margin-right: 0;
+		}
+
+		&:global {
+			&.active::after {
+				width: 100%;
+				opacity: 1;
+			}
 		}
 	}
 }

@@ -1,17 +1,21 @@
 import './styles/base.scss';
 
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import ProductsProvider from '@/components/providers/ProductsProvider';
 import { Navbar } from '@/components/ui/Navbar';
 import { CartPage } from '@/pages/Cart';
 import { MainPage } from '@/pages/Main';
 import { ProductsPage } from '@/pages/Products';
+import { fetchProducts } from '@/service/fetchProducts';
 
-const App: FC = () => (
-	<BrowserRouter>
-		<ProductsProvider productCount={8}>
+const App: FC = () => {
+	useEffect(() => {
+		fetchProducts(8);
+	}, []);
+
+	return (
+		<BrowserRouter>
 			<Navbar />
 			<div className="container">
 				<Routes>
@@ -20,9 +24,9 @@ const App: FC = () => (
 					<Route path="cart" element={<CartPage />} />
 				</Routes>
 			</div>
-		</ProductsProvider>
-	</BrowserRouter>
-);
+		</BrowserRouter>
+	);
+};
 
 export { App };
 export default App;

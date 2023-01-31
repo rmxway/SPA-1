@@ -1,11 +1,12 @@
 import { FC } from 'react';
 
-import { useProductsContext } from './providers/ProductsProvider';
+import { useAppSelector } from '@/hooks';
+
 import { Loader } from './ui/Loader';
 
 const ProductsLoader: FC = () => {
-	const { loading } = useProductsContext();
-	return <Loader loading={loading} />;
+	const { fetching } = useAppSelector((state) => state.products);
+	return <Loader loading={fetching} />;
 };
 
 export { ProductsLoader };

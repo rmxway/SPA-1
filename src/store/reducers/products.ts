@@ -5,7 +5,7 @@ import { IProduct } from '@/interfaces';
 interface ProductsState {
 	items: IProduct[];
 	error: string;
-	isLoading: boolean;
+	fetching: boolean;
 	sort: {
 		name: string;
 		toggle: boolean;
@@ -20,7 +20,7 @@ interface SortTypes {
 const initialState: ProductsState = {
 	items: [],
 	error: '',
-	isLoading: false,
+	fetching: false,
 	sort: {
 		name: '',
 		toggle: true,
@@ -40,6 +40,12 @@ export const productsReducer = createSlice({
 	reducers: {
 		getProducts: (state, action: PayloadAction<IProduct[]>) => {
 			state.items = action.payload;
+		},
+		fetching: (state, action: PayloadAction<boolean>) => {
+			state.fetching = action.payload;
+		},
+		setError: (state, action: PayloadAction<string>) => {
+			state.error = action.payload;
 		},
 		toggleProduct: (state, action: PayloadAction<IProduct>) => {
 			state.items.forEach((item) => {
@@ -77,6 +83,7 @@ export const productsReducer = createSlice({
 	},
 });
 
-export const { getProducts, toggleProduct, sortPriceProduct, sortRatingProduct } = productsReducer.actions;
+export const { getProducts, fetching, setError, toggleProduct, sortPriceProduct, sortRatingProduct } =
+	productsReducer.actions;
 
 export default productsReducer.reducer;

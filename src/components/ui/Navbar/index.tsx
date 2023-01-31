@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import { InputUI } from '@/components/ui/Input';
 
@@ -18,11 +18,11 @@ const Navbar: FC = () => (
 					</span>
 				</Link>
 				<InputUI name="search-field" placeholder="Search a product" className={classes.search} />
-				<Link to="/">Main</Link>
-				<Link to="/products">Products</Link>
-				<Link to="/cart">
+				<NavLink to="/">Main</NavLink>
+				<NavLink to="/products">Products</NavLink>
+				<NavLink to="/cart">
 					<NavbarCart />
-				</Link>
+				</NavLink>
 			</div>
 		</div>
 	</nav>
