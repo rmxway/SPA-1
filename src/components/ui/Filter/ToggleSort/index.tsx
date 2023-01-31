@@ -1,8 +1,9 @@
 import cl from 'classnames';
-import { FC, useState } from 'react';
+import React, { FC, useState } from 'react';
 
-// import { useProductsContext } from '@/components/providers/ProductsProvider';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
+import { sortPriceProduct, sortRatingProduct } from '@/store/reducers/products';
 
 import classes from './toggle.module.scss';
 
@@ -12,22 +13,25 @@ interface ComponentTypes {
 }
 
 const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
-	// const { sortProduct, sortRatingProduct } = useProductsContext();
-	const [toggle, setToggle] = useState(false);
+	const { toggle, name } = useAppSelector((state) => state.products.sort);
+	const [checked, setChecked] = useState(false);
 	const idName = `sort-${sort}`;
+	const dispatch = useAppDispatch();
 
-	const handleClick = () => {
-		setToggle((prev) => !prev);
-		// if (sort !== 'rating') {
-		// 	sortProduct(sort, toggle);
-		// } else {
-		// 	sortRatingProduct(toggle);
-		// }
+	const handleClick = (e: React.MouseEvent) => {
+		e.preventDefault();
+		setChecked((prev) => !prev);
+
+		if (sort !== 'rating') {
+			dispatch(sortPriceProduct({ sort, toggle: checked }));
+		} else {
+			dispatch(sortRatingProduct({ sort, toggle: checked }));
+		}
 	};
 
 	return (
 		<button type="button" className={cl(classes.toggle, { [classes.reverse]: toggle })} onMouseDown={handleClick}>
-			<input {...props} type="radio" name="sort" id={idName} />
+			<input {...props} type="radio" name="sort" id={idName} defaultChecked={name === sort} />
 			<label htmlFor={idName}>
 				{value}
 				<i className="icofont icofont-arrow-down" />
