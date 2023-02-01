@@ -9,12 +9,18 @@
 	padding: 20px;
 	border-radius: $borderRadius;
 	margin-bottom: 10px;
+    transition: .12s;
+
+    &:hover {
+        box-shadow: 0 5px 20px rgba(0,0,0, .2);
+    }
 
 	img {
-		width: 50px;
-		height: 50px;
+		min-width: 75px;
+		width: 75px;
+		height: 75px;
 		object-fit: contain;
-		margin-right: 10px;
+		margin-right: 20px;
 	}
 
 	.title {

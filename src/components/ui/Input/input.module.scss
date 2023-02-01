@@ -21,5 +21,9 @@
 			border-color: $successColor;
 			outline: none;
 		}
+
+        &:disabled {
+            background-color: $gray2;
+        }
 	}
 }

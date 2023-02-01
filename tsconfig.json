@@ -17,10 +17,12 @@
 			"@/components/*": ["./components/*"],
 			"@/styles/*": ["./styles/*"],
 			"@/store/*": ["./store/*"],
-			"@/pages/*": ["./pages/*"]
+			"@/services/*": ["./services/*"],
+			"@/pages/*": ["./pages/*"],
+			"@/theme/*": ["./theme/*"]
 		}
 	},
-	"include": ["src/**/*.tsx", "./declarations.d.ts"],
+	"include": ["**/*.ts", "**/*.tsx", "./declarations.d.ts"],
 	"exclude": ["node_modules", ".vscode"],
 	"display": "Recommended"
 }

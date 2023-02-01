@@ -26,7 +26,7 @@ const CartItem: FC<CartItemTypes> = ({ product }) => {
 			<img src={product.image} alt={product.title} />
 			<div className={classes.title}>
 				<strong>{product.title}</strong>
-				{product.rating?.count && <div>count: {product.rating?.count}</div>}
+				{/* {product.rating?.count && <div>count: {product.rating?.count}</div>} */}
 			</div>
 			<Space />
 			<div className={classes.price}>{product.price} €</div>

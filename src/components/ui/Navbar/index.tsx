@@ -1,31 +1,35 @@
 import { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import { InputUI } from '@/components/ui/Input';
+import { Container, Flexbox, Space } from '@/components/Layout';
 
-import classes from './navbar.module.scss';
 import { NavbarCart } from './NavbarCart';
+// import { InputUI } from '@/components/ui/Input';
+import { Logo, StyledNavbar } from './styled';
 
 const Navbar: FC = () => (
-	<nav className={classes.navbar}>
-		<div className="container">
-			<div className={classes.wrapper}>
-				<Link to="/" className={classes.logo}>
-					GS
-					<span>
-						Green Shop <br />
-						Brand
-					</span>
+	<StyledNavbar>
+		<Container>
+			<Flexbox align="center" nowrap>
+				<Link to="/">
+					<Logo>
+						GS
+						<span>
+							Green Shop <br />
+							Brand
+						</span>
+					</Logo>
 				</Link>
-				<InputUI name="search-field" placeholder="Search a product" className={classes.search} />
+				{/* <InputUI name="search-field" placeholder="Search" disabled /> */}
+				<Space />
 				<NavLink to="/">Main</NavLink>
 				<NavLink to="/products">Products</NavLink>
 				<NavLink to="/cart">
 					<NavbarCart />
 				</NavLink>
-			</div>
-		</div>
-	</nav>
+			</Flexbox>
+		</Container>
+	</StyledNavbar>
 );
 
 export { Navbar };
