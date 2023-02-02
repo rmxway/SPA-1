@@ -6,7 +6,6 @@ import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
 
 import { Product } from './Product';
-import { ProductsLoader } from './ProductsLoader';
 
 const Wrapper = styled.div`
 	position: relative;
@@ -20,7 +19,6 @@ const ProductsGrid: FC = () => {
 
 	return (
 		<Wrapper>
-			<ProductsLoader />
 			{items &&
 				items.map((product: IProduct, index) => <Product product={product} key={product.id} index={index} />)}
 		</Wrapper>

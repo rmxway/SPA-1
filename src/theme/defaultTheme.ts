@@ -22,7 +22,7 @@ const defaultTheme: DefaultTheme = {
 	},
 	layout: {
 		containerWidth: '1024px',
-		shadow: '0 5px 20px rgba(0, 0, 0, 0.3)',
+		shadow: '0 5px 20px rgba(0, 0, 0, 0.2)',
 	},
 	radius: {
 		borderRadius: '8px',

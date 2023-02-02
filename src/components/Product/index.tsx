@@ -2,7 +2,7 @@ import cl from 'classnames';
 import { FC, useState } from 'react';
 
 import { Space } from '@/components/Layout';
-import { ButtonUI } from '@/components/ui/Button';
+import { ButtonUI } from '@/components/ui';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { addToCart } from '@/store/reducers/cart';

@@ -22,12 +22,18 @@ export const Sidebar = styled.div`
 	padding: 20px;
 	background-color: #fff;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
+
+    button {
+        margin-top: 20px;
+        margin-bottom: 0;
+        width: 100%;
+    }
 `;
 
 export const Title = styled.div`
 	font-size: 24px;
 	font-weight: 600;
-	margin-bottom: 35px;
+	margin-bottom: 5px;
 	text-transform: uppercase;
 `;
 

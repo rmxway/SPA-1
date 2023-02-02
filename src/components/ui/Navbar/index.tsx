@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import { Container, Flexbox, Space } from '@/components/Layout';
+import { Container, Flexbox } from '@/components/Layout';
+import { InputUI } from '@/components/ui';
 
 import { NavbarCart } from './NavbarCart';
-// import { InputUI } from '@/components/ui/Input';
 import { Logo, StyledNavbar } from './styled';
 
 const Navbar: FC = () => (
@@ -20,8 +20,7 @@ const Navbar: FC = () => (
 						</span>
 					</Logo>
 				</Link>
-				{/* <InputUI name="search-field" placeholder="Search" disabled /> */}
-				<Space />
+				<InputUI name="search-field" className="search" placeholder="Search" disabled />
 				<NavLink to="/">Main</NavLink>
 				<NavLink to="/products">Products</NavLink>
 				<NavLink to="/cart">

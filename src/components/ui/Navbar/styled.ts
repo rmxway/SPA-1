@@ -50,6 +50,15 @@ const StyledNavbar = styled.div`
 			opacity: 1;
 		}
 	}
+
+	.search {
+		flex-grow: 1;
+		margin-right: 30px;
+
+		input {
+			width: 100%;
+		}
+	}
 `;
 
 const Logo = styled.div`

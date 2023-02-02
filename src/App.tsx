@@ -4,9 +4,7 @@ import { ThemeProvider } from 'styled-components/macro';
 
 import { Container } from '@/components/Layout';
 import { Navbar } from '@/components/ui/Navbar';
-import { CartPage } from '@/pages/Cart';
-import { MainPage } from '@/pages/Main';
-import { ProductsPage } from '@/pages/Products';
+import { CartPage, MainPage, ProductsPage } from '@/pages';
 import { defaultTheme } from '@/theme';
 import { GlobalStyles } from '@/theme/styles/global';
 
