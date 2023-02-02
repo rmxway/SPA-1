@@ -1,11 +1,10 @@
-import cl from 'classnames';
 import React, { FC, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { sortPriceProduct, sortRatingProduct } from '@/store/reducers/products';
 
-import classes from './toggle.module.scss';
+import { Toggle } from './styled';
 
 interface ComponentTypes {
 	value: string;
@@ -30,13 +29,13 @@ const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
 	};
 
 	return (
-		<button type="button" className={cl(classes.toggle, { [classes.reverse]: toggle })} onMouseDown={handleClick}>
-			<input {...props} type="radio" name="sort" id={idName} defaultChecked={name === sort} />
+		<Toggle type="button" toggle={toggle} onMouseDown={handleClick}>
+			<input {...props} type="radio" name="sort" id={idName} checked={name === sort} onChange={() => null} />
 			<label htmlFor={idName}>
 				{value}
 				<i className="icofont icofont-arrow-down" />
 			</label>
-		</button>
+		</Toggle>
 	);
 };
 

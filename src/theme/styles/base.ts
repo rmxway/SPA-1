@@ -1,6 +1,6 @@
 import './includes.scss';
 
-import { css } from 'styled-components';
+import { css } from 'styled-components/macro';
 
 const base = css`
 	*,

@@ -1,8 +1,8 @@
-import styled from "styled-components"
+import styled from 'styled-components/macro';
 
 const Space = styled.div`
-    flex-grow: 1;
+	flex-grow: 1;
 `;
 
-export { Space }
-export default Space
+export { Space };
+export default Space;

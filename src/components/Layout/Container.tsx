@@ -1,14 +1,11 @@
-import { FC, PropsWithChildren } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 
-const StyledContainer = styled.div`
+const Container = styled.div`
 	padding: 0 10px;
 	width: 100%;
 	max-width: 1024px;
 	margin: 0 auto;
 `;
-
-const Container: FC<PropsWithChildren> = ({ children }) => <StyledContainer>{children}</StyledContainer>;
 
 export { Container };
 export default Container;

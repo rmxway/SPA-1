@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from 'styled-components/macro';
 
 const reset = css`
 	/* http://meyerweb.com/eric/tools/css/reset/

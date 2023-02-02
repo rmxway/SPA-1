@@ -1,5 +1,5 @@
 import { darken } from 'polished';
-import styled, { DefaultTheme } from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components/macro';
 
 const logoColor = (props: { theme: DefaultTheme }) => darken(0.3, props.theme.colors.success);
 
