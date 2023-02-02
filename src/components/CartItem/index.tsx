@@ -1,13 +1,13 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import { FC } from 'react';
 
-import { Space } from '@/components/Space';
+import { Space } from '@/components/Layout';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { deleteFromCart } from '@/store/reducers/cart';
 import { toggleProduct } from '@/store/reducers/products';
 
-import classes from './cartitem.module.scss';
+import { Delete, Item, Price, Title } from './styled';
 
 interface CartItemTypes {
 	product: IProduct;
@@ -22,16 +22,18 @@ const CartItem: FC<CartItemTypes> = ({ product }) => {
 	};
 
 	return (
-		<div className={classes.item}>
+		<Item>
 			<img src={product.image} alt={product.title} />
-			<div className={classes.title}>
+			<Title>
 				<strong>{product.title}</strong>
-				{product.rating?.count && <div>count: {product.rating?.count}</div>}
-			</div>
+				{/* {product.rating?.count && <div>count: {product.rating?.count}</div>} */}
+			</Title>
 			<Space />
-			<div className={classes.price}>{product.price} €</div>
-			<button type="button" className={classes.delete} onClick={handleDeleteFromCart} />
-		</div>
+			<Price>{product.price} €</Price>
+			<Delete type="button" onClick={handleDeleteFromCart}>
+				<i className="icofont icofont-times-small" />
+			</Delete>
+		</Item>
 	);
 };
 

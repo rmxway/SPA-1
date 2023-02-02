@@ -1,21 +1,27 @@
 import { FC } from 'react';
+import styled from 'styled-components/macro';
 
 import { useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
 
 import { Product } from './Product';
-import { ProductsLoader } from './ProductsLoader';
+
+const Wrapper = styled.div`
+	position: relative;
+	display: flex;
+	flex-wrap: wrap;
+	margin: -10px;
+`;
 
 const ProductsGrid: FC = () => {
 	const { items } = useAppSelector(productsStore);
 
 	return (
-		<div className="products-wrapper">
-			<ProductsLoader />
+		<Wrapper>
 			{items &&
 				items.map((product: IProduct, index) => <Product product={product} key={product.id} index={index} />)}
-		</div>
+		</Wrapper>
 	);
 };
 

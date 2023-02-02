@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FC, useEffect, useState } from 'react';
 
-import { ButtonUI } from '@/components/ui/Button';
-import { InputUI } from '@/components/ui/Input';
+import { ButtonUI, InputUI } from '@/components/ui';
 import { IProduct } from '@/interfaces';
 
 interface CreateProductType {

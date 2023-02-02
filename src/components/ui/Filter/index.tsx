@@ -1,14 +1,27 @@
 import { FC } from 'react';
+import styled from 'styled-components/macro';
 
-import classes from './filter.module.scss';
 import { ToggleSort } from './ToggleSort';
 
+const StyledFilter = styled.div`
+	display: flex;
+	align-items: center;
+	margin-bottom: 30px;
+
+	.title {
+		text-transform: uppercase;
+		font-size: 16px;
+		color: ${(props) => props.theme.colors.gray.$5};
+		margin-right: 20px;
+	}
+`;
+
 const Filter: FC = () => (
-	<div className={classes.filter}>
-		<div className={classes.title}>Sorting</div>
+	<StyledFilter>
+		<div className="title">Sorting</div>
 		<ToggleSort sort="price" value="Price" />
 		<ToggleSort sort="rating" value="Rating" />
-	</div>
+	</StyledFilter>
 );
 
 export { Filter };

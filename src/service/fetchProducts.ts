@@ -1,6 +1,6 @@
-import { IProduct } from '../interfaces';
-import { store } from '../store';
-import { fetching, getProducts, setError } from '../store/reducers/products';
+import { IProduct } from '@/interfaces';
+import { store } from '@/store';
+import { fetching, getProducts, setError } from '@/store/reducers/products';
 
 const { dispatch } = store;
 

@@ -1,7 +1,6 @@
-import cl from 'classnames';
 import React, { FC } from 'react';
 
-import classes from './input.module.scss';
+import { InputWrapper } from './styled';
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	label?: string;
@@ -9,11 +8,11 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const InputUI: FC<InputProps> = ({ name, label, className, ...props }) => (
-	<div className={cl(classes.wrapper, className)}>
+	<InputWrapper className={className}>
 		{label && <label htmlFor={name}>{label}</label>}
 
 		<input {...props} id={name} type="text" autoComplete="off" />
-	</div>
+	</InputWrapper>
 );
 
 export { InputUI };

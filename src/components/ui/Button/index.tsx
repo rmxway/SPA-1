@@ -1,30 +1,21 @@
-import cl from 'classnames';
 import React from 'react';
 
-import classes from './button.module.scss';
+import { Button } from './styled';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	primary?: boolean;
 	success?: boolean;
 	danger?: boolean;
 	white?: boolean;
+	w100?: boolean;
 	children: React.ReactNode;
 }
 
-const ButtonUI = ({ children, primary, success, danger, white, ...props }: ButtonProps) => (
-	<button
-		type="button"
-		{...props}
-		className={cl(classes.button, {
-			[classes.primary]: primary,
-			[classes.success]: success,
-			[classes.danger]: danger,
-			[classes.white]: white,
-		})}
-	>
+const ButtonUI = ({ children, ...props }: ButtonProps) => (
+	<Button type="button" {...props}>
 		{children}
-	</button>
+	</Button>
 );
 
-export { ButtonUI };
+export { ButtonProps, ButtonUI };
 export default ButtonUI;

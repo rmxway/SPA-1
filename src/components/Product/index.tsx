@@ -1,32 +1,23 @@
 import cl from 'classnames';
 import { FC, useState } from 'react';
 
-import { Space } from '@/components/Space';
-import { ButtonUI } from '@/components/ui/Button';
+import { Space } from '@/components/Layout';
+import { ButtonUI } from '@/components/ui';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { addToCart } from '@/store/reducers/cart';
 import { toggleProduct } from '@/store/reducers/products';
 
-import classes from './product.module.scss';
+import { Description, Help, Price, ProductWrapper, Rating, Title, Tools } from './styled';
 
-interface TypePost {
+interface ProductType {
 	product: IProduct;
 	index: number;
 }
 
-const Product: FC<TypePost> = ({ product, ...props }) => {
+const Product: FC<ProductType> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
-
-	const ratingColor = (): string => {
-		if (product.rating?.rate) {
-			if (product.rating.rate > 4) return '#02af27'; // green
-			if (product.rating.rate < 4 && product.rating.rate > 3) return '#c5b010'; // yellow
-			if (product.rating.rate < 3) return '#e64b4b'; // red
-		}
-		return '#222';
-	};
 
 	const handleClickAddToCart = () => {
 		dispatch(toggleProduct(product));
@@ -34,36 +25,30 @@ const Product: FC<TypePost> = ({ product, ...props }) => {
 	};
 
 	return (
-		<div {...props} className={classes.product}>
-			<div className={classes.title}>{product.title}</div>
+		<ProductWrapper {...props}>
+			<Title>{product.title}</Title>
 			<img src={product.image} alt={product.title} />
-			<button type="button" className={classes.help} onClick={() => setViewDescription((prev) => !prev)}>
+			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}
-			</button>
-			<div
-				className={cl(classes.description, {
-					[classes.open]: viewDescription,
-				})}
-			>
-				{product.description}
-			</div>
+			</Help>
+			<Description className={cl({ open: viewDescription })}>{product.description}</Description>
 			<Space />
-			<div className={classes.price}>
+			<Price>
 				{product.price} €
-				<div className={classes.tools}>
+				<Tools>
 					<div>
 						<span>in store</span> ({product.rating?.count})
 					</div>
 					<div>
 						<span>rating: </span>
-						<span style={{ color: `${ratingColor()}` }}>{product.rating?.rate}</span>
+						<Rating>{product.rating?.rate}</Rating>
 					</div>
-				</div>
-			</div>
+				</Tools>
+			</Price>
 			<ButtonUI primary onClick={handleClickAddToCart} disabled={product.checked}>
 				{product.checked ? 'Added to card' : 'Add to card'}
 			</ButtonUI>
-		</div>
+		</ProductWrapper>
 	);
 };
 
