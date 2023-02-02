@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components/macro';
 
 import { Container } from '@/components/Layout';
-import { Navbar } from '@/components/ui/Navbar';
+import { Navbar } from '@/components/Navbar';
 import { CartPage, MainPage, ProductsPage } from '@/pages';
 import { defaultTheme } from '@/theme';
 import { GlobalStyles } from '@/theme/styles/global';

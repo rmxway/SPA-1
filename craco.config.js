@@ -15,11 +15,15 @@ module.exports = {
 	module: {
 		rules: [
 			{
-				test: /\.tsx?$/,
+				test: /\.(tsx|ts)?$/i,
 				loader: 'awesome-typescript-loader',
 				options: {
 					getCustomTransformers: () => ({ before: [styledComponentsTransformer] }),
 				},
+			},
+			{
+				test: /\.(png|svg|jpg|jpeg|gif)?$/i,
+				type: 'asset/resource',
 			},
 		],
 	},

@@ -1,8 +1,8 @@
 module.exports = {
 	inputDir: './src/fantasticon/icons', // (required)
-	outputDir: './src/fonts/icofont', // (required)
+	outputDir: './src/assets/fonts/icofont', // (required)
 	fontTypes: ['ttf', 'woff', 'woff2'],
-	assetTypes: ['ts', 'css', 'scss', 'json', 'html'],
+	assetTypes: ['ts', 'scss', 'json', 'html'],
 	fontsUrl: './',
 	// Use a custom Handlebars template
 	templates: {

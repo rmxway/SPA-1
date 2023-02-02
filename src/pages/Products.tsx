@@ -1,9 +1,9 @@
 import { FC, useMemo } from 'react';
 
+import { Filter } from '@/components/Filter';
 // import { CreateProductBlock } from '@/components/CreateProductBlock';
 import { ProductsGrid } from '@/components/ProductsGrid';
 import { ProductsLoader } from '@/components/ProductsLoader';
-import { Filter } from '@/components/ui';
 import { useAppSelector } from '@/hooks';
 import { fetchProducts } from '@/service/fetchProducts';
 

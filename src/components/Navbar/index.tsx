@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import { Container, Flexbox } from '@/components/Layout';
-import { InputUI } from '@/components/ui';
+import { Container, Flexbox, Space } from '@/components/Layout';
 
 import { NavbarCart } from './NavbarCart';
 import { Logo, StyledNavbar } from './styled';
@@ -20,7 +19,7 @@ const Navbar: FC = () => (
 						</span>
 					</Logo>
 				</Link>
-				<InputUI name="search-field" className="search" placeholder="Search" disabled />
+				<Space />
 				<NavLink to="/">Main</NavLink>
 				<NavLink to="/products">Products</NavLink>
 				<NavLink to="/cart">
