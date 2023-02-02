@@ -5,9 +5,9 @@ const defaultTheme: DefaultTheme = {
 	colors: {
 		primary: '#fdd01a',
 		success: '#7bc03b',
-        danger: '#e54f5e',
+		danger: '#e54f5e',
 		label: '#5c323e',
-        dark: '#222',
+		dark: '#222',
 		gray: {
 			$1: '#ddd',
 			$2: '#ececec',
@@ -22,6 +22,7 @@ const defaultTheme: DefaultTheme = {
 	},
 	layout: {
 		containerWidth: '1024px',
+		shadow: '0 5px 20px rgba(0, 0, 0, 0.3)',
 	},
 	radius: {
 		borderRadius: '8px',

@@ -21,6 +21,7 @@ interface Colors {
 
 interface Layout {
 	containerWidth: string;
+    shadow: string;
 }
 
 interface Radius {

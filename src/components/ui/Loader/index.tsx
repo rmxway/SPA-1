@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import classes from './loader.module.scss';
+import { StyledLoader, Wrapper } from './styled';
 
 interface LoaderTypes {
 	loading: boolean;
@@ -8,9 +8,9 @@ interface LoaderTypes {
 
 const Loader: FC<LoaderTypes> = ({ loading }) =>
 	loading ? (
-		<div className={classes.wrapper}>
-			<div className={classes.loader} />
-		</div>
+		<Wrapper>
+			<StyledLoader />
+		</Wrapper>
 	) : null;
 
 export { Loader };

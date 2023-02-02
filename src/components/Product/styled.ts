@@ -15,7 +15,7 @@ export const ProductWrapper = styled.div`
 	animation: fadeIn 0.2s linear 0s 1 forwards;
 
 	&:hover {
-		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+		box-shadow: ${(props) => props.theme.layout.shadow};
 	}
 
 	@keyframes fadeIn {

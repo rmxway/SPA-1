@@ -5,7 +5,7 @@ import { CartItem } from '@/components/CartItem';
 import { useAppSelector } from '@/hooks';
 import { cartStore } from '@/store';
 
-import classes from './cart.module.scss';
+import { Cart, Sidebar, Title, Total, Wrapper } from './styles';
 
 const CartPage: FC = () => {
 	const { items, totalPrice } = useAppSelector(cartStore);
@@ -13,8 +13,8 @@ const CartPage: FC = () => {
 	return (
 		<>
 			<h1>Cart</h1>
-			<div className={classes.cart}>
-				<div className={classes.wrapper}>
+			<Cart>
+				<Wrapper>
 					{items.length ? (
 						items.map((item) => <CartItem product={item} key={item.id} />)
 					) : (
@@ -22,16 +22,16 @@ const CartPage: FC = () => {
 							No items, please go to&nbsp;<Link to="/products">products page</Link>
 						</>
 					)}
-				</div>
+				</Wrapper>
 
-				<div className={classes.sidebar}>
-					<div className={classes.title}>Your order</div>
-					<div className={classes.total}>
+				<Sidebar>
+					<Title>Your order</Title>
+					<Total>
 						Total:
 						<span>{totalPrice} €</span>
-					</div>
-				</div>
-			</div>
+					</Total>
+				</Sidebar>
+			</Cart>
 		</>
 	);
 };
