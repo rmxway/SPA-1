@@ -3,27 +3,35 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '@/interfaces';
 
 interface ProductsState {
+	fetchedItems: IProduct[];
 	items: IProduct[];
 	error: string;
 	fetching: boolean;
 	sort: {
 		name: string;
-		toggle: boolean;
+		toggle?: boolean;
+	};
+	search: {
+		value: string;
 	};
 }
 
 interface SortTypes {
 	sort: keyof IProduct;
-	toggle: boolean;
+	toggle?: boolean;
 }
 
 const initialState: ProductsState = {
+	fetchedItems: [],
 	items: [],
 	error: '',
 	fetching: false,
 	sort: {
 		name: '',
 		toggle: true,
+	},
+	search: {
+		value: '',
 	},
 };
 
@@ -34,12 +42,19 @@ const changeStateSort = (state: ProductsState, payload: SortTypes) => {
 	};
 };
 
+const toggleItems = (array: IProduct[], id: number | null) => {
+	array.forEach((item) => {
+		if (item.id === id) item.checked = !item.checked;
+	});
+};
+
 export const productsReducer = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
 		getProducts: (state, action: PayloadAction<IProduct[]>) => {
-			state.items = action.payload;
+			state.fetchedItems = action.payload;
+			state.items = state.fetchedItems;
 		},
 		fetching: (state, action: PayloadAction<boolean>) => {
 			state.fetching = action.payload;
@@ -48,42 +63,47 @@ export const productsReducer = createSlice({
 			state.error = action.payload;
 		},
 		toggleProduct: (state, action: PayloadAction<IProduct>) => {
-			state.items.forEach((item) => {
-				if (item.id === action.payload.id) item.checked = !item.checked;
-			});
+			toggleItems(state.items, action.payload.id);
+			toggleItems(state.fetchedItems, action.payload.id);
 		},
-		sortPriceProduct: (state, action: PayloadAction<SortTypes>) => {
+		sortProduct: (state, action: PayloadAction<SortTypes>) => {
 			const { sort, toggle } = action.payload;
 			changeStateSort(state, action.payload);
 
-			state.items.sort((a, b) => {
-				if (a[sort] && b[sort]) {
-					if (Number(a[sort]) > Number(b[sort])) return -1;
-					if (Number(a[sort]) < Number(b[sort])) return 1;
-				}
-				return 0;
-			});
+			if (sort === 'price') {
+				state.items.sort((a, b) => {
+					if (a[sort] && b[sort]) {
+						if (Number(a[sort]) > Number(b[sort])) return -1;
+						if (Number(a[sort]) < Number(b[sort])) return 1;
+					}
+					return 0;
+				});
+			}
+
+			if (sort === 'rating') {
+				state.items.sort((a, b) => {
+					if (a[sort] && b[sort]) {
+						if (Number(a.rating?.rate) > Number(b.rating?.rate)) return -1;
+						if (Number(a.rating?.rate) < Number(b.rating?.rate)) return 1;
+					}
+					return 0;
+				});
+			}
 
 			if (toggle) state.items = state.items.reverse();
 		},
-		sortRatingProduct: (state, action: PayloadAction<SortTypes>) => {
-			const { sort, toggle } = action.payload;
-			changeStateSort(state, action.payload);
+		searchProduct: (state, action: PayloadAction<string>) => {
+			state.search.value = action.payload.trim();
 
-			state.items.sort((a, b) => {
-				if (a[sort] && b[sort]) {
-					if (Number(a.rating?.rate) > Number(b.rating?.rate)) return -1;
-					if (Number(a.rating?.rate) < Number(b.rating?.rate)) return 1;
-				}
-				return 0;
-			});
-
-			if (toggle) state.items = state.items.reverse();
+			if (state.search.value.length) {
+				state.items = state.fetchedItems.filter((item) =>
+					item.title.toLowerCase().includes(state.search.value.toLowerCase())
+				);
+			} else state.items = state.fetchedItems;
 		},
 	},
 });
 
-export const { getProducts, fetching, setError, toggleProduct, sortPriceProduct, sortRatingProduct } =
-	productsReducer.actions;
+export const { getProducts, fetching, setError, toggleProduct, sortProduct, searchProduct } = productsReducer.actions;
 
 export default productsReducer.reducer;
