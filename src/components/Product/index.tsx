@@ -1,14 +1,16 @@
-import cl from 'classnames';
+import 'react-lazy-load-image-component/src/effects/blur.css';
+
 import { FC, useState } from 'react';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { Space } from '@/components/Layout';
-import { ButtonUI } from '@/components/ui';
+import { ButtonUI, Loader } from '@/components/ui';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { addToCart } from '@/store/reducers/cart';
-import { toggleProduct } from '@/store/reducers/products';
+import { fetchingImageProduct, toggleProduct } from '@/store/reducers/products';
 
-import { Description, Help, Price, ProductWrapper, Rating, Title, Tools } from './styled';
+import { Description, Help, Price, ProductWrapper, Rating, Title, Tools, WrapperImage } from './styled';
 
 interface ProductType {
 	product: IProduct;
@@ -27,11 +29,31 @@ const Product: FC<ProductType> = ({ product, ...props }) => {
 	return (
 		<ProductWrapper {...props}>
 			<Title>{product.title}</Title>
-			<img src={product.image} alt={product.title} />
+			<WrapperImage>
+				{product.imgFetch ? (
+					<>
+						<Loader loading={product.imgFetch} />
+						<LazyLoadImage
+							src={product.image}
+							alt={product.title}
+							afterLoad={() =>
+								setTimeout(
+									() => dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false })),
+									1000
+								)
+							}
+							threshold={-200}
+							effect="blur"
+						/>
+					</>
+				) : (
+					<img src={product.image} alt={product.title} />
+				)}
+			</WrapperImage>
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}
 			</Help>
-			<Description className={cl({ open: viewDescription })}>{product.description}</Description>
+			<Description open={viewDescription}>{product.description}</Description>
 			<Space />
 			<Price>
 				{product.price} €

@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
-import { sortProduct } from '@/store/reducers/products';
+import { sortProducts } from '@/store/reducers/products';
 
 import { Toggle } from './styled';
 
@@ -21,7 +21,7 @@ const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
 		e.preventDefault();
 		setChecked((prev) => !prev);
 
-		dispatch(sortProduct({ sort, toggle: checked }));
+		dispatch(sortProducts({ sort, toggle: checked }));
 	};
 
 	return (

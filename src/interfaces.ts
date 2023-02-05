@@ -1,5 +1,6 @@
 export interface IProduct {
 	checked: boolean;
+    imgFetch: boolean;
 	id: number | null;
 	title: string;
 	price: number | null;

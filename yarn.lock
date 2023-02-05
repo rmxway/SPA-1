@@ -3026,6 +3026,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-lazy-load-image-component@npm:^1.5.2":
+  version: 1.5.2
+  resolution: "@types/react-lazy-load-image-component@npm:1.5.2"
+  dependencies:
+    "@types/react": "*"
+    csstype: ^3.0.2
+  checksum: f52dfd2eb58d14c3cb7ba4ca5938a10d4925bee7fa8d654f13c8af36e81d9fce3ebce7d51c29f1f78e09134244e0b91607a4b8051a6eb33d63c4355685442d08
+  languageName: node
+  linkType: hard
+
 "@types/react@npm:*, @types/react@npm:^18.0.27":
   version: 18.0.27
   resolution: "@types/react@npm:18.0.27"
@@ -5246,13 +5256,6 @@ __metadata:
     isobject: ^3.0.0
     static-extend: ^0.1.1
   checksum: be108900801e639e50f96a7e4bfa8867c753a7750a7603879f3981f8b0a89cba657497a2d5f40cd4ea557ff15d535a100818bb486baf6e26fe5d7872e75f1078
-  languageName: node
-  linkType: hard
-
-"classnames@npm:^2.3.2":
-  version: 2.3.2
-  resolution: "classnames@npm:2.3.2"
-  checksum: 2c62199789618d95545c872787137262e741f9db13328e216b093eea91c85ef2bfb152c1f9e63027204e2559a006a92eb74147d46c800a9f96297ae1d9f96f4e
   languageName: node
   linkType: hard
 
@@ -10656,6 +10659,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.throttle@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "lodash.throttle@npm:4.1.1"
+  checksum: 129c0a28cee48b348aef146f638ef8a8b197944d4e9ec26c1890c19d9bf5a5690fe11b655c77a4551268819b32d27f4206343e30c78961f60b561b8608c8c805
+  languageName: node
+  linkType: hard
+
 "lodash.uniq@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.uniq@npm:4.5.0"
@@ -13522,6 +13532,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-lazy-load-image-component@npm:^1.5.6":
+  version: 1.5.6
+  resolution: "react-lazy-load-image-component@npm:1.5.6"
+  dependencies:
+    lodash.debounce: ^4.0.8
+    lodash.throttle: ^4.1.1
+  peerDependencies:
+    react: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x
+    react-dom: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x
+  checksum: 2db8dd56e5926c4831e58b05650e310fd8eabc24607716ad7ffda3e0f6b325434edb098ad27068ea8db7f42fec37bc17eaffbaf562a322e6f1ace16dcc3d5422
+  languageName: node
+  linkType: hard
+
 "react-redux@npm:^8.0.5":
   version: 8.0.5
   resolution: "react-redux@npm:8.0.5"
@@ -14812,11 +14835,11 @@ __metadata:
     "@types/react": ^18.0.27
     "@types/react-dom": ^18.0.10
     "@types/react-helmet": ^6.1.6
+    "@types/react-lazy-load-image-component": ^1.5.2
     "@types/styled-components": ^5.1.26
     "@typescript-eslint/eslint-plugin": ^5.50.0
     "@typescript-eslint/parser": ^5.50.0
     awesome-typescript-loader: ^5.2.1
-    classnames: ^2.3.2
     craco: ^0.0.3
     eslint: ~8.33.0
     eslint-config-airbnb: ^19.0.4
@@ -14837,6 +14860,7 @@ __metadata:
     react-app-alias: ^2.2.2
     react-dom: ^18.2.0
     react-helmet: ^6.1.0
+    react-lazy-load-image-component: ^1.5.6
     react-redux: ^8.0.5
     react-router: ^6.8.0
     react-router-dom: ^6.8.0

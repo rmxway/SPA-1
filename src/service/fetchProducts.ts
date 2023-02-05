@@ -12,6 +12,7 @@ const fetchProducts = async (count: number) => {
 		const json: IProduct[] = await result.json();
 		json.forEach((item) => {
 			item.checked = false;
+            item.imgFetch = true;
 		});
 		dispatch(getProducts(json));
 	} catch (e) {

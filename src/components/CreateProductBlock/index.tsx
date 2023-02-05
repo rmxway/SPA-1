@@ -14,6 +14,7 @@ const defaultProduct = {
 	description: '',
 	price: null,
 	checked: false,
+    imgFetch: false,
 };
 
 const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {

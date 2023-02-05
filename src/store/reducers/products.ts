@@ -66,7 +66,16 @@ export const productsReducer = createSlice({
 			toggleItems(state.items, action.payload.id);
 			toggleItems(state.fetchedItems, action.payload.id);
 		},
-		sortProduct: (state, action: PayloadAction<SortTypes>) => {
+		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
+			state.items.forEach((item) => {
+				if (item.id === action.payload.id) {
+                    item.imgFetch = action.payload.fetch
+                    return;
+                };
+			});
+            state.fetchedItems = state.items;
+		},
+		sortProducts: (state, action: PayloadAction<SortTypes>) => {
 			const { sort, toggle } = action.payload;
 			changeStateSort(state, action.payload);
 
@@ -104,6 +113,7 @@ export const productsReducer = createSlice({
 	},
 });
 
-export const { getProducts, fetching, setError, toggleProduct, sortProduct, searchProduct } = productsReducer.actions;
+export const { getProducts, fetching, setError, toggleProduct, fetchingImageProduct, sortProducts, searchProduct } =
+	productsReducer.actions;
 
 export default productsReducer.reducer;

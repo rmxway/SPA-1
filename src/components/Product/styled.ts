@@ -1,6 +1,7 @@
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 
 export const ProductWrapper = styled.div`
+	position: relative;
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
@@ -27,17 +28,23 @@ export const ProductWrapper = styled.div`
 		}
 	}
 
+	button {
+		margin-top: 10px;
+		align-self: center;
+	}
+`;
+
+export const WrapperImage = styled.div`
+	position: relative;
+	width: 100%;
+	min-height: 150px;
+
 	img {
 		width: 150px;
 		height: 150px;
 		object-fit: contain;
 		object-position: center;
 		margin: 20px auto;
-	}
-
-	button {
-		margin-top: 10px;
-		align-self: center;
 	}
 `;
 
@@ -102,7 +109,7 @@ export const Help = styled.button`
 	color: ${(props) => props.theme.colors.primary};
 `;
 
-export const Description = styled.div`
+export const Description = styled.div<{ open: boolean }>`
 	font-size: 14px;
 	line-height: 1.3;
 	text-align: left;
@@ -112,8 +119,11 @@ export const Description = styled.div`
 	transition: 0.3s all;
 	opacity: 0;
 
-	&.open {
-		max-height: 400px;
-		opacity: 1;
-	}
+	${(props) =>
+		props.open
+			? css`
+					max-height: 400px;
+					opacity: 1;
+			  `
+			: null}
 `;
