@@ -1,9 +1,6 @@
-import 'react-lazy-load-image-component/src/effects/blur.css';
-
 import { FC, useState } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import { Space } from '@/components/Layout';
+import { LazyImage, Space } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
@@ -33,17 +30,17 @@ const Product: FC<ProductType> = ({ product, ...props }) => {
 				{product.imgFetch ? (
 					<>
 						<Loader loading={product.imgFetch} />
-						<LazyLoadImage
+						<LazyImage
 							src={product.image}
 							alt={product.title}
+							threshold={-200}
+							effect="blur"
 							afterLoad={() =>
 								setTimeout(
 									() => dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false })),
 									1000
 								)
 							}
-							threshold={-200}
-							effect="blur"
 						/>
 					</>
 				) : (
