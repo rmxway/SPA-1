@@ -1,33 +1,49 @@
 import { darken } from 'polished';
 import styled from 'styled-components/macro';
 
+import { media } from '@/theme';
+
 export const Cart = styled.div`
 	margin: 20px 0;
 	display: flex;
 	align-items: flex-start;
+	flex-direction: column;
+
+	${media.greaterThan('sm')`
+	 	flex-direction: row;
+	`}
 `;
 
 export const Wrapper = styled.div`
-	flex-grow: 1;
+	width: 100%;
 	display: flex;
 	flex-direction: column;
-	margin-right: 20px;
+
+	${media.greaterThan('sm')`
+		margin-right: 20px;
+		flex-grow: 1;
+	`}
 `;
 
 export const Sidebar = styled.div`
 	position: sticky;
 	top: 90px;
-	min-width: 300px;
+	width: 100%;
 	min-height: 100px;
 	padding: 20px;
 	background-color: #fff;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 
-    button {
-        margin-top: 20px;
-        margin-bottom: 0;
-        width: 100%;
-    }
+	${media.greaterThan('sm')`
+		width: auto;
+		min-width: 33%;
+	`}
+
+	button {
+		margin-top: 20px;
+		margin-bottom: 0;
+		width: 100%;
+	}
 `;
 
 export const Title = styled.div`

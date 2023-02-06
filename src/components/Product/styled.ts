@@ -1,19 +1,31 @@
 import styled, { css } from 'styled-components/macro';
 
+import { media } from '@/theme/media';
+
 export const ProductWrapper = styled.div`
 	position: relative;
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
 	padding: 16px;
-	width: calc(25% - 20px);
+	width: calc(50% - 20px);
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	margin: 10px;
 	text-align: center;
-	transition: 0.3s all;
+	transition: 0.3s box-shadow, opacity;
 	background-color: #fff;
 	opacity: 0;
 	animation: fadeIn 0.2s linear 0s 1 forwards;
+
+	${media.greaterThan('sm')`
+		width: calc(33.33% - 20px);
+	`}
+
+	${media.greaterThan('md')`
+		width: calc(25% - 20px);
+	`}
+
+	
 
 	&:hover {
 		box-shadow: ${(props) => props.theme.layout.shadow};

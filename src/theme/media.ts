@@ -1,10 +1,18 @@
 import { generateMedia } from 'styled-media-query';
 
-const breakpoints = {
-	xl: '1440px',
+interface BreakpointsType {
+	xl: string;
+	lg: string;
+	md: string;
+	sm: string;
+	xs: string;
+}
+
+const breakpoints: BreakpointsType = {
+	xl: '1400px',
 	lg: '1280px',
 	md: '1024px',
-	sm: '750px',
+	sm: '768px',
 	xs: '500px',
 };
 
