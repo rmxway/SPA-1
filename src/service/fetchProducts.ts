@@ -4,15 +4,19 @@ import { fetching, getProducts, setError } from '@/store/reducers/products';
 
 const { dispatch } = store;
 
-const fetchProducts = async (count: number) => {
+const fetchProducts = async (count?: number | null, product?: number) => {
 	dispatch(setError(''));
 	try {
 		dispatch(fetching(true));
-		const result = await fetch(`https://fakestoreapi.com/products?limit=${count}`);
-		const json: IProduct[] = await result.json();
+		const paramCount = count ? `?limit=${count}` : '';
+		const paramProduct = product ? `/${product}` : '';
+		const path = `https://fakestoreapi.com/products${paramProduct}${paramCount}`;
+		const result = await fetch(path);
+		const json: IProduct[] = count ? await result.json() : [await result.json()];
+
 		json.forEach((item) => {
 			item.checked = false;
-            item.imgFetch = true;
+			item.imgFetch = true;
 		});
 		dispatch(getProducts(json));
 	} catch (e) {

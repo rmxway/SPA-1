@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components/macro';
 
 import { media } from '@/theme/media';
@@ -46,7 +47,7 @@ export const ProductWrapper = styled.div`
 	}
 `;
 
-export const WrapperImage = styled.div`
+export const WrapperImage = styled(Link)`
 	position: relative;
 	width: 100%;
 	min-height: 150px;
@@ -60,17 +61,24 @@ export const WrapperImage = styled.div`
 	}
 `;
 
-export const Title = styled.div`
+export const Title = styled(Link)`
 	font-size: 16px;
-	font-weight: 600;
+	font-weight: 400;
+	line-height: 1.15;
 	flex-shrink: 0;
 	margin-bottom: 10px;
 	width: 100%;
+	text-decoration: none;
+	color: initial;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
-	min-height: 40px;
+	min-height: 35px;
+
+	&:hover {
+		text-decoration: underline;
+	}
 `;
 
 export const Price = styled.div`

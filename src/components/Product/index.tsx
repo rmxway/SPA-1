@@ -17,6 +17,7 @@ interface ProductType {
 const Product: FC<ProductType> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
+	const link = `/product/${product.id}`;
 
 	const handleClickAddToCart = () => {
 		dispatch(toggleProduct(product));
@@ -25,8 +26,8 @@ const Product: FC<ProductType> = ({ product, ...props }) => {
 
 	return (
 		<ProductWrapper {...props}>
-			<Title>{product.title}</Title>
-			<WrapperImage>
+			<Title to={link}>{product.title}</Title>
+			<WrapperImage to={link}>
 				{product.imgFetch ? (
 					<>
 						<Loader loading={product.imgFetch} />

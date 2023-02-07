@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components/macro';
 
 import { Container } from '@/components/Layout';
 import { Navbar } from '@/components/Navbar';
-import { CartPage, MainPage, ProductsPage } from '@/pages';
+import { CartPage, MainPage, Product , ProductsPage } from '@/pages';
 import { defaultTheme } from '@/theme';
 import { GlobalStyles } from '@/theme/styles/global';
 
@@ -18,6 +18,7 @@ const App: FC = () => (
 					<Route path="/" element={<MainPage />} />
 					<Route path="products" element={<ProductsPage />} />
 					<Route path="cart" element={<CartPage />} />
+					<Route path="/product/:productId" element={<Product />} />
 				</Routes>
 			</Container>
 		</ThemeProvider>
