@@ -5,7 +5,7 @@ import { useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
 
-import { Product } from './Product';
+import { ProductCard } from './ProductCard';
 
 const Wrapper = styled.div`
 	position: relative;
@@ -20,7 +20,7 @@ const ProductsGrid: FC = () => {
 	return (
 		<Wrapper>
 			{items &&
-				items.map((product: IProduct, index) => <Product product={product} key={product.id} index={index} />)}
+				items.map((product: IProduct, index) => <ProductCard product={product} key={product.id} index={index} />)}
 		</Wrapper>
 	);
 };

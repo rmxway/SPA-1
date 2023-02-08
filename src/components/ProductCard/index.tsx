@@ -4,8 +4,8 @@ import { LazyImage, Space } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
-import { addToCart } from '@/store/reducers/cart';
-import { fetchingImageProduct, toggleProduct } from '@/store/reducers/products';
+import { moveToCart } from '@/store/reducers/combineActions';
+import { fetchingImageProduct } from '@/store/reducers/products';
 
 import { Description, Help, Price, ProductWrapper, Rating, Title, Tools, WrapperImage } from './styled';
 
@@ -14,15 +14,10 @@ interface ProductType {
 	index: number;
 }
 
-const Product: FC<ProductType> = ({ product, ...props }) => {
+const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
 	const link = `/product/${product.id}`;
-
-	const handleClickAddToCart = () => {
-		dispatch(toggleProduct(product));
-		dispatch(addToCart(product));
-	};
 
 	return (
 		<ProductWrapper {...props}>
@@ -65,12 +60,12 @@ const Product: FC<ProductType> = ({ product, ...props }) => {
 					</div>
 				</Tools>
 			</Price>
-			<ButtonUI primary onClick={handleClickAddToCart} disabled={product.checked}>
-				{product.checked ? 'Added to card' : 'Add to card'}
+			<ButtonUI primary onClick={() => moveToCart(product)} disabled={product.checked}>
+				{product.checked ? 'Added' : 'Add to cart'}
 			</ButtonUI>
 		</ProductWrapper>
 	);
 };
 
-export { Product };
-export default Product;
+export { ProductCard };
+export default ProductCard;
