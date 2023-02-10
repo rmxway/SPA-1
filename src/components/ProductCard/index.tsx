@@ -1,13 +1,13 @@
 import { FC, useState } from 'react';
 
-import { LazyImage, Space } from '@/components/Layout';
+import { LazyImage, RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { moveToCart } from '@/store/reducers/combineActions';
 import { fetchingImageProduct } from '@/store/reducers/products';
 
-import { Description, Help, Price, ProductWrapper, Rating, Title, Tools, WrapperImage } from './styled';
+import { Description, Help, Price, ProductWrapper, Title, Tools, WrapperImage } from './styled';
 
 interface ProductType {
 	product: IProduct;
@@ -21,7 +21,6 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 
 	return (
 		<ProductWrapper {...props}>
-			<Title to={link}>{product.title}</Title>
 			<WrapperImage to={link}>
 				{product.imgFetch ? (
 					<>
@@ -48,18 +47,11 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 			</Help>
 			<Description open={viewDescription}>{product.description}</Description>
 			<Space />
-			<Price>
-				{product.price} €
-				<Tools>
-					<div>
-						<span>in store</span> ({product.rating?.count})
-					</div>
-					<div>
-						<span>rating: </span>
-						<Rating>{product.rating?.rate}</Rating>
-					</div>
-				</Tools>
-			</Price>
+			<Tools>
+				<Price>{product.price} €</Price>
+				<RatingStars rating={product.rating?.rate} />
+			</Tools>
+			<Title to={link}>{product.title}</Title>
 			<ButtonUI primary onClick={() => moveToCart(product)} disabled={product.checked}>
 				{product.checked ? 'Added' : 'Add to cart'}
 			</ButtonUI>

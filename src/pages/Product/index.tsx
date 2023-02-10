@@ -1,7 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { LayerBlock } from '@/components/Layout';
+import { LayerBlock, RatingStars } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
 import { useAppSelector } from '@/hooks';
 import { fetchProducts } from '@/service/fetchProducts';
@@ -26,20 +26,23 @@ const ProductPage: FC = () => {
 				<Wrapper>
 					<Image src={current?.image} alt={current?.title} />
 					<Info>
-						<p>
-							<strong>Category:</strong> {current.category}
-						</p>
-						<br />
-						<p>{current.description}</p>
+						<span>
+							<p>
+								<strong>Category:</strong> {current.category}
+							</p>
+							<br />
+							<p>{current.description}</p>
+						</span>
+
+						<PriceBlock>
+							<RatingStars rating={current.rating?.rate} />
+							<br />
+							<span>{current.price} €</span>
+							<ButtonUI primary onClick={() => moveToCart(current)} disabled={current.checked}>
+								{current.checked ? 'Added' : 'Add to cart'}
+							</ButtonUI>
+						</PriceBlock>
 					</Info>
-					<PriceBlock>
-						<strong>Rating: </strong>
-						{current.rating?.rate}
-						<span>{current.price} €</span>
-						<ButtonUI primary onClick={() => moveToCart(current)} disabled={current.checked}>
-							{current.checked ? 'Added' : 'Add to cart'}
-						</ButtonUI>
-					</PriceBlock>
 				</Wrapper>
 			</LayerBlock>
 		</>

@@ -12,7 +12,6 @@ export const ProductWrapper = styled.div`
 	width: calc(50% - 20px);
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	margin: 10px;
-	text-align: center;
 	transition: 0.3s box-shadow, opacity;
 	background-color: #fff;
 	opacity: 0;
@@ -26,7 +25,7 @@ export const ProductWrapper = styled.div`
 		width: calc(25% - 20px);
 	`}
 
-	
+
 
 	&:hover {
 		box-shadow: ${(props) => props.theme.layout.shadow};
@@ -42,6 +41,7 @@ export const ProductWrapper = styled.div`
 	}
 
 	button {
+		width: 100%;
 		margin-top: 10px;
 		align-self: center;
 	}
@@ -50,6 +50,7 @@ export const ProductWrapper = styled.div`
 export const WrapperImage = styled(Link)`
 	position: relative;
 	width: 100%;
+	text-align: center;
 	min-height: 150px;
 
 	img {
@@ -82,30 +83,25 @@ export const Title = styled(Link)`
 `;
 
 export const Price = styled.div`
-	display: flex;
-	align-items: flex-start;
-	flex-direction: row-reverse;
-	justify-content: space-between;
-	width: 100%;
-	margin-bottom: 10px;
-	font-size: 24px;
-	font-weight: 500;
-	margin: 20px 0;
+	font-size: 1.5rem;
+    letter-spacing: 1px;
+	margin-bottom: 5px;
 `;
 
 export const Tools = styled.div`
-	flex-direction: column;
-	align-items: flex-start;
-	font-size: 14px;
+	font-weight: 500;
+	width: 100%;
+	margin: 20px 0;
 	display: flex;
-	justify-content: space-between;
+	flex-direction: column;
+	font-size: 14px;
 
 	span {
 		font-weight: 600;
 	}
 `;
 
-export const Rating = styled.span`
+export const RatingColor = styled.span`
 	color: ${({ children, theme }) => {
 		if (children) {
 			if (Number(children) > 4) return theme.colors.success;
@@ -126,14 +122,13 @@ export const Help = styled.button`
 	cursor: pointer;
 	text-transform: uppercase;
 	margin-bottom: 10px;
-	color: ${(props) => props.theme.colors.primary};
+	color: ${(props) => props.theme.colors.gray.$5};
 `;
 
 export const Description = styled.div<{ open: boolean }>`
 	font-size: 14px;
 	line-height: 1.3;
 	text-align: left;
-	margin-bottom: 10px;
 	max-height: 0;
 	overflow: hidden;
 	transition: 0.3s all;

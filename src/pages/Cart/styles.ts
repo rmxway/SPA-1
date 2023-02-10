@@ -63,6 +63,7 @@ export const Total = styled.div`
 		font-size: 24px;
 		font-weight: 900;
 		margin-left: 10px;
+        letter-spacing: 1px;
 		color: ${(props) => darken(0.1, props.theme.colors.success)};
 	}
 `;

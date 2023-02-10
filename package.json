@@ -8,7 +8,7 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"pretty": "npx prettier --write ./src",
-		"icofont": "fantasticon -n icofont -p icofont",
+		"icofont": "fantasticon -n icofont -p icofont --normalize",
 		"lint": "eslint . -c .eslintrc.js --ext ts,tsx",
 		"lint:fix": "eslint . -c .eslintrc.js --ext ts,tsx --fix"
 	},
