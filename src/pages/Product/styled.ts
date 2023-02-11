@@ -4,7 +4,6 @@ import { LazyImage } from '@/components/Layout';
 import { media } from '@/theme';
 
 export const Wrapper = styled.div`
-	padding: 20px 0;
 	display: flex;
 	flex-wrap: wrap;
 	min-height: 500px;
@@ -17,20 +16,20 @@ export const Wrapper = styled.div`
 export const Title = styled.h1`
 	text-transform: uppercase;
 	line-height: 1.2;
-	font-weight: 100;
+    margin-top: 0;
 `;
 
 export const Image = styled(LazyImage)`
 	width: 100%;
-	height: 300px;
+	max-height: 400px;
 	flex-grow: 1;
 	object-fit: contain;
 	margin-bottom: 30px;
 	order: 1;
+    border-radius: ${props => props.theme.radius.borderRadius};
 
 	${media.greaterThan('md')`
         max-width: 500px;
-        height: auto;
     `}
 `;
 

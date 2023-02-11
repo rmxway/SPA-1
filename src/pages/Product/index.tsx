@@ -18,34 +18,33 @@ const ProductPage: FC = () => {
 	}, [productId, items]);
 
 	const current = items.find((item) => item.id === Number(productId));
+	const img = String(current?.images?.length && current?.images[0]);
 
 	return current ? (
-		<>
-			<Title>{current?.title}</Title>
-			<LayerBlock>
-				<Wrapper>
-					<Image src={current?.image} alt={current?.title} />
-					<Info>
-						<span>
-							<p>
-								<strong>Category:</strong> {current.category}
-							</p>
-							<br />
-							<p>{current.description}</p>
-						</span>
+		<LayerBlock mt>
+			<Wrapper>
+				<Image src={img} alt={current?.title} />
+				<Info>
+					<Title>{current?.title}</Title>
+					<span>
+						<p>
+							<strong>Category:</strong> {current.category}
+						</p>
+						<br />
+						<p>{current.description}</p>
+					</span>
 
-						<PriceBlock>
-							<RatingStars rating={current.rating?.rate} />
-							<br />
-							<span>{current.price} €</span>
-							<ButtonUI primary onClick={() => moveToCart(current)} disabled={current.checked}>
-								{current.checked ? 'Added' : 'Add to cart'}
-							</ButtonUI>
-						</PriceBlock>
-					</Info>
-				</Wrapper>
-			</LayerBlock>
-		</>
+					<PriceBlock>
+						<RatingStars rating={current.rating} />
+						<br />
+						<span>{current.price} €</span>
+						<ButtonUI primary onClick={() => moveToCart(current)} disabled={current.checked}>
+							{current.checked ? 'Added' : 'Add to cart'}
+						</ButtonUI>
+					</PriceBlock>
+				</Info>
+			</Wrapper>
+		</LayerBlock>
 	) : (
 		<>Not Found</>
 	);

@@ -18,6 +18,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
 	const link = `/product/${product.id}`;
+	const img = product?.thumbnail;
 
 	return (
 		<ProductWrapper {...props}>
@@ -26,7 +27,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 					<>
 						<Loader loading={product.imgFetch} />
 						<LazyImage
-							src={product.image}
+							src={img}
 							alt={product.title}
 							threshold={-200}
 							effect="blur"
@@ -39,7 +40,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 						/>
 					</>
 				) : (
-					<img src={product.image} alt={product.title} />
+					<img src={img} alt={product.title} />
 				)}
 			</WrapperImage>
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
@@ -49,7 +50,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 			<Space />
 			<Tools>
 				<Price>{product.price} €</Price>
-				<RatingStars rating={product.rating?.rate} />
+				<RatingStars rating={product.rating} />
 			</Tools>
 			<Title to={link}>{product.title}</Title>
 			<ButtonUI primary onClick={() => moveToCart(product)} disabled={product.checked}>

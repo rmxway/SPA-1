@@ -1,14 +1,30 @@
+// export interface IProduct {
+// 	checked: boolean;
+//  imgFetch: boolean;
+// 	id: number | null;
+// 	title: string;
+// 	price: number | null;
+// 	description: string;
+// 	category?: string;
+// 	image?: string;
+// 	rating?: {
+// 		rate: number | null;
+// 		count: number | null;
+// 	};
+// }
+
 export interface IProduct {
-	checked: boolean;
-    imgFetch: boolean;
 	id: number | null;
 	title: string;
-	price: number | null;
 	description: string;
+	brand?: string;
 	category?: string;
-	image?: string;
-	rating?: {
-		rate: number | null;
-		count: number | null;
-	};
+	discountPercentage?: number;
+	images?: string[];
+	thumbnail?: string;
+	price: number | null;
+	rating?: number;
+	stock?: number;
+	checked?: boolean;
+	imgFetch: boolean;
 }

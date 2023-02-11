@@ -67,37 +67,25 @@ export const productsReducer = createSlice({
 			toggleItems(state.fetchedItems, action.payload.id);
 		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
-			state.items.forEach((item) => {
+			state.items.find((item) => {
 				if (item.id === action.payload.id) {
-                    item.imgFetch = action.payload.fetch
-                    return;
-                };
+					item.imgFetch = action.payload.fetch;
+				}
+				return item;
 			});
-            state.fetchedItems = state.items;
+			state.fetchedItems = state.items;
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
 			const { sort, toggle } = action.payload;
 			changeStateSort(state, action.payload);
 
-			if (sort === 'price') {
-				state.items.sort((a, b) => {
-					if (a[sort] && b[sort]) {
-						if (Number(a[sort]) > Number(b[sort])) return -1;
-						if (Number(a[sort]) < Number(b[sort])) return 1;
-					}
-					return 0;
-				});
-			}
-
-			if (sort === 'rating') {
-				state.items.sort((a, b) => {
-					if (a[sort] && b[sort]) {
-						if (Number(a.rating?.rate) > Number(b.rating?.rate)) return -1;
-						if (Number(a.rating?.rate) < Number(b.rating?.rate)) return 1;
-					}
-					return 0;
-				});
-			}
+			state.items.sort((a, b) => {
+				if (a[sort] && b[sort]) {
+					if (Number(a[sort]) > Number(b[sort])) return -1;
+					if (Number(a[sort]) < Number(b[sort])) return 1;
+				}
+				return 0;
+			});
 
 			if (toggle) state.items = state.items.reverse();
 		},
