@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
+import { listener, persistState } from '@/store/localStore';
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
 
@@ -10,7 +11,10 @@ const rootReducer = {
 
 export const store = configureStore({
 	reducer: rootReducer,
+	preloadedState: persistState,
 });
+
+store.subscribe(() => listener(store));
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

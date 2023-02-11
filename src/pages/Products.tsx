@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useEffect } from 'react';
 
 import { Filter } from '@/components/Filter';
 // import { CreateProductBlock } from '@/components/CreateProductBlock';
@@ -6,6 +6,7 @@ import { ProductsGrid } from '@/components/ProductsGrid';
 import { ProductsLoader } from '@/components/ProductsLoader';
 import { useAppSelector } from '@/hooks';
 import { fetchProducts } from '@/service/fetchProducts';
+import { storeName } from '@/store/localStore';
 
 function* runOnce() {
 	yield fetchProducts(8);
@@ -13,8 +14,8 @@ function* runOnce() {
 const generator = runOnce();
 
 const ProductsPage: FC = () => {
-	useMemo(() => {
-		generator.next();
+	useEffect(() => {
+		if (!localStorage.getItem(storeName)) generator.next();
 	}, []);
 
 	const { fetching } = useAppSelector((state) => state.products);
