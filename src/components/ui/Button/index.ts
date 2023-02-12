@@ -1,12 +1,13 @@
 import { darken, desaturate } from 'polished';
 import styled, { css } from 'styled-components/macro';
 
-interface ButtonProps {
+export interface ButtonProps {
 	success?: boolean;
 	danger?: boolean;
 	primary?: boolean;
 	white?: boolean;
 	w100?: boolean;
+	margins?: boolean;
 }
 
 const mixinButton = ($background = '#fff', $color = '#fff') => css`
@@ -25,13 +26,13 @@ const mixinButton = ($background = '#fff', $color = '#fff') => css`
 	&:disabled,
 	&:disabled:hover {
 		opacity: 0.45;
-		background-color: ${desaturate(0.6, $background)};
+		background-color: ${desaturate(0.4, $background)};
 		color: ${desaturate(0.6, $color)};
 		cursor: default;
 	}
 `;
 
-const Button = styled.button<ButtonProps>`
+export const ButtonUI = styled.button<ButtonProps>`
 	appearance: none;
 	border: 1px solid #aaa;
 	background: none;
@@ -41,7 +42,12 @@ const Button = styled.button<ButtonProps>`
 	font-size: 12px;
 	font-weight: 800;
 	text-transform: uppercase;
-	margin-bottom: 10px;
+	${(props) =>
+		props.margins &&
+		`
+        margin-bottom: 10px;
+        margin-right: 10px;
+    `}
 
 	cursor: pointer;
 	line-height: 1;
@@ -78,6 +84,3 @@ const Button = styled.button<ButtonProps>`
 		return null;
 	}}
 `;
-
-export { Button };
-export default Button;

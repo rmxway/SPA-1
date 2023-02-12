@@ -37,7 +37,6 @@ export const Price = styled.div`
 	margin-left: 10px;
 	font-size: 22px;
 	min-width: 120px;
-    letter-spacing: 1px;
 	text-align: right;
 `;
 

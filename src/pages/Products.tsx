@@ -10,7 +10,7 @@ import { fetchProducts } from '@/service/fetchProducts';
 import { storeName } from '@/store/localStore';
 
 function* runOnce() {
-	yield fetchProducts(8);
+	yield fetchProducts(12);
 }
 const generator = runOnce();
 

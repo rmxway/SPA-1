@@ -35,7 +35,7 @@ const ProductPage: FC = () => {
 					</span>
 
 					<PriceBlock>
-						<RatingStars rating={current.rating} />
+						<RatingStars rating={Number(current.rating)} />
 						<br />
 						<span>{current.price} €</span>
 						<ButtonUI primary onClick={() => moveToCart(current)} disabled={current.checked}>

@@ -2,13 +2,18 @@ import { FC } from 'react';
 import styled from 'styled-components/macro';
 
 interface RatingTypes {
-	rating?: number | null;
+	rating: number | null;
 }
 
 const Block = styled.div`
 	display: flex;
 	align-items: center;
 	mix-blend-mode: multiply;
+
+	span {
+		display: inline-block;
+		margin-left: 5px;
+	}
 `;
 
 const RatingStarsStyled = styled.div<RatingTypes>`
@@ -19,15 +24,14 @@ const RatingStarsStyled = styled.div<RatingTypes>`
 `;
 
 const Wrapper = styled.div<{ width?: number | null }>`
-	position: ${(props) => (props.width ? 'absolute' : 'relative')};
+	position: ${(props) => (typeof props.width === 'number' ? 'absolute' : 'relative')};
 	left: 0;
 	top: 0;
 	display: flex;
 	flex-wrap: nowrap;
 	overflow: hidden;
 	background-color: white;
-	margin-right: 5px;
-	width: ${(props) => (props.width ? `calc((100% / 5) * ${props.width} - 5px)` : '100%')};
+	width: ${(props) => (typeof props.width === 'number' ? `calc((100% / 5) * ${props.width})` : '100%')};
 `;
 
 const Star = styled.i<{ active?: boolean | unknown }>`
@@ -59,7 +63,7 @@ const RatingStars: FC<RatingTypes> = ({ rating, ...props }) => (
 				<Star className="icofont icofont-star" active />
 			</Wrapper>
 		</RatingStarsStyled>
-		{rating}
+		<span>{rating}</span>
 	</Block>
 );
 

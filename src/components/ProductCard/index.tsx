@@ -50,7 +50,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 			<Space />
 			<Tools>
 				<Price>{product.price} €</Price>
-				<RatingStars rating={product.rating} />
+				<RatingStars rating={Number(product.rating)} />
 			</Tools>
 			<Title to={link}>{product.title}</Title>
 			<ButtonUI primary onClick={() => moveToCart(product)} disabled={product.checked}>

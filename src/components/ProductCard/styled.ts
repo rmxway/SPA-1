@@ -84,7 +84,6 @@ export const Title = styled(Link)`
 
 export const Price = styled.div`
 	font-size: 1.5rem;
-    letter-spacing: 1px;
 	margin-bottom: 5px;
 `;
 
@@ -96,7 +95,7 @@ export const Tools = styled.div`
 	flex-direction: column;
 	font-size: 14px;
 
-	span {
+	& > span {
 		font-weight: 600;
 	}
 `;

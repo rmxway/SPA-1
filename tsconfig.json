@@ -24,7 +24,7 @@
 			"@/theme/*": ["./theme/*"]
 		}
 	},
-	"include": ["**/*.ts", "**/*.tsx", "./declarations.d.ts"],
+	"include": ["**/*.ts", "**/*.tsx", "@types/declarations.d.ts"],
 	"exclude": ["node_modules", ".vscode"],
 	"display": "Recommended"
 }

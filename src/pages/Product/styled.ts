@@ -35,6 +35,7 @@ export const Image = styled(LazyImage)`
 
 export const Info = styled.div`
 	order: 2;
+    flex-grow: 1;
 
 	& > span {
 		line-height: 1.5;
@@ -42,7 +43,6 @@ export const Info = styled.div`
 	}
 
 	${media.greaterThan('md')`
-        flex-grow: 1;
         margin-left: 50px;
     `}
 `;
@@ -57,11 +57,10 @@ export const PriceBlock = styled.div`
         width: 200px;
     `}
 
-	span {
+	& > span {
 		display: block;
 		font-size: 30px;
 		margin-bottom: 30px;
-		letter-spacing: 1px;
 	}
 
 	button {
