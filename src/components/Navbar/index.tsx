@@ -21,6 +21,7 @@ const Navbar: FC = () => (
 				</Link>
 				<Space />
 				<NavLink to="/">Main</NavLink>
+                <NavLink to="/ui">UI</NavLink>
 				<NavLink to="/products">Products</NavLink>
 				<NavLink to="/cart">
 					<NavbarCart />
