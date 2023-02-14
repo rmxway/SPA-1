@@ -6,7 +6,7 @@ export const Item = styled.div`
 	align-items: center;
 	background-color: #fff;
 	width: 100%;
-	padding: 20px;
+	padding: 10px 20px;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	margin-bottom: 10px;
 	transition: 0.12s;

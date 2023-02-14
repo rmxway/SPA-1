@@ -1,28 +1,28 @@
 import { FC, useEffect, useState } from 'react';
 
-import { Filter } from '@/components/Filter';
-// import { CreateProductBlock } from '@/components/CreateProductBlock';
-import { ProductsGrid } from '@/components/ProductsGrid';
-import { ProductsLoader } from '@/components/ProductsLoader';
-import { ButtonUI } from '@/components/ui';
+import { Filter, Pagination, ProductsGrid } from '@/components';
+import { LayerBlock } from '@/components/Layout';
+import { ButtonUI, Loader } from '@/components/ui';
 import { useAppSelector } from '@/hooks';
-import { fetchProducts } from '@/service/fetchProducts';
+import { fetchProducts } from '@/service';
+import { cartStore, productsStore } from '@/store';
 import { storeName } from '@/store/localStore';
 
-function* runOnce() {
-	yield fetchProducts(12);
-}
-const generator = runOnce();
+// function* runOnce() {
+// 	yield fetchProducts({ count: 8 });
+// }
+// const generator = runOnce();
 
 const ProductsPage: FC = () => {
-	const { items } = useAppSelector((state) => state.cart);
-	const { fetching } = useAppSelector((state) => state.products);
-	const isEmptyCart = !!items.length;
+	const { items: cartItems } = useAppSelector(cartStore);
+	const { fetching, error, page, count } = useAppSelector(productsStore);
+	const isEmptyCart = !!cartItems.length;
 	const [isLocal, setIsLocal] = useState<boolean>(isEmptyCart);
 
 	useEffect(() => {
-		if (!isEmptyCart) generator.next();
-	}, [isEmptyCart]);
+		// if (!isEmptyCart) generator.next();
+		fetchProducts({ count, page });
+	}, [page, count]); // isEmptyCart
 
 	useEffect(() => setIsLocal(isEmptyCart), [isEmptyCart]);
 
@@ -32,20 +32,20 @@ const ProductsPage: FC = () => {
 			<ButtonUI
 				success={isLocal}
 				onClick={() => {
-					localStorage.removeItem(storeName);
+					localStorage.setItem(storeName, '');
 					setIsLocal(false);
 				}}
 			>
 				Delete storage
 			</ButtonUI>
-			{/* <CreateProductBlock addProduct={createProduct} /> */}
-			<ProductsLoader load={fetching} />
-			{!fetching && (
-				<>
-					<Filter />
-					<ProductsGrid />
-				</>
-			)}
+			{error && <LayerBlock mt>{error}</LayerBlock>}
+
+			<Filter />
+			<Pagination />
+
+			<ProductsGrid>
+				<Loader loading={fetching} />
+			</ProductsGrid>
 		</>
 	);
 };
