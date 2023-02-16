@@ -2,9 +2,9 @@ $icofont-font: 'icofont';
 
 @font-face {
     font-family: $icofont-font;
-    src: url(".//icofont.ttf?ae6283c97f78d1cf6363e0d44b44eb33") format("truetype"),
-url(".//icofont.woff?ae6283c97f78d1cf6363e0d44b44eb33") format("woff"),
-url(".//icofont.woff2?ae6283c97f78d1cf6363e0d44b44eb33") format("woff2");
+    src: url(".//icofont.ttf?197cf69a5c986ae4ae447853a3a15477") format("truetype"),
+url(".//icofont.woff?197cf69a5c986ae4ae447853a3a15477") format("woff"),
+url(".//icofont.woff2?197cf69a5c986ae4ae447853a3a15477") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -26,9 +26,10 @@ $icofont-map: (
     'arrow-down': '\f101',
     'arrow-up': '\f102',
     'cart': '\f103',
-    'star-filled': '\f104',
-    'star': '\f105',
-    'times-small': '\f106',
+    'nophoto': '\f104',
+    'star-filled': '\f105',
+    'star': '\f106',
+    'times-small': '\f107',
 );
 
 .icofont-arrow-down:before {
@@ -39,6 +40,9 @@ $icofont-map: (
 }
 .icofont-cart:before {
     content: map-get($icofont-map, 'cart');
+}
+.icofont-nophoto:before {
+    content: map-get($icofont-map, 'nophoto');
 }
 .icofont-star-filled:before {
     content: map-get($icofont-map, 'star-filled');

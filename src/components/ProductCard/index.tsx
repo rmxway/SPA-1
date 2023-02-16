@@ -1,13 +1,12 @@
 import { FC, useState } from 'react';
 
-import { LazyImage, RatingStars, Space } from '@/components/Layout';
+import { RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
 import { currency } from '@/constants';
-import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { moveToCart } from '@/store/reducers/combineActions';
-import { fetchingImageProduct } from '@/store/reducers/products';
 
+import { LazyImageProductCard } from './LazyImageProductCard';
 import { Description, Help, Price, ProductWrapper, Title, Tools, WrapperImage } from './styled';
 
 interface ProductType {
@@ -17,32 +16,14 @@ interface ProductType {
 
 const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
-	const dispatch = useAppDispatch();
 	const link = `/product/${product.id}`;
 	const img = product?.thumbnail;
 
 	return (
 		<ProductWrapper {...props}>
 			<WrapperImage to={link}>
-				{product.imgFetch ? (
-					<>
-						<Loader loading={product.imgFetch} />
-						<LazyImage
-							src={img}
-							alt={product.title}
-							threshold={-200}
-							effect="blur"
-							afterLoad={() =>
-								setTimeout(
-									() => dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false })),
-									200
-								)
-							}
-						/>
-					</>
-				) : (
-					<img src={img} alt={product.title} />
-				)}
+				<Loader loading={product.imgFetch} />
+				<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-200} />
 			</WrapperImage>
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}

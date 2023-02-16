@@ -28,6 +28,10 @@ export const Image = styled(LazyImage)`
 	order: 1;
     border-radius: ${props => props.theme.radius.borderRadius};
 
+    &.icofont {
+        font-size: 3rem;
+    }
+
 	${media.greaterThan('md')`
         max-width: 500px;
     `}

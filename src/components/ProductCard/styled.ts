@@ -50,8 +50,12 @@ export const ProductWrapper = styled.div`
 export const WrapperImage = styled(Link)`
 	position: relative;
 	width: 100%;
-	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	min-height: 150px;
+
+    text-decoration: none;
 
 	img {
 		width: 150px;
@@ -59,6 +63,11 @@ export const WrapperImage = styled(Link)`
 		object-fit: contain;
 		object-position: center;
 		margin: 20px auto;
+	}
+
+	.icofont {
+		font-size: 3rem;
+        color: ${props => props.theme.colors.gray.$4}
 	}
 `;
 
