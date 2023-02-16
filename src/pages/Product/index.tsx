@@ -3,18 +3,20 @@ import { useParams } from 'react-router-dom';
 
 import { LayerBlock, RatingStars } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
+import { currency } from '@/constants';
 import { useAppSelector } from '@/hooks';
-import { fetchProducts } from '@/service/fetchProducts';
+import { fetchProducts } from '@/service';
+import { productsStore } from '@/store';
 import { moveToCart } from '@/store/reducers/combineActions';
 
 import { Image, Info, PriceBlock, Title, Wrapper } from './styled';
 
 const ProductPage: FC = () => {
 	const { productId } = useParams();
-	const { items } = useAppSelector((store) => store.products);
+	const { items } = useAppSelector(productsStore);
 
 	useEffect(() => {
-		if (items.length === 0) fetchProducts(null, Number(productId));
+		if (items.length === 0) fetchProducts({ product: Number(productId) });
 	}, [productId, items]);
 
 	const current = items.find((item) => item.id === Number(productId));
@@ -37,7 +39,9 @@ const ProductPage: FC = () => {
 					<PriceBlock>
 						<RatingStars rating={Number(current.rating)} />
 						<br />
-						<span>{current.price} €</span>
+						<span>
+							{current.price} {currency}
+						</span>
 						<ButtonUI primary onClick={() => moveToCart(current)} disabled={current.checked}>
 							{current.checked ? 'Added' : 'Add to cart'}
 						</ButtonUI>

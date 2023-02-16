@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 
 import { LazyImage, RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
+import { currency } from '@/constants';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { moveToCart } from '@/store/reducers/combineActions';
@@ -34,7 +35,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 							afterLoad={() =>
 								setTimeout(
 									() => dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false })),
-									1000
+									200
 								)
 							}
 						/>
@@ -49,7 +50,9 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 			<Description open={viewDescription}>{product.description}</Description>
 			<Space />
 			<Tools>
-				<Price>{product.price} €</Price>
+				<Price>
+					{product.price} {currency}
+				</Price>
 				<RatingStars rating={Number(product.rating)} />
 			</Tools>
 			<Title to={link}>{product.title}</Title>

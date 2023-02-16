@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { CartItem } from '@/components/CartItem';
+import { CartItem } from '@/components';
 import { ButtonUI } from '@/components/ui';
+import { currency } from '@/constants';
 import { useAppSelector } from '@/hooks';
 import { cartStore } from '@/store';
 
@@ -29,7 +30,9 @@ const CartPage: FC = () => {
 					<Title>Your order</Title>
 					<Total>
 						Total:
-						<span>{totalPrice} €</span>
+						<span>
+							{totalPrice} {currency}
+						</span>
 					</Total>
 					{totalPrice > 0 && (
 						<ButtonUI primary disabled>

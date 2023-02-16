@@ -5,6 +5,9 @@ import { IProduct } from '@/interfaces';
 interface ProductsState {
 	fetchedItems: IProduct[];
 	items: IProduct[];
+	total: number;
+	page: number;
+	count: number;
 	error: string;
 	fetching: boolean;
 	sort: {
@@ -24,6 +27,9 @@ interface SortTypes {
 const initialState: ProductsState = {
 	fetchedItems: [],
 	items: [],
+	total: 0,
+	page: 1,
+	count: 12,
 	error: '',
 	fetching: false,
 	sort: {
@@ -48,13 +54,26 @@ const toggleItems = (array: IProduct[], id: number | null) => {
 	});
 };
 
+type SetProductsPayload = {
+	products: IProduct[];
+	total: number;
+	page: number;
+	count: number;
+};
+
 export const productsReducer = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
-		getProducts: (state, action: PayloadAction<IProduct[]>) => {
-			state.fetchedItems = action.payload;
+		setProducts: (state, action: PayloadAction<SetProductsPayload>) => {
+			const { products, total, count, page } = action.payload;
+
+			state.fetchedItems = products;
 			state.items = state.fetchedItems;
+
+			state.total = total;
+			state.page = page;
+			state.count = count;
 		},
 		fetching: (state, action: PayloadAction<boolean>) => {
 			state.fetching = action.payload;
@@ -67,11 +86,9 @@ export const productsReducer = createSlice({
 			toggleItems(state.fetchedItems, action.payload.id);
 		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
-			state.items.find((item) => {
-				if (item.id === action.payload.id) {
-					item.imgFetch = action.payload.fetch;
-				}
-				return item;
+			const { fetch, id } = action.payload;
+			state.items.forEach((item) => {
+				if (item.id === id) item.imgFetch = fetch;
 			});
 			state.fetchedItems = state.items;
 		},
@@ -98,10 +115,22 @@ export const productsReducer = createSlice({
 				);
 			} else state.items = state.fetchedItems;
 		},
+		changePage: (state, action: PayloadAction<number>) => {
+			state.page = action.payload;
+			state.search.value = '';
+		},
 	},
 });
 
-export const { getProducts, fetching, setError, toggleProduct, fetchingImageProduct, sortProducts, searchProduct } =
-	productsReducer.actions;
+export const {
+	setProducts,
+	fetching,
+	setError,
+	toggleProduct,
+	fetchingImageProduct,
+	sortProducts,
+	searchProduct,
+	changePage,
+} = productsReducer.actions;
 
 export default productsReducer.reducer;

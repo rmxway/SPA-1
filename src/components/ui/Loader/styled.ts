@@ -1,7 +1,7 @@
 import { darken } from 'polished';
 import styled from 'styled-components/macro';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.div<{ background?: boolean }>`
 	position: absolute;
 	display: flex;
 	justify-content: center;
@@ -11,7 +11,10 @@ export const Wrapper = styled.div`
 	right: 0;
 	top: 0;
 	bottom: 0;
+	z-index: 1;
+	pointer-events: none;
 	color: ${(props) => props.theme.colors.gray.$7};
+    mix-blend-mode: multiply;
 `;
 
 export const StyledLoader = styled.div`
@@ -46,7 +49,7 @@ export const StyledLoader = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	mix-blend-mode: darken;
+    mix-blend-mode: multiply;
 
 	&:before {
 		content: '';

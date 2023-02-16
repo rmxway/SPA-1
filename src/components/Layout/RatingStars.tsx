@@ -41,7 +41,7 @@ const Star = styled.i<{ active?: boolean | unknown }>`
 	color: ${(props) => (props?.active ? props.theme.colors.danger : props.theme.colors.gray.$3)};
 
 	&:last-child {
-		margin-left: 0;
+		margin-right: 0;
 	}
 `;
 

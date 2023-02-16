@@ -2,6 +2,7 @@
 import { FC } from 'react';
 
 import { Space } from '@/components/Layout';
+import { currency } from '@/constants';
 import { useAppDispatch } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { deleteFromCart } from '@/store/reducers/cart';
@@ -26,10 +27,11 @@ const CartItem: FC<CartItemTypes> = ({ product }) => {
 			<img src={product.thumbnail} alt={product.title} />
 			<Title>
 				<strong>{product.title}</strong>
-				{/* {product.rating?.count && <div>count: {product.rating?.count}</div>} */}
 			</Title>
 			<Space />
-			<Price>{product.price} €</Price>
+			<Price>
+				{product.price} {currency}
+			</Price>
 			<Delete type="button" onClick={handleDeleteFromCart}>
 				<i className="icofont icofont-times-small" />
 			</Delete>

@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
+import { productsStore } from '@/store';
 import { sortProducts } from '@/store/reducers/products';
 
 import { Toggle } from './styled';
@@ -12,7 +13,7 @@ interface ComponentTypes {
 }
 
 const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
-	const { toggle, name } = useAppSelector((state) => state.products.sort);
+	const { toggle, name } = useAppSelector(productsStore).sort;
 	const [checked, setChecked] = useState(false);
 	const idName = `sort-${sort}`;
 	const dispatch = useAppDispatch();

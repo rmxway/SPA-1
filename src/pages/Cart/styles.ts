@@ -30,13 +30,14 @@ export const Sidebar = styled.div`
 	top: 90px;
 	width: 100%;
 	min-height: 100px;
+	flex-shrink: 0;
 	padding: 20px;
 	background-color: #fff;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 
 	${media.greaterThan('sm')`
-		width: auto;
-		min-width: 33%;
+        width: 25%;
+        min-width: 250px;
 	`}
 
 	button {
