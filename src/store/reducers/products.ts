@@ -29,7 +29,7 @@ const initialState: ProductsState = {
 	items: [],
 	total: 0,
 	page: 1,
-	count: 8,
+	count: 12,
 	error: '',
 	fetching: false,
 	sort: {

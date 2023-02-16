@@ -1,5 +1,5 @@
+import debounce from 'lodash.debounce';
 import { FC } from 'react';
-import styled from 'styled-components';
 
 import { Flexbox } from '@/components/Layout';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -7,21 +7,27 @@ import { productsStore } from '@/store';
 import { changePage } from '@/store/reducers/products';
 
 import { ButtonPagination } from './ButtonPagination';
-
-const Info = styled.div`
-	color: ${(props) => props.theme.colors.gray.$6};
-`;
+import { ArrowButton, Info } from './styled';
 
 const Pagination: FC = () => {
-	const { page, total, count } = useAppSelector(productsStore);
+	const { page, total, count, fetching } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 	const countPages = total / count;
+	const maxCount = 5;
+	const countButtons = countPages >= maxCount ? maxCount : countPages;
 
 	const viewedItems = (): number => {
 		if (page * count === total) {
 			return total;
 		}
 		return page * count;
+	};
+
+	const debounceChangePage = debounce((num) => dispatch(changePage(num)), 200);
+
+	const handleChangePage = (sing: string) => {
+		const num = sing === 'add' ? page + 1 : page - 1;
+		debounceChangePage(num);
 	};
 
 	const AllButtons = (): React.ReactNode[] => {
@@ -33,8 +39,8 @@ const Pagination: FC = () => {
 				<ButtonPagination
 					key={i}
 					success={page === currentPage}
-					white
-					onClick={() => dispatch(changePage(currentPage))}
+					onClick={() => debounceChangePage(currentPage)}
+					inactive={fetching}
 				>
 					{currentPage}
 				</ButtonPagination>
@@ -46,8 +52,6 @@ const Pagination: FC = () => {
 
 	const renderButtons = (): React.ReactNode[] => {
 		const arButtons = AllButtons();
-		const maxCount = 5;
-		const countButtons = countPages >= maxCount ? maxCount : countPages;
 
 		const start = page - 3 < 0 ? 0 : page - 3;
 		const end = page <= 2 ? countButtons : page + 2;
@@ -58,7 +62,20 @@ const Pagination: FC = () => {
 	return (
 		<>
 			<Flexbox align="center" justify="space-between">
-				<div>{renderButtons()}</div>
+				<Flexbox align="center">
+					{page > 1 && (
+						<ArrowButton left type="button" onClick={() => handleChangePage('remove')} disabled={fetching}>
+							<i className="icofont icofont-arrow-down" />
+						</ArrowButton>
+					)}
+					{renderButtons()}
+
+					{page < countPages && page !== countPages && (
+						<ArrowButton right type="button" onClick={() => handleChangePage('add')} disabled={fetching}>
+							<i className="icofont icofont-arrow-down" />
+						</ArrowButton>
+					)}
+				</Flexbox>
 				<Info>
 					Shown products: {viewedItems()} from {total}
 				</Info>

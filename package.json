@@ -58,6 +58,7 @@
 	"devDependencies": {
 		"@craco/craco": "^7.0.0",
 		"@tsconfig/recommended": "^1.0.2",
+		"@types/lodash.debounce": "^4.0.7",
 		"@types/react-helmet": "^6.1.6",
 		"@types/react-lazy-load-image-component": "^1.5.2",
 		"@types/styled-components": "^5.1.26",
@@ -77,6 +78,7 @@
 		"eslint-plugin-simple-import-sort": "^10.0.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"fantasticon": "^2.0.0",
+		"lodash.debounce": "^4.0.8",
 		"node-sass": "^8.0.0",
 		"polished": "^4.2.2",
 		"prettier": "^2.8.4",

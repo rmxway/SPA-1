@@ -6,7 +6,9 @@ export interface ButtonProps {
 	danger?: boolean;
 	primary?: boolean;
 	white?: boolean;
+	black?: boolean;
 	w100?: boolean;
+	inactive?: boolean;
 	margins?: boolean;
 }
 
@@ -73,6 +75,7 @@ export const ButtonUI = styled.button<ButtonProps>`
 		if (props?.danger) return mixinButton(props.theme.colors.danger);
 		if (props?.primary) return mixinButton(props.theme.colors.primary, '#6d410a');
 		if (props?.white) return mixinButton('#fff', props.theme.colors.success);
+		if (props?.black) return mixinButton(props.theme.colors.dark);
 		return null;
 	}}
 
@@ -80,6 +83,10 @@ export const ButtonUI = styled.button<ButtonProps>`
 		if (props?.w100)
 			return css`
 				width: 100%;
+			`;
+		if (props?.inactive)
+			return css`
+				pointer-events: none;
 			`;
 		return null;
 	}}

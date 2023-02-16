@@ -19,7 +19,7 @@
 			"@/components/*": ["./components/*"],
 			"@/styles/*": ["./styles/*"],
 			"@/store/*": ["./store/*"],
-			"@/services/*": ["./services/*"],
+			"@/service/*": ["./service/*"],
 			"@/pages/*": ["./pages/*"],
 			"@/theme/*": ["./theme/*"]
 		}

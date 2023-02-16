@@ -2,7 +2,7 @@ import styled from 'styled-components/macro';
 
 import { ButtonUI } from '@/components/ui';
 
-export const ButtonPagination = styled(ButtonUI)`
+const ButtonPagination = styled(ButtonUI)`
 	margin-right: 5px;
 	width: 35px;
 	padding: 10px 0;
@@ -21,4 +21,5 @@ export const ButtonPagination = styled(ButtonUI)`
 	}
 `;
 
+export { ButtonPagination };
 export default ButtonPagination;
