@@ -45,7 +45,9 @@ const ProductsGrid: FC<PropsWithChildren> = ({ children }) => {
 				</FetchingBlock>
 			</Wrapper>
 
-			{!items.length && !fetching ? <LayerBlock mt>{`The search did't take a result`}</LayerBlock> : null}
+			{!items.length && !fetching && !error ? (
+				<LayerBlock mt>{`The search did't take a result`}</LayerBlock>
+			) : null}
 		</WrapperComponent>
 	);
 };

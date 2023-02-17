@@ -3,7 +3,9 @@ import { FC, useState } from 'react';
 import { RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
 import { currency } from '@/constants';
+import { useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
+import { productsStore } from '@/store';
 import { moveToCart } from '@/store/reducers/combineActions';
 
 import { LazyImageProductCard } from './LazyImageProductCard';
@@ -18,12 +20,15 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const link = `/product/${product.id}`;
 	const img = product?.thumbnail;
+	const { fetching } = useAppSelector(productsStore);
 
 	return (
 		<ProductWrapper {...props}>
 			<WrapperImage to={link}>
 				<Loader loading={product.imgFetch} />
-				<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-200} />
+				{!fetching && (
+					<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-200} />
+				)}
 			</WrapperImage>
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}

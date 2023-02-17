@@ -5,8 +5,8 @@ import { LayerBlock, RatingStars } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
 import { currency } from '@/constants';
 import { useAppSelector } from '@/hooks';
-import { fetchProducts } from '@/service';
 import { productsStore } from '@/store';
+import { asyncGetProducts } from '@/store/reducers/asyncGetProducts';
 import { moveToCart } from '@/store/reducers/combineActions';
 
 import { Image, Info, PriceBlock, Title, Wrapper } from './styled';
@@ -16,7 +16,7 @@ const ProductPage: FC = () => {
 	const { items } = useAppSelector(productsStore);
 
 	useEffect(() => {
-		if (items.length === 0) fetchProducts({ product: Number(productId) });
+		if (items.length === 0) asyncGetProducts({ product: Number(productId) });
 	}, [productId, items]);
 
 	const current = items.find((item) => item.id === Number(productId));

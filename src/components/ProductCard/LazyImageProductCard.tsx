@@ -17,9 +17,7 @@ const LazyImageProductCard: FC<LazyLoadTypes> = ({ productId, ...props }) => {
 	return (
 		<LazyImage
 			{...props}
-			afterLoad={() =>
-				setTimeout(() => dispatch(fetchingImageProduct({ id: Number(productId), fetch: false })), 200)
-			}
+			afterLoad={() => dispatch(fetchingImageProduct({ id: Number(productId), fetch: false }))}
 			onError={() => {
 				dispatch(fetchingImageProduct({ id: Number(productId), fetch: false }));
 			}}

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/interfaces';
+import { asyncGetProducts } from '@/store/reducers/asyncGetProducts';
 
 interface ProductsState {
 	fetchedItems: IProduct[];
@@ -66,21 +67,10 @@ type SetProductsPayload = {
 	count: number;
 };
 
-export const productsReducer = createSlice({
+const productsReducer = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
-		setProducts: (state, action: PayloadAction<SetProductsPayload>) => {
-			const { products, total, count, page } = action.payload;
-
-			state.fetchedItems = products;
-			state.items = state.fetchedItems;
-
-			state.total = total;
-			state.page = page;
-			state.count = count;
-			iterationToggle(state);
-		},
 		fetching: (state, action: PayloadAction<boolean>) => {
 			state.fetching = action.payload;
 		},
@@ -138,17 +128,41 @@ export const productsReducer = createSlice({
 			state.sort.toggle = true;
 		},
 	},
+	extraReducers(builder) {
+		builder
+			.addCase(asyncGetProducts.pending, (state) => {
+				state.fetching = true;
+				state.error = '';
+			})
+			.addCase(asyncGetProducts.fulfilled, (state, action: PayloadAction<SetProductsPayload>) => {
+				const { products, total, count, page } = action.payload;
+
+				state.fetching = false;
+				state.error = '';
+
+				products.forEach((item) => {
+					item.imgFetch = true;
+				});
+
+				state.fetchedItems = products;
+				state.items = state.fetchedItems;
+
+				state.total = total;
+				state.page = page;
+				state.count = count;
+
+				iterationToggle(state);
+			})
+			.addCase(asyncGetProducts.rejected, (state, action) => {
+				state.error = String(action.payload);
+				state.fetching = false;
+			});
+	},
 });
 
-export const {
-	setProducts,
-	fetching,
-	setError,
-	toggleProduct,
-	fetchingImageProduct,
-	sortProducts,
-	searchProduct,
-	changePage,
-} = productsReducer.actions;
+const { actions, reducer } = productsReducer;
 
-export default productsReducer.reducer;
+export const { fetching, setError, toggleProduct, fetchingImageProduct, sortProducts, searchProduct, changePage } =
+	actions;
+
+export default reducer;
