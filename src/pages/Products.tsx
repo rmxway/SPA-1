@@ -8,11 +8,6 @@ import { fetchProducts } from '@/service';
 import { cartStore, productsStore } from '@/store';
 import { storeName } from '@/store/localStore';
 
-// function* runOnce() {
-// 	yield fetchProducts({ count: 8 });
-// }
-// const generator = runOnce();
-
 const ProductsPage: FC = () => {
 	const { items: cartItems } = useAppSelector(cartStore);
 	const { fetching, error, page, count } = useAppSelector(productsStore);
@@ -20,9 +15,8 @@ const ProductsPage: FC = () => {
 	const [isLocal, setIsLocal] = useState<boolean>(isEmptyCart);
 
 	useEffect(() => {
-		// if (!isEmptyCart) generator.next();
 		fetchProducts({ count, page });
-	}, [page, count]); // isEmptyCart
+	}, [page, count]);
 
 	useEffect(() => setIsLocal(isEmptyCart), [isEmptyCart]);
 
@@ -38,10 +32,11 @@ const ProductsPage: FC = () => {
 			>
 				Delete storage
 			</ButtonUI>
-			{error && <LayerBlock mt>{error}</LayerBlock>}
 
 			<Filter />
 			<Pagination />
+
+			{error && <LayerBlock>{error}</LayerBlock>}
 
 			<ProductsGrid>
 				<Loader loading={fetching} />

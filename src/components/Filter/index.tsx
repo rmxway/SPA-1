@@ -3,29 +3,30 @@ import { FC } from 'react';
 import { InputUI } from '@/components/ui';
 import { useAppSelector } from '@/hooks';
 import { productsStore } from '@/store';
-import { search } from '@/store/reducers/combineActions';
+import { searchProducts } from '@/store/reducers/combineActions';
 
 import { StyledFilter } from './styled';
 import { ToggleSort } from './ToggleSort';
 
 const Filter: FC = () => {
-	const { value } = useAppSelector(productsStore).search;
+	const { items, fetchedItems, search } = useAppSelector(productsStore);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		search(e.target.value);
+		searchProducts(e.target.value);
 	};
 
 	return (
 		<StyledFilter>
 			<div className="title">Sorting</div>
-			<ToggleSort sort="price" value="Price" />
-			<ToggleSort sort="rating" value="Rating" />
+			<ToggleSort sort="price" value="Price" disabled={!items.length} />
+			<ToggleSort sort="rating" value="Rating" disabled={!items.length} />
 			<InputUI
 				name="search"
 				placeholder="Search"
 				className="search-filter"
-				value={value}
+				value={search.value}
 				onChange={handleChange}
+				disabled={!items.length && !fetchedItems.length}
 			/>
 		</StyledFilter>
 	);

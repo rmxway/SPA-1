@@ -37,7 +37,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 				<RatingStars rating={Number(product.rating)} />
 			</Tools>
 			<Title to={link}>{product.title}</Title>
-			<ButtonUI primary onClick={() => moveToCart(product)} disabled={product.checked}>
+			<ButtonUI primary onClick={() => moveToCart(Number(product.id))} disabled={product.checked}>
 				{product.checked ? 'Added' : 'Add to cart'}
 			</ButtonUI>
 		</ProductWrapper>

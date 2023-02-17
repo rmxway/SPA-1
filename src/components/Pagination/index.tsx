@@ -10,25 +10,20 @@ import { ButtonPagination } from './ButtonPagination';
 import { ArrowButton, Info } from './styled';
 
 const Pagination: FC = () => {
-	const { page, total, count, fetching } = useAppSelector(productsStore);
+	const { page, total, count, fetching, items } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
-	const countPages = total / count;
+	const countPages = Math.ceil(total / count);
 	const maxCount = 5;
 	const countButtons = countPages >= maxCount ? maxCount : countPages;
 
 	const viewedItems = (): number => {
-		if (page * count === total) {
-			return total;
+		if (countPages !== page) {
+			return page * count;
 		}
-		return page * count;
+		return total;
 	};
 
-	const debounceChangePage = debounce((num) => dispatch(changePage(num)), 200);
-
-	const handleChangePage = (sing: string) => {
-		const num = sing === 'add' ? page + 1 : page - 1;
-		debounceChangePage(num);
-	};
+	const debounceChangePage = debounce((num) => dispatch(changePage(num)), 100);
 
 	const AllButtons = (): React.ReactNode[] => {
 		const arrButtons: React.ReactNode[] = Array.from({ length: countPages });
@@ -41,6 +36,7 @@ const Pagination: FC = () => {
 					success={page === currentPage}
 					onClick={() => debounceChangePage(currentPage)}
 					inactive={fetching}
+					disabled={!items.length}
 				>
 					{currentPage}
 				</ButtonPagination>
@@ -64,21 +60,32 @@ const Pagination: FC = () => {
 			<Flexbox align="center" justify="space-between">
 				<Flexbox align="center">
 					{page > 1 && (
-						<ArrowButton left type="button" onClick={() => handleChangePage('remove')} disabled={fetching}>
+						<ArrowButton
+                            left
+                            onClick={() => debounceChangePage(1)}
+                            disabled={fetching || !items.length}
+                        >
 							<i className="icofont icofont-arrow-down" />
+							To begin
 						</ArrowButton>
 					)}
 					{renderButtons()}
 
 					{page < countPages && page !== countPages && (
-						<ArrowButton right type="button" onClick={() => handleChangePage('add')} disabled={fetching}>
-							<i className="icofont icofont-arrow-down" />
+						<ArrowButton
+							right
+							onClick={() => debounceChangePage(countPages)}
+							disabled={fetching || !items.length}
+						>
+							To end <i className="icofont icofont-arrow-down" />
 						</ArrowButton>
 					)}
 				</Flexbox>
-				<Info>
-					Shown products: {viewedItems()} from {total}
-				</Info>
+				{!!items.length && (
+					<Info>
+						Shown products: {viewedItems()} from {total}
+					</Info>
+				)}
 			</Flexbox>
 			<br />
 		</>

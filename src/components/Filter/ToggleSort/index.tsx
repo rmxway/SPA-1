@@ -7,12 +7,12 @@ import { sortProducts } from '@/store/reducers/products';
 
 import { Toggle } from './styled';
 
-interface ComponentTypes {
+interface ComponentTypes extends React.InputHTMLAttributes<HTMLInputElement> {
 	value: string;
 	sort: keyof IProduct;
 }
 
-const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
+const ToggleSort: FC<ComponentTypes> = ({ sort, value, disabled, ...props }) => {
 	const { toggle, name } = useAppSelector(productsStore).sort;
 	const [checked, setChecked] = useState(false);
 	const idName = `sort-${sort}`;
@@ -26,8 +26,16 @@ const ToggleSort: FC<ComponentTypes> = ({ sort, value, ...props }) => {
 	};
 
 	return (
-		<Toggle type="button" toggle={toggle} onMouseDown={handleClick}>
-			<input {...props} type="radio" name="sort" id={idName} checked={name === sort} onChange={() => null} />
+		<Toggle type="button" toggle={toggle} onMouseDown={handleClick} disabled={disabled}>
+			<input
+				{...props}
+				type="radio"
+				disabled={disabled}
+				name="sort"
+				id={idName}
+				checked={name === sort}
+				onChange={() => null}
+			/>
 			<label htmlFor={idName}>
 				{value}
 				<i className="icofont icofont-arrow-down" />

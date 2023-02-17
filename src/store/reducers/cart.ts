@@ -27,8 +27,8 @@ const cartReducer = createSlice({
 			state.items = Array.from(uniqElements);
 			calculateTotalPrice(state);
 		},
-		deleteFromCart: (state, action: PayloadAction<IProduct>) => {
-			state.items = current(state).items.filter((item) => item.id !== action.payload.id);
+		deleteFromCart: (state, action: PayloadAction<number>) => {
+			state.items = current(state).items.filter((item) => item.id !== action.payload);
 			calculateTotalPrice(state);
 		},
 	},

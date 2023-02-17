@@ -5,6 +5,7 @@ import { IProduct } from '@/interfaces';
 interface ProductsState {
 	fetchedItems: IProduct[];
 	items: IProduct[];
+	toggledItems: number[];
 	total: number;
 	page: number;
 	count: number;
@@ -27,6 +28,7 @@ interface SortTypes {
 const initialState: ProductsState = {
 	fetchedItems: [],
 	items: [],
+	toggledItems: [],
 	total: 0,
 	page: 1,
 	count: 12,
@@ -48,10 +50,13 @@ const changeStateSort = (state: ProductsState, payload: SortTypes) => {
 	};
 };
 
-const toggleItems = (array: IProduct[], id: number | null) => {
-	array.forEach((item) => {
-		if (item.id === id) item.checked = !item.checked;
+const iterationToggle = (state: ProductsState) => {
+	state.items.forEach((item) => {
+		const isToggled = !!state.toggledItems.find((toggleItem) => toggleItem === item.id);
+		item.checked = isToggled;
 	});
+
+	state.fetchedItems = state.items;
 };
 
 type SetProductsPayload = {
@@ -74,6 +79,7 @@ export const productsReducer = createSlice({
 			state.total = total;
 			state.page = page;
 			state.count = count;
+			iterationToggle(state);
 		},
 		fetching: (state, action: PayloadAction<boolean>) => {
 			state.fetching = action.payload;
@@ -81,9 +87,19 @@ export const productsReducer = createSlice({
 		setError: (state, action: PayloadAction<string>) => {
 			state.error = action.payload;
 		},
-		toggleProduct: (state, action: PayloadAction<IProduct>) => {
-			toggleItems(state.items, action.payload.id);
-			toggleItems(state.fetchedItems, action.payload.id);
+		toggleProduct: (state, action: PayloadAction<number>) => {
+			const id = action.payload;
+			const isToggled = !!state.toggledItems.find((item) => item === id);
+
+			if (isToggled) {
+				state.toggledItems = state.toggledItems.filter((item) => item !== Number(id));
+			} else {
+				state.toggledItems.push(Number(id));
+			}
+
+			state.toggledItems = [...new Set([...state.toggledItems])];
+
+			iterationToggle(state);
 		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
 			const { fetch, id } = action.payload;
@@ -104,7 +120,7 @@ export const productsReducer = createSlice({
 				return 0;
 			});
 
-			if (toggle) state.items = state.items.reverse();
+			if (!toggle) state.items = state.items.reverse();
 		},
 		searchProduct: (state, action: PayloadAction<string>) => {
 			state.search.value = action.payload.trim();
@@ -118,6 +134,8 @@ export const productsReducer = createSlice({
 		changePage: (state, action: PayloadAction<number>) => {
 			state.page = action.payload;
 			state.search.value = '';
+			state.sort.name = '';
+			state.sort.toggle = true;
 		},
 	},
 });
