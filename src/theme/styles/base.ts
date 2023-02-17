@@ -19,6 +19,7 @@ const base = css`
 		padding-top: 70px;
 		line-height: 1.25;
 		padding-bottom: 50px;
+        min-width: 600px;
 	}
 	code {
 		font-family: 'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
