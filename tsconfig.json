@@ -1,4 +1,5 @@
 {
+	"extends": "./tsconfig.paths.json",
 	"compilerOptions": {
 		"target": "ES6",
 		"module": "commonjs",
@@ -7,22 +8,12 @@
 		"outDir": "./build",
 		"baseUrl": "./src",
 		"removeComments": true,
-        "sourceMap": true,
+		"sourceMap": true,
 		"strict": true,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
-		"moduleResolution": "node",
-		"paths": {
-			"@/*": ["./*"],
-            "@/assets/*": ["./assets/*"],
-			"@/components/*": ["./components/*"],
-			"@/styles/*": ["./styles/*"],
-			"@/store/*": ["./store/*"],
-			"@/service/*": ["./service/*"],
-			"@/pages/*": ["./pages/*"],
-			"@/theme/*": ["./theme/*"]
-		}
+		"moduleResolution": "node"
 	},
 	"include": ["**/*.ts", "**/*.tsx", "@types/declarations.d.ts"],
 	"exclude": ["node_modules", ".vscode"],
