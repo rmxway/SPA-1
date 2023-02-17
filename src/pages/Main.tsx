@@ -15,8 +15,8 @@ const MainPage: FC = () => (
 			<p>
 				Simple SPA with fake products. <br />
 				Used <code>create-react-app</code> and service{' '}
-				<a href="https://fakestoreapi.com" target="_blank" rel="noreferrer">
-					fakestoreapi.com
+				<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
+                    dummyjson.com
 				</a>
 			</p>
 			<ImageLogos src={logos} alt="logo" height="100px" />
@@ -27,7 +27,7 @@ const MainPage: FC = () => (
 				<li>Typescript</li>
 				<li>Redux Toolkit</li>
 				<li>Styled Components</li>
-				<li>API from fakestoreapi.com</li>
+				<li>API from dummyjson.com</li>
 				<li>Craco</li>
 				<li>Prettier</li>
 			</ul>
