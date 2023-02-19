@@ -13,7 +13,7 @@ const Pagination: FC = () => {
 	const { page, total, count, fetching, items } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 	const countPages = Math.ceil(total / count);
-	const maxCount = 5;
+	const maxCount = 4;
 	const countButtons = countPages >= maxCount ? maxCount : countPages;
 
 	const viewedItems = (): number => {
@@ -50,7 +50,7 @@ const Pagination: FC = () => {
 		const arButtons = AllButtons();
 
 		const start = page - 3 < 0 ? 0 : page - 3;
-		const end = page <= 2 ? countButtons : page + 2;
+		const end = page <= 2 ? countButtons : page + 1;
 
 		return arButtons.slice(start, end);
 	};
@@ -60,11 +60,7 @@ const Pagination: FC = () => {
 			<Flexbox align="center" justify="space-between">
 				<Flexbox align="center">
 					{page > 1 && (
-						<ArrowButton
-                            left
-                            onClick={() => debounceChangePage(1)}
-                            disabled={fetching || !items.length}
-                        >
+						<ArrowButton left onClick={() => debounceChangePage(1)} disabled={fetching || !items.length}>
 							<i className="icofont icofont-arrow-down" />
 							To begin
 						</ArrowButton>
@@ -81,6 +77,7 @@ const Pagination: FC = () => {
 						</ArrowButton>
 					)}
 				</Flexbox>
+				<br />
 				{!!items.length && (
 					<Info>
 						Shown products: {viewedItems()} from {total}
