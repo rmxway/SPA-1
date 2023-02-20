@@ -7,7 +7,7 @@ import { productsStore } from '@/store';
 import { changePage } from '@/store/reducers/products';
 
 import { ButtonPagination } from './ButtonPagination';
-import { ArrowButton, Info } from './styled';
+import { ArrowButton, Info, Wrapper } from './styled';
 
 const Pagination: FC = () => {
 	const { page, total, count, fetching, items } = useAppSelector(productsStore);
@@ -57,12 +57,11 @@ const Pagination: FC = () => {
 
 	return (
 		<>
-			<Flexbox align="center" justify="space-between">
+			<Wrapper>
 				<Flexbox align="center">
 					{page > 1 && (
 						<ArrowButton left onClick={() => debounceChangePage(1)} disabled={fetching || !items.length}>
-							<i className="icofont icofont-arrow-down" />
-							To begin
+							<i className="icofont icofont-arrow-down" /> To begin
 						</ArrowButton>
 					)}
 					{renderButtons()}
@@ -83,7 +82,7 @@ const Pagination: FC = () => {
 						Shown products: {viewedItems()} from {total}
 					</Info>
 				)}
-			</Flexbox>
+			</Wrapper>
 			<br />
 		</>
 	);

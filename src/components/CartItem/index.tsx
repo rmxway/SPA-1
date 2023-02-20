@@ -1,27 +1,27 @@
 import { FC } from 'react';
 
-import { Flexbox, Space } from '@/components/Layout';
+import { Space } from '@/components/Layout';
 import { currency } from '@/constants';
 import { IProduct } from '@/interfaces';
 import { removeFromCart } from '@/store/reducers/combineActions';
 
-import { Delete, Item, Price, Title } from './styled';
+import { Content, Delete, Item, Price, Title, WrapperText } from './styled';
 
 const CartItem: FC<{ product: IProduct }> = ({ product }) => (
 	<Item>
-		<Flexbox align="center" justify="flex-start" nowrap>
+		<Content>
 			<img src={product.thumbnail} alt={product.title} />
-			<Flexbox nowrap justify='space-between'>
+			<WrapperText>
 				<Title>
 					<strong>{product.title}</strong>
-					<div>{product.description}</div>
+					<span>{product.description}</span>
 				</Title>
-                <Space />
+				<Space />
 				<Price>
 					{product.price} {currency}
 				</Price>
-			</Flexbox>
-		</Flexbox>
+			</WrapperText>
+		</Content>
 		<Delete type="button" onClick={() => removeFromCart(Number(product.id))}>
 			<i className="icofont icofont-times-small" />
 		</Delete>
