@@ -27,7 +27,7 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 			<WrapperImage to={link}>
 				<Loader loading={product.imgFetch} />
 				{!fetching && (
-					<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-200} />
+					<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-50} />
 				)}
 			</WrapperImage>
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>

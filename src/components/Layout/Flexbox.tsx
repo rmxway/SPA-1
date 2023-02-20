@@ -13,6 +13,7 @@ const Flexbox = styled.div<FlexboxTypes>`
 	justify-content: ${(props) => props.justify};
 	align-items: ${(props) => props.align};
 	flex-direction: ${(props) => props.direction};
+    flex-grow: 1;
 `;
 
 export { Flexbox };

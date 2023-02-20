@@ -1,6 +1,8 @@
 import { darken } from 'polished';
 import styled, { DefaultTheme } from 'styled-components/macro';
 
+import { media } from '@/theme';
+
 const logoColor = (props: { theme: DefaultTheme }) => darken(0.3, props.theme.colors.success);
 
 const StyledNavbar = styled.div`
@@ -17,11 +19,16 @@ const StyledNavbar = styled.div`
 	a {
 		position: relative;
 		display: inline-block;
-		margin-right: 30px;
-		font-size: 20px;
+		margin-right: 10px;
+		font-size: 1rem;
 		color: #222;
 		text-decoration: none;
 		border-bottom: 2px solid transparent;
+
+        ${media.greaterThan('xs')`
+            font-size: 20px;
+            margin-right: 20px;
+        `}
 
 		&::after {
 			content: '';
@@ -64,25 +71,33 @@ const StyledNavbar = styled.div`
 const Logo = styled.div`
 	display: flex;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
-	font-size: 35px;
+	font-size: 2rem;
 	font-weight: 600;
 	color: ${logoColor};
 	line-height: 1;
-	padding-left: 10px;
+	padding: 0 10px;
 	border: 2px solid ${logoColor};
 	overflow: hidden;
 
 	span {
-		text-transform: uppercase;
-		font-size: 12px;
-		text-align: left;
-		background-color: ${logoColor};
-		display: flex;
-		align-items: center;
-		padding: 2px 10px;
-		color: ${(props) => props.theme.colors.success};
-		margin-left: 10px;
+		display: none;
 	}
+
+	${media.greaterThan('xs')`
+        padding: 0 0 0 10px;
+
+        span {
+            text-transform: uppercase;
+            font-size: 12px;
+            text-align: left;
+            background-color: ${logoColor};
+            display: flex;
+            align-items: center;
+            padding: 2px 10px;
+            color: ${(props) => props.theme.colors.success};
+            margin-left: 10px;
+        }
+    `}
 `;
 
 export { Logo, StyledNavbar };

@@ -22,6 +22,7 @@ const CartPage: FC = () => {
 					) : (
 						<>
 							No items, please go to&nbsp;<Link to="/products">products page</Link>
+							<br />
 						</>
 					)}
 				</Wrapper>

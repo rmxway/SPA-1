@@ -9,13 +9,17 @@ export const ProductWrapper = styled.div`
 	align-items: flex-start;
 	flex-direction: column;
 	padding: 16px;
-	width: calc(50% - 20px);
+	width: 100%;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	margin: 10px;
 	transition: 0.3s box-shadow, opacity;
 	background-color: #fff;
 	opacity: 0;
 	animation: fadeIn 0.2s linear 0s 1 forwards;
+
+	${media.greaterThan('xs')`
+        width: calc(50% - 20px);
+    `}
 
 	${media.greaterThan('sm')`
 		width: calc(33.33% - 20px);
@@ -53,13 +57,13 @@ export const WrapperImage = styled(Link)`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	min-height: 150px;
+	min-height: 200px;
 
-    text-decoration: none;
+	text-decoration: none;
 
 	img {
-		width: 150px;
-		height: 150px;
+		width: 100%;
+		max-height: 200px;
 		object-fit: contain;
 		object-position: center;
 		margin: 20px auto;
@@ -67,8 +71,20 @@ export const WrapperImage = styled(Link)`
 
 	.icofont {
 		font-size: 3rem;
-        color: ${props => props.theme.colors.gray.$4}
+		color: ${(props) => props.theme.colors.gray.$4};
 	}
+
+	${media.greaterThan('xs')`
+        min-height: 150px;
+
+        img {
+            width: 150px;
+            height: 150px;
+            object-fit: contain;
+            object-position: center;
+            margin: 20px auto;
+        }
+    `}
 `;
 
 export const Title = styled(Link)`

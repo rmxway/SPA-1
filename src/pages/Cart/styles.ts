@@ -29,6 +29,7 @@ export const Sidebar = styled.div`
 	position: sticky;
 	top: 90px;
 	width: 100%;
+	margin-top: 10px;
 	min-height: 100px;
 	flex-shrink: 0;
 	padding: 20px;
@@ -36,6 +37,7 @@ export const Sidebar = styled.div`
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 
 	${media.greaterThan('sm')`
+        margin-top: 0;
         width: 25%;
         min-width: 250px;
 	`}

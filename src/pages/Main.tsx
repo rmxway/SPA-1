@@ -6,6 +6,8 @@ import { LayerBlock } from '@/components/Layout';
 
 const ImageLogos = styled.img`
 	mix-blend-mode: multiply;
+	max-width: 100%;
+	max-height: 150px;
 `;
 
 const MainPage: FC = () => (
@@ -16,10 +18,10 @@ const MainPage: FC = () => (
 				Simple SPA with fake products. <br />
 				Used <code>create-react-app</code> and service{' '}
 				<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
-                    dummyjson.com
+					dummyjson.com
 				</a>
 			</p>
-			<ImageLogos src={logos} alt="logo" height="100px" />
+			<ImageLogos src={logos} alt="logo" />
 			<p>Most used package list:</p>
 			<ul>
 				<li>React</li>
