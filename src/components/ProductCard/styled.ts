@@ -1,9 +1,10 @@
+import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components/macro';
 
 import { media } from '@/theme/media';
 
-export const ProductWrapper = styled.div`
+export const ProductWrapper = styled(motion.div)`
 	position: relative;
 	display: flex;
 	align-items: flex-start;

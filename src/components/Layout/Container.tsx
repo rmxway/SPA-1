@@ -1,13 +1,20 @@
-import styled from 'styled-components/macro';
+import { motion } from 'framer-motion';
+import styled, { css } from 'styled-components/macro';
 
 import { media } from '@/theme';
 
-const Container = styled.div`
+const Container = styled(motion.div)<{ mt?: boolean }>`
 	position: relative;
 	padding: 0 20px;
 	width: 100%;
 	max-width: 100%;
 	margin: 0 auto;
+
+	${(props) =>
+		props.mt &&
+		css`
+			margin-top: 20px;
+		`}
 
 	${media.greaterThan('sm')`
 		max-width: 768px;

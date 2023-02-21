@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import { Filter, Pagination, ProductsGrid } from '@/components';
-import { LayerBlock } from '@/components/Layout';
+import { Container, LayerBlock } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { cartStore, productsStore } from '@/store';
@@ -22,10 +22,9 @@ const ProductsPage: FC = () => {
 	useEffect(() => setIsLocal(isEmptyCart), [isEmptyCart]);
 
 	return (
-		<>
-			<h1>Products Page</h1>
+		<Container mt>
 			<ButtonUI
-				success={isLocal}
+				danger={isLocal}
 				onClick={() => {
 					localStorage.setItem(storeName, '');
 					setIsLocal(false);
@@ -42,7 +41,7 @@ const ProductsPage: FC = () => {
 			<ProductsGrid>
 				<Loader loading={fetching} />
 			</ProductsGrid>
-		</>
+		</Container>
 	);
 };
 

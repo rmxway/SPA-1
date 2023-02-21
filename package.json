@@ -78,6 +78,7 @@
 		"eslint-plugin-simple-import-sort": "^10.0.0",
 		"eslint-plugin-unused-imports": "^2.0.0",
 		"fantasticon": "^2.0.0",
+		"framer-motion": "^9.0.4",
 		"lodash.debounce": "^4.0.8",
 		"node-sass": "^8.0.0",
 		"polished": "^4.2.2",

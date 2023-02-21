@@ -1,8 +1,29 @@
+import { motion } from 'framer-motion';
 import styled from 'styled-components/macro';
 
 import { media } from '@/theme';
 
-export const Item = styled.div`
+export const cartVariant = {
+	hidden: { y: 20, opacity: 0 },
+	visible: {
+		y: 0,
+		opacity: 1,
+	},
+};
+
+export const elementsVars = {
+	hidden: { y: -5, opacity: 0 },
+	visible: {
+		y: 0,
+		opacity: 1,
+		transition: {
+			duration: 0.3,
+			delay: 0.4,
+		},
+	},
+};
+
+export const Item = styled(motion.div)`
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -12,7 +33,7 @@ export const Item = styled.div`
 	padding: 10px 20px;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	margin-bottom: 10px;
-	transition: 0.12s;
+	transition: 0.2s box-shadow;
 
 	&:hover {
 		box-shadow: ${(props) => props.theme.layout.shadow};
@@ -29,7 +50,7 @@ export const Item = styled.div`
 	}
 `;
 
-export const Content = styled.div`
+export const Content = styled(motion.div)`
 	display: flex;
 	align-items: center;
 	flex-wrap: nowrap;
