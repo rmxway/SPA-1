@@ -1,10 +1,32 @@
-import { FC } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
 
 import { NavbarCart } from './NavbarCart';
-import { Logo, StyledNavbar } from './styled';
+import { Line, Logo, StyledNavbar } from './styled';
+
+interface NavLinkProps {
+	title?: string;
+	address: string;
+	component?: ReactNode;
+}
+
+const NavLinkMotion: FC<NavLinkProps> = ({ title, address, component }) => (
+	<NavLink to={address}>
+		{({ isActive }) => (
+			<>
+				{title || component}
+				{isActive ? (
+					<Line
+						layoutId="underline"
+						transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
+					/>
+				) : null}
+			</>
+		)}
+	</NavLink>
+);
 
 const Navbar: FC = () => (
 	<StyledNavbar>
@@ -20,12 +42,10 @@ const Navbar: FC = () => (
 					</Logo>
 				</Link>
 				<Space />
-				<NavLink to="/">Main</NavLink>
-                <NavLink to="/ui">UI</NavLink>
-				<NavLink to="/products">Products</NavLink>
-				<NavLink to="/cart">
-					<NavbarCart />
-				</NavLink>
+				<NavLinkMotion title="Main" address="/" />
+				<NavLinkMotion title="UI" address="/ui" />
+				<NavLinkMotion title="Products" address="/products" />
+				<NavLinkMotion address="/cart" component={<NavbarCart />} />
 			</Flexbox>
 		</Container>
 	</StyledNavbar>

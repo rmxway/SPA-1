@@ -1,9 +1,8 @@
-import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components/macro';
 
 import { media } from '@/theme';
 
-const Container = styled(motion.div)<{ mt?: boolean }>`
+const Container = styled.div<{ mt?: boolean }>`
 	position: relative;
 	padding: 0 20px;
 	width: 100%;

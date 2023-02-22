@@ -13,10 +13,8 @@ export const ProductWrapper = styled(motion.div)`
 	width: 100%;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	margin: 10px;
-	transition: 0.3s box-shadow, opacity;
+	transition: 0.3s box-shadow;
 	background-color: #fff;
-	opacity: 0;
-	animation: fadeIn 0.2s linear 0s 1 forwards;
 
 	${media.greaterThan('xs')`
         width: calc(50% - 20px);
@@ -36,15 +34,6 @@ export const ProductWrapper = styled(motion.div)`
 		box-shadow: ${(props) => props.theme.layout.shadow};
 	}
 
-	@keyframes fadeIn {
-		from {
-			opacity: 0;
-		}
-		to {
-			opacity: 1;
-		}
-	}
-
 	button {
 		width: 100%;
 		margin-top: 10px;
@@ -52,7 +41,7 @@ export const ProductWrapper = styled(motion.div)`
 	}
 `;
 
-export const WrapperImage = styled(Link)`
+export const WrapperImage = styled(motion.div)`
 	position: relative;
 	width: 100%;
 	display: flex;
@@ -76,7 +65,7 @@ export const WrapperImage = styled(Link)`
 	}
 
 	${media.greaterThan('xs')`
-        min-height: 150px;
+        min-height: 200px;
 
         img {
             width: 150px;

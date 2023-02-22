@@ -1,6 +1,6 @@
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { LazyLoadImageProps } from 'react-lazy-load-image-component';
 
 import { LazyImage } from '@/components/Layout';
@@ -13,14 +13,14 @@ interface LazyLoadTypes extends LazyLoadImageProps {
 
 const LazyImageProductCard: FC<LazyLoadTypes> = ({ productId, ...props }) => {
 	const dispatch = useAppDispatch();
+	const [error, setError] = useState(false);
 
 	return (
 		<LazyImage
 			{...props}
+			error={error}
 			afterLoad={() => dispatch(fetchingImageProduct({ id: Number(productId), fetch: false }))}
-			onError={() => {
-				dispatch(fetchingImageProduct({ id: Number(productId), fetch: false }));
-			}}
+			onError={() => setError(true)}
 		/>
 	);
 };

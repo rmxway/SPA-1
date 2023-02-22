@@ -1,16 +1,53 @@
 import { darken, desaturate } from 'polished';
 import styled, { css } from 'styled-components/macro';
 
-export interface ButtonProps {
-	success?: boolean;
-	danger?: boolean;
-	primary?: boolean;
-	white?: boolean;
-	black?: boolean;
+type CommonProps = {
 	w100?: boolean;
 	inactive?: boolean;
 	margins?: boolean;
-}
+};
+
+type SuccessButton = CommonProps & {
+	success?: boolean;
+	danger?: never;
+	primary?: never;
+	white?: never;
+	black?: never;
+};
+
+type DangerButton = CommonProps & {
+	success?: never;
+	danger?: boolean;
+	primary?: never;
+	white?: never;
+	black?: never;
+};
+
+type PrimaryButton = CommonProps & {
+	success?: never;
+	danger?: never;
+	primary?: boolean;
+	white?: never;
+	black?: never;
+};
+
+type WhiteButton = CommonProps & {
+	success?: never;
+	danger?: never;
+	primary?: never;
+	white?: boolean;
+	black?: never;
+};
+
+type BlackButton = CommonProps & {
+	success?: never;
+	danger?: never;
+	primary?: never;
+	white?: never;
+	black?: boolean;
+};
+
+export type ButtonProps = SuccessButton | DangerButton | PrimaryButton | WhiteButton | BlackButton;
 
 const mixinButton = ($background = '#fff', $color = '#fff') => css`
 	border-color: transparent;
@@ -34,7 +71,7 @@ const mixinButton = ($background = '#fff', $color = '#fff') => css`
 	}
 `;
 
-export const ButtonUI = styled.button<ButtonProps>`
+const ButtonUI = styled.button<ButtonProps>`
 	appearance: none;
 	border: 1px solid #aaa;
 	background: none;
@@ -44,12 +81,13 @@ export const ButtonUI = styled.button<ButtonProps>`
 	font-size: 12px;
 	font-weight: 800;
 	text-transform: uppercase;
+
 	${(props) =>
 		props.margins &&
-		`
-        margin-bottom: 10px;
-        margin-right: 10px;
-    `}
+		css`
+			margin-bottom: 10px;
+			margin-right: 10px;
+		`}
 
 	cursor: pointer;
 	line-height: 1;
@@ -91,3 +129,6 @@ export const ButtonUI = styled.button<ButtonProps>`
 		return null;
 	}}
 `;
+
+export { ButtonUI };
+export default ButtonUI;

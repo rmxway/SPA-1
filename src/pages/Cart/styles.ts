@@ -37,8 +37,8 @@ export const Wrapper = styled(motion.div)`
 	`}
 `;
 
-export const Sidebar = styled.div`
-	position: sticky;
+export const Sidebar = styled(motion.div)`
+	position: relative;
 	top: 90px;
 	width: 100%;
 	margin-top: 10px;
@@ -49,6 +49,7 @@ export const Sidebar = styled.div`
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 
 	${media.greaterThan('sm')`
+        position: sticky;
         margin-top: 0;
         width: 25%;
         min-width: 250px;
