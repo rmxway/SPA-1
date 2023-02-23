@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 
 import { useAppDispatch, useAppSelector } from '@/hooks';
-import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
 import { sortProducts } from '@/store/reducers/products';
 
@@ -9,7 +8,7 @@ import { Toggle } from './styled';
 
 interface ComponentTypes extends React.InputHTMLAttributes<HTMLInputElement> {
 	value: string;
-	sort: keyof IProduct;
+	sort: 'rating' | 'price' | 'reset';
 }
 
 const ToggleSort: FC<ComponentTypes> = ({ sort, value, disabled, ...props }) => {

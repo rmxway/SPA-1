@@ -2,11 +2,10 @@ import { FC } from 'react';
 
 import { Container, Flexbox, LayerBlock, RatingStars } from '@/components/Layout';
 import { ButtonUI, InputUI } from '@/components/ui';
-// import { MotionButtonUI } from '@/components/ui/Button/MotionButtonUI';
 
 const UIPage: FC = () => (
 	<Container>
-		<LayerBlock mt>
+		<LayerBlock mt="true">
 			<h4>Buttons</h4>
 			<Flexbox align="flex-start">
 				<ButtonUI primary margins>
@@ -36,22 +35,6 @@ const UIPage: FC = () => (
 					Default
 				</ButtonUI>
 			</Flexbox>
-
-			{/* <h4>Motion Buttons</h4>
-			<Flexbox align="flex-start">
-				<MotionButtonUI primary margins>
-					Primary
-				</MotionButtonUI>
-				<MotionButtonUI disabled success margins>
-					Success
-				</MotionButtonUI>
-				<MotionButtonUI disabled danger margins>
-					Danger
-				</MotionButtonUI>
-				<MotionButtonUI disabled margins>
-					Default
-				</MotionButtonUI>
-			</Flexbox> */}
 
 			<h4>Input</h4>
 			<InputUI name="test" placeholder="Placeholder" />

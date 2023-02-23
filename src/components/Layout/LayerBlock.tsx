@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components/macro';
 
-const LayerBlock = styled(motion.div)<{ mt?: boolean }>`
+const LayerBlock = styled(motion.div)<{ mt?: string }>`
 	position: relative;
 	padding: 20px;
 	border-radius: ${(props) => props.theme.radius.borderRadius};

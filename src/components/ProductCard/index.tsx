@@ -1,4 +1,6 @@
+import { MotionProps } from 'framer-motion';
 import { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Loader } from '@/components/ui';
@@ -11,7 +13,7 @@ import { moveToCart } from '@/store/reducers/combineActions';
 import { LazyImageProductCard } from './LazyImageProductCard';
 import { Description, Help, Price, ProductWrapper, Title, Tools, WrapperImage } from './styled';
 
-interface ProductType {
+interface ProductType extends MotionProps {
 	product: IProduct;
 	index: number;
 }
@@ -24,12 +26,15 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 
 	return (
 		<ProductWrapper {...props}>
-			<WrapperImage to={link}>
-				<Loader loading={product.imgFetch} />
-				{!fetching && (
-					<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-50} />
-				)}
+			<WrapperImage>
+				<Link to={link}>
+					<Loader loading={product.imgFetch} />
+					{!fetching && (
+						<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-50} />
+					)}
+				</Link>
 			</WrapperImage>
+
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}
 			</Help>

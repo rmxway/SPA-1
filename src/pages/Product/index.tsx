@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { LayerBlock, RatingStars } from '@/components/Layout';
@@ -6,7 +6,6 @@ import { ButtonUI } from '@/components/ui';
 import { currency } from '@/constants';
 import { useAppSelector } from '@/hooks';
 import { productsStore } from '@/store';
-import { asyncGetProducts } from '@/store/reducers/asyncGetProducts';
 import { moveToCart } from '@/store/reducers/combineActions';
 
 import { Image, Info, PriceBlock, Title, Wrapper } from './styled';
@@ -15,15 +14,11 @@ const ProductPage: FC = () => {
 	const { productId } = useParams();
 	const { items } = useAppSelector(productsStore);
 
-	useEffect(() => {
-		if (items.length === 0) asyncGetProducts({ product: Number(productId) });
-	}, [productId, items]);
-
 	const current = items.find((item) => item.id === Number(productId));
 	const img = String(current?.images?.length && current?.images[0]);
 
 	return current ? (
-		<LayerBlock mt>
+		<LayerBlock mt="true">
 			<Wrapper>
 				<Image src={img} alt={current?.title} />
 				<Info>

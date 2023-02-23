@@ -40,14 +40,20 @@ const ProductsGrid: FC<PropsWithChildren> = ({ children }) => {
 						{!!items.length &&
 							!error &&
 							items.map((product, index) => (
-								<ProductCard product={product} key={product.id} index={index} />
+								<ProductCard
+									layout
+									transition={{ type: 'just', delay: 0.3 }}
+									product={product}
+									key={product.id}
+									index={index}
+								/>
 							))}
 					</FetchingBlock>
 				</AnimatePresence>
 			</Wrapper>
 
 			{!items.length && !fetching && !error ? (
-				<LayerBlock mt>{`The search did't take a result`}</LayerBlock>
+				<LayerBlock mt="true">{`The search did't take a result`}</LayerBlock>
 			) : null}
 		</WrapperComponent>
 	);
