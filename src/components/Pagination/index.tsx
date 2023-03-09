@@ -1,7 +1,7 @@
 import debounce from 'lodash.debounce';
 import { FC } from 'react';
 
-import { Flexbox } from '@/components/Layout';
+import { Flexbox, Space } from '@/components/Layout';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { productsStore } from '@/store';
 import { changePage } from '@/store/reducers/products';
@@ -58,25 +58,32 @@ const Pagination: FC = () => {
 	return (
 		<>
 			<Wrapper>
-				<Flexbox align="center">
-					{page > 1 && (
-						<ArrowButton left onClick={() => debounceChangePage(1)} disabled={fetching || !items.length}>
-							<i className="icofont icofont-arrow-down" /> To begin
-						</ArrowButton>
-					)}
-					{renderButtons()}
+				{countPages > 1 && (
+					<Flexbox align="center">
+						{page > 1 && (
+							<ArrowButton
+								left
+								onClick={() => debounceChangePage(1)}
+								disabled={fetching || !items.length}
+							>
+								<i className="icofont icofont-arrow-down" /> To begin
+							</ArrowButton>
+						)}
+						{renderButtons()}
 
-					{page < countPages && page !== countPages && (
-						<ArrowButton
-							right
-							onClick={() => debounceChangePage(countPages)}
-							disabled={fetching || !items.length}
-						>
-							To end <i className="icofont icofont-arrow-down" />
-						</ArrowButton>
-					)}
-				</Flexbox>
+						{page < countPages && page !== countPages && (
+							<ArrowButton
+								right
+								onClick={() => debounceChangePage(countPages)}
+								disabled={fetching || !items.length}
+							>
+								To end <i className="icofont icofont-arrow-down" />
+							</ArrowButton>
+						)}
+					</Flexbox>
+				)}
 				<br />
+				<Space />
 				{!!items.length && (
 					<Info>
 						Shown products: {viewedItems()} from {total}

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/interfaces';
-import { asyncGetProducts } from '@/store/reducers/asyncGetProducts';
+import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
 
 interface ProductsState {
 	fetchedItems: IProduct[];
@@ -22,7 +22,7 @@ interface ProductsState {
 }
 
 interface SortTypes {
-	sort: keyof IProduct;
+	sort: 'rating' | 'price' | 'reset';
 	toggle?: boolean;
 }
 
@@ -44,6 +44,11 @@ const initialState: ProductsState = {
 	},
 };
 
+const changeItemsForCurrentPage = (state: ProductsState) => {
+	state.items = [...state.fetchedItems];
+	state.items = state.items.splice((state.page - 1) * state.count, state.count);
+};
+
 const changeStateSort = (state: ProductsState, payload: SortTypes) => {
 	state.sort = {
 		name: payload.sort,
@@ -52,12 +57,12 @@ const changeStateSort = (state: ProductsState, payload: SortTypes) => {
 };
 
 const iterationToggle = (state: ProductsState) => {
-	state.items.forEach((item) => {
+	state.fetchedItems.forEach((item) => {
 		const isToggled = !!state.toggledItems.find((toggleItem) => toggleItem === item.id);
 		item.checked = isToggled;
 	});
 
-	state.fetchedItems = state.items;
+	changeItemsForCurrentPage(state);
 };
 
 type SetProductsPayload = {
@@ -93,16 +98,27 @@ const productsReducer = createSlice({
 		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
 			const { fetch, id } = action.payload;
-			state.items.forEach((item) => {
+			state.fetchedItems.forEach((item) => {
 				if (item.id === id) item.imgFetch = fetch;
 			});
-			state.fetchedItems = state.items;
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
 			const { sort, toggle } = action.payload;
 			changeStateSort(state, action.payload);
 
-			state.items.sort((a, b) => {
+			if (sort === 'reset') {
+				state.sort.name = '';
+				state.sort.toggle = true;
+				state.fetchedItems.sort((a, b) => {
+					if (Number(a.id) < Number(b.id)) return -1;
+					if (Number(a.id) > Number(b.id)) return 1;
+					return 0;
+				});
+				changeItemsForCurrentPage(state);
+				return;
+			}
+
+			state.fetchedItems.sort((a, b) => {
 				if (a[sort] && b[sort]) {
 					if (Number(a[sort]) > Number(b[sort])) return -1;
 					if (Number(a[sort]) < Number(b[sort])) return 1;
@@ -110,7 +126,8 @@ const productsReducer = createSlice({
 				return 0;
 			});
 
-			if (!toggle) state.items = state.items.reverse();
+			if (!toggle) state.fetchedItems = state.fetchedItems.reverse();
+			changeItemsForCurrentPage(state);
 		},
 		searchProduct: (state, action: PayloadAction<string>) => {
 			state.search.value = action.payload.trim();
@@ -119,22 +136,25 @@ const productsReducer = createSlice({
 				state.items = state.fetchedItems.filter((item) =>
 					item.title.toLowerCase().includes(state.search.value.toLowerCase())
 				);
-			} else state.items = state.fetchedItems;
+				state.total = state.items.length;
+			} else {
+				changeItemsForCurrentPage(state);
+				state.total = state.fetchedItems.length;
+			}
 		},
 		changePage: (state, action: PayloadAction<number>) => {
 			state.page = action.payload;
 			state.search.value = '';
-			state.sort.name = '';
-			state.sort.toggle = true;
+			changeItemsForCurrentPage(state);
 		},
 	},
 	extraReducers(builder) {
 		builder
-			.addCase(asyncGetProducts.pending, (state) => {
+			.addCase(asyncGetAllProducts.pending, (state) => {
 				state.fetching = true;
 				state.error = '';
 			})
-			.addCase(asyncGetProducts.fulfilled, (state, action: PayloadAction<SetProductsPayload>) => {
+			.addCase(asyncGetAllProducts.fulfilled, (state, action: PayloadAction<SetProductsPayload>) => {
 				const { products, total, count, page } = action.payload;
 
 				state.fetching = false;
@@ -144,16 +164,14 @@ const productsReducer = createSlice({
 					item.imgFetch = true;
 				});
 
-				state.fetchedItems = products;
-				state.items = state.fetchedItems;
-
 				state.total = total;
 				state.page = page;
 				state.count = count;
 
-				iterationToggle(state);
+				state.fetchedItems = [...products];
+				changeItemsForCurrentPage(state);
 			})
-			.addCase(asyncGetProducts.rejected, (state, action) => {
+			.addCase(asyncGetAllProducts.rejected, (state, action) => {
 				state.error = String(action.payload);
 				state.fetching = false;
 			});

@@ -22,6 +22,7 @@ const Filter: FC = () => {
 				<div className="title">Sorting</div>
 				<ToggleSort sort="price" value="Price" disabled={!items.length} />
 				<ToggleSort sort="rating" value="Rating" disabled={!items.length} />
+                <ToggleSort sort="reset" value="Reset" disabled={!items.length} />
 			</Flexbox>
 			<InputUI
 				name="search"

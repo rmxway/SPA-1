@@ -1,5 +1,6 @@
+import { AnimatePresence, motion } from 'framer-motion';
 import { FC, PropsWithChildren } from 'react';
-import styled, { css } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 
 import { ProductCard } from '@/components/ProductCard';
 import { useAppSelector } from '@/hooks';
@@ -16,19 +17,16 @@ const Wrapper = styled.div`
 	margin: -10px;
 `;
 
-const FetchingBlock = styled.div<{ fetch: boolean }>`
+const FetchingBlock = styled(motion.div)`
 	position: relative;
 	display: flex;
 	flex-wrap: wrap;
-	transition: 0.8s opacity;
-
-	${(props) =>
-		props.fetch &&
-		css`
-			opacity: 0.2;
-			transition-duration: 0.2s;
-		`}
 `;
+
+const containerVars = {
+	hidden: { opacity: 0.2 },
+	visible: { opacity: 1 },
+};
 
 const ProductsGrid: FC<PropsWithChildren> = ({ children }) => {
 	const { items, error, fetching } = useAppSelector(productsStore);
@@ -37,16 +35,25 @@ const ProductsGrid: FC<PropsWithChildren> = ({ children }) => {
 		<WrapperComponent>
 			<Wrapper>
 				{children}
-
-				<FetchingBlock fetch={fetching}>
-					{!!items.length &&
-						!error &&
-						items.map((product, index) => <ProductCard product={product} key={product.id} index={index} />)}
-				</FetchingBlock>
+				<AnimatePresence>
+					<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
+						{!!items.length &&
+							!error &&
+							items.map((product, index) => (
+								<ProductCard
+									layout
+									transition={{ type: 'just', delay: 0.3 }}
+									product={product}
+									key={product.id}
+									index={index}
+								/>
+							))}
+					</FetchingBlock>
+				</AnimatePresence>
 			</Wrapper>
 
 			{!items.length && !fetching && !error ? (
-				<LayerBlock mt>{`The search did't take a result`}</LayerBlock>
+				<LayerBlock mt="true">{`The search did't take a result`}</LayerBlock>
 			) : null}
 		</WrapperComponent>
 	);

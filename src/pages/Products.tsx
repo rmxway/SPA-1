@@ -1,38 +1,40 @@
 import { FC, useEffect, useState } from 'react';
 
 import { Filter, Pagination, ProductsGrid } from '@/components';
-import { LayerBlock } from '@/components/Layout';
-import { ButtonUI, Loader } from '@/components/ui';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { cartStore, productsStore } from '@/store';
-import { storeName } from '@/store/localStore';
-import { asyncGetProducts } from '@/store/reducers/asyncGetProducts';
+import { Container, LayerBlock } from '@/components/Layout';
+import { Loader } from '@/components/ui';
+import { useAppSelector } from '@/hooks';
+import { productsStore, store } from '@/store';
+// import { storeName } from '@/store/localStore';
+import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
+
+function* runOnce() {
+	yield store.dispatch(asyncGetAllProducts({}));
+}
+const generator = runOnce();
 
 const ProductsPage: FC = () => {
-	const { items: cartItems } = useAppSelector(cartStore);
-	const { fetching, error, page, count } = useAppSelector(productsStore);
-	const isEmptyCart = !!cartItems.length;
+	const { fetching, error, items } = useAppSelector(productsStore);
+	const isEmptyCart = !!items.length;
 	const [isLocal, setIsLocal] = useState<boolean>(isEmptyCart);
-	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(asyncGetProducts({ count, page }));
-	}, [count, dispatch, page]);
+		if (!isLocal) generator.next();
+	}, [isLocal]);
 
 	useEffect(() => setIsLocal(isEmptyCart), [isEmptyCart]);
 
 	return (
-		<>
-			<h1>Products Page</h1>
-			<ButtonUI
-				success={isLocal}
+		<Container mt>
+			{/* <ButtonUI
+				danger={isLocal}
 				onClick={() => {
 					localStorage.setItem(storeName, '');
 					setIsLocal(false);
 				}}
 			>
 				Delete storage
-			</ButtonUI>
+			</ButtonUI> */}
 
 			<Filter />
 			<Pagination />
@@ -42,7 +44,7 @@ const ProductsPage: FC = () => {
 			<ProductsGrid>
 				<Loader loading={fetching} />
 			</ProductsGrid>
-		</>
+		</Container>
 	);
 };
 

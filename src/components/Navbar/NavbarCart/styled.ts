@@ -8,6 +8,7 @@ export const Cart = styled.div`
 	align-items: center;
 	justify-content: flex-start;
 	font-size: 0px;
+    height: 20px;
 
 	.icofont {
 		margin-top: -10px;
@@ -16,6 +17,7 @@ export const Cart = styled.div`
 	}
 
 	${media.greaterThan('xs')`
+        height: auto;
         font-size: 1.25rem;
         .icofont {
             font-size: 26px;

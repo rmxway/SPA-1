@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { darken } from 'polished';
 import styled, { DefaultTheme } from 'styled-components/macro';
 
@@ -25,24 +26,10 @@ const StyledNavbar = styled.div`
 		text-decoration: none;
 		border-bottom: 2px solid transparent;
 
-        ${media.greaterThan('xs')`
+		${media.greaterThan('xs')`
             font-size: 20px;
             margin-right: 20px;
         `}
-
-		&::after {
-			content: '';
-			position: absolute;
-			bottom: -5px;
-			left: 50%;
-			transform: translate(-50%, 0);
-			width: 0%;
-			height: 3px;
-			border-radius: 10px;
-			background-color: ${logoColor};
-			opacity: 0;
-			transition: 0.2s;
-		}
 
 		&:hover {
 			color: #444;
@@ -50,11 +37,6 @@ const StyledNavbar = styled.div`
 
 		&:last-child {
 			margin-right: 0;
-		}
-
-		&.active::after {
-			width: 100%;
-			opacity: 1;
 		}
 	}
 
@@ -100,4 +82,17 @@ const Logo = styled.div`
     `}
 `;
 
-export { Logo, StyledNavbar };
+const Line = styled(motion.div)`
+	position: absolute;
+	left: 0;
+	right: 0;
+	height: 2px;
+	border-radius: 3px;
+	background-color: ${(props) => props.theme.colors.dark};
+
+	${media.greaterThan('xs')`
+        height: 3px;
+    `}
+`;
+
+export { Line, Logo, StyledNavbar };

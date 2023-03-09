@@ -1,7 +1,19 @@
+import { motion } from 'framer-motion';
 import { darken } from 'polished';
 import styled from 'styled-components/macro';
 
 import { media } from '@/theme';
+
+export const contentVariant = {
+	hidden: { opacity: 1 },
+	visible: {
+		opacity: 1,
+		transition: {
+			delayChildren: 0.2,
+			staggerChildren: 0.1,
+		},
+	},
+};
 
 export const Cart = styled.div`
 	margin: 20px 0;
@@ -14,7 +26,7 @@ export const Cart = styled.div`
 	`}
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -25,8 +37,8 @@ export const Wrapper = styled.div`
 	`}
 `;
 
-export const Sidebar = styled.div`
-	position: sticky;
+export const Sidebar = styled(motion.div)`
+	position: relative;
 	top: 90px;
 	width: 100%;
 	margin-top: 10px;
@@ -37,6 +49,7 @@ export const Sidebar = styled.div`
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 
 	${media.greaterThan('sm')`
+        position: sticky;
         margin-top: 0;
         width: 25%;
         min-width: 250px;

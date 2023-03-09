@@ -1,15 +1,20 @@
-import { FC } from 'react';
+import { motion } from 'framer-motion';
+import { forwardRef } from 'react';
 
 import { Space } from '@/components/Layout';
 import { currency } from '@/constants';
 import { IProduct } from '@/interfaces';
 import { removeFromCart } from '@/store/reducers/combineActions';
 
-import { Content, Delete, Item, Price, Title, WrapperText } from './styled';
+import { Content, Delete, elementsVars, Item, Price, Title, WrapperText } from './styled';
 
-const CartItem: FC<{ product: IProduct }> = ({ product }) => (
-	<Item>
-		<Content>
+interface Props {
+	product: IProduct;
+}
+
+const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }, ref) => (
+	<Item ref={ref} {...props}>
+		<Content layout variants={elementsVars}>
 			<img src={product.thumbnail} alt={product.title} />
 			<WrapperText>
 				<Title>
@@ -26,7 +31,11 @@ const CartItem: FC<{ product: IProduct }> = ({ product }) => (
 			<i className="icofont icofont-times-small" />
 		</Delete>
 	</Item>
-);
+));
+
+CartItem.displayName = 'CartItem';
 
 export { CartItem };
 export default CartItem;
+
+export const MCartItem = motion(CartItem);
