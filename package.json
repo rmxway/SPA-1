@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "craco start",
 		"build": "craco build",
-        "mock": "json-server --watch ./src/API/items.json --port 3001",
+		"mock": "json-server --watch ./src/API/items.json --port 3001",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"pretty": "npx prettier --write ./src",
@@ -67,6 +67,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
 		"awesome-typescript-loader": "^5.2.1",
+		"concurrently": "^7.6.0",
 		"craco": "^0.0.3",
 		"eslint": "~8.34.0",
 		"eslint-config-airbnb": "^19.0.4",
