@@ -21,7 +21,7 @@ export const asyncGetAllProducts = createAsyncThunk(
 
 			const data = await response.json();
 
-			return { products: data, total: data.length, page, count };
+			return { products: data.products, total: data.total, page, count };
 		} catch (e) {
 			return rejectWithValue((e as Error).message);
 		}
