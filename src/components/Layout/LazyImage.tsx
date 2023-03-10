@@ -10,7 +10,7 @@ interface LazyImageType extends LazyLoadImageProps {
 const LazyImage: FC<LazyImageType> = ({ error, ...props }) => (
 	<>
 		{error && <i className="icofont icofont-nophoto" />}
-		{!error && <LazyLoadImage effect="blur" {...props} />}
+		{!error && <LazyLoadImage effect="blur" {...props} wrapperClassName="lazy-image" />}
 	</>
 );
 
