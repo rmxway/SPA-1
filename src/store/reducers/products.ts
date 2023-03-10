@@ -47,6 +47,10 @@ const initialState: ProductsState = {
 const changeItemsForCurrentPage = (state: ProductsState) => {
 	state.items = [...state.fetchedItems];
 	state.items = state.items.splice((state.page - 1) * state.count, state.count);
+
+	state.items.forEach((item) => {
+		item.imgFetch = true;
+	});
 };
 
 const changeStateSort = (state: ProductsState, payload: SortTypes) => {
@@ -98,9 +102,12 @@ const productsReducer = createSlice({
 		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
 			const { fetch, id } = action.payload;
-			state.fetchedItems.forEach((item) => {
-				if (item.id === id) item.imgFetch = fetch;
-			});
+
+			const fetchedIndex = state.fetchedItems.findIndex((item) => item.id === id);
+			state.fetchedItems[fetchedIndex].imgFetch = fetch;
+
+			const index = state.items.findIndex((item) => item.id === id);
+			state.items[index].imgFetch = fetch;
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
 			const { sort, toggle } = action.payload;

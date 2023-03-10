@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { forwardRef } from 'react';
+import { Link } from 'react-router-dom';
 
 import { Space } from '@/components/Layout';
 import { currency } from '@/constants';
@@ -14,11 +15,12 @@ interface Props {
 
 const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }, ref) => (
 	<Item ref={ref} {...props}>
+
 		<Content layout variants={elementsVars}>
 			<img src={product.thumbnail} alt={product.title} />
 			<WrapperText>
 				<Title>
-					<strong>{product.title}</strong>
+					<Link to={`/product/${product.id}`}><strong>{product.title}</strong></Link>
 					<span>{product.description}</span>
 				</Title>
 				<Space />

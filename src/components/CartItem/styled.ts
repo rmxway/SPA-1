@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { darken } from 'polished';
 import styled from 'styled-components/macro';
 
 import { media } from '@/theme';
@@ -71,6 +72,17 @@ export const WrapperText = styled.div`
 export const Title = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: flex-start;
+
+	a {
+		display: inline-block;
+		color: ${(props) => darken(0.1, props.theme.colors.success)};
+		text-decoration: none;
+
+		&::first-letter {
+			text-transform: uppercase;
+		}
+	}
 
 	strong {
 		padding-right: 15px;
