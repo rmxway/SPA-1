@@ -39,7 +39,6 @@ export const Wrapper = styled(motion.div)`
 
 export const Sidebar = styled(motion.div)`
 	position: relative;
-	top: 90px;
 	width: 100%;
 	margin-top: 10px;
 	min-height: 100px;
@@ -50,6 +49,7 @@ export const Sidebar = styled(motion.div)`
 
 	${media.greaterThan('sm')`
         position: sticky;
+        top: 90px;
         margin-top: 0;
         width: 25%;
         min-width: 250px;

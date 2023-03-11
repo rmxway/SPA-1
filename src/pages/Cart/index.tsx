@@ -30,7 +30,6 @@ const CartPage: FC = () => {
 									layout
 									variants={cartVariant}
 									exit={{ opacity: 0, scale: 0.9 }}
-									transition={{ type: 'just' }}
 								/>
 							))
 						) : (
@@ -42,20 +41,22 @@ const CartPage: FC = () => {
 					</AnimatePresence>
 				</Wrapper>
 
-				<Sidebar key="sidebar">
-					<Title>Your order</Title>
-					<Total>
-						Total:
-						<span>
-							{totalPrice} {currency}
-						</span>
-					</Total>
-					{totalPrice > 0 && (
-						<ButtonUI primary disabled>
-							Checkout
-						</ButtonUI>
-					)}
-				</Sidebar>
+				<AnimatePresence>
+					<Sidebar layout="preserve-aspect" key="sidebar">
+						<Title>Your order</Title>
+						<Total>
+							Total:
+							<span>
+								{totalPrice} {currency}
+							</span>
+						</Total>
+						{totalPrice > 0 && (
+							<ButtonUI primary disabled>
+								Checkout
+							</ButtonUI>
+						)}
+					</Sidebar>
+				</AnimatePresence>
 			</Cart>
 		</Container>
 	);
