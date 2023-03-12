@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { FC, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 import styled from 'styled-components/macro';
 
 import { ProductCard } from '@/components/ProductCard';
@@ -28,7 +28,7 @@ const containerVars = {
 	visible: { opacity: 1 },
 };
 
-const ProductsGrid: FC<PropsWithChildren> = ({ children }) => {
+const ProductsGrid = ({ children }: PropsWithChildren) => {
 	const { items, error, fetching } = useAppSelector(productsStore);
 
 	return (
@@ -58,6 +58,8 @@ const ProductsGrid: FC<PropsWithChildren> = ({ children }) => {
 		</WrapperComponent>
 	);
 };
+
+ProductsGrid.displayName = 'ProductGrid';
 
 export { ProductsGrid };
 export default ProductsGrid;

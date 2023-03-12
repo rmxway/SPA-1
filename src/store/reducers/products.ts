@@ -96,6 +96,10 @@ const productsReducer = createSlice({
 
 			iterationToggle(state);
 		},
+		removeAllToggledProducts: (state) => {
+			state.toggledItems = [];
+			iterationToggle(state);
+		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
 			const { fetch, id } = action.payload;
 
@@ -188,7 +192,15 @@ const productsReducer = createSlice({
 
 const { actions, reducer } = productsReducer;
 
-export const { fetching, setError, toggleProduct, fetchingImageProduct, sortProducts, searchProduct, changePage } =
-	actions;
+export const {
+	fetching,
+	setError,
+	toggleProduct,
+	removeAllToggledProducts,
+	fetchingImageProduct,
+	sortProducts,
+	searchProduct,
+	changePage,
+} = actions;
 
 export default reducer;

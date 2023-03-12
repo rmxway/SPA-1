@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import { darken, desaturate } from 'polished';
 import styled, { css } from 'styled-components/macro';
 
@@ -73,15 +72,15 @@ const mixinButton = ($background = '#fff', $color = '#fff') => css`
 
 	&:disabled,
 	&:disabled:hover {
-        background-color: ${desaturate(0.4, $background)};
+		background-color: ${desaturate(0.4, $background)};
 		color: ${desaturate(0.6, $color)};
 		opacity: 0.45;
-        pointer-events: none;
+		pointer-events: none;
 		cursor: default;
 	}
 `;
 
-const Button = styled(motion.button)<ButtonProps>`
+const Button = styled.button<ButtonProps>`
 	appearance: none;
 	border: 1px solid #aaa;
 	background: none;
