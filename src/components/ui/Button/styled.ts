@@ -1,51 +1,59 @@
 import { darken, desaturate } from 'polished';
 import styled, { css } from 'styled-components/macro';
 
-type CommonProps = {
+interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	w100?: boolean;
 	inactive?: boolean;
 	margins?: boolean;
-};
+}
 
-type SuccessButton = CommonProps & {
+export interface Props extends CommonProps {
+	success?: boolean;
+	danger?: boolean;
+	primary?: boolean;
+	white?: boolean;
+	black?: boolean;
+}
+
+interface SuccessButton extends CommonProps {
 	success?: boolean;
 	danger?: never;
 	primary?: never;
 	white?: never;
 	black?: never;
-};
+}
 
-type DangerButton = CommonProps & {
+interface DangerButton extends CommonProps {
 	success?: never;
 	danger?: boolean;
 	primary?: never;
 	white?: never;
 	black?: never;
-};
+}
 
-type PrimaryButton = CommonProps & {
+interface PrimaryButton extends CommonProps {
 	success?: never;
 	danger?: never;
 	primary?: boolean;
 	white?: never;
 	black?: never;
-};
+}
 
-type WhiteButton = CommonProps & {
+interface WhiteButton extends CommonProps {
 	success?: never;
 	danger?: never;
 	primary?: never;
 	white?: boolean;
 	black?: never;
-};
+}
 
-type BlackButton = CommonProps & {
+interface BlackButton extends CommonProps {
 	success?: never;
 	danger?: never;
 	primary?: never;
 	white?: never;
 	black?: boolean;
-};
+}
 
 export type ButtonProps = SuccessButton | DangerButton | PrimaryButton | WhiteButton | BlackButton;
 
@@ -64,14 +72,15 @@ const mixinButton = ($background = '#fff', $color = '#fff') => css`
 
 	&:disabled,
 	&:disabled:hover {
-		opacity: 0.45;
 		background-color: ${desaturate(0.4, $background)};
 		color: ${desaturate(0.6, $color)};
+		opacity: 0.45;
+		pointer-events: none;
 		cursor: default;
 	}
 `;
 
-const ButtonUI = styled.button<ButtonProps>`
+const Button = styled.button<ButtonProps>`
 	appearance: none;
 	border: 1px solid #aaa;
 	background: none;
@@ -130,5 +139,5 @@ const ButtonUI = styled.button<ButtonProps>`
 	}}
 `;
 
-export { ButtonUI };
-export default ButtonUI;
+export { Button };
+export default Button;

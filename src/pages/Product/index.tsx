@@ -41,7 +41,12 @@ const ProductPage: FC = () => {
 							<span>
 								{current.price} {currency}
 							</span>
-							<ButtonUI primary onClick={() => moveToCart(Number(current.id))} disabled={current.checked}>
+							<ButtonUI
+								primary
+								animate
+								onClick={() => moveToCart(Number(current.id))}
+								disabled={current.checked}
+							>
 								{current.checked ? 'Added' : 'Add to cart'}
 							</ButtonUI>
 						</PriceBlock>

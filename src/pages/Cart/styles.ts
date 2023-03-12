@@ -16,6 +16,7 @@ export const contentVariant = {
 };
 
 export const Cart = styled.div`
+	position: relative;
 	margin: 20px 0;
 	display: flex;
 	align-items: flex-start;
@@ -26,7 +27,32 @@ export const Cart = styled.div`
 	`}
 `;
 
+export const Trash = styled(motion.div)`
+	position: absolute;
+	right: 0;
+	top: -40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 5px 10px;
+	cursor: pointer;
+	color: ${(props) => props.theme.colors.gray.$6};
+	border: 1px solid ${(props) => props.theme.colors.gray.$5};
+	border-radius: ${(props) => props.theme.radius.borderRadius};
+	transition: 0.2s;
+
+	.icofont {
+		margin-left: 5px;
+		line-height: 1;
+	}
+
+	&:hover {
+		color: ${(props) => props.theme.colors.gray.$9};
+	}
+`;
+
 export const Wrapper = styled(motion.div)`
+	position: relative;
 	width: 100%;
 	display: flex;
 	flex-direction: column;
@@ -39,7 +65,6 @@ export const Wrapper = styled(motion.div)`
 
 export const Sidebar = styled(motion.div)`
 	position: relative;
-	top: 90px;
 	width: 100%;
 	margin-top: 10px;
 	min-height: 100px;
@@ -50,6 +75,7 @@ export const Sidebar = styled(motion.div)`
 
 	${media.greaterThan('sm')`
         position: sticky;
+        top: 90px;
         margin-top: 0;
         width: 25%;
         min-width: 250px;

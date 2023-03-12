@@ -47,10 +47,6 @@ const initialState: ProductsState = {
 const changeItemsForCurrentPage = (state: ProductsState) => {
 	state.items = [...state.fetchedItems];
 	state.items = state.items.splice((state.page - 1) * state.count, state.count);
-
-	state.items.forEach((item) => {
-		item.imgFetch = true;
-	});
 };
 
 const changeStateSort = (state: ProductsState, payload: SortTypes) => {
@@ -98,6 +94,10 @@ const productsReducer = createSlice({
 
 			state.toggledItems = [...new Set([...state.toggledItems])];
 
+			iterationToggle(state);
+		},
+		removeAllToggledProducts: (state) => {
+			state.toggledItems = [];
 			iterationToggle(state);
 		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
@@ -152,7 +152,12 @@ const productsReducer = createSlice({
 		changePage: (state, action: PayloadAction<number>) => {
 			state.page = action.payload;
 			state.search.value = '';
+
 			changeItemsForCurrentPage(state);
+
+			state.items.forEach((item) => {
+				item.imgFetch = true;
+			});
 		},
 	},
 	extraReducers(builder) {
@@ -187,7 +192,15 @@ const productsReducer = createSlice({
 
 const { actions, reducer } = productsReducer;
 
-export const { fetching, setError, toggleProduct, fetchingImageProduct, sortProducts, searchProduct, changePage } =
-	actions;
+export const {
+	fetching,
+	setError,
+	toggleProduct,
+	removeAllToggledProducts,
+	fetchingImageProduct,
+	sortProducts,
+	searchProduct,
+	changePage,
+} = actions;
 
 export default reducer;

@@ -31,9 +31,13 @@ const cartReducer = createSlice({
 			state.items = current(state).items.filter((item) => item.id !== action.payload);
 			calculateTotalPrice(state);
 		},
+		trashAll: (state) => {
+			state.items = [];
+            state.totalPrice = 0;
+		},
 	},
 });
 
-export const { addToCart, deleteFromCart } = cartReducer.actions;
+export const { addToCart, deleteFromCart, trashAll } = cartReducer.actions;
 
 export default cartReducer.reducer;

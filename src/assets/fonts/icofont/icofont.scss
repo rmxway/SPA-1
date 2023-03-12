@@ -2,9 +2,9 @@ $icofont-font: 'icofont';
 
 @font-face {
     font-family: $icofont-font;
-    src: url(".//icofont.ttf?197cf69a5c986ae4ae447853a3a15477") format("truetype"),
-url(".//icofont.woff?197cf69a5c986ae4ae447853a3a15477") format("woff"),
-url(".//icofont.woff2?197cf69a5c986ae4ae447853a3a15477") format("woff2");
+    src: url(".//icofont.ttf?7c555d38dd09f0bb3403a38eee9e55c3") format("truetype"),
+url(".//icofont.woff?7c555d38dd09f0bb3403a38eee9e55c3") format("woff"),
+url(".//icofont.woff2?7c555d38dd09f0bb3403a38eee9e55c3") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -30,6 +30,7 @@ $icofont-map: (
     'star-filled': '\f105',
     'star': '\f106',
     'times-small': '\f107',
+    'trash': '\f108',
 );
 
 .icofont-arrow-down:before {
@@ -52,4 +53,7 @@ $icofont-map: (
 }
 .icofont-times-small:before {
     content: map-get($icofont-map, 'times-small');
+}
+.icofont-trash:before {
+    content: map-get($icofont-map, 'trash');
 }

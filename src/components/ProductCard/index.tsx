@@ -1,5 +1,5 @@
 import { MotionProps } from 'framer-motion';
-import { FC, useState } from 'react';
+import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { RatingStars, Space } from '@/components/Layout';
@@ -18,11 +18,15 @@ interface ProductType extends MotionProps {
 	index: number;
 }
 
-const ProductCard: FC<ProductType> = ({ product, ...props }) => {
+const ProductCard = memo(({ product, ...props }: ProductType) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const link = `/product/${product.id}`;
 	const img = product?.thumbnail;
 	const { fetching } = useAppSelector(productsStore);
+
+	const handleChecked = () => {
+		moveToCart(Number(product.id));
+	};
 
 	return (
 		<ProductWrapper {...props}>
@@ -47,12 +51,14 @@ const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 				<RatingStars rating={Number(product.rating)} />
 			</Tools>
 			<Title to={link}>{product.title}</Title>
-			<ButtonUI primary onClick={() => moveToCart(Number(product.id))} disabled={product.checked}>
+			<ButtonUI primary onClick={handleChecked} disabled={product.checked}>
 				{product.checked ? 'Added' : 'Add to cart'}
 			</ButtonUI>
 		</ProductWrapper>
 	);
-};
+});
+
+ProductCard.displayName = 'ProductCard';
 
 export { ProductCard };
 export default ProductCard;
