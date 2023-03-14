@@ -42,7 +42,7 @@ const UIPage: FC = () => {
 				</Flexbox>
 
 				<h4>Toggled button</h4>
-				<ButtonUI primary onClick={handleToggle}>
+				<ButtonUI primary animate onClick={handleToggle}>
 					{!toggle ? 'Click me' : 'Return'}
 				</ButtonUI>
 
