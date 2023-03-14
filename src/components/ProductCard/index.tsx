@@ -3,19 +3,19 @@ import { memo, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { RatingStars, Space } from '@/components/Layout';
-import { ButtonUI, Loader } from '@/components/ui';
+import { ButtonUI, Favorite, Loader } from '@/components/ui';
 import { currency } from '@/constants';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
 import { moveToCart } from '@/store/reducers/combineActions';
+import { toggleFavorite } from '@/store/reducers/products';
 
 import { LazyImageProductCard } from './LazyImageProductCard';
 import { Description, Help, Price, ProductWrapper, Title, Tools, WrapperImage } from './styled';
 
 interface ProductType extends MotionProps {
 	product: IProduct;
-	index: number;
 }
 
 const ProductCard = memo(({ product, ...props }: ProductType) => {
@@ -23,13 +23,19 @@ const ProductCard = memo(({ product, ...props }: ProductType) => {
 	const link = `/product/${product.id}`;
 	const img = product?.thumbnail;
 	const { fetching } = useAppSelector(productsStore);
+	const dispatch = useAppDispatch();
 
 	const handleChecked = () => {
 		moveToCart(Number(product.id));
 	};
 
+	const handleFavorite = () => {
+		dispatch(toggleFavorite(Number(product.id)));
+	};
+
 	return (
 		<ProductWrapper {...props}>
+			<Favorite onActive={handleFavorite} active={product.favorite} />
 			<WrapperImage>
 				<Link to={link}>
 					<Loader loading={product.imgFetch} />

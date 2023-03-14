@@ -1,10 +1,9 @@
-import { AnimatePresence, motion } from 'framer-motion';
+import { LayoutGroup, motion } from 'framer-motion';
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components/macro';
 
 import { ProductCard } from '@/components/ProductCard';
-import { useAppSelector } from '@/hooks';
-import { productsStore } from '@/store';
+import { IProduct } from '@/interfaces';
 
 import { LayerBlock } from './Layout';
 
@@ -28,36 +27,43 @@ const containerVars = {
 	visible: { opacity: 1 },
 };
 
-const ProductsGrid = ({ children }: PropsWithChildren) => {
-	const { items, error, fetching } = useAppSelector(productsStore);
+interface ProductsGridProps extends PropsWithChildren {
+	items: IProduct[];
+	fetching: boolean;
+	error: string;
+}
 
-	return (
-		<WrapperComponent>
-			<Wrapper>
-				{children}
-				<AnimatePresence>
-					<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
-						{!!items.length &&
-							!error &&
-							items.map((product, index) => (
-								<ProductCard
-									layout
-									transition={{ type: 'just', delay: 0.3 }}
-									product={product}
-									key={product.id}
-									index={index}
-								/>
-							))}
-					</FetchingBlock>
-				</AnimatePresence>
-			</Wrapper>
+const ProductsGrid = ({ children, items, fetching, error }: ProductsGridProps) => (
+	<WrapperComponent>
+		<Wrapper>
+			{children}
+			<LayoutGroup>
+				<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
+					{!!items.length &&
+						!error &&
+						items.map((product) => (
+							<ProductCard
+								product={product}
+								layout
+								transition={{ duration: 0.5 }}
+								variants={containerVars}
+								initial="hidden"
+								animate="visible"
+								exit="hidden"
+								key={product.id}
+							/>
+						))}
+				</FetchingBlock>
+			</LayoutGroup>
+		</Wrapper>
 
-			{!items.length && !fetching && !error ? (
+		{!items.length && !fetching && !error ? (
+			<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
 				<LayerBlock mt="true">{`The search did't take a result`}</LayerBlock>
-			) : null}
-		</WrapperComponent>
-	);
-};
+			</motion.div>
+		) : null}
+	</WrapperComponent>
+);
 
 ProductsGrid.displayName = 'ProductGrid';
 

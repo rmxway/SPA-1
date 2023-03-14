@@ -41,7 +41,7 @@ const ProductsPage: FC = () => {
 
 			{error && <LayerBlock>{error}</LayerBlock>}
 
-			<ProductsGrid>
+			<ProductsGrid {...{ items, fetching, error }}>
 				<Loader loading={fetching} />
 			</ProductsGrid>
 		</Container>

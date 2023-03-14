@@ -27,4 +27,5 @@ export interface IProduct {
 	stock?: number;
 	checked?: boolean;
 	imgFetch: boolean;
+    favorite: boolean;
 }

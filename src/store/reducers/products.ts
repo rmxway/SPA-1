@@ -149,6 +149,11 @@ const productsReducer = createSlice({
 				state.total = state.fetchedItems.length;
 			}
 		},
+		toggleFavorite: (state, action: PayloadAction<number>) => {
+			const current = state.fetchedItems.find((item) => item.id === action.payload);
+			if (current) current.favorite = !current.favorite;
+            changeItemsForCurrentPage(state);
+		},
 		changePage: (state, action: PayloadAction<number>) => {
 			state.page = action.payload;
 			state.search.value = '';
@@ -174,6 +179,7 @@ const productsReducer = createSlice({
 
 				products.forEach((item) => {
 					item.imgFetch = true;
+                    item.favorite = false;
 				});
 
 				state.total = total;
@@ -200,6 +206,7 @@ export const {
 	fetchingImageProduct,
 	sortProducts,
 	searchProduct,
+	toggleFavorite,
 	changePage,
 } = actions;
 
