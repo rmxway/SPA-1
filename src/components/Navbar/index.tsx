@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
+import { navbarItems } from '@/API/navbar';
 import { Container, Flexbox, Space } from '@/components/Layout';
 
 import { NavbarCart } from './NavbarCart';
@@ -28,6 +29,27 @@ const NavLinkMotion: FC<NavLinkProps> = ({ title, address, component }) => (
 	</NavLink>
 );
 
+interface navbarTypes {
+	title?: string;
+	address: string;
+	component?: ReactNode;
+}
+
+const renderNavBar = () =>
+	navbarItems.map(({ title, url }) => {
+		const props: navbarTypes = {
+			title,
+			address: url,
+		};
+
+		if (title === 'Cart') {
+			props.title = '';
+			props.component = <NavbarCart>{title}</NavbarCart>;
+		}
+
+		return <NavLinkMotion key={url} {...props} />;
+	});
+
 const Navbar: FC = () => (
 	<StyledNavbar>
 		<Container>
@@ -42,10 +64,7 @@ const Navbar: FC = () => (
 					</Logo>
 				</Link>
 				<Space />
-				<NavLinkMotion title="Main" address="/" />
-				<NavLinkMotion title="UI" address="/ui" />
-				<NavLinkMotion title="Products" address="/products" />
-				<NavLinkMotion address="/cart" component={<NavbarCart />} />
+				{renderNavBar()}
 			</Flexbox>
 		</Container>
 	</StyledNavbar>

@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'icofont';
-    src: url(".//icofont.ttf?7c555d38dd09f0bb3403a38eee9e55c3") format("truetype"),
-url(".//icofont.woff?7c555d38dd09f0bb3403a38eee9e55c3") format("woff"),
-url(".//icofont.woff2?7c555d38dd09f0bb3403a38eee9e55c3") format("woff2");
+    src: url(".//icofont.ttf?aa46c5ed9ab613fcd0fb1fbe38d9f701") format("truetype"),
+url(".//icofont.woff?aa46c5ed9ab613fcd0fb1fbe38d9f701") format("woff"),
+url(".//icofont.woff2?aa46c5ed9ab613fcd0fb1fbe38d9f701") format("woff2");
 }
 
 i[class^='icofont-']:before, i[class*=' icofont-']:before {
@@ -26,18 +26,24 @@ i[class^='icofont-']:before, i[class*=' icofont-']:before {
 .icofont-cart:before {
     content: '\f103';
 }
-.icofont-nophoto:before {
+.icofont-favorite-fill:before {
     content: '\f104';
 }
-.icofont-star-filled:before {
+.icofont-favorite:before {
     content: '\f105';
 }
-.icofont-star:before {
+.icofont-nophoto:before {
     content: '\f106';
 }
-.icofont-times-small:before {
+.icofont-star-filled:before {
     content: '\f107';
 }
-.icofont-trash:before {
+.icofont-star:before {
     content: '\f108';
+}
+.icofont-times-small:before {
+    content: '\f109';
+}
+.icofont-trash:before {
+    content: '\f10a';
 }

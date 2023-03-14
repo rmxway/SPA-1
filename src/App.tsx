@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components/macro';
 
 import { Navbar } from '@/components/Navbar';
-import { CartPage, MainPage, ProductPage, ProductsPage, UIPage } from '@/pages';
+import { CartPage, FavoritesPage, MainPage, ProductPage, ProductsPage, UIPage } from '@/pages';
 import { defaultTheme } from '@/theme';
 import { GlobalStyles } from '@/theme/styles/global';
 
@@ -16,6 +16,7 @@ const App: FC = () => (
 				<Route path="/" element={<MainPage />} />
 				<Route path="/ui" element={<UIPage />} />
 				<Route path="products" element={<ProductsPage />} />
+				<Route path="favorites" element={<FavoritesPage />} />
 				<Route path="cart" element={<CartPage />} />
 				<Route path="/product/:productId" element={<ProductPage />} />
 			</Routes>
