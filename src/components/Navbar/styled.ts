@@ -9,7 +9,7 @@ const logoColor = (props: { theme: DefaultTheme }) => darken(0.3, props.theme.co
 const StyledNavbar = styled.div`
 	position: fixed;
 	top: 0;
-	z-index: 1;
+	z-index: 100;
 	width: 100%;
 	height: 70px;
 	background-color: ${(props) => props.theme.colors.success};
@@ -82,6 +82,29 @@ const Logo = styled.div`
     `}
 `;
 
+const Count = styled.div`
+	position: absolute;
+	border-radius: 100%;
+	top: -14px;
+	right: -10px;
+	width: 20px;
+	height: 20px;
+	background-color: ${(props) => props.theme.colors.dark};
+	border: 2px solid ${(props) => props.theme.colors.success};
+	color: #fff;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.35;
+	letter-spacing: -1px;
+
+	${media.greaterThan('xs')`
+        top: -10px;
+        right: -12px;
+        width: 20px;
+        height: 20px;
+    `}
+`;
+
 const Line = styled(motion.div)`
 	position: absolute;
 	left: 0;
@@ -95,4 +118,4 @@ const Line = styled(motion.div)`
     `}
 `;
 
-export { Line, Logo, StyledNavbar };
+export { Count, Line, Logo, StyledNavbar };

@@ -1,11 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 
-import { Filter, Pagination, ProductsGrid } from '@/components';
+import { Filter, ProductsGrid } from '@/components';
 import { Container, LayerBlock } from '@/components/Layout';
-import { Loader } from '@/components/ui';
 import { useAppSelector } from '@/hooks';
 import { productsStore, store } from '@/store';
-// import { storeName } from '@/store/localStore';
 import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
 
 function* runOnce() {
@@ -14,8 +12,9 @@ function* runOnce() {
 const generator = runOnce();
 
 const ProductsPage: FC = () => {
-	const { fetching, error, items } = useAppSelector(productsStore);
-	const isEmptyCart = !!items.length;
+	const { fetching, error, fetchedItems, page } = useAppSelector(productsStore);
+
+	const isEmptyCart = !!fetchedItems.length;
 	const [isLocal, setIsLocal] = useState<boolean>(isEmptyCart);
 
 	useEffect(() => {
@@ -26,24 +25,11 @@ const ProductsPage: FC = () => {
 
 	return (
 		<Container mt>
-			{/* <ButtonUI
-				danger={isLocal}
-				onClick={() => {
-					localStorage.setItem(storeName, '');
-					setIsLocal(false);
-				}}
-			>
-				Delete storage
-			</ButtonUI> */}
-
 			<Filter />
-			<Pagination />
 
 			{error && <LayerBlock>{error}</LayerBlock>}
 
-			<ProductsGrid {...{ items, fetching, error }}>
-				<Loader loading={fetching} />
-			</ProductsGrid>
+			<ProductsGrid pagination items={fetchedItems} keyPage="page" {...{ fetching, error, page }} />
 		</Container>
 	);
 };

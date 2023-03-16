@@ -3,21 +3,25 @@ import { Link, NavLink } from 'react-router-dom';
 
 import { navbarItems } from '@/API/navbar';
 import { Container, Flexbox, Space } from '@/components/Layout';
+import { useAppSelector } from '@/hooks';
+import { productsStore } from '@/store';
 
 import { NavbarCart } from './NavbarCart';
-import { Line, Logo, StyledNavbar } from './styled';
+import { Count, Line, Logo, StyledNavbar } from './styled';
 
 interface NavLinkProps {
 	title?: string;
 	address: string;
 	component?: ReactNode;
+	count?: number;
 }
 
-const NavLinkMotion: FC<NavLinkProps> = ({ title, address, component }) => (
+const NavLinkMotion: FC<NavLinkProps> = ({ title, address, component, count }) => (
 	<NavLink to={address}>
 		{({ isActive }) => (
 			<>
 				{title || component}
+				{count ? <Count>{count}</Count> : null}
 				{isActive ? (
 					<Line
 						layoutId="underline"
@@ -35,7 +39,7 @@ interface navbarTypes {
 	component?: ReactNode;
 }
 
-const renderNavBar = () =>
+const renderNavBar = (count: number) =>
 	navbarItems.map(({ title, url }) => {
 		const props: navbarTypes = {
 			title,
@@ -47,28 +51,36 @@ const renderNavBar = () =>
 			props.component = <NavbarCart>{title}</NavbarCart>;
 		}
 
+		if (title === 'Favorites') {
+			return <NavLinkMotion key={url} {...props} {...{ count }} />;
+		}
+
 		return <NavLinkMotion key={url} {...props} />;
 	});
 
-const Navbar: FC = () => (
-	<StyledNavbar>
-		<Container>
-			<Flexbox align="center" nowrap>
-				<Link to="/">
-					<Logo>
-						GS
-						<span>
-							Green Shop <br />
-							Brand
-						</span>
-					</Logo>
-				</Link>
-				<Space />
-				{renderNavBar()}
-			</Flexbox>
-		</Container>
-	</StyledNavbar>
-);
+const Navbar: FC = () => {
+	const { fetchedItems } = useAppSelector(productsStore);
+	const countFavorites = fetchedItems.filter((item) => item.favorite).length;
+	return (
+		<StyledNavbar>
+			<Container>
+				<Flexbox align="center" nowrap>
+					<Link to="/">
+						<Logo>
+							GS
+							<span>
+								Green Shop <br />
+								Brand
+							</span>
+						</Logo>
+					</Link>
+					<Space />
+					{renderNavBar(countFavorites)}
+				</Flexbox>
+			</Container>
+		</StyledNavbar>
+	);
+};
 
 export { Navbar };
 export default Navbar;

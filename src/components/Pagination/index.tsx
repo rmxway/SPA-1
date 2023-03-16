@@ -2,28 +2,39 @@ import debounce from 'lodash.debounce';
 import { FC } from 'react';
 
 import { Flexbox, Space } from '@/components/Layout';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { productsStore } from '@/store';
-import { changePage } from '@/store/reducers/products';
+import { useAppDispatch } from '@/hooks';
+import { IProduct } from '@/interfaces';
+import { changePage, TypePages } from '@/store/reducers/products';
 
 import { ButtonPagination } from './ButtonPagination';
 import { ArrowButton, Info, Wrapper } from './styled';
 
-const Pagination: FC = () => {
-	const { page, total, count, fetching, items } = useAppSelector(productsStore);
+interface PaginationProps {
+	items: IProduct[];
+	fetching: boolean;
+	page: number;
+	countPerPage: number;
+	keyChangePage: TypePages;
+}
+
+const Pagination: FC<PaginationProps> = ({ items, fetching, page, countPerPage, keyChangePage }) => {
+	const total = items.length;
 	const dispatch = useAppDispatch();
-	const countPages = Math.ceil(total / count);
+	const countPages = Math.ceil(total / countPerPage);
 	const maxCount = 4;
 	const countButtons = countPages >= maxCount ? maxCount : countPages;
 
+	const debounceChangePage = debounce((num) => dispatch(changePage({ key: keyChangePage, page: num })), 100);
+
 	const viewedItems = (): number => {
+		if (!(total % countPerPage)) {
+			return total;
+		}
 		if (countPages !== page) {
-			return page * count;
+			return page * countPerPage;
 		}
 		return total;
 	};
-
-	const debounceChangePage = debounce((num) => dispatch(changePage(num)), 100);
 
 	const AllButtons = (): React.ReactNode[] => {
 		const arrButtons: React.ReactNode[] = Array.from({ length: countPages });

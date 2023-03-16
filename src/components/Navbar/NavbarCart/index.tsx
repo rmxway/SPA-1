@@ -3,7 +3,8 @@ import { FC, PropsWithChildren } from 'react';
 import { useAppSelector } from '@/hooks';
 import { cartStore } from '@/store';
 
-import { Cart, Count } from './styled';
+import { Count } from '../styled';
+import { Cart } from './styled';
 
 const NavbarCart: FC<PropsWithChildren> = ({ children }) => {
 	const { items } = useAppSelector(cartStore);
