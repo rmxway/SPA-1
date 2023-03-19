@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react';
+import { FC, memo, ReactNode } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 import { navbarItems } from '@/API/navbar';
@@ -6,8 +6,9 @@ import { Container, Flexbox, Space } from '@/components/Layout';
 import { useAppSelector } from '@/hooks';
 import { productsStore } from '@/store';
 
+import { Count } from './Count';
 import { NavbarCart } from './NavbarCart';
-import { Count, Line, Logo, StyledNavbar } from './styled';
+import { Line, Logo, StyledNavbar } from './styled';
 
 interface NavLinkProps {
 	title?: string;
@@ -16,12 +17,14 @@ interface NavLinkProps {
 	count?: number;
 }
 
-const NavLinkMotion: FC<NavLinkProps> = ({ title, address, component, count }) => (
+const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => (
 	<NavLink to={address}>
 		{({ isActive }) => (
 			<>
 				{title || component}
-				{count ? <Count>{count}</Count> : null}
+
+				<Count {...{ count }} />
+
 				{isActive ? (
 					<Line
 						layoutId="underline"
@@ -31,7 +34,9 @@ const NavLinkMotion: FC<NavLinkProps> = ({ title, address, component, count }) =
 			</>
 		)}
 	</NavLink>
-);
+));
+
+NavLinkMotion.displayName = 'NavLinkMotion';
 
 interface navbarTypes {
 	title?: string;

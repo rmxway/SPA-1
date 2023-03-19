@@ -3,7 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 import { useAppSelector } from '@/hooks';
 import { cartStore } from '@/store';
 
-import { Count } from '../styled';
+import { Count } from '../Count';
 import { Cart } from './styled';
 
 const NavbarCart: FC<PropsWithChildren> = ({ children }) => {
@@ -13,7 +13,7 @@ const NavbarCart: FC<PropsWithChildren> = ({ children }) => {
 		<Cart>
 			{children}
 			<i className="icofont icofont-cart" />
-			{items.length ? <Count>{items.length}</Count> : null}
+			{items.length ? <Count count={items.length} /> : null}
 		</Cart>
 	);
 };
