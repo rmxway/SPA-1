@@ -10,7 +10,7 @@ import { StyledFilter } from './styled';
 import { ToggleSort } from './ToggleSort';
 
 const Filter: FC = () => {
-	const { items, fetchedItems, search } = useAppSelector(productsStore);
+	const { currentItems, fetchedItems, search } = useAppSelector(productsStore);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		searchProducts(e.target.value);
@@ -18,11 +18,11 @@ const Filter: FC = () => {
 
 	return (
 		<StyledFilter>
-			<Flexbox align='center' nowrap>
+			<Flexbox align="center" nowrap>
 				<div className="title">Sorting</div>
-				<ToggleSort sort="price" value="Price" disabled={!items.length} />
-				<ToggleSort sort="rating" value="Rating" disabled={!items.length} />
-                <ToggleSort sort="reset" value="Reset" disabled={!items.length} />
+				<ToggleSort sort="price" value="Price" disabled={!currentItems.length} />
+				<ToggleSort sort="rating" value="Rating" disabled={!currentItems.length} />
+				<ToggleSort sort="reset" value="Reset" disabled={!currentItems.length} />
 			</Flexbox>
 			<InputUI
 				name="search"
@@ -30,7 +30,7 @@ const Filter: FC = () => {
 				className="search-filter"
 				value={search.value}
 				onChange={handleChange}
-				disabled={!items.length && !fetchedItems.length}
+				disabled={!currentItems.length && !fetchedItems.length}
 			/>
 		</StyledFilter>
 	);

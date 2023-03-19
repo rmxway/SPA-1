@@ -2,9 +2,9 @@ $icofont-font: 'icofont';
 
 @font-face {
     font-family: $icofont-font;
-    src: url(".//icofont.ttf?7c555d38dd09f0bb3403a38eee9e55c3") format("truetype"),
-url(".//icofont.woff?7c555d38dd09f0bb3403a38eee9e55c3") format("woff"),
-url(".//icofont.woff2?7c555d38dd09f0bb3403a38eee9e55c3") format("woff2");
+    src: url(".//icofont.ttf?aa46c5ed9ab613fcd0fb1fbe38d9f701") format("truetype"),
+url(".//icofont.woff?aa46c5ed9ab613fcd0fb1fbe38d9f701") format("woff"),
+url(".//icofont.woff2?aa46c5ed9ab613fcd0fb1fbe38d9f701") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -26,11 +26,13 @@ $icofont-map: (
     'arrow-down': '\f101',
     'arrow-up': '\f102',
     'cart': '\f103',
-    'nophoto': '\f104',
-    'star-filled': '\f105',
-    'star': '\f106',
-    'times-small': '\f107',
-    'trash': '\f108',
+    'favorite-fill': '\f104',
+    'favorite': '\f105',
+    'nophoto': '\f106',
+    'star-filled': '\f107',
+    'star': '\f108',
+    'times-small': '\f109',
+    'trash': '\f10a',
 );
 
 .icofont-arrow-down:before {
@@ -41,6 +43,12 @@ $icofont-map: (
 }
 .icofont-cart:before {
     content: map-get($icofont-map, 'cart');
+}
+.icofont-favorite-fill:before {
+    content: map-get($icofont-map, 'favorite-fill');
+}
+.icofont-favorite:before {
+    content: map-get($icofont-map, 'favorite');
 }
 .icofont-nophoto:before {
     content: map-get($icofont-map, 'nophoto');

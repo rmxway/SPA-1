@@ -9,7 +9,7 @@ const logoColor = (props: { theme: DefaultTheme }) => darken(0.3, props.theme.co
 const StyledNavbar = styled.div`
 	position: fixed;
 	top: 0;
-	z-index: 1;
+	z-index: 100;
 	width: 100%;
 	height: 70px;
 	background-color: ${(props) => props.theme.colors.success};

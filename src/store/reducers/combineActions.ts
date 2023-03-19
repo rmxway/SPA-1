@@ -1,6 +1,12 @@
 import { store } from '@/store';
 import { addToCart, deleteFromCart, trashAll } from '@/store/reducers/cart';
-import { removeAllToggledProducts, searchProduct, toggleProduct } from '@/store/reducers/products';
+import {
+	changePage,
+	removeAllToggledProducts,
+	searchProduct,
+	toggleFavorite,
+	toggleProduct,
+} from '@/store/reducers/products';
 
 const { dispatch } = store;
 
@@ -11,9 +17,17 @@ export const searchProducts = (searchText: string) => {
 export const moveToCart = (id: number) => {
 	const { products } = store.getState();
 	dispatch(toggleProduct(id));
-	const addedProduct = products.items.find((item) => item.id === id);
+	const addedProduct = products.fetchedItems.find((item) => item.id === id);
 
 	if (addedProduct) dispatch(addToCart(addedProduct));
+};
+
+export const toggleFav = (id: number | null) => {
+	const { pageFavorites, favoriteItems, countPerPage } = store.getState().products;
+	dispatch(toggleFavorite(Number(id)));
+
+	if (pageFavorites > 1 && favoriteItems.length % countPerPage === 1)
+		dispatch(changePage({ key: 'pageFavorites', page: pageFavorites - 1 }));
 };
 
 export const removeFromCart = (id: number) => {

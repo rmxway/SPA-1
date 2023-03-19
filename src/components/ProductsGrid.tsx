@@ -1,12 +1,17 @@
-import { AnimatePresence, motion } from 'framer-motion';
-import { PropsWithChildren } from 'react';
+import { LayoutGroup, motion } from 'framer-motion';
+import { PropsWithChildren, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components/macro';
 
 import { ProductCard } from '@/components/ProductCard';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
+import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
+import { setCurrentItems } from '@/store/reducers/products';
 
 import { LayerBlock } from './Layout';
+import { Pagination } from './Pagination';
+import { Loader } from './ui';
 
 const WrapperComponent = styled.div`
 	min-height: 600px;
@@ -28,32 +33,61 @@ const containerVars = {
 	visible: { opacity: 1 },
 };
 
-const ProductsGrid = ({ children }: PropsWithChildren) => {
-	const { items, error, fetching } = useAppSelector(productsStore);
+interface ProductsGridProps extends PropsWithChildren {
+	items: IProduct[];
+	fetching: boolean;
+	error: string;
+	page: number;
+	pagination?: boolean;
+	keyPage: 'page' | 'pageFavorites';
+}
+
+const ProductsGrid = ({ items, children, fetching, error, page, pagination = false, keyPage }: ProductsGridProps) => {
+	const { countPerPage, currentItems } = useAppSelector(productsStore);
+	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(setCurrentItems({ items: new Array(...items), page }));
+	}, [dispatch, items, page]);
 
 	return (
 		<WrapperComponent>
+			<Loader loading={fetching} />
+			{pagination ? <Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} /> : null}
 			<Wrapper>
 				{children}
-				<AnimatePresence>
+				<LayoutGroup>
 					<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
-						{!!items.length &&
+						{!!currentItems.length &&
+							!fetching &&
 							!error &&
-							items.map((product, index) => (
+							currentItems.map((product) => (
 								<ProductCard
-									layout
-									transition={{ type: 'just', delay: 0.3 }}
 									product={product}
+									layout
+									transition={{ duration: 0.5 }}
+									variants={containerVars}
+									initial="hidden"
+									animate="visible"
+									exit="hidden"
 									key={product.id}
-									index={index}
 								/>
 							))}
 					</FetchingBlock>
-				</AnimatePresence>
+				</LayoutGroup>
 			</Wrapper>
 
-			{!items.length && !fetching && !error ? (
-				<LayerBlock mt="true">{`The search did't take a result`}</LayerBlock>
+			{!currentItems.length && !fetching && !error ? (
+				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
+					<LayerBlock mt="true">
+						{keyPage === 'page' && `The search did't take a result`}
+						{keyPage === 'pageFavorites' ? (
+							<>
+								{`Nothing was't add to favorites, go to`} <Link to="/products">Products</Link>
+							</>
+						) : null}
+					</LayerBlock>
+				</motion.div>
 			) : null}
 		</WrapperComponent>
 	);

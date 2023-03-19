@@ -2,9 +2,11 @@
     "arrow-down": 61697,
     "arrow-up": 61698,
     "cart": 61699,
-    "nophoto": 61700,
-    "star-filled": 61701,
-    "star": 61702,
-    "times-small": 61703,
-    "trash": 61704
+    "favorite-fill": 61700,
+    "favorite": 61701,
+    "nophoto": 61702,
+    "star-filled": 61703,
+    "star": 61704,
+    "times-small": 61705,
+    "trash": 61706
 }

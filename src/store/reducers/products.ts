@@ -5,11 +5,13 @@ import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
 
 interface ProductsState {
 	fetchedItems: IProduct[];
-	items: IProduct[];
+	currentItems: IProduct[];
+	favoriteItems: IProduct[];
 	toggledItems: number[];
 	total: number;
+	countPerPage: number;
 	page: number;
-	count: number;
+	pageFavorites: number;
 	error: string;
 	fetching: boolean;
 	sort: {
@@ -28,11 +30,13 @@ interface SortTypes {
 
 const initialState: ProductsState = {
 	fetchedItems: [],
-	items: [],
+	currentItems: [],
+	favoriteItems: [],
 	toggledItems: [],
 	total: 0,
 	page: 1,
-	count: 12,
+	pageFavorites: 1,
+	countPerPage: 12,
 	error: '',
 	fetching: false,
 	sort: {
@@ -42,11 +46,6 @@ const initialState: ProductsState = {
 	search: {
 		value: '',
 	},
-};
-
-const changeItemsForCurrentPage = (state: ProductsState) => {
-	state.items = [...state.fetchedItems];
-	state.items = state.items.splice((state.page - 1) * state.count, state.count);
 };
 
 const changeStateSort = (state: ProductsState, payload: SortTypes) => {
@@ -61,8 +60,6 @@ const iterationToggle = (state: ProductsState) => {
 		const isToggled = !!state.toggledItems.find((toggleItem) => toggleItem === item.id);
 		item.checked = isToggled;
 	});
-
-	changeItemsForCurrentPage(state);
 };
 
 type SetProductsPayload = {
@@ -71,6 +68,8 @@ type SetProductsPayload = {
 	page: number;
 	count: number;
 };
+
+export type TypePages = 'page' | 'pageFavorites';
 
 const productsReducer = createSlice({
 	name: 'products',
@@ -102,12 +101,8 @@ const productsReducer = createSlice({
 		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
 			const { fetch, id } = action.payload;
-
-			const fetchedIndex = state.fetchedItems.findIndex((item) => item.id === id);
-			state.fetchedItems[fetchedIndex].imgFetch = fetch;
-
-			const index = state.items.findIndex((item) => item.id === id);
-			state.items[index].imgFetch = fetch;
+			const el = state.fetchedItems.find((item) => item.id === id);
+			if (el) el.imgFetch = fetch;
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
 			const { sort, toggle } = action.payload;
@@ -121,7 +116,6 @@ const productsReducer = createSlice({
 					if (Number(a.id) > Number(b.id)) return 1;
 					return 0;
 				});
-				changeItemsForCurrentPage(state);
 				return;
 			}
 
@@ -134,30 +128,34 @@ const productsReducer = createSlice({
 			});
 
 			if (!toggle) state.fetchedItems = state.fetchedItems.reverse();
-			changeItemsForCurrentPage(state);
 		},
 		searchProduct: (state, action: PayloadAction<string>) => {
 			state.search.value = action.payload.trim();
 
 			if (state.search.value.length) {
-				state.items = state.fetchedItems.filter((item) =>
+				state.currentItems = state.fetchedItems.filter((item) =>
 					item.title.toLowerCase().includes(state.search.value.toLowerCase())
 				);
-				state.total = state.items.length;
+				state.total = state.fetchedItems.length;
 			} else {
-				changeItemsForCurrentPage(state);
 				state.total = state.fetchedItems.length;
 			}
 		},
-		changePage: (state, action: PayloadAction<number>) => {
-			state.page = action.payload;
+		toggleFavorite: (state, action: PayloadAction<number>) => {
+			const current = state.fetchedItems.find((item) => item.id === action.payload);
+			if (current) current.favorite = !current.favorite;
+			state.favoriteItems = state.fetchedItems.filter((item) => item.favorite);
+		},
+		changePage: (state, action: PayloadAction<{ key: TypePages; page: number }>) => {
+			const { key, page } = action.payload;
+			if (key === 'page' || key === 'pageFavorites') state[key] = page;
 			state.search.value = '';
+		},
+		setCurrentItems: (state, action: PayloadAction<{ items: IProduct[]; page: number }>) => {
+			const { items, page } = action.payload;
 
-			changeItemsForCurrentPage(state);
-
-			state.items.forEach((item) => {
-				item.imgFetch = true;
-			});
+			const filteredItems = items.splice((page - 1) * state.countPerPage, state.countPerPage);
+			state.currentItems = filteredItems;
 		},
 	},
 	extraReducers(builder) {
@@ -169,19 +167,19 @@ const productsReducer = createSlice({
 			.addCase(asyncGetAllProducts.fulfilled, (state, action: PayloadAction<SetProductsPayload>) => {
 				const { products, total, count, page } = action.payload;
 
-				state.fetching = false;
-				state.error = '';
-
 				products.forEach((item) => {
 					item.imgFetch = true;
+					item.favorite = false;
 				});
 
 				state.total = total;
 				state.page = page;
-				state.count = count;
+				state.countPerPage = count;
 
 				state.fetchedItems = [...products];
-				changeItemsForCurrentPage(state);
+
+				state.fetching = false;
+				state.error = '';
 			})
 			.addCase(asyncGetAllProducts.rejected, (state, action) => {
 				state.error = String(action.payload);
@@ -200,7 +198,9 @@ export const {
 	fetchingImageProduct,
 	sortProducts,
 	searchProduct,
+	toggleFavorite,
 	changePage,
+	setCurrentItems,
 } = actions;
 
 export default reducer;
