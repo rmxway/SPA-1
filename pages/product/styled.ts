@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 import { LazyImage } from '@/components/Layout';
 import { media } from '@/theme';

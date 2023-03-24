@@ -2,10 +2,15 @@ import { Store } from 'redux';
 
 export const storeName = 'gs-store';
 
-const localStore: string | null = localStorage.getItem(storeName);
+let persistState: {};
+let listener: (store: Store) => void;
 
-export const persistState = localStorage.getItem(storeName) ? JSON.parse(String(localStore)) : {};
+if (typeof window !== 'undefined') {
+	const localStore: string | null = window.localStorage.getItem(storeName);
+	persistState = window.localStorage.getItem(storeName) ? JSON.parse(String(localStore)) : {};
+	listener = (store: Store): void => {
+		localStorage.setItem(storeName, JSON.stringify(store.getState()));
+	};
+}
 
-export const listener = (store: Store): void => {
-	localStorage.setItem(storeName, JSON.stringify(store.getState()));
-};
+export { persistState, listener };

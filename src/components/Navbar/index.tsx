@@ -1,9 +1,9 @@
+import Link from 'next/link';
 import { FC, memo, ReactNode } from 'react';
-import { Link, NavLink } from 'react-router-dom';
 
-import { navbarItems } from '@/API/navbar';
 import { Container, Flexbox, Space } from '@/components/Layout';
 import { useAppSelector } from '@/hooks';
+import { navbarItems } from '@/mock/navbar';
 import { productsStore } from '@/store';
 
 import { Count } from './Count';
@@ -18,22 +18,20 @@ interface NavLinkProps {
 }
 
 const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => (
-	<NavLink to={address}>
-		{({ isActive }) => (
-			<>
-				{title || component}
+	<Link href={address}>
+		<>
+			{title || component}
 
-				<Count {...{ count }} />
+			{count ? <Count {...{ count }} /> : null}
 
-				{isActive ? (
-					<Line
-						layoutId="underline"
-						transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
-					/>
-				) : null}
-			</>
-		)}
-	</NavLink>
+			{/* {active ? (
+						<Line
+							layoutId="underline"
+							transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
+						/>
+					) : null} */}
+		</>
+	</Link>
 ));
 
 NavLinkMotion.displayName = 'NavLinkMotion';
@@ -70,7 +68,7 @@ const Navbar: FC = () => {
 		<StyledNavbar>
 			<Container>
 				<Flexbox align="center" nowrap>
-					<Link to="/">
+					<Link href="/">
 						<Logo>
 							GS
 							<span>

@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { useParams } from 'react-router-dom';
 
 import { Container, LayerBlock, RatingStars } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
@@ -11,10 +10,11 @@ import { moveToCart } from '@/store/reducers/combineActions';
 import { Image, Info, PriceBlock, Title, Wrapper, WrapperImage } from './styled';
 
 const ProductPage: FC = () => {
-	const { productId } = useParams();
+	//	const { productId } = useParams();
 	const { fetchedItems } = useAppSelector(productsStore);
 
-	const current = fetchedItems.find((item) => item.id === Number(productId));
+	// todo: change useParams to next method
+	const current = fetchedItems.find((item) => item.id === Number(1)); // productId
 	const img = String(current?.images?.length && current?.images[0]);
 
 	return current ? (

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { darken } from 'polished';
-import styled, { DefaultTheme } from 'styled-components/macro';
+import styled, { DefaultTheme } from 'styled-components';
 
 import { media } from '@/theme';
 
