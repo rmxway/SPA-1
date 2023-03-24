@@ -15,7 +15,15 @@ module.exports = {
 		'plugin:react-hooks/recommended',
 		'next/core-web-vitals',
 	],
-	plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'prettier', 'react', 'react-hooks'],
+	plugins: [
+		'@typescript-eslint',
+		'unused-imports',
+		'simple-import-sort',
+		'prettier',
+		'react',
+		'react-hooks',
+		'import',
+	],
 	globals: {
 		Atomics: 'readonly',
 		SharedArrayBuffer: 'readonly',
@@ -34,7 +42,7 @@ module.exports = {
 		'no-new': 'off',
 		camelcase: 'off',
 		'react/react-in-jsx-scope': 'off',
-		"react/display-name": 'off',
+		'react/display-name': 'off',
 		'no-underscore-dangle': 'off',
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
@@ -70,12 +78,13 @@ module.exports = {
 
 		'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
 		'react/function-component-definition': [
-			1,
+			'error',
 			{
-				namedComponents: 'function-declaration' | 'function-expression' | 'arrow-function',
-				unnamedComponents: 'function-expression' | 'arrow-function',
+				namedComponents: 'arrow-function',
+				unnamedComponents: 'arrow-function',
 			},
 		],
+
 		'react/jsx-props-no-spreading': 'off',
 		'react/require-default-props': 'off',
 	},

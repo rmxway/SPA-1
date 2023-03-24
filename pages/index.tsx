@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import logos from '@/assets/img/logos.jpg';
 import { Container, LayerBlock } from '@/components/Layout';
 
@@ -24,38 +25,38 @@ const MainHeader = styled.h1`
 	}
 `;
 
-export default function MainPage() {
-	return (
-		<div>
-			<MainHeader>
-				<Container>
-					Green Shop <span>Brand</span>
-				</Container>
-			</MainHeader>
+export const MainPage = () => (
+	<>
+		<MainHeader>
 			<Container>
-				<p>
-					Simple SPA with fake products. <br />
-					Used <code>create-react-app</code> and service{' '}
-					<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
-						dummyjson.com
-					</a>
-				</p>
-				<ImageLogos src={logos.src} />
-				<LayerBlock>
-					<p>Most used package list:</p>
-					<ul>
-						<li>React</li>
-						<li>Next.js</li>
-						<li>Babel</li>
-						<li>Typescript</li>
-						<li>Redux Toolkit</li>
-						<li>Styled Components</li>
-						<li>Framer Motion</li>
-						<li>API from dummyjson.com</li>
-						<li>Prettier</li>
-					</ul>
-				</LayerBlock>
+				Green Shop <span>Brand</span>
 			</Container>
-		</div>
-	);
-}
+		</MainHeader>
+		<Container>
+			<p>
+				Simple SPA with fake products. <br />
+				Used <code>create-react-app</code> and service{' '}
+				<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
+					dummyjson.com
+				</a>
+			</p>
+			<ImageLogos src={logos.src} />
+			<LayerBlock>
+				<p>Most used package list:</p>
+				<ul>
+					<li>React</li>
+					<li>Next.js</li>
+					<li>Babel</li>
+					<li>Typescript</li>
+					<li>Redux Toolkit</li>
+					<li>Styled Components</li>
+					<li>Framer Motion</li>
+					<li>API from dummyjson.com</li>
+					<li>Prettier</li>
+				</ul>
+			</LayerBlock>
+		</Container>
+	</>
+);
+
+export default MainPage;

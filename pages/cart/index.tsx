@@ -13,7 +13,7 @@ import { removeAllProducts } from '@/store/reducers/combineActions';
 
 import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styles';
 
-export default function CartPage() {
+export const CartPage = () => {
 	const { items, totalPrice } = useAppSelector(cartStore);
 	const [isItems, setIsItems] = useState<boolean>(!!items.length);
 
@@ -33,30 +33,29 @@ export default function CartPage() {
 				<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
 					<AnimatePresence mode="popLayout">
 						{isItems && (
-							<>
-								<Trash
-									layout
-									key="trash"
-									initial={{ opacity: 0, y: -10 }}
-									animate={{ opacity: 1, y: 0 }}
-									exit={{ opacity: 0, scale: 0.9 }}
-									onClick={handleTrashAllProducts}
-								>
-									Delete all
-									<i className="icofont icofont-trash" />
-								</Trash>
-
-								{items.map((item) => (
-									<MCartItem
-										key={item.id}
-										product={item}
-										layout
-										variants={cartVariant}
-										exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
-									/>
-								))}
-							</>
+							<Trash
+								layout
+								key="trash"
+								initial={{ opacity: 0, y: -10 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, scale: 0.9 }}
+								onClick={handleTrashAllProducts}
+							>
+								Delete all
+								<i className="icofont icofont-trash" />
+							</Trash>
 						)}
+
+						{isItems &&
+							items.map((item) => (
+								<MCartItem
+									key={item.id}
+									product={item}
+									layout
+									variants={cartVariant}
+									exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
+								/>
+							))}
 
 						{!isItems && (
 							<motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
@@ -76,14 +75,16 @@ export default function CartPage() {
 								{totalPrice} {currency}
 							</span>
 						</Total>
-						{totalPrice > 0 && (
+						{totalPrice > 0 ? (
 							<ButtonUI primary disabled>
 								Checkout
 							</ButtonUI>
-						)}
+						) : null}
 					</Sidebar>
 				</AnimatePresence>
 			</Cart>
 		</Container>
 	);
-}
+};
+
+export default CartPage;

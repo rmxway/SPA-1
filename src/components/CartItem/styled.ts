@@ -42,8 +42,6 @@ export const Item = styled(motion.div)`
 
 	img {
 		min-width: 65px;
-		width: 70px;
-		height: 70px;
 		object-fit: cover;
 		margin-right: 20px;
 		border-radius: ${(props) => props.theme.radius.borderRadius};

@@ -21,7 +21,7 @@ export interface IProduct {
 	category?: string;
 	discountPercentage?: number;
 	images?: string[];
-	thumbnail?: string;
+	thumbnail: string;
 	price: number | null;
 	rating?: number;
 	stock?: number;

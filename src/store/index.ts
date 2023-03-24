@@ -11,7 +11,7 @@ const rootReducer = {
 
 export const store = configureStore({
 	reducer: rootReducer,
-	preloadedState: persistState,
+	preloadedState: persistState(),
 });
 
 store.subscribe(() => listener(store));

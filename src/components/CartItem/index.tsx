@@ -17,7 +17,7 @@ interface Props {
 const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }, ref) => (
 	<Item ref={ref} {...props}>
 		<Content layout variants={elementsVars}>
-			<Image src={String(product.thumbnail)} alt={product.title} width={100} height={100} />
+			<Image src={product.thumbnail} alt={product.title} width={70} height={70} />
 			<WrapperText>
 				<Title>
 					<Link href={`/product/${product.id}`}>

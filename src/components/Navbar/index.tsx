@@ -8,7 +8,7 @@ import { productsStore } from '@/store';
 
 import { Count } from './Count';
 import { NavbarCart } from './NavbarCart';
-import { Line, Logo, StyledNavbar } from './styled';
+import { Logo, NavbarItem, StyledNavbar } from './styled';
 
 interface NavLinkProps {
 	title?: string;
@@ -18,20 +18,18 @@ interface NavLinkProps {
 }
 
 const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => (
-	<Link href={address}>
-		<>
-			{title || component}
+	<NavbarItem>
+		<Link href={address} />
+		{title || component}
+		{count ? <Count {...{ count }} /> : null}
 
-			{count ? <Count {...{ count }} /> : null}
-
-			{/* {active ? (
+		{/* {active ? (
 						<Line
 							layoutId="underline"
 							transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
 						/>
 					) : null} */}
-		</>
-	</Link>
+	</NavbarItem>
 ));
 
 NavLinkMotion.displayName = 'NavLinkMotion';
