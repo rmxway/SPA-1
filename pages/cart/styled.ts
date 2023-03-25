@@ -108,3 +108,5 @@ export const Total = styled.div`
 		color: ${(props) => darken(0.1, props.theme.colors.success)};
 	}
 `;
+
+export default Cart;

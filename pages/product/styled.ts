@@ -86,3 +86,5 @@ export const PriceBlock = styled.div`
 		margin: 0;
 	}
 `;
+
+export default Wrapper;

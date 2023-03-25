@@ -7,7 +7,8 @@ import { Container, LayerBlock } from '@/components/Layout';
 const ImageLogos = styled.img`
 	mix-blend-mode: multiply;
 	max-width: 100%;
-	max-height: 150px;
+	max-height: 100px;
+    margin: 30px 0;
 `;
 
 const MainHeader = styled.h1`
@@ -36,7 +37,7 @@ export const MainPage: NextPage = () => (
 		<Container>
 			<p>
 				Simple SPA with fake products. <br />
-				Used <code>create-react-app</code> and service{' '}
+				Used <code>create-next-app</code> and service{' '}
 				<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
 					dummyjson.com
 				</a>

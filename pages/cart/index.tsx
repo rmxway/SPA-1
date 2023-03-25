@@ -12,7 +12,7 @@ import { useAppSelector } from '@/hooks';
 import { cartStore } from '@/store';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
-import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styles';
+import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styled';
 
 export const CartPage: NextPage = () => {
 	const { items, totalPrice } = useAppSelector(cartStore);
