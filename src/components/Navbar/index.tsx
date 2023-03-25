@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC, memo, ReactNode } from 'react';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
@@ -8,7 +9,7 @@ import { productsStore } from '@/store';
 
 import { Count } from './Count';
 import { NavbarCart } from './NavbarCart';
-import { Logo, NavbarItem, StyledNavbar } from './styled';
+import { Line, Logo, NavbarItem, StyledNavbar } from './styled';
 
 interface NavLinkProps {
 	title?: string;
@@ -17,20 +18,25 @@ interface NavLinkProps {
 	count?: number;
 }
 
-const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => (
-	<NavbarItem>
-		<Link href={address} />
-		{title || component}
-		{count ? <Count {...{ count }} /> : null}
+const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => {
+	const router = useRouter();
+	const isActive = router.pathname === address;
 
-		{/* {active ? (
-						<Line
-							layoutId="underline"
-							transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
-						/>
-					) : null} */}
-	</NavbarItem>
-));
+	return (
+		<NavbarItem>
+			<Link href={address} />
+			{title || component}
+			{count ? <Count {...{ count }} /> : null}
+
+			{isActive ? (
+				<Line
+					layoutId="underline"
+					transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
+				/>
+			) : null}
+		</NavbarItem>
+	);
+});
 
 NavLinkMotion.displayName = 'NavLinkMotion';
 
