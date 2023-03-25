@@ -1,4 +1,4 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 import { ButtonUI } from '@/components/ui';
 import { media } from '@/theme';

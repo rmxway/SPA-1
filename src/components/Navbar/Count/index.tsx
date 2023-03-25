@@ -1,4 +1,4 @@
-import { AnimatePresence, transform, useAnimation } from 'framer-motion';
+import { LayoutGroup, transform, useAnimation } from 'framer-motion';
 import { memo, useEffect } from 'react';
 
 import { CountStyled } from './styled';
@@ -24,13 +24,13 @@ const Count = memo(({ count }: CountProps) => {
 	}, [controls, count, velocity]);
 
 	return (
-		<AnimatePresence>
-			{count ? (
-				<CountStyled animate={controls} exit={{ opacity: 0 }}>
+		<LayoutGroup key="count">
+			{count && (
+				<CountStyled animate={controls} exit={{ opacity: 0, scale: 0 }}>
 					{count}
 				</CountStyled>
-			) : null}
-		</AnimatePresence>
+			)}
+		</LayoutGroup>
 	);
 });
 

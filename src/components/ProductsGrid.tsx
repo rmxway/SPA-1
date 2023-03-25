@@ -1,7 +1,7 @@
 import { LayoutGroup, motion } from 'framer-motion';
+import Link from 'next/link';
 import { PropsWithChildren, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 import { ProductCard } from '@/components/ProductCard';
 import { useAppDispatch, useAppSelector } from '@/hooks';
@@ -83,7 +83,7 @@ const ProductsGrid = ({ items, children, fetching, error, page, pagination = fal
 						{keyPage === 'page' && `The search did't take a result`}
 						{keyPage === 'pageFavorites' ? (
 							<>
-								{`Nothing was't add to favorites, go to`} <Link to="/products">Products</Link>
+								{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
 							</>
 						) : null}
 					</LayerBlock>

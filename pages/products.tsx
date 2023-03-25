@@ -1,4 +1,5 @@
-import { FC, useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 
 import { Filter, ProductsGrid } from '@/components';
 import { Container, LayerBlock } from '@/components/Layout';
@@ -11,7 +12,7 @@ function* runOnce() {
 }
 const generator = runOnce();
 
-const ProductsPage: FC = () => {
+const ProductsPage: NextPage = () => {
 	const { fetching, error, fetchedItems, page } = useAppSelector(productsStore);
 
 	const isEmptyCart = !!fetchedItems.length;

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { darken } from 'polished';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 import { media } from '@/theme';
 
@@ -108,3 +108,5 @@ export const Total = styled.div`
 		color: ${(props) => darken(0.1, props.theme.colors.success)};
 	}
 `;
+
+export default Cart;

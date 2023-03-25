@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import styled from 'styled-components/macro';
+import { NextPage } from 'next';
+import styled from 'styled-components';
 
 import logos from '@/assets/img/logos.jpg';
 import { Container, LayerBlock } from '@/components/Layout';
-import { media } from '@/theme';
 
 const ImageLogos = styled.img`
 	mix-blend-mode: multiply;
 	max-width: 100%;
-	max-height: 150px;
+	max-height: 100px;
+    margin: 30px 0;
 `;
 
 const MainHeader = styled.h1`
@@ -25,14 +25,10 @@ const MainHeader = styled.h1`
 	span {
 		font-weight: 300;
 	}
-
-	${media.greaterThan('xs')`
-        font-size: 5rem;
-    `}
 `;
 
-const MainPage: FC = () => (
-	<div>
+export const MainPage: NextPage = () => (
+	<>
 		<MainHeader>
 			<Container>
 				Green Shop <span>Brand</span>
@@ -41,29 +37,28 @@ const MainPage: FC = () => (
 		<Container>
 			<p>
 				Simple SPA with fake products. <br />
-				Used <code>create-react-app</code> and service{' '}
+				Used <code>create-next-app</code> and service{' '}
 				<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
 					dummyjson.com
 				</a>
 			</p>
-			<ImageLogos src={logos} alt="logo" />
+			<ImageLogos src={logos.src} />
 			<LayerBlock>
 				<p>Most used package list:</p>
 				<ul>
 					<li>React</li>
-					<li>React Router</li>
+					<li>Next.js</li>
+					<li>Babel</li>
 					<li>Typescript</li>
 					<li>Redux Toolkit</li>
 					<li>Styled Components</li>
 					<li>Framer Motion</li>
 					<li>API from dummyjson.com</li>
-					<li>Craco</li>
 					<li>Prettier</li>
 				</ul>
 			</LayerBlock>
 		</Container>
-	</div>
+	</>
 );
 
-export { MainPage };
 export default MainPage;

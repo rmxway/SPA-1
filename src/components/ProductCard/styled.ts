@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components/macro';
+import Link from 'next/link';
+import styled, { css } from 'styled-components';
 
 import { media } from '@/theme/media';
 

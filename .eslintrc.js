@@ -13,6 +13,7 @@ module.exports = {
 		'prettier',
 		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
+		'next/core-web-vitals',
 	],
 	plugins: [
 		'@typescript-eslint',
@@ -21,6 +22,7 @@ module.exports = {
 		'prettier',
 		'react',
 		'react-hooks',
+		'import',
 	],
 	globals: {
 		Atomics: 'readonly',
@@ -40,7 +42,7 @@ module.exports = {
 		'no-new': 'off',
 		camelcase: 'off',
 		'react/react-in-jsx-scope': 'off',
-        // "react/display-name": 'off',
+		'react/display-name': 'off',
 		'no-underscore-dangle': 'off',
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
@@ -82,6 +84,7 @@ module.exports = {
 				unnamedComponents: 'arrow-function',
 			},
 		],
+
 		'react/jsx-props-no-spreading': 'off',
 		'react/require-default-props': 'off',
 	},

@@ -1,6 +1,6 @@
 import { MotionProps } from 'framer-motion';
+import Link from 'next/link';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Favorite, Loader } from '@/components/ui';
@@ -31,7 +31,7 @@ const ProductCard = ({ product, ...props }: ProductType) => {
 		<ProductWrapper {...props}>
 			<Favorite onActive={() => toggleFav(product.id)} active={product.favorite} />
 			<WrapperImage>
-				<Link to={link}>
+				<Link href={link}>
 					<Loader loading={product.imgFetch} />
 					{!fetching && (
 						<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-50} />
@@ -49,7 +49,7 @@ const ProductCard = ({ product, ...props }: ProductType) => {
 				</Price>
 				<RatingStars rating={Number(product.rating)} />
 			</Tools>
-			<Title to={link}>{product.title}</Title>
+			<Title href={link}>{product.title}</Title>
 			<ButtonUI primary onClick={handleChecked} disabled={product.checked}>
 				{product.checked ? 'Added' : 'Add to cart'}
 			</ButtonUI>

@@ -6,11 +6,13 @@ interface FetchParams {
 	page?: number;
 }
 
+export const fetchLink = 'https://dummyjson.com/products?limit=100';
+
 export const asyncGetAllProducts = createAsyncThunk(
 	'products/asyncGetAllProducts',
 	async ({ count = 12, page = 1 }: FetchParams, thunkApi) => {
 		const { rejectWithValue, signal } = thunkApi;
-		const path = `https://dummyjson.com/products?limit=100`; // http://localhost:3001/products
+		const path = fetchLink; // http://localhost:3001/products
 
 		try {
 			const response = await fetch(path, { signal });

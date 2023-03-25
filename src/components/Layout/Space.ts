@@ -1,6 +1,6 @@
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
-const Space = styled.div`
+const Space = styled.span`
 	flex-grow: 1;
 `;
 

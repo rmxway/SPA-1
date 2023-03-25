@@ -1,14 +1,15 @@
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { FC, memo, ReactNode } from 'react';
-import { Link, NavLink } from 'react-router-dom';
 
-import { navbarItems } from '@/API/navbar';
 import { Container, Flexbox, Space } from '@/components/Layout';
 import { useAppSelector } from '@/hooks';
+import { navbarItems } from '@/mock/navbar';
 import { productsStore } from '@/store';
 
 import { Count } from './Count';
 import { NavbarCart } from './NavbarCart';
-import { Line, Logo, StyledNavbar } from './styled';
+import { Line, Logo, NavbarItem, StyledNavbar } from './styled';
 
 interface NavLinkProps {
 	title?: string;
@@ -17,24 +18,25 @@ interface NavLinkProps {
 	count?: number;
 }
 
-const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => (
-	<NavLink to={address}>
-		{({ isActive }) => (
-			<>
-				{title || component}
+const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => {
+	const router = useRouter();
+	const isActive = router.pathname === address;
 
-				<Count {...{ count }} />
+	return (
+		<NavbarItem>
+			<Link href={address} />
+			{title || component}
+			{count ? <Count {...{ count }} /> : null}
 
-				{isActive ? (
-					<Line
-						layoutId="underline"
-						transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
-					/>
-				) : null}
-			</>
-		)}
-	</NavLink>
-));
+			{isActive ? (
+				<Line
+					layoutId="underline"
+					transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
+				/>
+			) : null}
+		</NavbarItem>
+	);
+});
 
 NavLinkMotion.displayName = 'NavLinkMotion';
 
@@ -70,15 +72,15 @@ const Navbar: FC = () => {
 		<StyledNavbar>
 			<Container>
 				<Flexbox align="center" nowrap>
-					<Link to="/">
-						<Logo>
-							GS
-							<span>
-								Green Shop <br />
-								Brand
-							</span>
-						</Logo>
-					</Link>
+					<Logo>
+						<Link href="/" />
+						GS
+						<span>
+							Green Shop <br />
+							Brand
+						</span>
+					</Logo>
+
 					<Space />
 					{renderNavBar(countFavorites)}
 				</Flexbox>

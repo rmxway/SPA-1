@@ -1,5 +1,5 @@
 import { darken, desaturate } from 'polished';
-import styled, { css } from 'styled-components/macro';
+import styled, { css } from 'styled-components';
 
 interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	w100?: boolean;

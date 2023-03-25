@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components/macro';
+import styled from 'styled-components';
 
 const LayerBlock = styled(motion.div)<{ mt?: string }>`
 	position: relative;

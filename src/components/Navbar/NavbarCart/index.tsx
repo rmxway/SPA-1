@@ -13,7 +13,7 @@ const NavbarCart: FC<PropsWithChildren> = ({ children }) => {
 		<Cart>
 			{children}
 			<i className="icofont icofont-cart" />
-			{items.length ? <Count count={items.length} /> : null}
+			{items.length > 0 ? <Count count={items.length} /> : null}
 		</Cart>
 	);
 };

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { NextPage } from 'next';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
 
 import { MCartItem } from '@/components';
 import { cartVariant } from '@/components/CartItem/styled';
@@ -11,9 +12,9 @@ import { useAppSelector } from '@/hooks';
 import { cartStore } from '@/store';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
-import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styles';
+import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styled';
 
-const CartPage: FC = () => {
+export const CartPage: NextPage = () => {
 	const { items, totalPrice } = useAppSelector(cartStore);
 	const [isItems, setIsItems] = useState<boolean>(!!items.length);
 
@@ -45,7 +46,8 @@ const CartPage: FC = () => {
 								<i className="icofont icofont-trash" />
 							</Trash>
 						)}
-						{items.length ? (
+
+						{isItems &&
 							items.map((item) => (
 								<MCartItem
 									key={item.id}
@@ -54,10 +56,11 @@ const CartPage: FC = () => {
 									variants={cartVariant}
 									exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
 								/>
-							))
-						) : (
+							))}
+
+						{!isItems && (
 							<motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-								No items, please go to&nbsp;<Link to="/products">products page</Link>
+								No items, please go to&nbsp;<Link href="/products">products page</Link>
 								<br />
 							</motion.div>
 						)}
@@ -73,11 +76,11 @@ const CartPage: FC = () => {
 								{totalPrice} {currency}
 							</span>
 						</Total>
-						{totalPrice > 0 && (
+						{totalPrice > 0 ? (
 							<ButtonUI primary disabled>
 								Checkout
 							</ButtonUI>
-						)}
+						) : null}
 					</Sidebar>
 				</AnimatePresence>
 			</Cart>
@@ -85,5 +88,4 @@ const CartPage: FC = () => {
 	);
 };
 
-export { CartPage };
 export default CartPage;
