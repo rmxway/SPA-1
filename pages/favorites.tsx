@@ -1,4 +1,5 @@
-import { memo, useEffect, useState } from 'react';
+import { NextPage } from 'next';
+import { useEffect, useState } from 'react';
 
 import { ProductsGrid } from '@/components';
 import { Container } from '@/components/Layout';
@@ -6,7 +7,7 @@ import { useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
 
-const FavoritesPage = memo(() => {
+const FavoritesPage: NextPage = () => {
 	const { error, fetching, fetchedItems, pageFavorites } = useAppSelector(productsStore);
 	const [items, setItems] = useState<IProduct[]>([]);
 
@@ -20,9 +21,7 @@ const FavoritesPage = memo(() => {
 			<ProductsGrid pagination keyPage="pageFavorites" page={pageFavorites} {...{ items, fetching, error }} />
 		</Container>
 	);
-});
-
-FavoritesPage.displayName = 'FavoritePage';
+};
 
 export { FavoritesPage };
 export default FavoritesPage;

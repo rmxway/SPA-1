@@ -28,6 +28,7 @@ const StyledNavbar = styled.div`
 `;
 
 const Logo = styled.div`
+	position: relative;
 	display: flex;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	font-size: 2rem;
@@ -37,6 +38,14 @@ const Logo = styled.div`
 	padding: 0 10px;
 	border: 2px solid ${logoColor};
 	overflow: hidden;
+
+	a {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+	}
 
 	span {
 		display: none;

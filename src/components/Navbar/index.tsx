@@ -66,15 +66,15 @@ const Navbar: FC = () => {
 		<StyledNavbar>
 			<Container>
 				<Flexbox align="center" nowrap>
-					<Link href="/">
-						<Logo>
-							GS
-							<span>
-								Green Shop <br />
-								Brand
-							</span>
-						</Logo>
-					</Link>
+					<Logo>
+						<Link href="/" />
+						GS
+						<span>
+							Green Shop <br />
+							Brand
+						</span>
+					</Logo>
+
 					<Space />
 					{renderNavBar(countFavorites)}
 				</Flexbox>

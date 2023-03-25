@@ -2,15 +2,14 @@ import '@/theme/styles/includes.scss';
 
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
-import { Provider } from 'react-redux';
 import { ThemeProvider } from 'styled-components';
 
 import { Navbar } from '@/components';
-import { store } from '@/store';
+import { Providers } from '@/store/provider';
 import { defaultTheme, GlobalStyles } from '@/theme';
 
 export const App = ({ Component, pageProps }: AppProps) => (
-	<Provider store={store}>
+	<Providers>
 		<ThemeProvider theme={defaultTheme}>
 			<Head>
 				<meta charSet="UTF-8" />
@@ -21,7 +20,7 @@ export const App = ({ Component, pageProps }: AppProps) => (
 			<Navbar />
 			<Component {...pageProps} />
 		</ThemeProvider>
-	</Provider>
+	</Providers>
 );
 
 export default App;

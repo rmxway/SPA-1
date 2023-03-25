@@ -127,6 +127,8 @@ const productsReducer = createSlice({
 				return 0;
 			});
 
+            state.page = 1;
+
 			if (!toggle) state.fetchedItems = state.fetchedItems.reverse();
 		},
 		searchProduct: (state, action: PayloadAction<string>) => {

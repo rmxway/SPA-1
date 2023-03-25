@@ -29,3 +29,10 @@ export interface IProduct {
 	imgFetch: boolean;
     favorite: boolean;
 }
+
+export interface DataFetch {
+	limit: number;
+	products: IProduct[];
+	skip: number;
+	total: number;
+}

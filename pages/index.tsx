@@ -1,3 +1,4 @@
+import { NextPage } from 'next';
 import styled from 'styled-components';
 
 import logos from '@/assets/img/logos.jpg';
@@ -25,7 +26,7 @@ const MainHeader = styled.h1`
 	}
 `;
 
-export const MainPage = () => (
+export const MainPage: NextPage = () => (
 	<>
 		<MainHeader>
 			<Container>
