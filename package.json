@@ -6,10 +6,10 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
+		"lint": "next lint",
 		"mock": "json-server --watch ./src/API/items.json --port 3001",
 		"pretty": "npx prettier --write ./src",
-		"icofont": "fantasticon -n icofont -p icofont --normalize",
-		"lint": "next lint"
+		"icofont": "fantasticon -n icofont -p icofont --normalize"
 	},
 	"resolutions": {
 		"styled-components": "^5"
@@ -52,7 +52,6 @@
 		"@typescript-eslint/eslint-plugin": "^5.52.0",
 		"@typescript-eslint/parser": "^5.52.0",
 		"awesome-typescript-loader": "^5.2.1",
-		"babel-plugin-styled-components": "^2.0.7",
 		"concurrently": "^7.6.0",
 		"fantasticon": "^2.0.0",
 		"framer-motion": "^9.0.4",

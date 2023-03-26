@@ -46,6 +46,7 @@ module.exports = {
 		'no-underscore-dangle': 'off',
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
+        'import/no-mutable-exports': 'off',
 		'import/first': 'error',
 		'import/newline-after-import': 'error',
 		'import/no-duplicates': 'error',

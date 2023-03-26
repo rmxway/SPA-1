@@ -10,7 +10,6 @@ const base = css`
 	}
 	body {
 		overflow-y: scroll;
-		font-family: 'Sofia Sans', sans-serif;
 		background-color: ${(props) => props.theme.colors.gray.$2};
 		font-size: 16px;
 		display: block;

@@ -2,7 +2,7 @@ import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/interfaces';
 
-interface CartState {
+export interface CartState {
 	items: IProduct[];
 	totalPrice: number;
 }

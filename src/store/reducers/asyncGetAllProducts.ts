@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 interface FetchParams {
 	count?: number;
-	product?: number;
 	page?: number;
 }
 

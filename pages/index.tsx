@@ -1,14 +1,16 @@
 import { NextPage } from 'next';
+import Image from 'next/image';
 import styled from 'styled-components';
 
-import logos from '@/assets/img/logos.jpg';
 import { Container, LayerBlock } from '@/components/Layout';
+import logos from '@/public/assets/img/logos.jpg';
 
-const ImageLogos = styled.img`
+const ImageLogos = styled(Image)`
 	mix-blend-mode: multiply;
 	max-width: 100%;
-	max-height: 100px;
-    margin: 30px 0;
+	margin: 30px 0;
+	object-position: left;
+	object-fit: contain;
 `;
 
 const MainHeader = styled.h1`
@@ -42,7 +44,14 @@ export const MainPage: NextPage = () => (
 					dummyjson.com
 				</a>
 			</p>
-			<ImageLogos src={logos.src} />
+			<ImageLogos
+				src={logos.src}
+				blurDataURL={logos.blurDataURL}
+				placeholder="blur"
+				alt={logos.src}
+				width={logos.width}
+				height={logos.height}
+			/>
 			<LayerBlock>
 				<p>Most used package list:</p>
 				<ul>

@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProduct } from '@/interfaces';
 import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
 
-interface ProductsState {
+export interface ProductsState {
 	fetchedItems: IProduct[];
 	currentItems: IProduct[];
 	favoriteItems: IProduct[];
@@ -179,6 +179,10 @@ const productsReducer = createSlice({
 				state.countPerPage = count;
 
 				state.fetchedItems = [...products];
+
+                state.currentItems = state.fetchedItems;
+
+
 
 				state.fetching = false;
 				state.error = '';

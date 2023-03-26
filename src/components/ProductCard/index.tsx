@@ -33,6 +33,7 @@ const ProductCard = ({ product, ...props }: ProductType) => {
 			<WrapperImage>
 				<Link href={link}>
 					<Loader loading={product.imgFetch} />
+
 					{!fetching && (
 						<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-50} />
 					)}
