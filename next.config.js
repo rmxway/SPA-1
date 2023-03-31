@@ -4,6 +4,11 @@ module.exports = {
 	compiler: {
 		styledComponents: true,
 	},
+	env: {
+		host: 'localhost',
+		port: '3000',
+		API_URL: `http://${process.env.host}:${process.env.port}/api/products`,
+	},
 	images: {
 		remotePatterns: [
 			{

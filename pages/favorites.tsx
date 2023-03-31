@@ -1,11 +1,12 @@
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 
-import { ProductsGrid } from '@/components';
 import { Container } from '@/components/Layout';
 import { useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
+
+import { ProductsGrid } from './products/ProductsGrid';
 
 const FavoritesPage: NextPage = () => {
 	const { error, fetching, fetchedItems, pageFavorites } = useAppSelector(productsStore);

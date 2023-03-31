@@ -1,4 +1,5 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 import { IProduct } from '@/interfaces';
 
@@ -33,11 +34,18 @@ const cartReducer = createSlice({
 		},
 		trashAll: (state) => {
 			state.items = [];
-            state.totalPrice = 0;
+			state.totalPrice = 0;
 		},
+	},
+	extraReducers(builder) {
+		builder.addCase(HYDRATE, (state, action: AnyAction) => {
+			state = { ...state, ...action.payload.cart };
+		});
 	},
 });
 
-export const { addToCart, deleteFromCart, trashAll } = cartReducer.actions;
+const { actions, reducer } = cartReducer;
 
-export default cartReducer.reducer;
+export const { addToCart, deleteFromCart, trashAll } = actions;
+
+export default reducer;

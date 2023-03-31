@@ -1,28 +1,59 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-interface FetchParams {
-	count?: number;
-	page?: number;
+export interface Params {
+	limit?: number;
 }
 
-export const fetchLink = 'https://dummyjson.com/products?limit=100';
+export type Url =
+	| 'https://dummyjson.com/products'
+	| 'http://localhost:3000/api/products'
+	| 'http://localhost:3001/products';
+
+export interface AsyncGetAllProductsProps {
+	url?: Url;
+	params?: Params | string;
+	page?: number;
+	count?: number;
+}
+
+export const convertParamsToString = (params: Params) => {
+	const str = ['?'];
+
+	(Object.keys(params) as Array<keyof typeof params>).reduce((acc, cur, idx, arr) => {
+		const $and = idx + 1 < arr.length ? '&' : '';
+		const query = `${cur}=${params[cur]}${$and}`;
+		str.push(query);
+		return acc;
+	}, [] as (typeof params)[keyof typeof params][]);
+
+	return str.join('');
+};
 
 export const asyncGetAllProducts = createAsyncThunk(
 	'products/asyncGetAllProducts',
-	async ({ count = 12, page = 1 }: FetchParams, thunkApi) => {
+	async ({ url, params = {}, page = 1, count = 12 }: AsyncGetAllProductsProps, thunkApi) => {
 		const { rejectWithValue, signal } = thunkApi;
-		const path = fetchLink; // http://localhost:3001/products
+
+		const newUrl: Url = url || 'http://localhost:3000/api/products';
+		const paramsString = typeof params === 'string' ? params : convertParamsToString(params);
+
+		const path = `${newUrl}${paramsString}`;
 
 		try {
 			const response = await fetch(path, { signal });
 
 			if (!response.ok) {
-				throw new Error('Wrong url');
+				throw new Error(`${response.statusText}. Your link looks like: ${response.url}`);
 			}
 
-			const data = await response.json();
+			const products = await response.json();
 
-			return { products: data.products, total: data.total, page, count };
+			return {
+				products,
+				total: products.length,
+				page,
+				count,
+			};
 		} catch (e) {
 			return rejectWithValue((e as Error).message);
 		}

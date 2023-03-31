@@ -1,24 +1,24 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
 
 import { Container, LayerBlock, RatingStars } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
 import { currency } from '@/constants';
 import { useAppSelector } from '@/hooks';
-import { DataFetch } from '@/interfaces';
-import { productsStore } from '@/store';
-import { fetchLink } from '@/store/reducers/asyncGetAllProducts';
+import { IProduct } from '@/interfaces';
+import { productsStore, store, wrapper } from '@/store';
+import { Url } from '@/store/reducers/asyncGetAllProducts';
 import { moveToCart } from '@/store/reducers/combineActions';
 
 import { Image, Info, PriceBlock, Title, Wrapper, WrapperImage } from './styled';
 
 interface ProductPageProps {
-	productId: string;
+	element: IProduct | null;
+	productId: number;
 }
 
-const ProductPage: NextPage<ProductPageProps> = ({ productId }) => {
+const ProductPage: NextPage<ProductPageProps> = ({ element, productId }) => {
 	const { fetchedItems } = useAppSelector(productsStore);
-
-	const current = fetchedItems.find((item) => item.id === Number(productId)); // productId
+	const current = !fetchedItems.length ? element : fetchedItems.find((item) => item.id === productId);
 	const img = String(current?.images?.length && current?.images[0]);
 
 	return current ? (
@@ -64,10 +64,12 @@ const ProductPage: NextPage<ProductPageProps> = ({ productId }) => {
 };
 
 export async function getStaticPaths() {
-	const res = await fetch(fetchLink);
-	const items: DataFetch = await res.json();
+	const url: Url = 'http://localhost:3000/api/products';
 
-	const paths = items.products.map((item) => ({
+	const res = await fetch(url);
+	const data: IProduct[] = await res.json();
+
+	const paths = data.map((item) => ({
 		params: { productId: String(item.id) },
 	}));
 
@@ -77,15 +79,37 @@ export async function getStaticPaths() {
 	};
 }
 
-type Params = { params: { productId: string } };
+export const getStaticProps = wrapper.getStaticProps(() => async ({ params }: GetStaticPropsContext) => {
+	const url: Url = 'http://localhost:3000/api/products';
+	const { fetchedItems } = store.getState().products;
+	let element: IProduct | null = null;
 
-export async function getStaticProps({ params }: Params) {
+	if (params) {
+		if (!fetchedItems.length) {
+			const res = await fetch(`${url}/${params.productId}`);
+			const data = await res.json();
+
+			element = data;
+
+			if (!element) {
+				return {
+					notFound: true,
+				};
+			}
+		}
+
+		return {
+			props: {
+				element,
+				productId: Number(params.productId),
+			},
+		};
+	}
+
 	return {
-		props: {
-			productId: String(params.productId),
-		},
+		props: {},
 	};
-}
+});
 
 export { ProductPage };
 export default ProductPage;

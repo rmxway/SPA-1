@@ -11,7 +11,7 @@ interface LazyLoadTypes extends LazyLoadImageProps {
 	productId?: number | null;
 }
 
-const LazyImageProductCard: FC<LazyLoadTypes> = ({ productId, ...props }) => {
+export const LazyImageProductCard: FC<LazyLoadTypes> = ({ productId, ...props }) => {
 	const dispatch = useAppDispatch();
 	const [error, setError] = useState(false);
 
@@ -25,5 +25,4 @@ const LazyImageProductCard: FC<LazyLoadTypes> = ({ productId, ...props }) => {
 	);
 };
 
-export { LazyImageProductCard };
 export default LazyImageProductCard;

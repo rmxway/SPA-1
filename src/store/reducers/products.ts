@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { HYDRATE } from 'next-redux-wrapper';
 
 import { IProduct } from '@/interfaces';
 import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
@@ -99,6 +100,9 @@ const productsReducer = createSlice({
 			state.toggledItems = [];
 			iterationToggle(state);
 		},
+		addProduct: (state, action: PayloadAction<IProduct>) => {
+			state.fetchedItems = [...state.fetchedItems, action.payload];
+		},
 		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
 			const { fetch, id } = action.payload;
 			const el = state.fetchedItems.find((item) => item.id === id);
@@ -127,7 +131,7 @@ const productsReducer = createSlice({
 				return 0;
 			});
 
-            state.page = 1;
+			state.page = 1;
 
 			if (!toggle) state.fetchedItems = state.fetchedItems.reverse();
 		},
@@ -162,6 +166,9 @@ const productsReducer = createSlice({
 	},
 	extraReducers(builder) {
 		builder
+			.addCase(HYDRATE, (state, action: AnyAction) => {
+				state = { ...state, ...action.payload.products };
+			})
 			.addCase(asyncGetAllProducts.pending, (state) => {
 				state.fetching = true;
 				state.error = '';
@@ -180,9 +187,7 @@ const productsReducer = createSlice({
 
 				state.fetchedItems = [...products];
 
-                state.currentItems = state.fetchedItems;
-
-
+				state.currentItems = state.fetchedItems;
 
 				state.fetching = false;
 				state.error = '';
@@ -201,6 +206,7 @@ export const {
 	setError,
 	toggleProduct,
 	removeAllToggledProducts,
+	addProduct,
 	fetchingImageProduct,
 	sortProducts,
 	searchProduct,

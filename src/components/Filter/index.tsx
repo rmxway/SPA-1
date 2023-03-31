@@ -2,18 +2,19 @@ import { FC } from 'react';
 
 import { Flexbox } from '@/components/Layout';
 import { InputUI } from '@/components/ui';
-import { useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/hooks';
 import { productsStore } from '@/store';
-import { searchProducts } from '@/store/reducers/combineActions';
+import { searchProduct } from '@/store/reducers/products';
 
 import { StyledFilter } from './styled';
 import { ToggleSort } from './ToggleSort';
 
 const Filter: FC = () => {
 	const { currentItems, fetchedItems, search } = useAppSelector(productsStore);
+	const dispatch = useAppDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		searchProducts(e.target.value);
+		dispatch(searchProduct(e.target.value));
 	};
 
 	return (

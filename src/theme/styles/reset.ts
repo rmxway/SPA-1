@@ -134,6 +134,7 @@ const reset = css`
 		border: none;
 		outline: none;
 		background: none;
+        font-family: inherit;
 	}
 `;
 

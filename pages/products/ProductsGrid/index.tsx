@@ -1,37 +1,16 @@
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
 import { PropsWithChildren, useEffect } from 'react';
-import styled from 'styled-components';
 
-import { ProductCard } from '@/components/ProductCard';
+import { Pagination, ProductCard } from '@/components';
+import { LayerBlock } from '@/components/Layout';
+import { Loader } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/hooks';
 import { IProduct } from '@/interfaces';
 import { productsStore } from '@/store';
 import { setCurrentItems } from '@/store/reducers/products';
 
-import { LayerBlock } from './Layout';
-import { Pagination } from './Pagination';
-import { Loader } from './ui';
-
-const WrapperComponent = styled.div`
-	min-height: 600px;
-`;
-
-const Wrapper = styled.div`
-	position: relative;
-	margin: -10px;
-`;
-
-const FetchingBlock = styled(motion.div)`
-	position: relative;
-	display: flex;
-	flex-wrap: wrap;
-`;
-
-const containerVars = {
-	hidden: { opacity: 0.2 },
-	visible: { opacity: 1 },
-};
+import { containerVars, FetchingBlock, Wrapper, WrapperComponent } from './styled';
 
 interface ProductsGridProps extends PropsWithChildren {
 	items: IProduct[];
@@ -42,7 +21,15 @@ interface ProductsGridProps extends PropsWithChildren {
 	keyPage: 'page' | 'pageFavorites';
 }
 
-const ProductsGrid = ({ items, children, fetching, error, page, pagination = false, keyPage }: ProductsGridProps) => {
+export const ProductsGrid = ({
+	items,
+	children,
+	fetching,
+	error,
+	page,
+	pagination = false,
+	keyPage,
+}: ProductsGridProps) => {
 	const { countPerPage, currentItems } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 
@@ -93,7 +80,4 @@ const ProductsGrid = ({ items, children, fetching, error, page, pagination = fal
 	);
 };
 
-ProductsGrid.displayName = 'ProductGrid';
-
-export { ProductsGrid };
 export default ProductsGrid;
