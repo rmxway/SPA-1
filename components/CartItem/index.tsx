@@ -4,8 +4,7 @@ import Link from 'next/link';
 import { forwardRef } from 'react';
 
 import { Space } from '@/components/Layout';
-import { currency } from '@/constants';
-import { IProduct } from '@/interfaces';
+import { currency, IProduct } from '@/services';
 import { removeFromCart } from '@/store/reducers/combineActions';
 
 import { Content, Delete, elementsVars, Item, Price, Title, WrapperText } from './styled';

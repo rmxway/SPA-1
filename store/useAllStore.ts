@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { useAppSelector } from '@/hooks';
+import { useAppSelector } from '@/services';
 
 import { productsStore, store } from '.';
 import { asyncGetAllProducts } from './reducers/asyncGetAllProducts';

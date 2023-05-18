@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 
-import { useAppDispatch, useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { sortProducts } from '@/store/reducers/products';
 

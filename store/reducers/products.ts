@@ -1,7 +1,6 @@
-import { AnyAction, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IProduct } from '@/interfaces';
+import { IProduct } from '@/services';
 import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
 
 export interface ProductsState {
@@ -166,9 +165,6 @@ const productsReducer = createSlice({
 	},
 	extraReducers(builder) {
 		builder
-			.addCase(HYDRATE, (state, action: AnyAction) => {
-				state = { ...state, ...action.payload.products };
-			})
 			.addCase(asyncGetAllProducts.pending, (state) => {
 				state.fetching = true;
 				state.error = '';

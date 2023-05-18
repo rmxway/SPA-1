@@ -4,7 +4,7 @@ import { FC, useState } from 'react';
 import { LazyLoadImageProps } from 'react-lazy-load-image-component';
 
 import { LazyImage } from '@/components/Layout';
-import { useAppDispatch } from '@/hooks';
+import { useAppDispatch } from '@/services';
 import { fetchingImageProduct } from '@/store/reducers/products';
 
 interface LazyLoadTypes extends LazyLoadImageProps {

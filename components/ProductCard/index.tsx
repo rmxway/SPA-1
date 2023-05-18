@@ -4,9 +4,7 @@ import { FC, useState } from 'react';
 
 import { RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Favorite, Loader } from '@/components/ui';
-import { currency } from '@/constants';
-import { useAppSelector } from '@/hooks';
-import { IProduct } from '@/interfaces';
+import { currency, IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { moveToCart, toggleFav } from '@/store/reducers/combineActions';
 

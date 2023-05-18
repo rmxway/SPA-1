@@ -2,8 +2,7 @@ import debounce from 'lodash.debounce';
 import { FC } from 'react';
 
 import { Flexbox, Space } from '@/components/Layout';
-import { useAppDispatch } from '@/hooks';
-import { IProduct } from '@/interfaces';
+import { IProduct, useAppDispatch } from '@/services';
 import { changePage, TypePages } from '@/store/reducers/products';
 
 import { ButtonPagination } from './ButtonPagination';

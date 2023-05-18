@@ -45,12 +45,9 @@ export const MainPage: NextPage = () => (
 				</a>
 			</p>
 			<ImageLogos
-				src={logos.src}
-				blurDataURL={logos.blurDataURL}
-				placeholder="blur"
-				alt={logos.src}
-				width={logos.width}
-				height={logos.height}
+				src={logos}
+                alt="logos"
+				placeholder='blur'
 			/>
 			<LayerBlock>
 				<p>Most used package list:</p>

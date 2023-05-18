@@ -7,7 +7,7 @@
 		"skipLibCheck": true,
 		"strict": true,
 		"outDir": "./build",
-		"baseUrl": "./src",
+		"baseUrl": ".",
 		"removeComments": true,
 		"sourceMap": true,
 		"forceConsistentCasingInFileNames": true,

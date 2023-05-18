@@ -1,5 +1,5 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import { createWrapper } from 'next-redux-wrapper';
+import { createWrapper, HYDRATE } from 'next-redux-wrapper';
 
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
@@ -11,12 +11,23 @@ const rootReducer = combineReducers({
 
 export type ReducerType = typeof rootReducer;
 
-const makeConfiguredStore = (reducer: ReducerType) =>
+const reducer: ReducerType = (state, action) => {
+	const recreateState = { ...state, ...action.payload };
+
+	switch (action.type) {
+		case HYDRATE:
+			return recreateState;
+		default:
+			return rootReducer(state, action);
+	}
+};
+
+const makeConfiguredStore = (anyReducer: ReducerType) =>
 	configureStore({
-		reducer,
+		reducer: anyReducer,
 	});
 
-export const store = makeConfiguredStore(rootReducer);
+export const store = makeConfiguredStore(reducer);
 
 export const makeStore = () => {
 	const isServer = typeof window === 'undefined';

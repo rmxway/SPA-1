@@ -1,11 +1,11 @@
 import { GetStaticPropsContext, NextPage } from 'next';
+import { useEffect } from 'react';
 
 import { Container, LayerBlock, RatingStars } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
-import { currency } from '@/constants';
-import { useAppSelector } from '@/hooks';
-import { IProduct } from '@/interfaces';
-import { productsStore, store, wrapper } from '@/store';
+import { generator } from '@/components/ProductsGrid/runOnce';
+import { currency, IProduct, useAppSelector } from '@/services';
+import { productsStore, wrapper } from '@/store';
 import { Url } from '@/store/reducers/asyncGetAllProducts';
 import { moveToCart } from '@/store/reducers/combineActions';
 
@@ -16,10 +16,17 @@ interface ProductPageProps {
 	productId: number;
 }
 
-const ProductPage: NextPage<ProductPageProps> = ({ element, productId }) => {
+const ProductPage: NextPage<ProductPageProps> = ({ ...pageProps }) => {
+	const { props } = wrapper.useWrappedStore(pageProps);
+	const { productId, element } = props.pageProps;
+
 	const { fetchedItems } = useAppSelector(productsStore);
-	const current = !fetchedItems.length ? element : fetchedItems.find((item) => item.id === productId);
+	const current = fetchedItems.length === 0 ? element : fetchedItems.find((item) => item.id === productId);
 	const img = String(current?.images?.length && current?.images[0]);
+
+	useEffect(() => {
+		generator.next();
+	}, []);
 
 	return current ? (
 		<Container>
@@ -81,33 +88,27 @@ export async function getStaticPaths() {
 
 export const getStaticProps = wrapper.getStaticProps(() => async ({ params }: GetStaticPropsContext) => {
 	const url: Url = 'http://localhost:3000/api/products';
-	const { fetchedItems } = store.getState().products;
+
 	let element: IProduct | null = null;
 
-	if (params) {
-		if (!fetchedItems.length) {
-			const res = await fetch(`${url}/${params.productId}`);
-			const data = await res.json();
+	const res = await fetch(`${url}/${params?.productId}`);
+	const data = await res.json();
 
-			element = data;
+	element = data;
 
-			if (!element) {
-				return {
-					notFound: true,
-				};
-			}
-		}
-
+	if (!element?.id) {
 		return {
-			props: {
-				element,
-				productId: Number(params.productId),
-			},
+			notFound: true,
 		};
 	}
 
+	const props = {
+		element,
+		productId: Number(params?.productId),
+	};
+
 	return {
-		props: {},
+		props,
 	};
 });
 

@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { FC, useEffect, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 
 import { ButtonUI, InputUI } from '@/components/ui';
-import { IProduct } from '@/interfaces';
+import { IProduct } from '@/services';
 
 interface CreateProductType {
 	addProduct: (product: IProduct) => void;
@@ -14,20 +13,20 @@ const defaultProduct = {
 	description: '',
 	price: null,
 	checked: false,
-    imgFetch: false,
-    favorite: false,
-    thumbnail: '',
+	imgFetch: false,
+	favorite: false,
+	thumbnail: '',
 };
 
 const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 	const [newProduct, setNewProduct] = useState<IProduct>(defaultProduct);
 	const [isError, setIsError] = useState<boolean>(false);
 
-	const validateFields = () => {
+	const validateFields = useCallback(() => {
 		const condition = !newProduct.title.trim().length || !newProduct.description.trim().length || !newProduct.price;
 
 		setIsError(condition);
-	};
+	}, [newProduct]);
 
 	const createProductHandle = () => {
 		validateFields();
@@ -43,10 +42,6 @@ const CreateProductBlock: FC<CreateProductType> = ({ addProduct }) => {
 			[e.target.id]: e.target.value,
 		}));
 	};
-
-	useEffect(() => {
-		validateFields();
-	}, [newProduct]);
 
 	return (
 		<div className="layerBlock">

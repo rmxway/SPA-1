@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { Flexbox } from '@/components/Layout';
 import { InputUI } from '@/components/ui';
-import { useAppDispatch, useAppSelector } from '@/hooks';
+import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { searchProduct } from '@/store/reducers/products';
 

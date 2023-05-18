@@ -2,17 +2,10 @@ import { useEffect } from 'react';
 
 import { Filter } from '@/components';
 import { Container, LayerBlock } from '@/components/Layout';
-import { useAppSelector } from '@/hooks';
-import { productsStore, store } from '@/store';
-import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
-
-import { ProductsGrid } from './ProductsGrid';
-
-function* runOnce() {
-	yield store.dispatch(asyncGetAllProducts({ params: { limit: 100 } }));
-}
-
-const generator = runOnce();
+import { ProductsGrid } from '@/components/ProductsGrid';
+import { generator } from '@/components/ProductsGrid/runOnce';
+import { useAppSelector } from '@/services';
+import { productsStore } from '@/store';
 
 const ProductsPage = () => {
 	const { fetching, fetchedItems, error, page } = useAppSelector(productsStore);

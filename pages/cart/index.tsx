@@ -7,8 +7,7 @@ import { MCartItem } from '@/components';
 import { cartVariant } from '@/components/CartItem/styled';
 import { Container } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
-import { currency } from '@/constants';
-import { useAppSelector } from '@/hooks';
+import { currency, useAppSelector } from '@/services';
 import { cartStore } from '@/store';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 

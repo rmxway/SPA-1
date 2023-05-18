@@ -5,8 +5,8 @@ module.exports = {
 		styledComponents: true,
 	},
 	env: {
-		host: 'localhost',
-		port: '3000',
+		HOST_NAME: 'localhost',
+		PORT: '3000',
 		API_URL: `http://${process.env.host}:${process.env.port}/api/products`,
 	},
 	images: {

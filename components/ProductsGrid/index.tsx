@@ -2,11 +2,11 @@ import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
 import { PropsWithChildren, useEffect } from 'react';
 
-import { Pagination, ProductCard } from '@/components';
+import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
+import { ProductCard } from '@/components/ProductCard';
 import { Loader } from '@/components/ui';
-import { useAppDispatch, useAppSelector } from '@/hooks';
-import { IProduct } from '@/interfaces';
+import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { setCurrentItems } from '@/store/reducers/products';
 

@@ -1,6 +1,6 @@
 import { FC, PropsWithChildren } from 'react';
 
-import { useAppSelector } from '@/hooks';
+import { useAppSelector } from '@/services';
 import { cartStore } from '@/store';
 
 import { Count } from '../Count';

@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { FC, memo, ReactNode } from 'react';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
-import { useAppSelector } from '@/hooks';
 import { navbarItems } from '@/mock/navbar';
+import { useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 
 import { Count } from './Count';
