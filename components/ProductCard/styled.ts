@@ -4,6 +4,8 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme/media';
 
+import { WrapperImageStyled } from './WrapperImage';
+
 export const ProductWrapper = styled(motion.div)`
 	position: relative;
 	display: flex;
@@ -16,8 +18,24 @@ export const ProductWrapper = styled(motion.div)`
 	transition: 0.3s box-shadow;
 	background-color: #fff;
 
+	a {
+		width: 100%;
+	}
+
 	${media.greaterThan('xs')`
         width: calc(50% - 20px);
+
+        ${WrapperImageStyled} {
+            min-height: 200px;
+
+            img {
+                width: 150px;
+                height: 150px;
+                object-fit: contain;
+                object-position: center;
+                margin: 20px auto;
+            }
+        }
     `}
 
 	${media.greaterThan('sm')`
@@ -28,9 +46,7 @@ export const ProductWrapper = styled(motion.div)`
 		width: calc(25% - 20px);
 	`}
 
-
-
-	&:hover {
+    &:hover {
 		box-shadow: ${(props) => props.theme.layout.shadow};
 	}
 
@@ -39,42 +55,6 @@ export const ProductWrapper = styled(motion.div)`
 		margin-top: 10px;
 		align-self: center;
 	}
-`;
-
-export const WrapperImage = styled(motion.div)`
-	position: relative;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 200px;
-
-	text-decoration: none;
-
-	img {
-		width: 100%;
-		max-height: 200px;
-		object-fit: contain;
-		object-position: center;
-		margin: 20px auto;
-	}
-
-	.icofont {
-		font-size: 3rem;
-		color: ${(props) => props.theme.colors.gray.$4};
-	}
-
-	${media.greaterThan('xs')`
-        min-height: 200px;
-
-        img {
-            width: 150px;
-            height: 150px;
-            object-fit: contain;
-            object-position: center;
-            margin: 20px auto;
-        }
-    `}
 `;
 
 export const Title = styled(Link)`

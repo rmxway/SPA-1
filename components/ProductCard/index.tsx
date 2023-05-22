@@ -3,13 +3,12 @@ import Link from 'next/link';
 import { FC, useState } from 'react';
 
 import { RatingStars, Space } from '@/components/Layout';
-import { ButtonUI, Favorite, Loader } from '@/components/ui';
-import { currency, IProduct, useAppSelector } from '@/services';
-import { productsStore } from '@/store';
+import { ButtonUI, Favorite } from '@/components/ui';
+import { currency, IProduct } from '@/services';
 import { moveToCart, toggleFav } from '@/store/reducers/combineActions';
 
-import { LazyImageProductCard } from './LazyImageProductCard';
-import { Description, Help, Price, ProductWrapper, Title, Tools, WrapperImage } from './styled';
+import { Description, Help, Price, ProductWrapper, Title, Tools } from './styled';
+import { WrapperImage } from './WrapperImage';
 
 interface ProductType extends MotionProps {
 	product: IProduct;
@@ -18,8 +17,6 @@ interface ProductType extends MotionProps {
 export const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const link = `/product/${product.id}`;
-	const img = product?.thumbnail;
-	const { fetching } = useAppSelector(productsStore);
 
 	const handleChecked = () => {
 		moveToCart(Number(product.id));
@@ -28,15 +25,9 @@ export const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 	return (
 		<ProductWrapper {...props}>
 			<Favorite onActive={() => toggleFav(product.id)} active={product.favorite} />
-			<WrapperImage id={`id-${product.id}`}>
-				<Link href={link}>
-					<Loader loading={product.imgFetch} />
-
-					{!fetching && (
-						<LazyImageProductCard src={img} alt={product.title} productId={product.id} threshold={-50} />
-					)}
-				</Link>
-			</WrapperImage>
+			<Link href={link}>
+				<WrapperImage product={product} size={300} />
+			</Link>
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}
 			</Help>

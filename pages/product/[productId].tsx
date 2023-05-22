@@ -1,41 +1,35 @@
 import { GetStaticPropsContext, NextPage } from 'next';
-import { useEffect } from 'react';
 
 import { Container, LayerBlock, RatingStars } from '@/components/Layout';
+import { WrapperImage } from '@/components/ProductCard/WrapperImage';
 import { ButtonUI } from '@/components/ui';
-import { generator } from '@/components/ProductsGrid/runOnce';
 import { currency, IProduct, useAppSelector } from '@/services';
-import { productsStore, wrapper } from '@/store';
+import { productsStore } from '@/store';
 import { Url } from '@/store/reducers/asyncGetAllProducts';
 import { moveToCart } from '@/store/reducers/combineActions';
 
-import { Image, Info, PriceBlock, Title, Wrapper, WrapperImage } from './styled';
+import { Info, PriceBlock, Title, Wrapper } from './styled';
 
 interface ProductPageProps {
-	element: IProduct | null;
-	productId: number;
+	err: undefined | string;
+	pageProps: {
+		element: IProduct | null;
+		productId: number;
+	};
 }
 
-const ProductPage: NextPage<ProductPageProps> = ({ ...pageProps }) => {
-	const { props } = wrapper.useWrappedStore(pageProps);
-	const { productId, element } = props.pageProps;
-
+const ProductPage: NextPage<ProductPageProps> = (props) => {
+	const { pageProps } = props;
+	const { element, productId } = pageProps;
 	const { fetchedItems } = useAppSelector(productsStore);
-	const current = fetchedItems.length === 0 ? element : fetchedItems.find((item) => item.id === productId);
-	const img = String(current?.images?.length && current?.images[0]);
 
-	useEffect(() => {
-		generator.next();
-	}, []);
+	const current = fetchedItems.length === 0 ? element : fetchedItems.find((item) => item.id === Number(productId));
 
 	return current ? (
 		<Container>
 			<LayerBlock mt="true">
 				<Wrapper>
-					<WrapperImage>
-						<Image src={img} alt={current?.title} />
-					</WrapperImage>
-
+					<WrapperImage product={current} size={1000} />
 					<Info>
 						<Title>{current?.title}</Title>
 						<span>
@@ -86,7 +80,7 @@ export async function getStaticPaths() {
 	};
 }
 
-export const getStaticProps = wrapper.getStaticProps(() => async ({ params }: GetStaticPropsContext) => {
+export async function getStaticProps({ params }: GetStaticPropsContext) {
 	const url: Url = 'http://localhost:3000/api/products';
 
 	let element: IProduct | null = null;
@@ -107,10 +101,8 @@ export const getStaticProps = wrapper.getStaticProps(() => async ({ params }: Ge
 		productId: Number(params?.productId),
 	};
 
-	return {
-		props,
-	};
-});
+	return { props };
+}
 
 export { ProductPage };
 export default ProductPage;

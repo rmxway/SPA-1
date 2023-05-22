@@ -4,10 +4,6 @@ export const navbarItems = [
 		url: '/',
 	},
 	{
-		title: 'UI',
-		url: '/ui',
-	},
-	{
 		title: 'Products',
 		url: '/products',
 	},

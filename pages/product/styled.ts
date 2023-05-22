@@ -1,6 +1,7 @@
+import Image from 'next/image';
 import styled from 'styled-components';
 
-import { LazyImage } from '@/components/Layout';
+import { WrapperImageStyled } from '@/components/ProductCard/WrapperImage';
 import { media } from '@/theme';
 
 export const Wrapper = styled.div`
@@ -11,6 +12,18 @@ export const Wrapper = styled.div`
 	${media.greaterThan('md')`
         flex-wrap: nowrap;
     `}
+
+	${WrapperImageStyled} {
+		min-width: 500px;
+		order: 1;
+		flex-shrink: 0;
+		margin-bottom: 30px;
+
+		${media.greaterThan('md')`
+            width: 400px;
+            height: 400px;
+        `}
+	}
 `;
 
 export const Title = styled.h1`
@@ -19,36 +32,11 @@ export const Title = styled.h1`
 	margin-top: 0;
 `;
 
-export const WrapperImage = styled.div`
-	width: 100%;
-	order: 1;
-	flex-shrink: 0;
-	margin-bottom: 30px;
-
-	.lazy-image {
-		display: block;
-		width: 100%;
-		height: 100%;
-		border: 1px solid ${(props) => props.theme.colors.gray.$2};
-		border-radius: ${(props) => props.theme.radius.borderRadius};
-		overflow: hidden;
-	}
-
-	${media.greaterThan('md')`
-        width: 400px;
-        height: 400px;
-    `}
-`;
-
-export const Image = styled(LazyImage)`
+export const ProductImage = styled(Image)`
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	object-position: top center;
-
-	&.icofont {
-		font-size: 3rem;
-	}
 `;
 
 export const Info = styled.div`
