@@ -19,7 +19,7 @@ const itemVar = {
 	visible: { opacity: 1 },
 };
 
-const ButtonUI = memo(
+export const ButtonUI = memo(
 	({ children, animate = false, ...props }: PropsWithChildren<ButtonProps & { animate?: boolean }>) => {
 		const memoText = String(children).split('');
 		const randIndex = Number(Math.random() * Number(new Date()));
@@ -48,5 +48,4 @@ const ButtonUI = memo(
 
 ButtonUI.displayName = 'ButtonUI';
 
-export { ButtonUI };
 export default ButtonUI;

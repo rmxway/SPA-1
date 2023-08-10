@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme';
 
-const Container = styled.div<{ mt?: boolean }>`
+const Container = styled.div<{ $mt?: boolean }>`
 	position: relative;
 	padding: 0 20px;
 	width: 100%;
@@ -10,7 +10,7 @@ const Container = styled.div<{ mt?: boolean }>`
 	margin: 0 auto;
 
 	${(props) =>
-		props.mt &&
+		props.$mt &&
 		css`
 			margin-top: 20px;
 		`}

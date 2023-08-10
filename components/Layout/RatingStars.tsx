@@ -1,4 +1,3 @@
-import { FC } from 'react';
 import styled from 'styled-components';
 
 interface RatingTypes {
@@ -45,27 +44,28 @@ const Star = styled.i<{ active?: boolean | unknown }>`
 	}
 `;
 
-const RatingStars: FC<RatingTypes> = ({ rating, ...props }) => (
-	<Block {...props}>
-		<RatingStarsStyled rating={rating}>
-			<Wrapper>
-				<Star className="icofont icofont-star" />
-				<Star className="icofont icofont-star" />
-				<Star className="icofont icofont-star" />
-				<Star className="icofont icofont-star" />
-				<Star className="icofont icofont-star" />
-			</Wrapper>
-			<Wrapper width={rating}>
-				<Star className="icofont icofont-star" active />
-				<Star className="icofont icofont-star" active />
-				<Star className="icofont icofont-star" active />
-				<Star className="icofont icofont-star" active />
-				<Star className="icofont icofont-star" active />
-			</Wrapper>
-		</RatingStarsStyled>
-		<span>{rating}</span>
-	</Block>
-);
+export function RatingStars({ rating, ...props }: RatingTypes) {
+	return (
+		<Block {...props}>
+			<RatingStarsStyled rating={rating}>
+				<Wrapper>
+					<Star className="icofont icofont-star" />
+					<Star className="icofont icofont-star" />
+					<Star className="icofont icofont-star" />
+					<Star className="icofont icofont-star" />
+					<Star className="icofont icofont-star" />
+				</Wrapper>
+				<Wrapper width={rating}>
+					<Star className="icofont icofont-star" active />
+					<Star className="icofont icofont-star" active />
+					<Star className="icofont icofont-star" active />
+					<Star className="icofont icofont-star" active />
+					<Star className="icofont icofont-star" active />
+				</Wrapper>
+			</RatingStarsStyled>
+			<span>{rating}</span>
+		</Block>
+	);
+}
 
-export { RatingStars };
 export default RatingStars;

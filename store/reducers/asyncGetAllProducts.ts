@@ -49,8 +49,8 @@ export const asyncGetAllProducts = createAsyncThunk(
 			const products = await response.json();
 
 			return {
-				products,
-				total: products.length,
+				products: products.state,
+				total: products.state.length,
 				page,
 				count,
 			};

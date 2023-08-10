@@ -1,17 +1,15 @@
-import { FC } from 'react';
-
 import { StyledLoader, Wrapper } from './styled';
 
 interface LoaderTypes {
 	loading: boolean;
 }
 
-const Loader: FC<LoaderTypes> = ({ loading }) =>
-	loading ? (
+export function Loader({ loading }: LoaderTypes) {
+	return loading ? (
 		<Wrapper>
 			<StyledLoader />
 		</Wrapper>
 	) : null;
+}
 
-export { Loader };
 export default Loader;

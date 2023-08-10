@@ -13,7 +13,7 @@ interface Props {
 	product: IProduct;
 }
 
-const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }, ref) => (
+export const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }, ref) => (
 	<Item ref={ref} {...props}>
 		<Content layout variants={elementsVars}>
 			<Image src={product.thumbnail} alt={product.title} width={70} height={70} quality={50} />
@@ -38,7 +38,6 @@ const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }, ref) 
 
 CartItem.displayName = 'CartItem';
 
-export { CartItem };
 export default CartItem;
 
 export const MCartItem = motion(CartItem);

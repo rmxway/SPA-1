@@ -1,5 +1,4 @@
 import debounce from 'lodash.debounce';
-import { FC } from 'react';
 
 import { Flexbox, Space } from '@/components/Layout';
 import { IProduct, useAppDispatch } from '@/services';
@@ -16,7 +15,7 @@ interface PaginationProps {
 	keyChangePage: TypePages;
 }
 
-const Pagination: FC<PaginationProps> = ({ items, fetching, page, countPerPage, keyChangePage }) => {
+export function Pagination({ items, fetching, page, countPerPage, keyChangePage }: PaginationProps) {
 	const total = items.length;
 	const dispatch = useAppDispatch();
 	const countPages = Math.ceil(total / countPerPage);
@@ -103,7 +102,6 @@ const Pagination: FC<PaginationProps> = ({ items, fetching, page, countPerPage, 
 			<br />
 		</>
 	);
-};
+}
 
-export { Pagination };
 export default Pagination;

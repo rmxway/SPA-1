@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
 import { Flexbox } from '@/components/Layout';
 import { InputUI } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
@@ -9,7 +7,7 @@ import { searchProduct } from '@/store/reducers/products';
 import { StyledFilter } from './styled';
 import { ToggleSort } from './ToggleSort';
 
-const Filter: FC = () => {
+export function Filter() {
 	const { currentItems, fetchedItems, search } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 
@@ -35,7 +33,6 @@ const Filter: FC = () => {
 			/>
 		</StyledFilter>
 	);
-};
+}
 
-export { Filter };
 export default Filter;

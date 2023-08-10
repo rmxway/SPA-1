@@ -1,6 +1,6 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { FC, memo, ReactNode } from 'react';
+import { usePathname } from 'next/navigation';
+import { memo, ReactNode } from 'react';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
 import { navbarItems } from '@/mock/navbar';
@@ -19,8 +19,8 @@ interface NavLinkProps {
 }
 
 const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) => {
-	const router = useRouter();
-	const isActive = router.pathname === address;
+	const pathname = usePathname();
+	const isActive = pathname === address;
 
 	return (
 		<NavbarItem>
@@ -37,8 +37,6 @@ const NavLinkMotion = memo(({ title, address, component, count }: NavLinkProps) 
 		</NavbarItem>
 	);
 });
-
-NavLinkMotion.displayName = 'NavLinkMotion';
 
 interface navbarTypes {
 	title?: string;
@@ -65,9 +63,10 @@ const renderNavBar = (count: number) =>
 		return <NavLinkMotion key={url} {...props} />;
 	});
 
-const Navbar: FC = () => {
+function Navbar() {
 	const { fetchedItems } = useAppSelector(productsStore);
 	const countFavorites = fetchedItems.filter((item) => item.favorite).length;
+
 	return (
 		<StyledNavbar>
 			<Container>
@@ -87,7 +86,7 @@ const Navbar: FC = () => {
 			</Container>
 		</StyledNavbar>
 	);
-};
+}
 
 export { Navbar };
 export default Navbar;

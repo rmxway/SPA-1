@@ -1,6 +1,6 @@
 import { MotionProps } from 'framer-motion';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { useState } from 'react';
 
 import { RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Favorite } from '@/components/ui';
@@ -14,7 +14,7 @@ interface ProductType extends MotionProps {
 	product: IProduct;
 }
 
-export const ProductCard: FC<ProductType> = ({ product, ...props }) => {
+export function ProductCard({ product, ...props }: ProductType) {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const link = `/product/${product.id}`;
 
@@ -45,6 +45,6 @@ export const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 			</ButtonUI>
 		</ProductWrapper>
 	);
-};
+}
 
 export default ProductCard;

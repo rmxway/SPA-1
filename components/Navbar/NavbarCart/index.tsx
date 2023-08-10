@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from 'react';
+import { PropsWithChildren } from 'react';
 
 import { useAppSelector } from '@/services';
 import { cartStore } from '@/store';
@@ -6,7 +6,7 @@ import { cartStore } from '@/store';
 import { Count } from '../Count';
 import { Cart } from './styled';
 
-const NavbarCart: FC<PropsWithChildren> = ({ children }) => {
+function NavbarCart({ children }: PropsWithChildren) {
 	const { items } = useAppSelector(cartStore);
 
 	return (
@@ -16,7 +16,7 @@ const NavbarCart: FC<PropsWithChildren> = ({ children }) => {
 			{items.length > 0 ? <Count count={items.length} /> : null}
 		</Cart>
 	);
-};
+}
 
 export { NavbarCart };
 export default NavbarCart;

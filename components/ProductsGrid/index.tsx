@@ -1,3 +1,5 @@
+'use client';
+
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
 import { PropsWithChildren, useEffect } from 'react';
@@ -17,19 +19,19 @@ interface ProductsGridProps extends PropsWithChildren {
 	fetching: boolean;
 	error: string;
 	page: number;
-	pagination?: boolean;
+	pagination: boolean;
 	keyPage: 'page' | 'pageFavorites';
 }
 
-export const ProductsGrid = ({
+export function ProductsGrid({
 	items,
 	children,
 	fetching,
 	error,
 	page,
-	pagination = false,
+	pagination,
 	keyPage,
-}: ProductsGridProps) => {
+}: ProductsGridProps) {
 	const { countPerPage, currentItems } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 
@@ -66,7 +68,7 @@ export const ProductsGrid = ({
 
 			{!currentItems.length && !fetching && !error ? (
 				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
-					<LayerBlock mt="true">
+					<LayerBlock $mt="true">
 						{keyPage === 'page' && `The search did't take a result`}
 						{keyPage === 'pageFavorites' ? (
 							<>

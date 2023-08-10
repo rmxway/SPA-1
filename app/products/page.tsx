@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect } from 'react';
 
 import { Filter } from '@/components';
@@ -7,7 +9,7 @@ import { generator } from '@/components/ProductsGrid/runOnce';
 import { useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 
-const ProductsPage = () => {
+export function ProductsPage() {
 	const { fetching, fetchedItems, error, page } = useAppSelector(productsStore);
 
 	useEffect(() => {
@@ -15,7 +17,7 @@ const ProductsPage = () => {
 	}, []);
 
 	return (
-		<Container mt>
+		<Container $mt>
 			<Filter />
 
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
@@ -24,7 +26,6 @@ const ProductsPage = () => {
 			) : null}
 		</Container>
 	);
-};
+}
 
-export { ProductsPage };
 export default ProductsPage;

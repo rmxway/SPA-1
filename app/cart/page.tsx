@@ -1,5 +1,6 @@
+'use client';
+
 import { AnimatePresence, motion } from 'framer-motion';
-import { NextPage } from 'next';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -13,7 +14,7 @@ import { removeAllProducts } from '@/store/reducers/combineActions';
 
 import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styled';
 
-export const CartPage: NextPage = () => {
+export function CartPage() {
 	const { items, totalPrice } = useAppSelector(cartStore);
 	const [isItems, setIsItems] = useState<boolean>(!!items.length);
 
@@ -85,6 +86,6 @@ export const CartPage: NextPage = () => {
 			</Cart>
 		</Container>
 	);
-};
+}
 
 export default CartPage;
