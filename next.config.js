@@ -1,6 +1,17 @@
 /** @type {import('next').NextConfig} */
 module.exports = {
 	reactStrictMode: true,
+	experimental: {
+		appDir: true,
+	},
+	compiler: {
+		styledComponents: true,
+	},
+	env: {
+		HOST_NAME: 'localhost',
+		PORT: '3000',
+		API_URL: `http://${process.env.HOST_NAME}:${process.env.PORT}/api/products`,
+	},
 	images: {
 		remotePatterns: [
 			{

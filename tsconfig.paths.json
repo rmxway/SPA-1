@@ -3,11 +3,12 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
-			"@/assets/*": ["./assets/*"],
+			"@/public/*": ["./public/*"],
 			"@/components/*": ["./components/*"],
 			"@/store/*": ["./store/*"],
-			"@/pages/*": ["/pages/*"],
-			"@/theme/*": ["./theme/*"]
+			"@/pages/*": ["./pages/*"],
+			"@/theme/*": ["./theme/*"],
+			"@/services/*": ["./services/*"],
 		}
 	}
 }
