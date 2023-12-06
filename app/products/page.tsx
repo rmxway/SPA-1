@@ -9,11 +9,11 @@ import { generator } from '@/components/ProductsGrid/runOnce';
 import { useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 
-export function ProductsPage() {
+export default function ProductsPage() {
 	const { fetching, fetchedItems, error, page } = useAppSelector(productsStore);
 
 	useEffect(() => {
-		generator.next();
+		if (fetchedItems.length === 0) generator.next();
 	}, []);
 
 	return (
@@ -27,5 +27,3 @@ export function ProductsPage() {
 		</Container>
 	);
 }
-
-export default ProductsPage;

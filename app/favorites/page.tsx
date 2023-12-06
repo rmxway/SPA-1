@@ -7,7 +7,7 @@ import { ProductsGrid } from '@/components/ProductsGrid';
 import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 
-export function FavoritesPage() {
+export default function FavoritesPage() {
 	const { error, fetching, fetchedItems, pageFavorites } = useAppSelector(productsStore);
 	const [items, setItems] = useState<IProduct[]>([]);
 
@@ -22,5 +22,3 @@ export function FavoritesPage() {
 		</Container>
 	);
 }
-
-export default FavoritesPage;

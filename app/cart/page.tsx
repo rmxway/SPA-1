@@ -14,7 +14,7 @@ import { removeAllProducts } from '@/store/reducers/combineActions';
 
 import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styled';
 
-export function CartPage() {
+export default function CartPage() {
 	const { items, totalPrice } = useAppSelector(cartStore);
 	const [isItems, setIsItems] = useState<boolean>(!!items.length);
 
@@ -87,5 +87,3 @@ export function CartPage() {
 		</Container>
 	);
 }
-
-export default CartPage;

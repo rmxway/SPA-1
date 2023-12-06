@@ -40,7 +40,7 @@ module.exports = {
 		'no-shadow': 'off',
 		'no-plusplus': 'off',
 		'no-new': 'off',
-		camelcase: 'off',
+		'camelcase': 1,
 		'react/react-in-jsx-scope': 'off',
 		'react/display-name': 'off',
 		'no-underscore-dangle': 'off',
@@ -53,8 +53,8 @@ module.exports = {
 		'import/no-extraneous-dependencies': [
 			'off',
 			{
-                devDependencies: true,
-            },
+				devDependencies: true,
+			},
 		],
 		'@typescript-eslint/no-shadow': 'error',
 		'unused-imports/no-unused-imports': 'error',

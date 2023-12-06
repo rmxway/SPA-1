@@ -23,21 +23,13 @@ interface ProductsGridProps extends PropsWithChildren {
 	keyPage: 'page' | 'pageFavorites';
 }
 
-export function ProductsGrid({
-	items,
-	children,
-	fetching,
-	error,
-	page,
-	pagination,
-	keyPage,
-}: ProductsGridProps) {
+export function ProductsGrid({ items, children, fetching, error, page, pagination, keyPage }: ProductsGridProps) {
 	const { countPerPage, currentItems } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		dispatch(setCurrentItems({ items: new Array(...items), page }));
-	}, [dispatch, items, page]);
+	}, [items, page]);
 
 	return (
 		<WrapperComponent>
@@ -68,7 +60,7 @@ export function ProductsGrid({
 
 			{!currentItems.length && !fetching && !error ? (
 				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
-					<LayerBlock $mt="true">
+					<LayerBlock $mt>
 						{keyPage === 'page' && `The search did't take a result`}
 						{keyPage === 'pageFavorites' ? (
 							<>
@@ -80,6 +72,6 @@ export function ProductsGrid({
 			) : null}
 		</WrapperComponent>
 	);
-};
+}
 
 export default ProductsGrid;

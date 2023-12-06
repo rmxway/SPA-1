@@ -13,9 +13,9 @@ export const moveToCart = (id: number) => {
 };
 
 export const toggleFav = (id: number | null) => {
-	const { pageFavorites, favoriteItems, countPerPage } = store.getState().products;
+	const { pageFavorites, countPerPage } = store.getState().products;
 	dispatch(toggleFavorite(Number(id)));
-	if (pageFavorites > 1 && favoriteItems.length % countPerPage === 1)
+	if (pageFavorites > 1) // && favoriteItems.length % countPerPage === 1
 		dispatch(changePage({ key: 'pageFavorites', page: pageFavorites - 1 }));
 };
 
