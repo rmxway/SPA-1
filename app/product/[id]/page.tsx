@@ -8,8 +8,6 @@ import { productsStore } from '@/store';
 import { moveToCart } from '@/store/reducers/combineActions';
 
 import { Info, PriceBlock, Title, Wrapper } from './styled';
-import { useEffect } from 'react';
-import { generator } from '@/components/ProductsGrid/runOnce';
 
 interface ProductPageProps {
 	params: {
@@ -19,13 +17,9 @@ interface ProductPageProps {
 
 export default function Product(props: ProductPageProps) {
 	const { params } = props;
-	const { fetchedItems } = useAppSelector(productsStore);
+    const { fetchedItems } = useAppSelector(productsStore);
 
-	useEffect(() => {
-		if (fetchedItems.length === 0) generator.next();
-	}, []);
-
-	const current = fetchedItems.find((item) => item.id === Number(params.id));
+    const current = fetchedItems.find((item) => item.id === Number(params.id));
 
 	return current ? (
 		<Container>
@@ -51,7 +45,7 @@ export default function Product(props: ProductPageProps) {
 							<ButtonUI
 								primary
 								animate
-								onClick={() => moveToCart(Number(current.id))}
+								onClick={() => moveToCart(Number(current?.id))}
 								disabled={current.checked}
 							>
 								{current.checked ? 'Added' : 'Add to cart'}

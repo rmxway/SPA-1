@@ -11,5 +11,5 @@ export async function GET(req: Request) {
 		state = [...productsJSON.slice(0, Number(limit))];
 	}
 
-	return NextResponse.json({ state });
+	return NextResponse.json( [...state] );
 }

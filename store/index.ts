@@ -1,12 +1,15 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
-import { createWrapper, HYDRATE } from 'next-redux-wrapper';
+import { HYDRATE } from 'next-redux-wrapper';
 
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
 
+import { api } from './api';
+
 const rootReducer = combineReducers({
 	cart: CartReducer,
 	products: ProductsReducer,
+	[api.reducerPath]: api.reducer,
 });
 
 export type ReducerType = typeof rootReducer;
@@ -25,6 +28,7 @@ const reducer: ReducerType = (state, action) => {
 const makeConfiguredStore = (anyReducer: ReducerType) =>
 	configureStore({
 		reducer: anyReducer,
+		middleware: (gDM) => gDM().concat(api.middleware),
 	});
 
 export const store = makeConfiguredStore(reducer);
@@ -35,20 +39,6 @@ export const makeStore = () => {
 	if (isServer) {
 		return store;
 	}
-	// // we need it only on client side
-	// const { persistStore, persistReducer } = require('redux-persist');
-	// const storage = require('redux-persist/lib/storage').default;
-
-	// const persistConfig = {
-	// 	key: 'nextjs',
-	// 	whitelist: ['fromClient'], // make sure it does not clash with server keys
-	// 	storage,
-	// };
-
-	// const persistedReducer = persistReducer(persistConfig, reducer);
-	// _store = makeConfiguredStore(rootReducer);
-
-	// store.__persistor = persistStore(store); // Nasty hack
 
 	return store;
 };
@@ -60,5 +50,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unk
 
 export const cartStore = (state: RootState) => state.cart;
 export const productsStore = (state: RootState) => state.products;
-
-export const wrapper = createWrapper(makeStore);

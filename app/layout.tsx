@@ -3,9 +3,7 @@
 import '@/public/assets/fonts/icofont/icofont.scss';
 
 import { Roboto } from 'next/font/google';
-// import { Providers } from '@/store/provider';
 import { Provider } from 'react-redux';
-// import { wrapper } from '@/store';
 import { ThemeProvider } from 'styled-components';
 
 import { Navbar } from '@/components';
