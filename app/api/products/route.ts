@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server';
-
 import { productsJSON } from './data/items.js';
 
-// eslint-disable-next-line import/prefer-default-export
 export async function GET(req: Request) {
 	const { searchParams } = new URL(req.url);
 	const limit = searchParams.get('limit');
@@ -13,5 +11,5 @@ export async function GET(req: Request) {
 		state = [...productsJSON.slice(0, Number(limit))];
 	}
 
-	return NextResponse.json({ state });
+	return NextResponse.json( [...state] );
 }

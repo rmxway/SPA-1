@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { Container, LayerBlock } from '@/components/Layout';
 import logos from '@/public/assets/img/logos.jpg';
 
-const ImageLogos = styled(Image)`
+const ImageLogos = styled<any>(Image)`
 	mix-blend-mode: multiply;
 	max-width: 100%;
 	margin: 30px 0;
@@ -52,7 +52,6 @@ export default function MainPage() {
 					<ul>
 						<li>React</li>
 						<li>Next.js</li>
-						<li>Babel</li>
 						<li>Typescript</li>
 						<li>Redux Toolkit</li>
 						<li>Styled Components</li>

@@ -1,13 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
-import { asyncGetAllProducts } from '@/store/reducers/asyncGetAllProducts';
+import { api } from '@/store/api';
 
 export interface ProductsState {
 	fetchedItems: IProduct[];
 	currentItems: IProduct[];
-	favoriteItems: IProduct[];
-	toggledItems: number[];
+	cartItems: number[];
 	total: number;
 	countPerPage: number;
 	page: number;
@@ -31,8 +30,7 @@ interface SortTypes {
 const initialState: ProductsState = {
 	fetchedItems: [],
 	currentItems: [],
-	favoriteItems: [],
-	toggledItems: [],
+	cartItems: [],
 	total: 0,
 	page: 1,
 	pageFavorites: 1,
@@ -57,16 +55,9 @@ const changeStateSort = (state: ProductsState, payload: SortTypes) => {
 
 const iterationToggle = (state: ProductsState) => {
 	state.fetchedItems.forEach((item) => {
-		const isToggled = !!state.toggledItems.find((toggleItem) => toggleItem === item.id);
+		const isToggled = !!state.cartItems.find((toggleItem) => toggleItem === item.id);
 		item.checked = isToggled;
 	});
-};
-
-type SetProductsPayload = {
-	products: IProduct[];
-	total: number;
-	page: number;
-	count: number;
 };
 
 export type TypePages = 'page' | 'pageFavorites';
@@ -83,20 +74,20 @@ const productsReducer = createSlice({
 		},
 		toggleProduct: (state, action: PayloadAction<number>) => {
 			const id = action.payload;
-			const isToggled = !!state.toggledItems.find((item) => item === id);
+			const isToggled = !!state.cartItems.find((item) => item === id);
 
 			if (isToggled) {
-				state.toggledItems = state.toggledItems.filter((item) => item !== Number(id));
+				state.cartItems = state.cartItems.filter((item) => item !== Number(id));
 			} else {
-				state.toggledItems.push(Number(id));
+				state.cartItems.push(Number(id));
 			}
 
-			state.toggledItems = [...new Set([...state.toggledItems])];
+			state.cartItems = [...new Set([...state.cartItems])];
 
 			iterationToggle(state);
 		},
 		removeAllToggledProducts: (state) => {
-			state.toggledItems = [];
+			state.cartItems = [];
 			iterationToggle(state);
 		},
 		addProduct: (state, action: PayloadAction<IProduct>) => {
@@ -139,7 +130,7 @@ const productsReducer = createSlice({
 
 			if (state.search.value.length) {
 				state.currentItems = state.fetchedItems.filter((item) =>
-					item.title.toLowerCase().includes(state.search.value.toLowerCase())
+					item.title.toLowerCase().includes(state.search.value.toLowerCase()),
 				);
 				state.total = state.fetchedItems.length;
 			} else {
@@ -149,7 +140,6 @@ const productsReducer = createSlice({
 		toggleFavorite: (state, action: PayloadAction<number>) => {
 			const current = state.fetchedItems.find((item) => item.id === action.payload);
 			if (current) current.favorite = !current.favorite;
-			state.favoriteItems = state.fetchedItems.filter((item) => item.favorite);
 		},
 		changePage: (state, action: PayloadAction<{ key: TypePages; page: number }>) => {
 			const { key, page } = action.payload;
@@ -158,39 +148,47 @@ const productsReducer = createSlice({
 		},
 		setCurrentItems: (state, action: PayloadAction<{ items: IProduct[]; page: number }>) => {
 			const { items, page } = action.payload;
-
 			const filteredItems = items.splice((page - 1) * state.countPerPage, state.countPerPage);
 			state.currentItems = filteredItems;
 		},
 	},
 	extraReducers(builder) {
 		builder
-			.addCase(asyncGetAllProducts.pending, (state) => {
+			.addMatcher(api.endpoints.getProducts.matchPending, (state) => {
 				state.fetching = true;
 				state.error = '';
 			})
-			.addCase(asyncGetAllProducts.fulfilled, (state, action: PayloadAction<SetProductsPayload>) => {
-				const { products, total, count, page } = action.payload;
+			.addMatcher(api.endpoints.getProducts.matchFulfilled, (state, action: PayloadAction<IProduct[]>) => {
+				const products: IProduct[] = action.payload;
 
-				products.forEach((item) => {
-					item.imgFetch = true;
-					item.favorite = false;
+				products.forEach((product) => {
+					product.imgFetch = true;
+					product.favorite = false;
 				});
 
-				state.total = total;
-				state.page = page;
-				state.countPerPage = count;
-
+				state.total = products.length;
 				state.fetchedItems = [...products];
-
-				state.currentItems = state.fetchedItems;
-
 				state.fetching = false;
 				state.error = '';
 			})
-			.addCase(asyncGetAllProducts.rejected, (state, action) => {
-				state.error = String(action.payload);
+			.addMatcher(api.endpoints.getProducts.matchRejected, (state, action) => {
+				state.error = String(action.payload?.status);
 				state.fetching = false;
+			// })
+            // .addMatcher(api.endpoints.getProduct.matchPending, (state) => {
+			// 	state.fetching = true;
+			// 	state.error = '';
+			// })
+			// .addMatcher(api.endpoints.getProduct.matchFulfilled, (state, action: PayloadAction<IProduct>) => {
+			// 	const product: IProduct = action.payload;
+
+			// 	state.fetchedItems = [product];
+			// 	state.fetching = false;
+			// 	state.error = '';
+			// })
+			// .addMatcher(api.endpoints.getProduct.matchRejected, (state, action) => {
+			// 	state.error = String(action.payload?.status);
+			// 	state.fetching = false;
 			});
 	},
 });
