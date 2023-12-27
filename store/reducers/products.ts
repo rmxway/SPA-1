@@ -154,6 +154,7 @@ const productsReducer = createSlice({
 	},
 	extraReducers(builder) {
 		builder
+			// Products
 			.addMatcher(api.endpoints.getProducts.matchPending, (state) => {
 				state.fetching = true;
 				state.error = '';
@@ -174,22 +175,24 @@ const productsReducer = createSlice({
 			.addMatcher(api.endpoints.getProducts.matchRejected, (state, action) => {
 				state.error = String(action.payload?.status);
 				state.fetching = false;
-			// })
-            // .addMatcher(api.endpoints.getProduct.matchPending, (state) => {
+			})
+			// Product
+			// .addMatcher(api.endpoints.getProduct.matchPending, (state) => {
 			// 	state.fetching = true;
 			// 	state.error = '';
 			// })
 			// .addMatcher(api.endpoints.getProduct.matchFulfilled, (state, action: PayloadAction<IProduct>) => {
 			// 	const product: IProduct = action.payload;
 
-			// 	state.fetchedItems = [product];
+            //     state.fetchedItems = [product];
 			// 	state.fetching = false;
 			// 	state.error = '';
 			// })
 			// .addMatcher(api.endpoints.getProduct.matchRejected, (state, action) => {
 			// 	state.error = String(action.payload?.status);
 			// 	state.fetching = false;
-			});
+			// })
+            ;
 	},
 });
 

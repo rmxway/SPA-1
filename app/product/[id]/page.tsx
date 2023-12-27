@@ -1,13 +1,14 @@
 'use client';
 
 import { Container, LayerBlock, RatingStars } from '@/components/Layout';
-import { WrapperImage } from '@/components/ProductCard/WrapperImage';
-import { ButtonUI } from '@/components/ui';
-import { currency, useAppSelector } from '@/services';
-import { productsStore } from '@/store';
+import { ButtonUI, Loader } from '@/components/ui';
+
 import { moveToCart } from '@/store/reducers/combineActions';
 
 import { Info, PriceBlock, Title, Wrapper } from './styled';
+import WrapperImage from '@/components/ProductCard/WrapperImage';
+import { currency } from '@/services';
+import { useGetProduct } from './useGetProduct';
 
 interface ProductPageProps {
 	params: {
@@ -15,47 +16,46 @@ interface ProductPageProps {
 	};
 }
 
-export default function Product(props: ProductPageProps) {
-	const { params } = props;
-    const { fetchedItems } = useAppSelector(productsStore);
+export default function Product({ params }: ProductPageProps) {
+	const { error, fetching, product } = useGetProduct(params.id);
 
-    const current = fetchedItems.find((item) => item.id === Number(params.id));
-
-	return current ? (
+	return (
 		<Container>
 			<LayerBlock $mt>
-				<Wrapper>
-					<WrapperImage product={current} size={1000} />
-					<Info>
-						<Title>{current?.title}</Title>
-						<span>
-							<p>
-								<strong>Category:</strong> {current.category}
-							</p>
-							<br />
-							<p>{current.description}</p>
-						</span>
-
-						<PriceBlock>
-							<RatingStars rating={Number(current.rating)} />
-							<br />
+				<Loader loading={fetching} />
+				{error ? error : ''}
+				{product && (
+					<Wrapper>
+						<WrapperImage product={product} size={1000} />
+						<Info>
+							<Title>{product?.title}</Title>
 							<span>
-								{current.price} {currency}
+								<p>
+									<strong>Category:</strong> {product.category}
+								</p>
+								<br />
+								<p>{product.description}</p>
 							</span>
-							<ButtonUI
-								primary
-								animate
-								onClick={() => moveToCart(Number(current?.id))}
-								disabled={current.checked}
-							>
-								{current.checked ? 'Added' : 'Add to cart'}
-							</ButtonUI>
-						</PriceBlock>
-					</Info>
-				</Wrapper>
+
+							<PriceBlock>
+								<RatingStars rating={Number(product.rating)} />
+								<br />
+								<span>
+									{product.price} {currency}
+								</span>
+								<ButtonUI
+									primary
+									animate
+									onClick={() => moveToCart(Number(product?.id))}
+									disabled={product.checked}
+								>
+									{product.checked ? 'Added' : 'Add to cart'}
+								</ButtonUI>
+							</PriceBlock>
+						</Info>
+					</Wrapper>
+				)}
 			</LayerBlock>
 		</Container>
-	) : (
-		<>Not Found</>
 	);
 }

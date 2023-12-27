@@ -7,21 +7,23 @@ import { media } from '@/theme';
 export const Wrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	min-height: 500px;
 
 	${media.greaterThan('md')`
         flex-wrap: nowrap;
     `}
 
-	${WrapperImageStyled} {
-		min-width: 500px;
+	img, ${WrapperImageStyled} {
+		height: auto;
+		width: 100%;
 		order: 1;
 		flex-shrink: 0;
+		margin: 0;
 		margin-bottom: 30px;
 
 		${media.greaterThan('md')`
-            width: 400px;
-            height: 400px;
+            width: 350px;
+            height: 350px;
+            margin-bottom: 0;
         `}
 	}
 `;

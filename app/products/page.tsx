@@ -9,14 +9,14 @@ import { useGetProductsQuery } from '@/store/api';
 
 export default function ProductsPage() {
 	const { fetchedItems, fetching, error, page } = useAppSelector(productsStore);
-	const { isLoading } = useGetProductsQuery();
+	useGetProductsQuery();
 
 	return (
 		<Container $mt>
 			<Filter />
 
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
-			{isLoading && <div>Data loading ...</div>}
+			{fetching && <div>Data loading ...</div>}
 			{fetchedItems ? (
 				<ProductsGrid pagination items={fetchedItems} keyPage="page" {...{ fetching, error, page }} />
 			) : null}
