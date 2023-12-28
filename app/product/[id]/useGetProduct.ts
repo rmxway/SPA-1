@@ -1,11 +1,20 @@
-import { useAppSelector } from '@/services';
+import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { useGetProductsQuery } from '@/store/api';
+import { useGetProductQuery } from '@/store/api';
+import { useMemo, useState } from 'react';
 
 export const useGetProduct = (id: string) => {
-	useGetProductsQuery();
+	let product: IProduct | undefined;
+
+	const [skip, setSkip] = useState(true);
+	useGetProductQuery(id, { skip });
+
 	const { fetchedItems, error, fetching } = useAppSelector(productsStore);
-	const product = fetchedItems.find((item) => item.id === Number(id));
+	product = fetchedItems.find((item) => item.id === Number(id));
+
+	useMemo(() => {
+		setSkip(() => !!product);
+	}, [product]);
 
 	return { fetching, error, product };
 };

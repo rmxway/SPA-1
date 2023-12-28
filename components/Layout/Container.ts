@@ -2,17 +2,18 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme';
 
-const Container = styled.div<{ $mt?: boolean }>`
+const Container = styled.div<{ $pt?: boolean }>`
 	position: relative;
+	display: block;
 	padding: 0 20px;
 	width: 100%;
 	max-width: 100%;
 	margin: 0 auto;
 
 	${(props) =>
-		props.$mt &&
+		props.$pt &&
 		css`
-			margin-top: 20px;
+			padding-top: 20px;
 		`}
 
 	${media.greaterThan('sm')`

@@ -8,11 +8,12 @@ import { productsStore } from '@/store';
 import { useGetProductsQuery } from '@/store/api';
 
 export default function ProductsPage() {
-	const { fetchedItems, fetching, error, page } = useAppSelector(productsStore);
 	useGetProductsQuery();
+	const { fetchedItems, fetching, error, page } = useAppSelector(productsStore);
 
 	return (
-		<Container $mt>
+		<Container>
+			<h1>Products</h1>
 			<Filter />
 
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
