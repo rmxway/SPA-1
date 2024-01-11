@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-
+import { ButtonUI } from '@/components/ui';
 import { fadeIn, media } from '@/theme';
 
 export const Info = styled.div`
@@ -14,7 +14,7 @@ export const Info = styled.div`
 export const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
-    min-height: 30px;
+	min-height: 30px;
 
 	${media.greaterThan('xs')`
         flex-direction: row;
@@ -71,4 +71,29 @@ export const ArrowButton = styled.button<{ left?: boolean; right?: boolean }>`
 				transform: rotate(90deg) scale(1, -1);
 			}
 		`}
+`;
+
+export const ButtonPagination = styled(ButtonUI)`
+	margin-right: 2px;
+	width: 25px;
+	padding: 6px 0;
+	text-align: center;
+	line-height: 1;
+
+	&,
+	&:focus,
+	&:active,
+	&:link {
+		transition-duration: 0s;
+	}
+
+	&:hover {
+		transition-duration: 0.1s;
+	}
+
+	${media.greaterThan('xs')`
+        width: 30px;
+        padding: 8px 0;
+        margin-right: 3px;
+    `}
 `;

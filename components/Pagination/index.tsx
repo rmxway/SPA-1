@@ -4,8 +4,8 @@ import { Flexbox, Space } from '@/components/Layout';
 import { IProduct, useAppDispatch } from '@/services';
 import { changePage, TypePages } from '@/store/reducers/products';
 
-import { ButtonPagination } from './ButtonPagination';
-import { ArrowButton, Info, Wrapper } from './styled';
+import { ArrowButton, ButtonPagination, Info, Wrapper } from './styled';
+import { ScrollToTop } from '@/services/helpers';
 
 interface PaginationProps {
 	items: IProduct[];
@@ -22,7 +22,10 @@ export function Pagination({ items, fetching, page, countPerPage, keyChangePage 
 	const maxCount = 4;
 	const countButtons = countPages >= maxCount ? maxCount : countPages;
 
-	const debounceChangePage = debounce((num) => dispatch(changePage({ key: keyChangePage, page: num })), 100);
+	const debounceChangePage = debounce((num) => {
+		dispatch(changePage({ key: keyChangePage, page: num }));
+		ScrollToTop();
+	}, 100);
 
 	const viewedItems = (): number => {
 		if (!(total % countPerPage)) {

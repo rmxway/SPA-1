@@ -70,6 +70,9 @@ export function ProductsGrid({ items, children, fetching, error, page, paginatio
 					</LayerBlock>
 				</motion.div>
 			) : null}
+
+			<br />
+			{pagination ? <Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} /> : null}
 		</WrapperComponent>
 	);
 }

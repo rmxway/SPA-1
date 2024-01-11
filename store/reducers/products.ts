@@ -34,7 +34,7 @@ const initialState: ProductsState = {
 	total: 0,
 	page: 1,
 	pageFavorites: 1,
-	countPerPage: 12,
+	countPerPage: 16,
 	error: '',
 	fetching: false,
 	sort: {

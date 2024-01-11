@@ -7,7 +7,8 @@ export const WrapperComponent = styled.div`
 
 export const Wrapper = styled.div`
 	position: relative;
-	margin: -10px;
+	margin-left: -10px;
+	margin-right: -10px;
 `;
 
 export const FetchingBlock = styled(motion.div)`
