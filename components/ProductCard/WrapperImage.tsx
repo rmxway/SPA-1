@@ -65,6 +65,7 @@ export const WrapperImage: FC<PropsType> = ({ product, size }) => {
 					width={size}
 					height={size}
 					quality={60}
+                    priority
 					onLoad={(e) => {
 						e.currentTarget.classList.add('fetched');
 						dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false }));

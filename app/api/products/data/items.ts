@@ -1,4 +1,6 @@
-export const productsJSON = [
+import { IProduct } from "@/services";
+
+export const productsJSON: IProduct[] = [
 	{
 		id: 1,
 		title: 'iPhone 9',

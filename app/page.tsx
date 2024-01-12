@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import { Container, LayerBlock } from '@/components/Layout';
 import logos from '@/public/assets/img/logos.jpg';
+import MainHeader from '@/components/ui/MainHeader';
 
 const ImageLogos = styled<any>(Image)`
 	mix-blend-mode: multiply;
@@ -14,26 +15,10 @@ const ImageLogos = styled<any>(Image)`
 	object-fit: contain;
 `;
 
-const MainHeader = styled.h1`
-	font-size: 3rem;
-	line-height: 0.9;
-	letter-spacing: -3px;
-	text-transform: uppercase;
-	font-weight: 900;
-	background-color: ${(props) => props.theme.colors.gray.$3};
-	margin-top: 0;
-	padding: 30px 0;
-	color: ${(props) => props.theme.colors.gray.$7};
-
-	span {
-		font-weight: 300;
-	}
-`;
-
 export default function MainPage() {
 	return (
 		<>
-			<MainHeader>
+			<MainHeader $isFont>
 				<Container>
 					Green Shop <span>Brand</span>
 				</Container>
@@ -54,11 +39,11 @@ export default function MainPage() {
 						<li>Next.js</li>
 						<li>Typescript</li>
 						<li>Redux Toolkit</li>
-                        <li>RTK Query</li>
+						<li>RTK Query</li>
 						<li>Styled Components</li>
+						<li>Swiper</li>
 						<li>Framer Motion</li>
 						<li>API from dummyjson.com</li>
-						<li>Prettier</li>
 					</ul>
 				</LayerBlock>
 			</Container>

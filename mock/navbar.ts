@@ -1,4 +1,10 @@
-export const navbarItems = [
+type TitleType = 'Main' | 'Products' | 'Favorites' | 'Cart';
+interface NavbarItemType {
+	title: TitleType;
+	url: string;
+}
+
+export const navbarItems: NavbarItemType[] = [
 	{
 		title: 'Main',
 		url: '/',

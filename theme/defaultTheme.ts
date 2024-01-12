@@ -9,8 +9,8 @@ const defaultTheme: DefaultTheme = {
 		label: '#5c323e',
 		dark: '#222',
 		gray: {
-			$1: '#ddd',
-			$2: '#ececec',
+			$1: '#f3f3f3',
+			$2: '#e3e3e3',
 			$3: '#cdcdcd',
 			$4: '#bebebe',
 			$5: '#a5a5a5',

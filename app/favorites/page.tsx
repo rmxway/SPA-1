@@ -6,6 +6,7 @@ import { Container } from '@/components/Layout';
 import { ProductsGrid } from '@/components/ProductsGrid';
 import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
+import MainHeader from '@/components/ui/MainHeader';
 
 export default function FavoritesPage() {
 	const { error, fetching, fetchedItems, pageFavorites } = useAppSelector(productsStore);
@@ -16,9 +17,15 @@ export default function FavoritesPage() {
 	}, [fetchedItems]);
 
 	return (
-		<Container>
-			<h1>Your favorites</h1>
-			<ProductsGrid pagination keyPage="pageFavorites" page={pageFavorites} {...{ items, fetching, error }} />
-		</Container>
+		<>
+			<MainHeader>
+				<Container>
+					<h1>Your favorites</h1>
+				</Container>
+			</MainHeader>
+			<Container>
+				<ProductsGrid pagination keyPage="pageFavorites" page={pageFavorites} {...{ items, fetching, error }} />
+			</Container>
+		</>
 	);
 }

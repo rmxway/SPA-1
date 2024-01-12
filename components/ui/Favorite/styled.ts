@@ -14,6 +14,10 @@ export const Wrapper = styled.div<{ active?: boolean }>`
 	opacity: 0.5;
 	transition: 0.2s;
 
+    .icofont {
+        font-size: 1.3rem;
+    }
+
 	${(props) =>
 		props?.active &&
 		css`

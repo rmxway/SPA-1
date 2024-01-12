@@ -31,48 +31,60 @@ export function ProductsGrid({ items, children, fetching, error, page, paginatio
 		dispatch(setCurrentItems({ items: new Array(...items), page }));
 	}, [items, page]);
 
-	return (
+	if (fetching)
 		<WrapperComponent>
 			<Loader loading={fetching} />
-			{pagination ? <Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} /> : null}
-			<Wrapper>
-				{children}
-				<LayoutGroup>
-					<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
-						{!!currentItems.length &&
-							!fetching &&
-							!error &&
-							currentItems.map((product) => (
-								<ProductCard
-									product={product}
-									layout
-									transition={{ duration: 0.5 }}
-									variants={containerVars}
-									initial="hidden"
-									animate="visible"
-									exit="hidden"
-									key={product.id}
-								/>
-							))}
-					</FetchingBlock>
-				</LayoutGroup>
-			</Wrapper>
+		</WrapperComponent>;
 
-			{!currentItems.length && !fetching && !error ? (
+	return (
+		<WrapperComponent>
+			{pagination && !!currentItems.length && (
+				<Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} />
+			)}
+			{!!currentItems.length && (
+				<Wrapper>
+					{children}
+					<LayoutGroup>
+						<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
+							{!!currentItems.length &&
+								!fetching &&
+								!error &&
+								currentItems.map((product) => (
+									<ProductCard
+										product={product}
+										layout
+										transition={{ duration: 0.5 }}
+										variants={containerVars}
+										initial="hidden"
+										animate="visible"
+										exit="hidden"
+										key={product.id}
+									/>
+								))}
+						</FetchingBlock>
+					</LayoutGroup>
+				</Wrapper>
+			)}
+
+			{!currentItems.length && !fetching && !error && (
 				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
 					<LayerBlock $mt>
 						{keyPage === 'page' && `The search did't take a result`}
-						{keyPage === 'pageFavorites' ? (
+						{keyPage === 'pageFavorites' && (
 							<>
 								{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
 							</>
-						) : null}
+						)}
 					</LayerBlock>
 				</motion.div>
-			) : null}
+			)}
 
-			<br />
-			{pagination ? <Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} /> : null}
+			{pagination && !!currentItems.length && (
+				<>
+					<br />
+					<Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} />
+				</>
+			)}
 		</WrapperComponent>
 	);
 }

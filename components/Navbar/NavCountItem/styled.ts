@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { media } from '@/theme';
 
-export const Cart = styled.div`
+export const NavCountItemStyled = styled.div`
 	position: relative;
 	display: flex;
 	align-items: center;
@@ -12,18 +12,19 @@ export const Cart = styled.div`
 
 	.icofont {
 		margin-top: -10px;
-		font-size: 1.35rem;
+        margin-left: 3px;
+		font-size: 1.5rem;
 		color: #222;
 	}
 
 	${media.greaterThan('xs')`
         height: auto;
-        font-size: 1.25rem;
-        .icofont {
+        font-size: 1rem;
+        /* .icofont {
             font-size: 26px;
             margin-left: 5px;
-        }
+        } */
     `}
 `;
 
-export default Cart;
+export default NavCountItemStyled;

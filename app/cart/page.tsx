@@ -13,6 +13,7 @@ import { cartStore } from '@/store';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
 import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styled';
+import MainHeader from '@/components/ui/MainHeader';
 
 export default function CartPage() {
 	const { items, totalPrice } = useAppSelector(cartStore);
@@ -28,62 +29,73 @@ export default function CartPage() {
 	}, [items]);
 
 	return (
-		<Container>
-			<h1>Cart</h1>
-			<Cart>
-				<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
-					<AnimatePresence mode="popLayout">
-						{isItems && (
-							<Trash
-								layout
-								key="trash"
-								initial={{ opacity: 0, y: -10 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, scale: 0.9 }}
-								onClick={handleTrashAllProducts}
-							>
-								Delete all
-								<i className="icofont icofont-trash" />
-							</Trash>
-						)}
-
-						{isItems &&
-							items.map((item) => (
-								<MCartItem
-									key={item.id}
-									product={item}
+		<>
+			<MainHeader>
+				<Container>
+					<h1>Cart</h1>
+				</Container>
+			</MainHeader>
+			<Container>
+				<Cart>
+					<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
+						<AnimatePresence mode="popLayout">
+							{isItems && (
+								<Trash
 									layout
-									variants={cartVariant}
-									exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
-								/>
-							))}
+									key="trash"
+									initial={{ opacity: 0, y: -10 }}
+									animate={{ opacity: 1, y: 0 }}
+									exit={{ opacity: 0, scale: 0.9 }}
+									onClick={handleTrashAllProducts}
+								>
+									Delete all
+									<i className="icofont icofont-trash" />
+								</Trash>
+							)}
 
-						{!isItems && (
-							<motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-								No items, please go to&nbsp;<Link href="/products">products page</Link>
-								<br />
-							</motion.div>
-						)}
+							{isItems &&
+								items.map((item) => (
+									<MCartItem
+										key={item.id}
+										product={item}
+										layout
+										variants={cartVariant}
+										exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
+									/>
+								))}
+
+							{!isItems && (
+								<motion.div
+									layout
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+								>
+									No items, please go to&nbsp;<Link href="/products">products page</Link>
+									<br />
+								</motion.div>
+							)}
+						</AnimatePresence>
+					</Wrapper>
+
+					<AnimatePresence>
+						<Sidebar layout="preserve-aspect" key="sidebar">
+							<Title>Your order</Title>
+							<Total>
+								Total:
+								<span>
+									{totalPrice} {currency}
+								</span>
+							</Total>
+							{totalPrice > 0 ? (
+								<ButtonUI primary disabled>
+									Checkout
+								</ButtonUI>
+							) : null}
+						</Sidebar>
 					</AnimatePresence>
-				</Wrapper>
-
-				<AnimatePresence>
-					<Sidebar layout="preserve-aspect" key="sidebar">
-						<Title>Your order</Title>
-						<Total>
-							Total:
-							<span>
-								{totalPrice} {currency}
-							</span>
-						</Total>
-						{totalPrice > 0 ? (
-							<ButtonUI primary disabled>
-								Checkout
-							</ButtonUI>
-						) : null}
-					</Sidebar>
-				</AnimatePresence>
-			</Cart>
-		</Container>
+				</Cart>
+			</Container>
+		</>
 	);
 }
