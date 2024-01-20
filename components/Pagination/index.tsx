@@ -1,29 +1,29 @@
 import debounce from 'lodash.debounce';
 
 import { Flexbox, Space } from '@/components/Layout';
-import { IProduct, useAppDispatch } from '@/services';
-import { changePage, TypePages } from '@/store/reducers/products';
+import { IProduct, useAppDispatch, useAppSelector } from '@/services';
+import { ScrollToTop } from '@/services/helpers';
+import { productsStore } from '@/store';
+import { changePage } from '@/store/reducers/products';
 
 import { ArrowButton, ButtonPagination, Info, Wrapper } from './styled';
-import { ScrollToTop } from '@/services/helpers';
 
 interface PaginationProps {
 	items: IProduct[];
-	fetching: boolean;
 	page: number;
-	countPerPage: number;
-	keyChangePage: TypePages;
 }
 
-export function Pagination({ items, fetching, page, countPerPage, keyChangePage }: PaginationProps) {
+export const Pagination = ({ items, page }: PaginationProps) => {
 	const total = items.length;
+
+	const { countPerPage, fetching } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 	const countPages = Math.ceil(total / countPerPage);
 	const maxCount = 4;
 	const countButtons = countPages >= maxCount ? maxCount : countPages;
 
 	const debounceChangePage = debounce((num) => {
-		dispatch(changePage({ key: keyChangePage, page: num }));
+		dispatch(changePage({ page: num }));
 		ScrollToTop();
 	}, 100);
 
@@ -105,6 +105,6 @@ export function Pagination({ items, fetching, page, countPerPage, keyChangePage 
 			<br />
 		</>
 	);
-}
+};
 
 export default Pagination;

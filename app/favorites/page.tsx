@@ -1,18 +1,18 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Container } from '@/components/Layout';
 import { ProductsGrid } from '@/components/ProductsGrid';
+import { MainHeader } from '@/components/ui/MainHeader';
 import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import MainHeader from '@/components/ui/MainHeader';
 
 export default function FavoritesPage() {
-	const { error, fetching, fetchedItems, pageFavorites } = useAppSelector(productsStore);
+	const { fetchedItems } = useAppSelector(productsStore);
 	const [items, setItems] = useState<IProduct[]>([]);
 
-	useEffect(() => {
+	useMemo(() => {
 		setItems(fetchedItems.filter((item) => item.favorite));
 	}, [fetchedItems]);
 
@@ -24,7 +24,7 @@ export default function FavoritesPage() {
 				</Container>
 			</MainHeader>
 			<Container>
-				<ProductsGrid pagination keyPage="pageFavorites" page={pageFavorites} {...{ items, fetching, error }} />
+				<ProductsGrid {...{ items }} pagination keyPage="pageFavorites" page={1} />
 			</Container>
 		</>
 	);

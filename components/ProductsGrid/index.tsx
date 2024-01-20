@@ -2,34 +2,38 @@
 
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { PropsWithChildren, useEffect } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
 import { Loader } from '@/components/ui';
-import { IProduct, useAppDispatch, useAppSelector } from '@/services';
+import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { setCurrentItems } from '@/store/reducers/products';
+import { TypePages } from '@/store/reducers/products';
 
 import { containerVars, FetchingBlock, Wrapper, WrapperComponent } from './styled';
 
 interface ProductsGridProps extends PropsWithChildren {
 	items: IProduct[];
-	fetching: boolean;
-	error: string;
+	pagination?: boolean;
 	page: number;
-	pagination: boolean;
-	keyPage: 'page' | 'pageFavorites';
+	keyPage: TypePages;
 }
 
-export function ProductsGrid({ items, children, fetching, error, page, pagination, keyPage }: ProductsGridProps) {
-	const { countPerPage, currentItems } = useAppSelector(productsStore);
-	const dispatch = useAppDispatch();
+export const ProductsGrid = ({ children, items, pagination, page, keyPage }: ProductsGridProps) => {
+	const { fetching, error, countPerPage } = useAppSelector(productsStore);
+	const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
 
 	useEffect(() => {
-		dispatch(setCurrentItems({ items: new Array(...items), page }));
-	}, [items, page]);
+		if (Array.isArray(items) && items.length > 0) {
+			const array = [...items];
+			const filteredItems = [...array.splice((page - 1) * countPerPage, countPerPage)];
+			setCurrentItems(filteredItems);
+		} else {
+			setCurrentItems([]);
+		}
+	}, [page, items, countPerPage]);
 
 	if (fetching)
 		<WrapperComponent>
@@ -38,9 +42,7 @@ export function ProductsGrid({ items, children, fetching, error, page, paginatio
 
 	return (
 		<WrapperComponent>
-			{pagination && !!currentItems.length && (
-				<Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} />
-			)}
+			{pagination && !!currentItems.length && <Pagination items={items} page={page} />}
 			{!!currentItems.length && (
 				<Wrapper>
 					{children}
@@ -79,14 +81,14 @@ export function ProductsGrid({ items, children, fetching, error, page, paginatio
 				</motion.div>
 			)}
 
-			{pagination && !!currentItems.length && (
+			{/* {pagination && !!currentItems.length && (
 				<>
 					<br />
-					<Pagination {...{ items, page, fetching, countPerPage }} keyChangePage={keyPage} />
+					<Pagination items={items} />
 				</>
-			)}
+			)} */}
 		</WrapperComponent>
 	);
-}
+};
 
 export default ProductsGrid;
