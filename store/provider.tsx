@@ -1,12 +1,8 @@
-import { FC } from 'react';
+import { PropsWithChildren } from 'react';
 import { Provider } from 'react-redux';
-import { Store } from 'redux';
 
-interface ProvidersProps {
-	store: Store;
-	children: React.ReactNode;
-}
+import { store } from '.';
 
-export const Providers: FC<ProvidersProps> = ({ store, children }) => <Provider store={store}>{children}</Provider>;
+export const Providers = ({ children }: PropsWithChildren) => <Provider store={store}>{children}</Provider>;
 
 export default Providers;

@@ -1,7 +1,7 @@
 'use client';
 
 import { Container, LayerBlock } from '@/components/Layout';
-import { MainHeader } from '@/components/ui/MainHeader';
+import { MainHeader } from '@/components/ui';
 import logos from '@/public/assets/img/logos.jpg';
 
 import { ImageLogos } from './styled';

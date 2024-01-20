@@ -4,7 +4,7 @@ import { useMemo, useState } from 'react';
 
 import { Container } from '@/components/Layout';
 import { ProductsGrid } from '@/components/ProductsGrid';
-import { MainHeader } from '@/components/ui/MainHeader';
+import { MainHeader } from '@/components/ui';
 import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 

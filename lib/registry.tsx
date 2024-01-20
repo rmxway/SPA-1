@@ -3,35 +3,47 @@
 import '@/public/assets/fonts/icofont/icofont.scss';
 
 import { useServerInsertedHTML } from 'next/navigation';
-import React, { useState } from 'react';
-import { Provider } from 'react-redux';
+import React, { PropsWithChildren, useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
 
 import { Navbar } from '@/components';
-import { store } from '@/store';
+import { Providers } from '@/store/provider';
 import { defaultTheme, GlobalStyles } from '@/theme';
 
+const Template = ({ children }: PropsWithChildren) => (
+	<Providers>
+		<ThemeProvider theme={defaultTheme}>
+			<GlobalStyles />
+			<Navbar />
+			{children}
+		</ThemeProvider>
+	</Providers>
+);
+
 export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
-	const [styledComponentsStyleSheet] = useState(() => new ServerStyleSheet());
+	const [sheet] = useState(() => new ServerStyleSheet());
 
-	useServerInsertedHTML(() => {
-		const styles = styledComponentsStyleSheet.getStyleElement();
-		styledComponentsStyleSheet.instance.clearTag();
-		return <style>{styles}</style>;
-	});
+	try {
+		useServerInsertedHTML(() => {
+			const styles = sheet.getStyleElement();
+			sheet.instance.clearTag();
 
-	if (typeof window !== 'undefined')
+			// eslint-disable-next-line react/jsx-no-useless-fragment
+			return <>{styles}</>;
+		});
+
+		if (typeof window !== 'undefined') return <Template>{children}</Template>;
+
 		return (
-			<ThemeProvider theme={defaultTheme}>
-				<Provider store={store}>
-					<GlobalStyles />
-					<Navbar />
-					{children}
-				</Provider>
-			</ThemeProvider>
+			<StyleSheetManager sheet={sheet.instance}>
+				<Template>{children}</Template>
+			</StyleSheetManager>
 		);
-
-	return <StyleSheetManager sheet={styledComponentsStyleSheet.instance}>{children}</StyleSheetManager>;
+	} catch (error) {
+		throw new Error((error as Error).message);
+	} finally {
+		sheet.instance.clearTag();
+	}
 }
 
 export default StyledComponentsRegistry;

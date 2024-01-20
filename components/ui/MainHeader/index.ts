@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-const MainHeader = styled.div<{ $isFont?: boolean }>`
+export const MainHeader = styled.div<{ $isFont?: boolean }>`
 	${(props) =>
 		props?.$isFont
 			? css`
@@ -12,7 +12,7 @@ const MainHeader = styled.div<{ $isFont?: boolean }>`
 			  `
 			: ''}
 
-	background-color: ${(props) => css`${props.theme.colors.gray.$8}`};
+	background-color: ${(props) => props.theme.colors.gray.$8};
 	margin-top: 0;
 	margin-bottom: 30px;
 	padding: ${(props) => (props.$isFont ? '75px 0' : '10px 0')};
@@ -23,5 +23,4 @@ const MainHeader = styled.div<{ $isFont?: boolean }>`
 	}
 `;
 
-export { MainHeader };
 export default MainHeader;

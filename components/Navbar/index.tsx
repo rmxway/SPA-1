@@ -6,9 +6,9 @@ import { navbarItems } from '@/mock/navbar';
 import { useAppSelector } from '@/services';
 import { cartStore, productsStore } from '@/store';
 
-import NavCountItem from './NavCountItem';
+import { NavCountItem } from './NavCountItem';
+import { NavLinkMotion } from './NavLinkMotion';
 import { Logo, StyledNavbar } from './styled';
-import NavLinkMotion from './NavLinkMotion';
 
 interface navbarTypes {
 	title?: string;
@@ -16,7 +16,7 @@ interface navbarTypes {
 	component?: ReactNode;
 }
 
-const renderNavBar = () => {
+const RenderNavBar = () => {
 	const { fetchedItems } = useAppSelector(productsStore);
 	const { items } = useAppSelector(cartStore);
 	const countFavorites = fetchedItems.filter((item) => item.favorite).length;
@@ -42,7 +42,7 @@ const renderNavBar = () => {
 	});
 };
 
-const Navbar = () => (
+export const Navbar = () => (
 	<StyledNavbar>
 		<Container>
 			<Flexbox align="center" nowrap>
@@ -54,13 +54,11 @@ const Navbar = () => (
 						Brand
 					</span>
 				</Logo>
-
 				<Space />
-				{renderNavBar()}
+				<RenderNavBar />
 			</Flexbox>
 		</Container>
 	</StyledNavbar>
 );
 
-export { Navbar };
 export default Navbar;

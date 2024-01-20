@@ -1,8 +1,9 @@
-import { usePathname } from 'next/navigation';
-import { ReactNode, memo } from 'react';
-import { Line, NavbarItem } from '../styled';
 import Link from 'next/link';
-import Count from '../Count';
+import { usePathname } from 'next/navigation';
+import { memo, ReactNode } from 'react';
+
+import { Count } from '../Count';
+import { Line, NavbarItem } from '../styled';
 
 interface NavLinkProps {
 	title?: string;
