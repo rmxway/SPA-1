@@ -3,6 +3,6 @@ import { Provider } from 'react-redux';
 
 import { store } from '.';
 
-export const Providers = ({ children }: PropsWithChildren) => <Provider store={store}>{children}</Provider>;
+export const ReduxProvider = ({ children }: PropsWithChildren) => <Provider store={store}>{children}</Provider>;
 
-export default Providers;
+export default ReduxProvider;

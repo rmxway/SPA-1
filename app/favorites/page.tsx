@@ -20,7 +20,7 @@ export default function FavoritesPage() {
 		<>
 			<MainHeader>
 				<Container>
-					<h1>Your favorites</h1>
+					<h1>Favorites</h1>
 				</Container>
 			</MainHeader>
 			<Container>

@@ -7,17 +7,17 @@ import React, { PropsWithChildren, useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
 
 import { Navbar } from '@/components';
-import { Providers } from '@/store/provider';
+import { ReduxProvider } from '@/store/provider';
 import { defaultTheme, GlobalStyles } from '@/theme';
 
 const Template = ({ children }: PropsWithChildren) => (
-	<Providers>
+	<ReduxProvider>
 		<ThemeProvider theme={defaultTheme}>
 			<GlobalStyles />
 			<Navbar />
 			{children}
 		</ThemeProvider>
-	</Providers>
+	</ReduxProvider>
 );
 
 export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
