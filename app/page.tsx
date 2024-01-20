@@ -1,19 +1,10 @@
 'use client';
 
-import Image from 'next/image';
-import styled from 'styled-components';
-
 import { Container, LayerBlock } from '@/components/Layout';
+import { MainHeader } from '@/components/ui/MainHeader';
 import logos from '@/public/assets/img/logos.jpg';
-import MainHeader from '@/components/ui/MainHeader';
 
-const ImageLogos = styled<any>(Image)`
-	mix-blend-mode: multiply;
-	max-width: 100%;
-	margin: 30px 0;
-	object-position: left;
-	object-fit: contain;
-`;
+import { ImageLogos } from './styled';
 
 export default function MainPage() {
 	return (

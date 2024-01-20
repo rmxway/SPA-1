@@ -8,12 +8,12 @@ import { MCartItem } from '@/components';
 import { cartVariant } from '@/components/CartItem/styled';
 import { Container } from '@/components/Layout';
 import { ButtonUI } from '@/components/ui';
+import { MainHeader } from '@/components/ui/MainHeader';
 import { currency, useAppSelector } from '@/services';
 import { cartStore } from '@/store';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
 import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styled';
-import MainHeader from '@/components/ui/MainHeader';
 
 export default function CartPage() {
 	const { items, totalPrice } = useAppSelector(cartStore);
@@ -38,14 +38,14 @@ export default function CartPage() {
 			<Container>
 				<Cart>
 					<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
-						<AnimatePresence mode="popLayout">
+						<AnimatePresence mode="sync">
 							{isItems && (
 								<Trash
 									layout
 									key="trash"
 									initial={{ opacity: 0, y: -10 }}
 									animate={{ opacity: 1, y: 0 }}
-									exit={{ opacity: 0, scale: 0.9 }}
+									exit={{ opacity: 0, scale: 0.5 }}
 									onClick={handleTrashAllProducts}
 								>
 									Delete all

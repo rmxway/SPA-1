@@ -1,7 +1,4 @@
-'use client';
-
 import { motion } from 'framer-motion';
-import { darken } from 'polished';
 import styled from 'styled-components';
 
 import { media } from '@/theme';
@@ -32,14 +29,12 @@ export const Cart = styled.div`
 export const Trash = styled(motion.div)`
 	position: absolute;
 	right: 0;
-	top: -40px;
+	top: -25px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 5px 10px;
 	cursor: pointer;
 	color: ${(props) => props.theme.colors.gray.$6};
-	border: 1px solid ${(props) => props.theme.colors.gray.$5};
 	border-radius: ${(props) => props.theme.radius.borderRadius};
 	transition: 0.2s;
 
@@ -104,10 +99,9 @@ export const Total = styled.div`
 	justify-content: space-between;
 
 	span {
-		font-size: 24px;
-		font-weight: 900;
+		font-size: 32px;
 		margin-left: 10px;
-		color: ${(props) => darken(0.1, props.theme.colors.success)};
+		color: ${(props) => props.theme.colors.dark};
 	}
 `;
 

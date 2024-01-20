@@ -1,14 +1,7 @@
-'use client';
-
-import '@/public/assets/fonts/icofont/icofont.scss';
-
+import { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
-import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
 
-import { Navbar } from '@/components';
-import { store } from '@/store';
-import { defaultTheme, GlobalStyles } from '@/theme';
+import { StyledComponentsRegistry } from '@/lib/registry';
 
 const Font = Roboto({
 	weight: ['100', '400', '700'],
@@ -16,18 +9,16 @@ const Font = Roboto({
 	preload: true,
 });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-	return (
-		<ThemeProvider theme={defaultTheme}>
-			<Provider store={store}>
-				<GlobalStyles />
-				<html lang="en">
-					<body className={Font.className}>
-						<Navbar />
-						{children}
-					</body>
-				</html>
-			</Provider>
-		</ThemeProvider>
-	);
-}
+export const metadata: Metadata = {
+	title: 'Green Shop',
+};
+
+export const RootLayout = ({ children }: { children: React.ReactNode }) => (
+	<html lang="en">
+		<body className={Font.className}>
+			<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+		</body>
+	</html>
+);
+
+export default RootLayout;

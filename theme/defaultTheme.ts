@@ -4,7 +4,7 @@ const defaultTheme: DefaultTheme = {
 	name: 'default',
 	colors: {
 		primary: '#fdd01a',
-		success: '#7bc03b',
+		success: '#01e48d',
 		danger: '#e54f5e',
 		label: '#5c323e',
 		dark: '#222',

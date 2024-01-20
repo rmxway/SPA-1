@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import productsJSON from '@/mock/items.json';
 
 export async function GET(req: Request) {

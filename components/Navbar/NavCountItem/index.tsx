@@ -10,13 +10,11 @@ interface NavCountItemProps {
 	count: number;
 }
 
-export const NavCountItem: FC<NavCountItemProps> = ({ title, count }) => {
-	return (
-		<NavCountItemStyled>
-			<i className={`icofont icofont-${title?.toLowerCase()}`} />
-			{!!count && <Count {...{ count }} />}
-		</NavCountItemStyled>
-	);
-};
+export const NavCountItem: FC<NavCountItemProps> = ({ title, count }) => (
+	<NavCountItemStyled>
+		<i className={`icofont icofont-${title?.toLowerCase()}`} />
+		{!!count && <Count {...{ count }} />}
+	</NavCountItemStyled>
+);
 
 export default NavCountItem;

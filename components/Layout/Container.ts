@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme';
 
-const Container = styled.div<{ $pt?: boolean }>`
+export const Container = styled.div<{ $pt?: boolean }>`
 	position: relative;
 	display: block;
 	padding: 0 20px;
@@ -29,5 +29,4 @@ const Container = styled.div<{ $pt?: boolean }>`
 	`}
 `;
 
-export { Container };
 export default Container;
