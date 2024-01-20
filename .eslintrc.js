@@ -7,23 +7,17 @@ module.exports = {
 	extends: [
 		'airbnb',
 		'plugin:import/recommended',
+		'plugin:@next/next/recommended',
 		'plugin:import/typescript',
 		'plugin:@typescript-eslint/eslint-recommended',
 		'plugin:@typescript-eslint/recommended',
 		'prettier',
 		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
-		'next/core-web-vitals',
+		// 'next/core-web-vitals', // for the first time
+		// 'next', // Includes Next.js' base ESLint configuration
 	],
-	plugins: [
-		'@typescript-eslint',
-		'unused-imports',
-		'simple-import-sort',
-		'prettier',
-		'react',
-		'react-hooks',
-		'import',
-	],
+	plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'prettier', 'react', 'import'],
 	globals: {
 		Atomics: 'readonly',
 		SharedArrayBuffer: 'readonly',
@@ -41,11 +35,13 @@ module.exports = {
 		'no-plusplus': 'off',
 		'no-new': 'off',
 		'camelcase': 1,
+        'no-console': 1,
 		'react/react-in-jsx-scope': 'off',
 		'react/display-name': 'off',
 		'no-underscore-dangle': 'off',
 		'simple-import-sort/imports': 'error',
 		'simple-import-sort/exports': 'error',
+		'import/prefer-default-export': 'off',
 		'import/no-mutable-exports': 'off',
 		'import/first': 'error',
 		'import/newline-after-import': 'error',
@@ -79,7 +75,7 @@ module.exports = {
 
 		'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
 		'react/function-component-definition': [
-			'error',
+			'off',
 			{
 				namedComponents: 'arrow-function',
 				unnamedComponents: 'arrow-function',

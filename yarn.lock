@@ -380,6 +380,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/eslint-plugin-next@npm:^14.1.0":
+  version: 14.1.0
+  resolution: "@next/eslint-plugin-next@npm:14.1.0"
+  dependencies:
+    glob: "npm:10.3.10"
+  checksum: 856cc89e901733d675e395be1477eb4926c3af684eb1fe0f2f743f35574948beafa2391a447dfb42fcb70df53e86f3e025d1a109889364352f0a55a1b2502b1e
+  languageName: node
+  linkType: hard
+
 "@next/swc-darwin-arm64@npm:14.0.3":
   version: 14.0.3
   resolution: "@next/swc-darwin-arm64@npm:14.0.3"
@@ -1225,7 +1234,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"babel-plugin-styled-components@npm:>= 1.12.0":
+"babel-plugin-styled-components@npm:>= 1.12.0, babel-plugin-styled-components@npm:^2.1.4":
   version: 2.1.4
   resolution: "babel-plugin-styled-components@npm:2.1.4"
   dependencies:
@@ -3336,21 +3345,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:7.1.7":
-  version: 7.1.7
-  resolution: "glob@npm:7.1.7"
-  dependencies:
-    fs.realpath: "npm:^1.0.0"
-    inflight: "npm:^1.0.4"
-    inherits: "npm:2"
-    minimatch: "npm:^3.0.4"
-    once: "npm:^1.3.0"
-    path-is-absolute: "npm:^1.0.0"
-  checksum: ff5aab0386e9cace92b0550d42085b71013c5ea382982dd7fdded998a559635f61413b8ba6fb7294eef289c83b52f4e64136f888300ac8afc4f3e5623182d6c8
-  languageName: node
-  linkType: hard
-
-"glob@npm:^10.2.2, glob@npm:^10.3.10":
+"glob@npm:10.3.10, glob@npm:^10.2.2, glob@npm:^10.3.10":
   version: 10.3.10
   resolution: "glob@npm:10.3.10"
   dependencies:
@@ -3362,6 +3357,20 @@ __metadata:
   bin:
     glob: dist/esm/bin.mjs
   checksum: 38bdb2c9ce75eb5ed168f309d4ed05b0798f640b637034800a6bf306f39d35409bf278b0eaaffaec07591085d3acb7184a201eae791468f0f617771c2486a6a8
+  languageName: node
+  linkType: hard
+
+"glob@npm:7.1.7":
+  version: 7.1.7
+  resolution: "glob@npm:7.1.7"
+  dependencies:
+    fs.realpath: "npm:^1.0.0"
+    inflight: "npm:^1.0.4"
+    inherits: "npm:2"
+    minimatch: "npm:^3.0.4"
+    once: "npm:^1.3.0"
+    path-is-absolute: "npm:^1.0.0"
+  checksum: ff5aab0386e9cace92b0550d42085b71013c5ea382982dd7fdded998a559635f61413b8ba6fb7294eef289c83b52f4e64136f888300ac8afc4f3e5623182d6c8
   languageName: node
   linkType: hard
 
@@ -4468,13 +4477,6 @@ __metadata:
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: d0ea2dd0097e6201be083865d50c3fb54fbfbdb247d9cc5950e086c991f448b7ab0cdab0d57eacccb43473d3f2acd21e134db39f22dac2d6c9ba6bf26978e3d6
-  languageName: node
-  linkType: hard
-
-"lodash.throttle@npm:^4.1.1":
-  version: 4.1.1
-  resolution: "lodash.throttle@npm:4.1.1"
-  checksum: 9be9fb2ffd686c20543167883305542f4564062a5f712a40e8c6f2f0d9fd8254a6e9d801c2470b1b24e0cdf2ae83c1277b55aa0fb4799a2db6daf545f53820e1
   languageName: node
   linkType: hard
 
@@ -5810,19 +5812,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-lazy-load-image-component@npm:^1.6.0":
-  version: 1.6.0
-  resolution: "react-lazy-load-image-component@npm:1.6.0"
-  dependencies:
-    lodash.debounce: "npm:^4.0.8"
-    lodash.throttle: "npm:^4.1.1"
-  peerDependencies:
-    react: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x
-    react-dom: ^15.x.x || ^16.x.x || ^17.x.x || ^18.x.x
-  checksum: 1da26caf885b93cdf6843c729444bd7451dee545d3505b836ecc3c67534982c3d1a942f8e60e04246580dee43dd68b43445636c7e93d2bfdb5942e70ebe5fe96
-  languageName: node
-  linkType: hard
-
 "react-redux@npm:^8.1.3":
   version: 8.1.3
   resolution: "react-redux@npm:8.1.3"
@@ -5896,15 +5885,6 @@ __metadata:
   dependencies:
     picomatch: "npm:^2.2.1"
   checksum: 196b30ef6ccf9b6e18c4e1724b7334f72a093d011a99f3b5920470f0b3406a51770867b3e1ae9711f227ef7a7065982f6ee2ce316746b2cb42c88efe44297fe7
-  languageName: node
-  linkType: hard
-
-"redux-persist@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "redux-persist@npm:6.0.0"
-  peerDependencies:
-    redux: ">4.0.0"
-  checksum: d3bf03fe8fc90f08985b88419eb32a21f727db2cfc93b486a8267b3884a22c665916a3dce1fd80e9e7d8180a849e5dc614b53e09e0a6803855899d7b3e652242
   languageName: node
   linkType: hard
 
@@ -6182,15 +6162,15 @@ __metadata:
   linkType: hard
 
 "sass@npm:^1.69.5":
-  version: 1.69.5
-  resolution: "sass@npm:1.69.5"
+  version: 1.70.0
+  resolution: "sass@npm:1.70.0"
   dependencies:
     chokidar: "npm:>=3.0.0 <4.0.0"
     immutable: "npm:^4.0.0"
     source-map-js: "npm:>=0.6.2 <2.0.0"
   bin:
     sass: sass.js
-  checksum: b320ab22061b3c7fe8cee43b13329b281dd7d86691b8b7c55dec3e47d3ede988989dac56db4dff57ee847d10252a26b611be1b0a5f7c3a0f6a6405ef37a6d018
+  checksum: f933545d72a932f4a82322dd4ca9f3ea7d3e9d08852d695f76d419939cbdf7f8db3dd894b059ed77bf76811b07319b75b3ef8bb077bf9f52f8fbdfd8cee162f6
   languageName: node
   linkType: hard
 
@@ -6546,6 +6526,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "spa-1@workspace:."
   dependencies:
+    "@next/eslint-plugin-next": "npm:^14.1.0"
     "@redux-devtools/extension": "npm:^3.2.6"
     "@reduxjs/toolkit": "npm:^1.9.7"
     "@tsconfig/recommended": "npm:^1.0.3"
@@ -6558,6 +6539,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": "npm:^6.13.1"
     "@typescript-eslint/parser": "npm:^6.13.1"
     awesome-typescript-loader: "npm:^5.2.1"
+    babel-plugin-styled-components: "npm:^2.1.4"
     concurrently: "npm:^8.2.2"
     eslint: "npm:8.55.0"
     eslint-config-airbnb: "npm:^19.0.4"
@@ -6581,13 +6563,12 @@ __metadata:
     prettier: "npm:^3.1.0"
     react: "npm:latest"
     react-dom: "npm:latest"
-    react-lazy-load-image-component: "npm:^1.6.0"
     react-redux: "npm:^8.1.3"
     redux: "npm:^4.2.1"
-    redux-persist: "npm:^6.0.0"
     sass: "npm:^1.69.5"
-    styled-components: "npm:^6.1.1"
+    styled-components: "npm:latest"
     styled-media-query: "npm:^2.1.2"
+    swiper: "npm:^11.0.5"
     typescript: "npm:5.3.2"
     typescript-plugin-styled-components: "npm:^3.0.0"
   languageName: unknown
@@ -6918,6 +6899,13 @@ __metadata:
   version: 2.6.0
   resolution: "svgpath@npm:2.6.0"
   checksum: 88533d11fe44eae7db3751def85f72687554bf60224e7e8fd7cd40564c3c58cb93cf6f32470cb28a2fc29b4ba43273c478f0461f9be07f7233454740ee117873
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^11.0.5":
+  version: 11.0.5
+  resolution: "swiper@npm:11.0.5"
+  checksum: 4a544e9551336ddbdd5f45ebdde0de5086f855e08b48eaa2bed7f5c16a27dd28ef9accdbb232de8639dea0c2588a3139f9865fdb6342e82850a62cdea69cdc4d
   languageName: node
   linkType: hard
 
