@@ -1,4 +1,3 @@
-import { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 
 import { StyledComponentsRegistry } from '@/lib/registry';
@@ -8,10 +7,6 @@ const Font = Roboto({
 	subsets: ['latin'],
 	preload: true,
 });
-
-export const metadata: Metadata = {
-	title: 'Green Shop',
-};
 
 export const RootLayout = ({ children }: { children: React.ReactNode }) => (
 	<html lang="en">

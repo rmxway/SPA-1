@@ -1,22 +1,24 @@
 import { MotionProps } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
+import { memo, useState } from 'react';
 
 import { RatingStars, Space } from '@/components/Layout';
 import { ButtonUI, Favorite } from '@/components/ui';
-import { currency, IProduct } from '@/services';
-import { moveToCart, toggleFav } from '@/store/reducers/combineActions';
+import { currency, IProduct, useAppDispatch } from '@/services';
+import { moveToCart } from '@/store/reducers/combineActions';
+import { toggleFavorite } from '@/store/reducers/products';
 
 import { Description, Help, Price, ProductWrapper, Title, Tools } from './styled';
-import { WrapperImage } from './WrapperImage';
+import { WrapperImages } from './WrapperImage';
 
 interface ProductType extends MotionProps {
 	product: IProduct;
 }
 
-export function ProductCard({ product, ...props }: ProductType) {
+export const ProductCard = memo(({ product, ...props }: ProductType) => {
 	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const link = `/product/${product.id}`;
+	const dispatch = useAppDispatch();
 
 	const handleChecked = () => {
 		moveToCart(Number(product.id));
@@ -24,9 +26,9 @@ export function ProductCard({ product, ...props }: ProductType) {
 
 	return (
 		<ProductWrapper {...props}>
-			<Favorite onActive={() => toggleFav(product.id)} active={product.favorite} />
+			<Favorite onActive={() => dispatch(toggleFavorite(Number(product.id)))} active={product.favorite} />
 			<Link href={link}>
-				<WrapperImage product={product} size={300} />
+				<WrapperImages product={product} size={300} />
 			</Link>
 			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
 				Description {viewDescription ? '-' : '+'}
@@ -45,6 +47,6 @@ export function ProductCard({ product, ...props }: ProductType) {
 			</ButtonUI>
 		</ProductWrapper>
 	);
-}
+});
 
 export default ProductCard;

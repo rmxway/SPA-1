@@ -4,7 +4,75 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme/media';
 
-import { WrapperImageStyled } from './WrapperImage';
+export const BlockImgItem = styled.div`
+	flex-grow: 1;
+	display: block;
+
+	&:after {
+		position: absolute;
+		content: '';
+		background-color: white;
+		left: 0;
+		top: 0;
+		pointer-events: none;
+		z-index: -1;
+		height: 100%;
+		width: 100%;
+	}
+
+	& + img {
+		position: absolute;
+		top: 0;
+		left: 50%;
+		transform: translateX(-50%);
+		pointer-events: none;
+		width: 100%;
+		height: 100%;
+		z-index: -10;
+		max-height: 500px;
+		opacity: 0;
+		object-fit: contain;
+		object-position: center;
+		margin: 20px auto;
+	}
+
+	&:hover + img:first-of-type,
+	&:hover:after,
+	& + img:first-of-type {
+		z-index: 0;
+	}
+
+	&:hover {
+		& + img {
+			z-index: 1;
+		}
+	}
+`;
+
+export const WrapperImagesStyled = styled(motion.div)`
+	position: relative;
+	display: flex;
+	align-items: stretch;
+	justify-content: center;
+	min-height: 200px;
+	text-decoration: none;
+
+	@keyframes fetched {
+		from {
+			filter: blur(10px);
+			opacity: 0;
+		}
+		to {
+			filter: blur(0px);
+			opacity: 1;
+		}
+	}
+
+	.fetched {
+		animation: fetched 0.3s;
+		animation-fill-mode: forwards;
+	}
+`;
 
 export const ProductWrapper = styled(motion.div)`
 	position: relative;
@@ -25,7 +93,7 @@ export const ProductWrapper = styled(motion.div)`
 	${media.greaterThan('xs')`
         width: calc(50% - 20px);
 
-        ${WrapperImageStyled} {
+        ${WrapperImagesStyled} {
             min-height: 200px;
 
             img {

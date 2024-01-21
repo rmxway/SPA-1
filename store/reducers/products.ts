@@ -20,17 +20,17 @@ export interface ProductsState {
 	};
 }
 
-// interface SortTypes {
-// 	sort: 'rating' | 'price' | 'reset';
-// 	toggle?: boolean;
-// }
+interface SortTypes {
+	sort: 'rating' | 'price' | 'reset';
+	toggle?: boolean;
+}
 
 const initialState: ProductsState = {
 	fetchedItems: [],
 	currentItems: [],
 	total: 0,
 	page: 1,
-	countPerPage: 8,
+	countPerPage: 12,
 	error: '',
 	fetching: false,
 	sort: {
@@ -40,6 +40,26 @@ const initialState: ProductsState = {
 	search: {
 		value: '',
 	},
+};
+
+const initialItems = (state: ProductsState, products: IProduct[]) => {
+	products.forEach((product) => {
+		product.imgFetch = true;
+		product.favorite = false;
+		product.checked = false;
+	});
+
+	state.total = products.length;
+
+	// there was some product on the first page
+	if (state.fetchedItems.length === 1) {
+		const index = products.findIndex((product) => product.id === state.fetchedItems[0].id);
+		products[index] = current(state.fetchedItems[0]);
+	}
+
+	state.fetchedItems = [...products];
+	state.fetching = false;
+	state.error = '';
 };
 
 export type TypePages = 'page' | 'pageFavorites';
@@ -53,6 +73,9 @@ const productsReducer = createSlice({
 		},
 		setError: (state, action: PayloadAction<string>) => {
 			state.error = action.payload;
+		},
+		addProducts: (state, action: PayloadAction<IProduct[]>) => {
+			initialItems(state, action.payload);
 		},
 		toggleProduct: (state, action: PayloadAction<number>) => {
 			const id = action.payload;
@@ -70,11 +93,10 @@ const productsReducer = createSlice({
 			const el = state.fetchedItems.find((item) => item.id === id);
 			if (el) el.imgFetch = fetch;
 		},
-		// sortProducts: (state, action: PayloadAction<SortTypes>) => {
-		// 	const { sort, toggle } = action.payload;
-
-		// 	// code
-		// },
+		sortProducts: (state, action: PayloadAction<SortTypes>) => {
+			const { sort, toggle } = action.payload;
+			console.log(sort, toggle);
+		},
 		searchProduct: (state, action: PayloadAction<string>) => {
 			state.search.value = action.payload.trim();
 
@@ -107,24 +129,7 @@ const productsReducer = createSlice({
 			})
 			.addMatcher(api.endpoints.getProducts.matchFulfilled, (state, action: PayloadAction<IProduct[]>) => {
 				const products: IProduct[] = action.payload;
-
-				products.forEach((product) => {
-					product.imgFetch = true;
-					product.favorite = false;
-					product.checked = false;
-				});
-
-				state.total = products.length;
-
-				// there was some product on the first page
-				if (state.fetchedItems.length === 1) {
-					const index = products.findIndex((product) => product.id === state.fetchedItems[0].id);
-					products[index] = current(state.fetchedItems[0]);
-				}
-
-				state.fetchedItems = [...products];
-				state.fetching = false;
-				state.error = '';
+				initialItems(state, products);
 			})
 			.addMatcher(api.endpoints.getProducts.matchRejected, (state, action) => {
 				state.error = String(action.payload?.status);
@@ -155,9 +160,10 @@ export const {
 	fetching,
 	setError,
 	toggleProduct,
+	addProducts,
 	removeAllToggledProducts,
 	fetchingImageProduct,
-	// sortProducts,
+	sortProducts,
 	searchProduct,
 	toggleFavorite,
 	changePage,

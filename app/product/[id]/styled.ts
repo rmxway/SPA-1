@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { WrapperImageStyled } from '@/components/ProductCard/WrapperImage';
+import { WrapperImagesStyled } from '@/components/ProductCard/styled';
 import { media } from '@/theme';
 
 export const Wrapper = styled.div`
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
         flex-wrap: nowrap;
     `}
 
-	img, ${WrapperImageStyled} {
+	img, ${WrapperImagesStyled} {
 		height: auto;
 		width: 100%;
 		order: 1;
