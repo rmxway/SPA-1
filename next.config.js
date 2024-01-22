@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
-	reactStrictMode: process.env.NODE_ENV === 'production',
+	reactStrictMode: true,// process.env.NODE_ENV === 'production',
 	env: {
 		HOST_NAME: 'localhost',
 		PORT: '3000',

@@ -1,6 +1,12 @@
+import { Metadata } from 'next';
+
 import { productsUrl } from '@/services';
 
-import { ProductsContent } from './content';
+import { ContentProducts } from './content';
+
+export const metadata: Metadata = {
+	title: 'Products',
+};
 
 export default async function ProductsPage() {
 	const getProducts = async () => {
@@ -16,5 +22,5 @@ export default async function ProductsPage() {
 
 	const data = await getProducts();
 
-	return <ProductsContent products={data} />;
+	return <ContentProducts products={data} />;
 }

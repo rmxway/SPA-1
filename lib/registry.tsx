@@ -7,14 +7,17 @@ import React, { PropsWithChildren, useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
 
 import { Navbar } from '@/components';
+import { TopBlock } from '@/components/ui';
+// import { navbarItems } from '@/mock/navbar';
 import { ReduxProvider } from '@/store/provider';
 import { defaultTheme, GlobalStyles } from '@/theme';
 
-const Template = ({ children }: PropsWithChildren) => (
+const Template = ({ children, title = 'Test' }: { title?: string } & PropsWithChildren) => (
 	<ReduxProvider>
 		<ThemeProvider theme={defaultTheme}>
 			<GlobalStyles />
 			<Navbar />
+			<TopBlock>{title}</TopBlock>
 			{children}
 		</ThemeProvider>
 	</ReduxProvider>

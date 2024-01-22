@@ -1,6 +1,11 @@
+import { PropsWithChildren } from 'react';
 import styled, { css } from 'styled-components';
 
-export const MainHeader = styled.div<{ $isFont?: boolean }>`
+import { Container } from '@/components/Layout';
+
+type TopBlockProps = { $isFont?: boolean };
+
+const TopBlockStyle = styled.div<TopBlockProps>`
 	${(props) =>
 		props?.$isFont
 			? css`
@@ -23,4 +28,14 @@ export const MainHeader = styled.div<{ $isFont?: boolean }>`
 	}
 `;
 
-export default MainHeader;
+type BlockStyle = TopBlockProps & PropsWithChildren;
+
+export const TopBlock = ({ children, ...props }: BlockStyle) => (
+	<TopBlockStyle {...props}>
+		<Container>
+			<h1>{children}</h1>
+		</Container>
+	</TopBlockStyle>
+);
+
+export default TopBlock;

@@ -54,7 +54,7 @@ export const WrapperImagesStyled = styled(motion.div)`
 	display: flex;
 	align-items: stretch;
 	justify-content: center;
-	min-height: 200px;
+	height: 200px;
 	text-decoration: none;
 
 	@keyframes fetched {
@@ -94,14 +94,12 @@ export const ProductWrapper = styled(motion.div)`
         width: calc(50% - 20px);
 
         ${WrapperImagesStyled} {
-            min-height: 200px;
-
             img {
-                width: 150px;
-                height: 150px;
+                width: 190px;
+                height: 190px;
                 object-fit: contain;
                 object-position: center;
-                margin: 20px auto;
+                margin: auto;
             }
         }
     `}
