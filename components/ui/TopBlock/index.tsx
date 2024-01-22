@@ -7,21 +7,25 @@ type TopBlockProps = { $isFont?: boolean };
 
 const TopBlockStyle = styled.div<TopBlockProps>`
 	${(props) =>
-		props?.$isFont
-			? css`
-					font-size: 3rem;
-					line-height: 0.9;
-					letter-spacing: -3px;
-					text-transform: uppercase;
-					font-weight: 900;
-			  `
-			: ''}
+		props?.$isFont &&
+		css`
+			& h1 {
+				font-size: 3rem;
+				line-height: 0.9;
+				letter-spacing: -3px;
+				text-transform: uppercase;
+				font-weight: 900;
+			}
+		`}
 
-	background-color: ${(props) => props.theme.colors.gray.$8};
+	background: linear-gradient(170deg,
+        ${(props) => props.theme.colors.gray.$8} 30%,
+        ${(props) => props.theme.colors.success} 100%);
 	margin-top: 0;
-	margin-bottom: 30px;
-	padding: ${(props) => (props.$isFont ? '75px 0' : '10px 0')};
+	margin-bottom: 40px;
+	padding: ${(props) => (props.$isFont ? '50px 0' : '1px 0')};
 	color: ${(props) => props.theme.colors.success};
+	transition: 0.2s all;
 
 	span {
 		font-weight: 300;

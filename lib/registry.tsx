@@ -2,22 +2,36 @@
 
 import '@/public/assets/fonts/icofont/icofont.scss';
 
-import { useServerInsertedHTML } from 'next/navigation';
-import React, { PropsWithChildren, useState } from 'react';
+import { usePathname, useServerInsertedHTML } from 'next/navigation';
+import React, { ReactNode, useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
 
 import { Navbar } from '@/components';
 import { TopBlock } from '@/components/ui';
-// import { navbarItems } from '@/mock/navbar';
+import { navbarItems } from '@/mock/navbar';
 import { ReduxProvider } from '@/store/provider';
 import { defaultTheme, GlobalStyles } from '@/theme';
 
-const Template = ({ children, title = 'Test' }: { title?: string } & PropsWithChildren) => (
+type TemplateProps = {
+	title?: string;
+	isMain?: boolean;
+	children?: ReactNode | undefined;
+};
+
+const Template = ({ title = 'Test', isMain, children }: TemplateProps) => (
 	<ReduxProvider>
 		<ThemeProvider theme={defaultTheme}>
 			<GlobalStyles />
 			<Navbar />
-			<TopBlock>{title}</TopBlock>
+			<TopBlock $isFont={isMain}>
+				{isMain ? (
+					<>
+						Green Shop <span>| Brand</span>
+					</>
+				) : (
+					title
+				)}
+			</TopBlock>
 			{children}
 		</ThemeProvider>
 	</ReduxProvider>
@@ -25,6 +39,11 @@ const Template = ({ children, title = 'Test' }: { title?: string } & PropsWithCh
 
 export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
 	const [sheet] = useState(() => new ServerStyleSheet());
+	const pathname = usePathname();
+
+	const title = navbarItems.find((item) => item.url === pathname)?.title;
+
+	const propsTemplate: TemplateProps = { title, isMain: pathname === '/', children };
 
 	try {
 		useServerInsertedHTML(() => {
@@ -35,11 +54,11 @@ export function StyledComponentsRegistry({ children }: { children: React.ReactNo
 			return <>{styles}</>;
 		});
 
-		if (typeof window !== 'undefined') return <Template>{children}</Template>;
+		if (typeof window !== 'undefined') return <Template {...propsTemplate} />;
 
 		return (
 			<StyleSheetManager sheet={sheet.instance}>
-				<Template>{children}</Template>
+				<Template {...propsTemplate} />
 			</StyleSheetManager>
 		);
 	} catch (error) {
