@@ -3,39 +3,12 @@
 import '@/public/assets/fonts/icofont/icofont.scss';
 
 import { usePathname, useServerInsertedHTML } from 'next/navigation';
-import React, { ReactNode, useState } from 'react';
-import { ServerStyleSheet, StyleSheetManager, ThemeProvider } from 'styled-components';
+import React, { useState } from 'react';
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
-import { Navbar } from '@/components';
-import { TopBlock } from '@/components/ui';
 import { navbarItems } from '@/mock/navbar';
-import { ReduxProvider } from '@/store/provider';
-import { defaultTheme, GlobalStyles } from '@/theme';
 
-type TemplateProps = {
-	title?: string;
-	isMain?: boolean;
-	children?: ReactNode | undefined;
-};
-
-const Template = ({ title = 'Test', isMain, children }: TemplateProps) => (
-	<ReduxProvider>
-		<ThemeProvider theme={defaultTheme}>
-			<GlobalStyles />
-			<Navbar />
-			<TopBlock $isFont={isMain}>
-				{isMain ? (
-					<>
-						Green Shop <span>| Brand</span>
-					</>
-				) : (
-					title
-				)}
-			</TopBlock>
-			{children}
-		</ThemeProvider>
-	</ReduxProvider>
-);
+import { Template, TemplateProps } from './template';
 
 export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
 	const [sheet] = useState(() => new ServerStyleSheet());

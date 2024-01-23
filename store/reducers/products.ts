@@ -42,6 +42,8 @@ const initialState: ProductsState = {
 };
 
 const initialItems = (state: ProductsState, products: IProduct[]) => {
+	if (state.fetchedItems.length === products.length) return;
+
 	products.forEach((product) => {
 		product.imgFetch = true;
 		product.favorite = false;
