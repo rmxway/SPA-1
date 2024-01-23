@@ -5,20 +5,9 @@ import styled, { css } from 'styled-components';
 import { media } from '@/theme/media';
 
 export const BlockImgItem = styled.div`
+	position: relative;
 	flex-grow: 1;
 	display: block;
-
-	&:after {
-		position: absolute;
-		content: '';
-		background-color: white;
-		left: 0;
-		top: 0;
-		pointer-events: none;
-		z-index: -1;
-		height: 100%;
-		width: 100%;
-	}
 
 	& + img {
 		position: absolute;
@@ -36,8 +25,6 @@ export const BlockImgItem = styled.div`
 		margin: 20px auto;
 	}
 
-	&:hover + img:first-of-type,
-	&:hover:after,
 	& + img:first-of-type {
 		z-index: 0;
 	}
@@ -56,6 +43,54 @@ export const WrapperImagesStyled = styled(motion.div)`
 	justify-content: center;
 	height: 200px;
 	text-decoration: none;
+
+	&:after {
+		position: absolute;
+		content: '';
+		background-color: white;
+		left: 0;
+		top: 0;
+		pointer-events: none;
+		z-index: -1;
+		height: 100%;
+		width: 100%;
+	}
+
+	&:hover:after {
+		z-index: 0;
+	}
+
+	&:not(:has(${BlockImgItem}:nth-of-type(2))) {
+		${BlockImgItem}:after {
+			display: none;
+		}
+	}
+
+	&:not(:hover) ${BlockImgItem}:first-of-type {
+		&:after {
+			background-color: ${(props) => props.theme.colors.danger};
+		}
+	}
+
+	${BlockImgItem} {
+		&:after {
+			position: absolute;
+			bottom: 0;
+			left: 2px;
+			right: 2px;
+			height: 2px;
+			z-index: 1;
+			background-color: ${(props) => props.theme.colors.gray.$3};
+			content: '';
+			transition: all 0.1s;
+		}
+	}
+
+	${BlockImgItem}:hover {
+		&:after {
+			background-color: ${(props) => props.theme.colors.danger};
+		}
+	}
 
 	@keyframes fetched {
 		from {
