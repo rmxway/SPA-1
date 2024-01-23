@@ -1,7 +1,6 @@
 import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
-import { api } from '@/store/api';
 
 export interface ProductsState {
 	fetchedItems: IProduct[];
@@ -74,6 +73,9 @@ const productsReducer = createSlice({
 		setError: (state, action: PayloadAction<string>) => {
 			state.error = action.payload;
 		},
+		addOneProduct: (state, action: PayloadAction<IProduct>) => {
+			state.fetchedItems[0] = action.payload;
+		},
 		addProducts: (state, action: PayloadAction<IProduct[]>) => {
 			initialItems(state, action.payload);
 		},
@@ -120,38 +122,6 @@ const productsReducer = createSlice({
 			state.currentItems = filteredItems;
 		},
 	},
-	extraReducers(builder) {
-		builder
-			// Products
-			.addMatcher(api.endpoints.getProducts.matchPending, (state) => {
-				state.fetching = true;
-				state.error = '';
-			})
-			.addMatcher(api.endpoints.getProducts.matchFulfilled, (state, action: PayloadAction<IProduct[]>) => {
-				const products: IProduct[] = action.payload;
-				initialItems(state, products);
-			})
-			.addMatcher(api.endpoints.getProducts.matchRejected, (state, action) => {
-				state.error = String(action.payload?.status);
-				state.fetching = false;
-			})
-			// Product
-			.addMatcher(api.endpoints.getProduct.matchPending, (state) => {
-				state.fetching = true;
-				state.error = '';
-			})
-			.addMatcher(api.endpoints.getProduct.matchFulfilled, (state, action: PayloadAction<IProduct>) => {
-				const product: IProduct = action.payload;
-
-				state.fetchedItems = [product];
-				state.fetching = false;
-				state.error = '';
-			})
-			.addMatcher(api.endpoints.getProduct.matchRejected, (state, action) => {
-				state.error = String(action.payload?.status);
-				state.fetching = false;
-			});
-	},
 });
 
 const { actions, reducer } = productsReducer;
@@ -160,6 +130,7 @@ export const {
 	fetching,
 	setError,
 	toggleProduct,
+	addOneProduct,
 	addProducts,
 	removeAllToggledProducts,
 	fetchingImageProduct,

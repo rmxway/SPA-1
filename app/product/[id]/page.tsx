@@ -1,14 +1,6 @@
-'use client';
+import { IProduct, productsUrl } from '@/services';
 
-import { Container, LayerBlock, RatingStars } from '@/components/Layout';
-import { ButtonUI, Loader } from '@/components/ui';
-
-import { moveToCart } from '@/store/reducers/combineActions';
-
-import { Info, PriceBlock, Title, Wrapper } from './styled';
-import WrapperImage from '@/components/ProductCard/WrapperImage';
-import { currency } from '@/services';
-import { useGetProduct } from './useGetProduct';
+import { ContentProduct } from './content';
 
 interface ProductPageProps {
 	params: {
@@ -16,46 +8,9 @@ interface ProductPageProps {
 	};
 }
 
-export default function Product({ params }: ProductPageProps) {
-	const { error, fetching, product } = useGetProduct(params.id);
+export default async function ProductPage({ params }: ProductPageProps) {
+	const res = await fetch(`${productsUrl}/${params.id}`);
+	const serverProduct: IProduct = await res.json();
 
-	return (
-		<Container>
-			<LayerBlock $mt>
-				<Loader loading={fetching} />
-				{error ? error : ''}
-				{product && (
-					<Wrapper>
-						<WrapperImage product={product} size={1000} />
-						<Info>
-							<Title>{product?.title}</Title>
-							<span>
-								<p>
-									<strong>Category:</strong> {product.category}
-								</p>
-								<br />
-								<p>{product.description}</p>
-							</span>
-
-							<PriceBlock>
-								<RatingStars rating={Number(product.rating)} />
-								<br />
-								<span>
-									{product.price} {currency}
-								</span>
-								<ButtonUI
-									primary
-									animate
-									onClick={() => moveToCart(Number(product?.id))}
-									disabled={product.checked}
-								>
-									{product.checked ? 'Added' : 'Add to cart'}
-								</ButtonUI>
-							</PriceBlock>
-						</Info>
-					</Wrapper>
-				)}
-			</LayerBlock>
-		</Container>
-	);
+	return <ContentProduct {...{ serverProduct }} />;
 }

@@ -41,9 +41,12 @@ export function StyledComponentsRegistry({ children }: { children: React.ReactNo
 	const [sheet] = useState(() => new ServerStyleSheet());
 	const pathname = usePathname();
 
-	const title = navbarItems.find((item) => item.url === pathname)?.title;
+	const getTitle = () => {
+		if (pathname.includes('/product/')) return 'Product';
+		return navbarItems.find((item) => item.url === pathname)?.title;
+	};
 
-	const propsTemplate: TemplateProps = { title, isMain: pathname === '/', children };
+	const propsTemplate: TemplateProps = { title: getTitle(), isMain: pathname === '/', children };
 
 	try {
 		useServerInsertedHTML(() => {

@@ -1,20 +1,26 @@
-import { IProduct, useAppSelector } from '@/services';
+'use client';
+
+import { useEffect } from 'react';
+
+import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { useGetProductQuery } from '@/store/api';
-import { useMemo, useState } from 'react';
+import { addOneProduct } from '@/store/reducers/products';
 
-export const useGetProduct = (id: string) => {
-	let product: IProduct | undefined;
-
-	const [skip, setSkip] = useState(true);
-	useGetProductQuery(id, { skip });
-
+export const useGetProduct = (serverProduct: IProduct) => {
 	const { fetchedItems, error, fetching } = useAppSelector(productsStore);
-	product = fetchedItems.find((item) => item.id === Number(id));
+	const dispatch = useAppDispatch();
 
-	useMemo(() => {
-		setSkip(() => !!product);
-	}, [product]);
+	useEffect(() => {
+		if (fetchedItems.length === 0) {
+			dispatch(addOneProduct(serverProduct));
+		}
+	}, [dispatch, fetchedItems.length, serverProduct]);
 
-	return { fetching, error, product };
+	return {
+		fetching,
+		error,
+		product: fetchedItems.find((item) => item.id === Number(serverProduct.id)) || serverProduct,
+	};
 };
+
+export default useGetProduct;
