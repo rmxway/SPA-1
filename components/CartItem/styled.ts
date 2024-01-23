@@ -105,8 +105,8 @@ export const Title = styled.div`
 `;
 
 export const Price = styled.div`
-	font-size: 22px;
-	min-width: auto;
+	font-size: 20px;
+    min-width: auto;
 	text-align: left;
 	margin-top: 10px;
 

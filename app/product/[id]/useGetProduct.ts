@@ -1,11 +1,26 @@
-import { useAppSelector } from '@/services';
+'use client';
+
+import { useEffect } from 'react';
+
+import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { useGetProductsQuery } from '@/store/api';
+import { addOneProduct } from '@/store/reducers/products';
 
-export const useGetProduct = (id: string) => {
-	useGetProductsQuery();
+export const useGetProduct = (serverProduct: IProduct) => {
 	const { fetchedItems, error, fetching } = useAppSelector(productsStore);
-	const product = fetchedItems.find((item) => item.id === Number(id));
+	const dispatch = useAppDispatch();
 
-	return { fetching, error, product };
+	useEffect(() => {
+		if (fetchedItems.length === 0) {
+			dispatch(addOneProduct(serverProduct));
+		}
+	}, [dispatch, fetchedItems.length, serverProduct]);
+
+	return {
+		fetching,
+		error,
+		product: fetchedItems.find((item) => item.id === Number(serverProduct.id)) || serverProduct,
+	};
 };
+
+export default useGetProduct;

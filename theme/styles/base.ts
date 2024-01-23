@@ -10,7 +10,7 @@ const base = css`
 	}
 	body {
 		overflow-y: scroll;
-		background-color: ${(props) => props.theme.colors.gray.$2};
+		background-color: ${(props) => props.theme.colors.gray.$1};
 		font-size: 1rem;
 		display: block;
 		padding-top: 70px;

@@ -13,16 +13,17 @@ export const CountStyled = styled(motion.div)`
 	background-color: ${(props) => props.theme.colors.dark};
 	border: 2px solid ${(props) => props.theme.colors.success};
 	color: #fff;
-	font-size: 13px;
-	font-weight: 600;
-	line-height: 1.35;
-	letter-spacing: -1px;
+	font-size: 11px;
+    text-align: center;
+	font-weight: 900;
+	line-height: 1.8;
+	letter-spacing: -0.5px;
 
 	${media.greaterThan('xs')`
         top: -10px;
-        right: -12px;
-        width: 20px;
-        height: 20px;
+        right: -14px;
+        width: 22px;
+        height: 22px;
     `}
 `;
 

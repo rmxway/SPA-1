@@ -6,7 +6,7 @@ import { media } from '@/theme';
 
 const logoColor = (props: { theme: DefaultTheme }) => darken(0.3, props.theme.colors.success);
 
-const StyledNavbar = styled.div`
+export const StyledNavbar = styled.div`
 	position: fixed;
 	top: 0;
 	z-index: 100;
@@ -27,7 +27,7 @@ const StyledNavbar = styled.div`
 	}
 `;
 
-const Logo = styled.div`
+export const Logo = styled.div`
 	position: relative;
 	display: flex;
 	border-radius: ${(props) => props.theme.radius.borderRadius};
@@ -68,9 +68,9 @@ const Logo = styled.div`
     `}
 `;
 
-const NavbarItem = styled.div`
+export const NavbarItem = styled.div`
 	position: relative;
-	display: inline-block;
+	display: flex;
 	margin-right: 10px;
 	font-size: 1rem;
 	color: #222;
@@ -100,8 +100,9 @@ const NavbarItem = styled.div`
 	}
 `;
 
-const Line = styled(motion.div)`
+export const Line = styled(motion.div)`
 	position: absolute;
+    bottom: -2px;
 	left: 0;
 	right: 0;
 	height: 2px;
@@ -112,5 +113,3 @@ const Line = styled(motion.div)`
         height: 3px;
     `}
 `;
-
-export { Line, Logo, NavbarItem, StyledNavbar };

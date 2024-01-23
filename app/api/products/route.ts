@@ -1,15 +1,16 @@
 import { NextResponse } from 'next/server';
-import { productsJSON } from './data/items.js';
+
+import productsJSON from '@/mock/items.json';
 
 export async function GET(req: Request) {
+	const { products } = productsJSON;
 	const { searchParams } = new URL(req.url);
 	const limit = searchParams.get('limit');
-
-	let state = productsJSON;
+	let state = products;
 
 	if (limit) {
-		state = [...productsJSON.slice(0, Number(limit))];
+		state = [...products.slice(0, Number(limit))];
 	}
 
-	return NextResponse.json( [...state] );
+	return NextResponse.json([...state]);
 }

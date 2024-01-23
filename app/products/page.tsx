@@ -1,25 +1,26 @@
-'use client';
+import { Metadata } from 'next';
 
-import { Filter } from '@/components';
-import { Container, LayerBlock } from '@/components/Layout';
-import { ProductsGrid } from '@/components/ProductsGrid';
-import { useAppSelector } from '@/services';
-import { productsStore } from '@/store';
-import { useGetProductsQuery } from '@/store/api';
+import { productsUrl } from '@/services';
 
-export default function ProductsPage() {
-	const { fetchedItems, fetching, error, page } = useAppSelector(productsStore);
-	useGetProductsQuery();
+import { ContentProducts } from './content';
 
-	return (
-		<Container $mt>
-			<Filter />
+export const metadata: Metadata = {
+	title: 'Products',
+};
 
-			{error ? <LayerBlock>{error}</LayerBlock> : null}
-			{fetching && <div>Data loading ...</div>}
-			{fetchedItems ? (
-				<ProductsGrid pagination items={fetchedItems} keyPage="page" {...{ fetching, error, page }} />
-			) : null}
-		</Container>
-	);
+export default async function ProductsPage() {
+	const getProducts = async () => {
+		try {
+			const res = await fetch(productsUrl, { cache: 'default' });
+			if (res.ok) return res.json();
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			throw new Error((error as Error).message);
+		}
+		return [];
+	};
+
+	const data = await getProducts();
+
+	return <ContentProducts products={data} />;
 }

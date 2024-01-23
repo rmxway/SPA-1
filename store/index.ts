@@ -1,15 +1,16 @@
 import { Action, combineReducers, configureStore, ThunkAction } from '@reduxjs/toolkit';
+// import { setupListeners } from '@reduxjs/toolkit/query';
 import { HYDRATE } from 'next-redux-wrapper';
 
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
 
-import { api } from './api';
+// import { api } from './api';
 
 const rootReducer = combineReducers({
 	cart: CartReducer,
 	products: ProductsReducer,
-	[api.reducerPath]: api.reducer,
+	// [api.reducerPath]: api.reducer,
 });
 
 export type ReducerType = typeof rootReducer;
@@ -28,7 +29,7 @@ const reducer: ReducerType = (state, action) => {
 const makeConfiguredStore = (anyReducer: ReducerType) =>
 	configureStore({
 		reducer: anyReducer,
-		middleware: (gDM) => gDM().concat(api.middleware),
+		// middleware: (gDM) => gDM().concat(api.middleware),
 	});
 
 export const store = makeConfiguredStore(reducer);
@@ -50,3 +51,5 @@ export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unk
 
 export const cartStore = (state: RootState) => state.cart;
 export const productsStore = (state: RootState) => state.products;
+
+// setupListeners(store.dispatch);

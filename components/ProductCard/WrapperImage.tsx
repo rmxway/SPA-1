@@ -1,79 +1,51 @@
-import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { FC } from 'react';
-import styled from 'styled-components';
+import { FC, Fragment, SyntheticEvent } from 'react';
 
 import { Loader } from '@/components/ui';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { fetchingImageProduct } from '@/store/reducers/products';
 
-export const WrapperImageStyled = styled(motion.div)`
-	position: relative;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	min-height: 200px;
-
-	text-decoration: none;
-
-	img {
-		width: 100%;
-		max-height: 500px;
-		object-fit: contain;
-		object-position: center;
-		margin: 20px auto;
-		filter: blur(10px);
-		opacity: 0;
-	}
-
-	@keyframes fetched {
-		from {
-			filter: blur(10px);
-			opacity: 0;
-		}
-		to {
-			filter: blur(0px);
-			opacity: 1;
-		}
-	}
-
-	.fetched {
-		animation: fetched 0.3s;
-		animation-fill-mode: forwards;
-	}
-`;
+import { BlockImgItem, WrapperImagesStyled } from './styled';
 
 type PropsType = {
 	product: IProduct;
 	size: number;
 };
 
-export const WrapperImage: FC<PropsType> = ({ product, size }) => {
+export const WrapperImages: FC<PropsType> = ({ product, size }) => {
 	const dispatch = useAppDispatch();
 	const { fetching } = useAppSelector(productsStore);
-	const img = (product.images && product.images[0]) || product.thumbnail;
+
+	const handleOnLoad = (e: SyntheticEvent<HTMLImageElement>, idx: number) => {
+		e.currentTarget.classList.add('fetched');
+
+		if (idx === 0) {
+			dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false }));
+		}
+	};
 
 	return (
-		<WrapperImageStyled id={`id-${product.id}`}>
+		<WrapperImagesStyled id={`wrapper-${product.id}`}>
 			<Loader loading={product.imgFetch} />
 
-			{!fetching && (
-				<Image
-					src={img}
-					alt={product.title}
-					width={size}
-					height={size}
-					quality={60}
-					priority
-					onLoad={(e) => {
-						e.currentTarget.classList.add('fetched');
-						dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false }));
-					}}
-				/>
-			)}
-		</WrapperImageStyled>
+			{!fetching &&
+				product.images?.map((image, idx) => (
+					<Fragment key={image}>
+						<BlockImgItem />
+						<Image
+							src={image}
+							alt={product.title}
+							width={size}
+							height={size}
+							quality={60}
+							priority
+							onLoad={(e) => handleOnLoad(e, idx)}
+						/>
+					</Fragment>
+				))}
+		</WrapperImagesStyled>
 	);
 };
 
-export default WrapperImage;
+export default WrapperImages;

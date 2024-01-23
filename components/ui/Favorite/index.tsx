@@ -8,7 +8,7 @@ interface FavoriteProps {
 export function Favorite({ active = false, onActive, ...props }: FavoriteProps) {
 	return (
 		<Wrapper {...props} {...{ active }} onClick={onActive}>
-			{active ? <i className="icofont icofont-favorite-fill" /> : <i className="icofont icofont-favorite" />}
+			{!active ? <i className="icofont icofont-favorite-fill" /> : <i className="icofont icofont-favorite" />}
 		</Wrapper>
 	);
 }

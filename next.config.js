@@ -1,21 +1,24 @@
 /** @type {import('next').NextConfig} */
+
 module.exports = {
-	reactStrictMode: true,
-	compiler: {
-		styledComponents: true,
-	},
+	reactStrictMode: true,// process.env.NODE_ENV === 'production',
 	env: {
 		HOST_NAME: 'localhost',
 		PORT: '3000',
 		API_URL: `http://${process.env.HOST_NAME}:${process.env.PORT}/api/products`,
 	},
 	images: {
+		deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+		imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: 'i.dummyjson.com',
+				hostname: '*.dummyjson.com',
 			},
 		],
+	},
+	compiler: {
+		styledComponents: true,
 	},
 	webpack(config) {
 		config.resolve.fallback = {
