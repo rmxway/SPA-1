@@ -12,7 +12,7 @@ import { currency, useAppSelector } from '@/services';
 import { cartStore } from '@/store';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
-import { Cart, contentVariant, Sidebar, Title, Total, Trash, Wrapper } from './styled';
+import { Cart, contentVariant, Sidebar, Title, Total, Trash, trashVariant, Wrapper } from './styled';
 
 export const ContentCart = () => {
 	const { items, totalPrice } = useAppSelector(cartStore);
@@ -36,9 +36,10 @@ export const ContentCart = () => {
 							<Trash
 								layout
 								key="trash"
-								initial={{ opacity: 0, y: -10 }}
-								animate={{ opacity: 1, y: 0 }}
-								exit={{ opacity: 0, scale: 0.5 }}
+								variants={trashVariant}
+								initial="initial"
+								animate="visible"
+								exit="hidden"
 								onClick={handleTrashAllProducts}
 							>
 								Delete all
@@ -75,11 +76,9 @@ export const ContentCart = () => {
 								{totalPrice} {currency}
 							</span>
 						</Total>
-						{totalPrice > 0 ? (
-							<ButtonUI primary disabled>
-								Checkout
-							</ButtonUI>
-						) : null}
+						<ButtonUI primary disabled={totalPrice === 0}>
+							Checkout
+						</ButtonUI>
 					</Sidebar>
 				</AnimatePresence>
 			</Cart>

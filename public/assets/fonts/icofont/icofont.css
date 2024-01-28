@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'icofont';
-    src: url(".//icofont.ttf?a4bba7f67b7f0f2b55ae9935143162d0") format("truetype"),
-url(".//icofont.woff?a4bba7f67b7f0f2b55ae9935143162d0") format("woff"),
-url(".//icofont.woff2?a4bba7f67b7f0f2b55ae9935143162d0") format("woff2");
+    src: url(".//icofont.ttf?b387a2368b68b73c00f6c39f0e072e17") format("truetype"),
+url(".//icofont.woff?b387a2368b68b73c00f6c39f0e072e17") format("woff"),
+url(".//icofont.woff2?b387a2368b68b73c00f6c39f0e072e17") format("woff2");
 }
 
 i[class^='icofont-']:before, i[class*=' icofont-']:before {

@@ -15,9 +15,10 @@ export const FetchingBlock = styled(motion.div)`
 	position: relative;
 	display: flex;
 	flex-wrap: wrap;
+    align-items: normal;
 `;
 
 export const containerVars = {
-	hidden: { opacity: 0.2 },
+	hidden: { opacity: 0 },
 	visible: { opacity: 1 },
 };

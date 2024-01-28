@@ -1,7 +1,5 @@
 'use client';
 
-import '@/public/assets/fonts/icofont/icofont.scss';
-
 import { usePathname, useServerInsertedHTML } from 'next/navigation';
 import React, { useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';

@@ -10,7 +10,7 @@ export const Wrapper = styled.div<{ active?: boolean }>`
 	cursor: pointer;
 	top: 0;
 	right: 0;
-	z-index: 1;
+	z-index: 2;
 	opacity: 0.5;
 	transition: 0.2s;
 

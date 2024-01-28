@@ -23,7 +23,6 @@ export default function MainPage() {
 					<li>Next.js</li>
 					<li>Typescript</li>
 					<li>Redux Toolkit</li>
-					<li>RTK Query</li>
 					<li>Styled Components</li>
 					<li>Swiper</li>
 					<li>Framer Motion</li>

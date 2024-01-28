@@ -14,6 +14,12 @@ export const contentVariant = {
 	},
 };
 
+export const trashVariant = {
+	initial: { opacity: 0, y: -10 },
+	visible: { opacity: 1, y: 0 },
+	hidden: { opacity: 0, scale: 0.5 },
+};
+
 export const Cart = styled.div`
 	position: relative;
 	margin: 20px 0;

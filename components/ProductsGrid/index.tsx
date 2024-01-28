@@ -7,7 +7,6 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
-import { Loader } from '@/components/ui';
 import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { TypePages } from '@/store/reducers/products';
@@ -22,7 +21,7 @@ interface ProductsGridProps extends PropsWithChildren {
 }
 
 export const ProductsGrid = ({ children, items, pagination, page, keyPage }: ProductsGridProps) => {
-	const { fetching, error, countPerPage } = useAppSelector(productsStore);
+	const { error, countPerPage } = useAppSelector(productsStore);
 	const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
 
 	useEffect(() => {
@@ -35,11 +34,6 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 		}
 	}, [page, items, countPerPage]);
 
-	if (fetching)
-		<WrapperComponent>
-			<Loader loading={fetching} />
-		</WrapperComponent>;
-
 	return (
 		<WrapperComponent>
 			{pagination && !!currentItems.length && <Pagination items={items} page={page} />}
@@ -47,15 +41,14 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 				<Wrapper>
 					{children}
 					<LayoutGroup>
-						<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
+						<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
 							{!!currentItems.length &&
-								!fetching &&
 								!error &&
-								currentItems.map((product) => (
+								currentItems.map((product, idx) => (
 									<ProductCard
 										product={product}
 										layout
-										transition={{ duration: 0.5 }}
+										transition={{ duration: 0.3, delay: idx * 0.04 }}
 										variants={containerVars}
 										initial="hidden"
 										animate="visible"
@@ -68,7 +61,7 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 				</Wrapper>
 			)}
 
-			{!currentItems.length && !fetching && !error && (
+			{!currentItems.length && !error && (
 				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
 					<LayerBlock $mt>
 						{keyPage === 'page' && `The search did't take a result`}
@@ -80,13 +73,6 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 					</LayerBlock>
 				</motion.div>
 			)}
-
-			{/* {pagination && !!currentItems.length && (
-				<>
-					<br />
-					<Pagination items={items} />
-				</>
-			)} */}
 		</WrapperComponent>
 	);
 };

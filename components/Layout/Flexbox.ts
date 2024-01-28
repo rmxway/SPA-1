@@ -5,6 +5,7 @@ interface FlexboxTypes {
 	justify?: string;
 	align?: string;
 	direction?: string;
+	gap?: number;
 }
 
 const Flexbox = styled.div<FlexboxTypes>`
@@ -13,6 +14,7 @@ const Flexbox = styled.div<FlexboxTypes>`
 	justify-content: ${(props) => props.justify};
 	align-items: ${(props) => props.align};
 	flex-direction: ${(props) => props.direction};
+	gap: ${(props) => props.gap}px;
 `;
 
 export { Flexbox };
