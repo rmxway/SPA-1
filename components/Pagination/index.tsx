@@ -1,6 +1,8 @@
+import { MotionProps } from 'framer-motion';
 import debounce from 'lodash.debounce';
 
 import { Flexbox, Space } from '@/components/Layout';
+import { containerVars } from '@/components/ProductsGrid/styled';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { ScrollToTop } from '@/services/helpers';
 import { productsStore } from '@/store';
@@ -8,7 +10,7 @@ import { changePage } from '@/store/reducers/products';
 
 import { ArrowButton, ButtonPagination, Info, Wrapper } from './styled';
 
-interface PaginationProps {
+interface PaginationProps extends MotionProps {
 	items: IProduct[];
 	page: number;
 }
@@ -25,7 +27,7 @@ export const Pagination = ({ items, page }: PaginationProps) => {
 	const debounceChangePage = debounce((num) => {
 		dispatch(changePage({ page: num }));
 		ScrollToTop();
-	}, 100);
+	}, 200);
 
 	const viewedItems = (): number => {
 		if (!(total % countPerPage)) {
@@ -68,42 +70,41 @@ export const Pagination = ({ items, page }: PaginationProps) => {
 	};
 
 	return (
-		<>
-			<Wrapper>
-				{countPages > 1 && (
-					<Flexbox align="center">
-						{page > 1 && (
-							<ArrowButton
-								left
-								onClick={() => debounceChangePage(1)}
-								disabled={fetching || !items.length}
-							>
-								<i className="icofont icofont-arrow-down" /> To begin
-							</ArrowButton>
-						)}
-						{renderButtons()}
+		<Wrapper
+			variants={containerVars}
+			transition={{ duration: 0.5 }}
+			initial="hidden"
+			animate="visible"
+			exit="hidden"
+		>
+			{countPages > 1 && (
+				<Flexbox align="center">
+					{page > 1 && (
+						<ArrowButton left onClick={() => debounceChangePage(1)} disabled={fetching || !items.length}>
+							<i className="icofont icofont-arrow-down" /> To begin
+						</ArrowButton>
+					)}
+					{renderButtons()}
 
-						{page < countPages && page !== countPages && (
-							<ArrowButton
-								right
-								onClick={() => debounceChangePage(countPages)}
-								disabled={fetching || !items.length}
-							>
-								To end <i className="icofont icofont-arrow-down" />
-							</ArrowButton>
-						)}
-					</Flexbox>
-				)}
-				<br />
-				<Space />
-				{!!items.length && (
-					<Info>
-						Shown products: {viewedItems()} from {total}
-					</Info>
-				)}
-			</Wrapper>
+					{page < countPages && page !== countPages && (
+						<ArrowButton
+							right
+							onClick={() => debounceChangePage(countPages)}
+							disabled={fetching || !items.length}
+						>
+							To end <i className="icofont icofont-arrow-down" />
+						</ArrowButton>
+					)}
+				</Flexbox>
+			)}
 			<br />
-		</>
+			<Space />
+			{!!items.length && (
+				<Info>
+					Shown products: {viewedItems()} from {total}
+				</Info>
+			)}
+		</Wrapper>
 	);
 };
 

@@ -16,26 +16,27 @@ type PropsType = {
 export const WrapperImages: FC<PropsType> = ({ product, size }) => {
 	const dispatch = useAppDispatch();
 	const { fetching } = useAppSelector(productsStore);
+	const { id, imgFetch, title, images } = product;
 
 	const handleOnLoad = (e: SyntheticEvent<HTMLImageElement>, idx: number) => {
 		e.currentTarget.classList.add('fetched');
 
 		if (idx === 0) {
-			dispatch(fetchingImageProduct({ id: Number(product.id), fetch: false }));
+			dispatch(fetchingImageProduct({ id: Number(id) }));
 		}
 	};
 
 	return (
-		<WrapperImagesStyled id={`wrapper-${product.id}`}>
-			<Loader loading={product.imgFetch} />
+		<WrapperImagesStyled id={`wrapper-${id}`}>
+			<Loader loading={imgFetch ?? true} />
 
 			{!fetching &&
-				product.images?.map((image, idx) => (
+				images?.map((image, idx) => (
 					<Fragment key={image}>
 						<BlockImgItem />
 						<Image
 							src={image}
-							alt={product.title}
+							alt={title}
 							width={size}
 							height={size}
 							quality={60}

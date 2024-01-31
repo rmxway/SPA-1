@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { productsUrl } from '@/services';
+import { IProduct, productsUrl } from '@/services';
 
 import { ContentProducts } from './content';
 
@@ -20,7 +20,7 @@ export default async function ProductsPage() {
 		return [];
 	};
 
-	const data = await getProducts();
+	const data: IProduct[] = await getProducts();
 
 	return <ContentProducts products={data} />;
 }

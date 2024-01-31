@@ -1,27 +1,30 @@
 import { Flexbox } from '@/components/Layout';
 import { InputUI } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
+import { debounceFunction } from '@/services/helpers';
 import { productsStore } from '@/store';
-import { searchProduct } from '@/store/reducers/products';
+import { searchProducts, searchValue } from '@/store/reducers/products';
 
 import { StyledFilter } from './styled';
 import { ToggleSort } from './ToggleSort';
 
 export function Filter() {
-	const { currentItems, fetchedItems, search } = useAppSelector(productsStore);
+	const { fetchedItems, reservedItems, search } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(searchProduct(e.target.value));
+		const searchText = e.target.value;
+		dispatch(searchValue(searchText));
+		debounceFunction(() => dispatch(searchProducts(searchText)));
 	};
 
 	return (
 		<StyledFilter>
 			<Flexbox align="center" nowrap>
 				<div className="title">Sorting</div>
-				<ToggleSort sort="price" value="Price" disabled={!currentItems.length} />
-				<ToggleSort sort="rating" value="Rating" disabled={!currentItems.length} />
-				<ToggleSort sort="reset" value="Reset" disabled={!currentItems.length} />
+				<ToggleSort sort="price" value="Price" disabled={!fetchedItems.length} />
+				<ToggleSort sort="rating" value="Rating" disabled={!fetchedItems.length} />
+				<ToggleSort sort="reset" value="Reset" disabled={!fetchedItems.length} />
 			</Flexbox>
 			<InputUI
 				name="search"
@@ -29,7 +32,7 @@ export function Filter() {
 				className="search-filter"
 				value={search.value}
 				onChange={handleChange}
-				disabled={!currentItems.length && !fetchedItems.length}
+				disabled={!reservedItems.length && !fetchedItems.length}
 			/>
 		</StyledFilter>
 	);

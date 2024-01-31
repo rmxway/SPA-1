@@ -36,7 +36,7 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 
 	return (
 		<WrapperComponent>
-			{pagination && !!currentItems.length && <Pagination items={items} page={page} />}
+			{pagination && currentItems.length !== 0 && <Pagination items={items} page={page} />}
 			{!!currentItems.length && (
 				<Wrapper>
 					{children}
@@ -61,18 +61,19 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 				</Wrapper>
 			)}
 
-			{!currentItems.length && !error && (
-				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
-					<LayerBlock $mt>
-						{keyPage === 'page' && `The search did't take a result`}
-						{keyPage === 'pageFavorites' && (
-							<>
-								{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
-							</>
-						)}
-					</LayerBlock>
-				</motion.div>
-			)}
+			{items.length > 0 ||
+				(currentItems.length === 0 && (
+					<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
+						<LayerBlock $mt>
+							{keyPage === 'page' && `The search did't take a result`}
+							{keyPage === 'pageFavorites' && (
+								<>
+									{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
+								</>
+							)}
+						</LayerBlock>
+					</motion.div>
+				))}
 		</WrapperComponent>
 	);
 };

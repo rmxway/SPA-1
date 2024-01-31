@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 
+import { Filter } from '@/components';
 import { Container, LayerBlock } from '@/components/Layout';
 import { ProductsGrid } from '@/components/ProductsGrid';
 import { IProduct, useAppSelector } from '@/services';
@@ -13,7 +14,7 @@ type PropsProducts = {
 };
 
 export const ContentProducts = ({ products }: PropsProducts) => {
-	const { fetchedItems, fetching, error, page } = useAppSelector(productsStore);
+	const { fetchedItems, reservedItems, fetching, error, page } = useAppSelector(productsStore);
 
 	useEffect(() => {
 		placeProductsToRedux(products);
@@ -21,10 +22,10 @@ export const ContentProducts = ({ products }: PropsProducts) => {
 
 	return (
 		<Container>
-			{/* <Filter /> */}
+			<Filter />
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
 			{fetching && <div>Data loading ...</div>}
-			{!!fetchedItems.length && <ProductsGrid items={fetchedItems} pagination page={page} keyPage="page" />}
+			{!!reservedItems.length && <ProductsGrid items={fetchedItems} pagination page={page} keyPage="page" />}
 		</Container>
 	);
 };

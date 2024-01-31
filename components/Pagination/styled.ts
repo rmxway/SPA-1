@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
 import { ButtonUI } from '@/components/ui';
@@ -12,10 +13,11 @@ export const Info = styled.div`
     `}
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 	min-height: 30px;
+	margin-bottom: 20px;
 
 	${media.greaterThan('xs')`
         flex-direction: row;

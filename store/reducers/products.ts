@@ -4,7 +4,7 @@ import { IProduct } from '@/services';
 
 export interface ProductsState {
 	fetchedItems: IProduct[];
-	currentItems: IProduct[];
+	reservedItems: IProduct[];
 	total: number;
 	countPerPage: number;
 	page: number;
@@ -26,12 +26,12 @@ interface SortTypes {
 
 const initialState: ProductsState = {
 	fetchedItems: [],
-	currentItems: [],
+	reservedItems: [],
 	total: 0,
 	page: 1,
 	countPerPage: 12,
 	error: '',
-	fetching: false,
+	fetching: true,
 	sort: {
 		name: '',
 		toggle: true,
@@ -42,15 +42,14 @@ const initialState: ProductsState = {
 };
 
 const initialItems = (state: ProductsState, products: IProduct[]) => {
-	if (state.fetchedItems.length === products.length) return;
+	if (state.reservedItems.length === products.length) return;
 
-	products.forEach((product) => {
-		product.imgFetch = true;
-		product.favorite = false;
-		product.checked = false;
-	});
-
-	state.total = products.length;
+	products = products.map((product) => ({
+		...product,
+		imgFetch: true,
+		checked: false,
+		favorite: false,
+	}));
 
 	// there was some product on the first page
 	if (state.fetchedItems.length === 1) {
@@ -58,9 +57,27 @@ const initialItems = (state: ProductsState, products: IProduct[]) => {
 		products[index] = current(state.fetchedItems[0]);
 	}
 
+	state.total = products.length;
+
 	state.fetchedItems = [...products];
+	state.reservedItems = [...state.fetchedItems];
 	state.fetching = false;
 	state.error = '';
+};
+
+const anyTogglesInProduct = (
+	state: ProductsState,
+	id: number,
+	type: 'checked' | 'favorite' | 'imgFetch',
+	boo?: boolean,
+) => {
+	const toggleInArray = (array: IProduct[]) => {
+		const currentItem = array.find((item) => item.id === id);
+		if (currentItem) currentItem[type] = boo ?? !currentItem[type];
+	};
+
+	toggleInArray(state.reservedItems);
+	toggleInArray(state.fetchedItems);
 };
 
 export type TypePages = 'page' | 'pageFavorites';
@@ -77,51 +94,45 @@ const productsReducer = createSlice({
 		},
 		addOneProduct: (state, action: PayloadAction<IProduct>) => {
 			state.fetchedItems[0] = action.payload;
+			state.reservedItems[0] = action.payload;
 		},
 		addProducts: (state, action: PayloadAction<IProduct[]>) => {
 			initialItems(state, action.payload);
 		},
 		toggleProduct: (state, action: PayloadAction<number>) => {
 			const id = action.payload;
-
-			const currentItem = state.fetchedItems.find((item) => item.id === id);
-			if (currentItem) currentItem.checked = !currentItem.checked;
+			anyTogglesInProduct(state, id, 'checked');
 		},
 		removeAllToggledProducts: (state) => {
 			state.fetchedItems.forEach((item) => {
 				item.checked = false;
 			});
 		},
-		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
-			const { fetch, id } = action.payload;
-			const el = state.fetchedItems.find((item) => item.id === id);
-			if (el) el.imgFetch = fetch;
+		fetchingImageProduct: (state, action: PayloadAction<{ id: number }>) => {
+			const { id } = action.payload;
+			anyTogglesInProduct(state, id, 'imgFetch', false);
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
 			const { sort, toggle } = action.payload;
-			console.log(sort, toggle);
-		},
-		searchProduct: (state, action: PayloadAction<string>) => {
-			state.search.value = action.payload.trim();
 
 			// code
+			console.log(sort, toggle);
+		},
+		searchValue: (state, action: PayloadAction<string>) => {
+			state.search.value = action.payload;
+		},
+		searchProducts: (state, action: PayloadAction<string>) => {
+			const searchText = action.payload.toLowerCase().trim();
+			state.page = 1;
+			state.fetchedItems = state.reservedItems.filter((item) => item.title.toLowerCase().includes(searchText));
 		},
 		toggleFavorite: (state, action: PayloadAction<number>) => {
 			const id = action.payload;
-			const currentItem = state.fetchedItems.find((item) => item.id === id);
-			if (currentItem) currentItem.favorite = !currentItem.favorite;
+			anyTogglesInProduct(state, id, 'favorite');
 		},
 		changePage: (state, action: PayloadAction<{ page: number }>) => {
 			const { page } = action.payload;
 			state.page = page;
-		},
-		setCurrentItems: (state, action: PayloadAction<{ items: IProduct[]; page: number }>) => {
-			const { items } = action.payload;
-
-			const filteredItems = items.length
-				? items.splice((state.page - 1) * state.countPerPage, state.countPerPage)
-				: [];
-			state.currentItems = filteredItems;
 		},
 	},
 });
@@ -137,10 +148,10 @@ export const {
 	removeAllToggledProducts,
 	fetchingImageProduct,
 	sortProducts,
-	searchProduct,
+	searchValue,
+	searchProducts,
 	toggleFavorite,
 	changePage,
-	setCurrentItems,
 } = actions;
 
 export default reducer;
