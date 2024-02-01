@@ -1,11 +1,11 @@
 import 'styled-components';
 
-interface Colors {
+export interface Colors {
 	primary: string;
 	success: string;
-    danger: string;
+	danger: string;
 	label: string;
-    dark: string;
+	dark: string;
 	gray: {
 		$1: string;
 		$2: string;
@@ -19,9 +19,13 @@ interface Colors {
 	};
 }
 
+export interface Gradients {
+	main: string;
+}
+
 interface Layout {
 	containerWidth: string;
-    shadow: string;
+	shadow: string;
 }
 
 interface Radius {
@@ -32,6 +36,7 @@ declare module 'styled-components' {
 	export interface DefaultTheme {
 		name: string;
 		colors: Colors;
+		gradients: Gradients;
 		layout: Layout;
 		radius: Radius;
 	}

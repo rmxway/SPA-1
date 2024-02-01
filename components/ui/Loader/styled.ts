@@ -1,6 +1,8 @@
 import { darken } from 'polished';
 import styled from 'styled-components';
 
+import { defaultTheme as theme } from '@/theme';
+
 export const Wrapper = styled.div<{ background?: boolean }>`
 	position: absolute;
 	display: flex;
@@ -13,8 +15,8 @@ export const Wrapper = styled.div<{ background?: boolean }>`
 	bottom: 0;
 	z-index: 10;
 	pointer-events: none;
-	color: ${(props) => props.theme.colors.gray.$7};
-    mix-blend-mode: multiply;
+	color: ${theme.colors.gray.$7};
+	mix-blend-mode: multiply;
 `;
 
 export const StyledLoader = styled.div`
@@ -29,16 +31,16 @@ export const StyledLoader = styled.div`
 
 	@keyframes changeColors {
 		0% {
-			background: ${(props) => props.theme.colors.primary};
+			background: ${theme.colors.primary};
 		}
 		33% {
-			background: ${(props) => props.theme.colors.primary};
+			background: ${theme.colors.primary};
 		}
 		66% {
-			background: ${(props) => darken(0.05, props.theme.colors.primary)};
+			background: ${darken(0.05, theme.colors.primary)};
 		}
 		100% {
-			background: ${(props) => props.theme.colors.primary};
+			background: ${theme.colors.primary};
 		}
 	}
 	animation-name: rotateLoading;
@@ -49,7 +51,7 @@ export const StyledLoader = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-    mix-blend-mode: multiply;
+	mix-blend-mode: multiply;
 
 	&:before {
 		content: '';
@@ -58,7 +60,7 @@ export const StyledLoader = styled.div`
 		height: 30px;
 		border-radius: 100%;
 		margin: 0;
-		background: ${(props) => props.theme.colors.primary};
+		background: ${theme.colors.primary};
 		mask-image: linear-gradient(to left, transparent 50%, black 100%);
 		animation: changeColors 3s forwards infinite linear;
 	}

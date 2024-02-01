@@ -2,6 +2,7 @@ import { PropsWithChildren } from 'react';
 import styled, { css } from 'styled-components';
 
 import { Container } from '@/components/Layout';
+import { defaultTheme as theme } from '@/theme';
 
 type TopBlockProps = { $isFont?: boolean };
 
@@ -24,8 +25,16 @@ const TopBlockStyle = styled.div<TopBlockProps>`
 	margin-top: 0;
 	margin-bottom: 40px;
 	padding: ${(props) => (props.$isFont ? '50px 0' : '1px 0')};
-	color: ${(props) => props.theme.colors.success};
+	color: ${theme.colors.success};
+
 	transition: 0.2s all;
+
+	h1 {
+		background: ${theme.gradients.main};
+		display: table;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+	}
 
 	span {
 		font-weight: 300;

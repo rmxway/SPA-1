@@ -1,5 +1,7 @@
 import styled, { css } from 'styled-components';
 
+import { defaultTheme as theme } from '@/theme';
+
 export const Wrapper = styled.div<{ active?: boolean }>`
 	position: absolute;
 	display: flex;
@@ -14,14 +16,14 @@ export const Wrapper = styled.div<{ active?: boolean }>`
 	opacity: 0.5;
 	transition: 0.2s;
 
-    .icofont {
-        font-size: 1.3rem;
-    }
+	.icofont {
+		font-size: 1.3rem;
+	}
 
 	${(props) =>
 		props?.active &&
 		css`
-			color: ${props.theme.colors.danger};
+			color: ${theme.colors.danger};
 			opacity: 1;
 		`}
 
@@ -31,7 +33,7 @@ export const Wrapper = styled.div<{ active?: boolean }>`
 
 	&:hover {
 		opacity: 1;
-		color: ${(props) => props.theme.colors.danger};
+		color: ${theme.colors.danger};
 	}
 `;
 

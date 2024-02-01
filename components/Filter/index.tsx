@@ -24,7 +24,7 @@ export function Filter() {
 				<div className="title">Sorting</div>
 				<ToggleSort sort="price" value="Price" disabled={!fetchedItems.length} />
 				<ToggleSort sort="rating" value="Rating" disabled={!fetchedItems.length} />
-				<ToggleSort sort="reset" value="Reset" disabled={!fetchedItems.length} />
+				<ToggleSort sort="default" value="Reset" />
 			</Flexbox>
 			<InputUI
 				name="search"

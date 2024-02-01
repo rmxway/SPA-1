@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { darken } from 'polished';
 import styled, { DefaultTheme } from 'styled-components';
 
-import { media } from '@/theme';
+import { defaultTheme as theme, media } from '@/theme';
 
 const logoColor = (props: { theme: DefaultTheme }) => darken(0.3, props.theme.colors.success);
 
@@ -12,7 +12,7 @@ export const StyledNavbar = styled.div`
 	z-index: 100;
 	width: 100%;
 	height: 70px;
-	background-color: ${(props) => props.theme.colors.success};
+	background-color: ${theme.colors.success};
 	text-align: center;
 	display: flex;
 	align-items: center;
@@ -30,7 +30,7 @@ export const StyledNavbar = styled.div`
 export const Logo = styled.div`
 	position: relative;
 	display: flex;
-	border-radius: ${(props) => props.theme.radius.borderRadius};
+	border-radius: ${theme.radius.borderRadius};
 	font-size: 2rem;
 	font-weight: 600;
 	color: ${logoColor};
@@ -62,7 +62,7 @@ export const Logo = styled.div`
             display: flex;
             align-items: center;
             padding: 2px 10px;
-            color: ${(props) => props.theme.colors.success};
+            color: ${theme.colors.success};
             margin-left: 10px;
         }
     `}
@@ -102,12 +102,12 @@ export const NavbarItem = styled.div`
 
 export const Line = styled(motion.div)`
 	position: absolute;
-    bottom: -2px;
+	bottom: -2px;
 	left: 0;
 	right: 0;
 	height: 2px;
 	border-radius: 3px;
-	background-color: ${(props) => props.theme.colors.dark};
+	background-color: ${theme.colors.dark};
 
 	${media.greaterThan('xs')`
         height: 3px;

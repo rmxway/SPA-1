@@ -1,6 +1,8 @@
 import { darken, desaturate } from 'polished';
 import styled, { css } from 'styled-components';
 
+import { defaultTheme as theme } from '@/theme';
+
 interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	w100?: boolean;
 	inactive?: boolean;
@@ -84,7 +86,7 @@ const Button = styled.button<ButtonProps>`
 	appearance: none;
 	border: 1px solid #aaa;
 	background: none;
-	border-radius: ${(props) => props.theme.radius.borderRadius};
+	border-radius: ${theme.radius.borderRadius};
 	padding: 11px 16px 10px;
 	color: #777;
 	font-size: 12px;
@@ -112,17 +114,17 @@ const Button = styled.button<ButtonProps>`
 
 	&:disabled,
 	&:disabled:hover {
-		background-color: ${(props) => props.theme.colors.gray.$2};
-		color: ${(props) => props.theme.colors.gray.$5};
+		background-color: ${theme.colors.gray.$2};
+		color: ${theme.colors.gray.$5};
 		cursor: default;
 	}
 
 	${(props) => {
-		if (props?.success) return mixinButton(props.theme.colors.success);
-		if (props?.danger) return mixinButton(props.theme.colors.danger);
-		if (props?.primary) return mixinButton(props.theme.colors.primary, '#6d410a');
-		if (props?.white) return mixinButton('#fff', props.theme.colors.success);
-		if (props?.black) return mixinButton(props.theme.colors.dark);
+		if (props?.success) return mixinButton(theme.colors.success);
+		if (props?.danger) return mixinButton(theme.colors.danger);
+		if (props?.primary) return mixinButton(theme.colors.primary, '#6d410a');
+		if (props?.white) return mixinButton('#fff', theme.colors.success);
+		if (props?.black) return mixinButton(theme.colors.dark);
 		return null;
 	}}
 

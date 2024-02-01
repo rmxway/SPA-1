@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { defaultTheme as theme } from '@/theme';
+
 interface RatingTypes {
 	rating: number | null;
 }
@@ -37,7 +39,7 @@ const Star = styled.i<{ active?: boolean | unknown }>`
 	width: 16px;
 	flex-shrink: 0;
 	margin-right: 1px;
-	color: ${(props) => (props?.active ? props.theme.colors.danger : props.theme.colors.gray.$3)};
+	color: ${(props) => (props?.active ? theme.colors.danger : theme.colors.gray.$3)};
 
 	&:last-child {
 		margin-right: 0;

@@ -7,7 +7,7 @@ export interface IProduct {
 	discountPercentage?: number;
 	images?: string[];
 	thumbnail: string;
-	price: number | null;
+	price: number;
 	rating?: number;
 	stock?: number;
 	checked?: boolean;

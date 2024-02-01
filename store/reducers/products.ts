@@ -2,6 +2,11 @@ import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
 
+interface SortTypes {
+	name: 'rating' | 'price' | 'default';
+	toggle?: boolean;
+}
+
 export interface ProductsState {
 	fetchedItems: IProduct[];
 	reservedItems: IProduct[];
@@ -10,18 +15,10 @@ export interface ProductsState {
 	page: number;
 	error: string;
 	fetching: boolean;
-	sort: {
-		name: string;
-		toggle?: boolean;
-	};
+	sort: SortTypes;
 	search: {
 		value: string;
 	};
-}
-
-interface SortTypes {
-	sort: 'rating' | 'price' | 'reset';
-	toggle?: boolean;
 }
 
 const initialState: ProductsState = {
@@ -29,12 +26,12 @@ const initialState: ProductsState = {
 	reservedItems: [],
 	total: 0,
 	page: 1,
-	countPerPage: 12,
+	countPerPage: 4,
 	error: '',
 	fetching: true,
 	sort: {
-		name: '',
-		toggle: true,
+		name: 'default',
+		toggle: false,
 	},
 	search: {
 		value: '',
@@ -113,10 +110,26 @@ const productsReducer = createSlice({
 			anyTogglesInProduct(state, id, 'imgFetch', false);
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
-			const { sort, toggle } = action.payload;
+			const { name, toggle } = action.payload;
 
-			// code
-			console.log(sort, toggle);
+			state.sort.name = name;
+			state.sort.toggle = toggle;
+			state.page = 1;
+
+			if (name === 'default') {
+				state.sort.toggle = false;
+				state.search.value = '';
+				state.fetchedItems = state.reservedItems;
+			} else {
+				state.fetchedItems.sort((a, b) => {
+					if (name !== undefined && a[name] && b[name]) {
+						return Number(a[name]) > Number(b[name]) ? -1 : 1;
+					}
+					return 0;
+				});
+
+				if (toggle) state.fetchedItems = state.fetchedItems.reverse();
+			}
 		},
 		searchValue: (state, action: PayloadAction<string>) => {
 			state.search.value = action.payload;
@@ -129,6 +142,12 @@ const productsReducer = createSlice({
 		toggleFavorite: (state, action: PayloadAction<number>) => {
 			const id = action.payload;
 			anyTogglesInProduct(state, id, 'favorite');
+		},
+		removeAllFavorites: (state) => {
+			state.reservedItems.forEach((item) => {
+				item.favorite = false;
+			});
+			state.fetchedItems = state.reservedItems;
 		},
 		changePage: (state, action: PayloadAction<{ page: number }>) => {
 			const { page } = action.payload;
@@ -151,6 +170,7 @@ export const {
 	searchValue,
 	searchProducts,
 	toggleFavorite,
+	removeAllFavorites,
 	changePage,
 } = actions;
 

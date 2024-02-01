@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
+import { defaultTheme as theme } from '@/theme';
 import { media } from '@/theme/media';
 
 export const BlockImgItem = styled.div`
@@ -113,7 +114,7 @@ export const ProductWrapper = styled(motion.div)`
 	flex-direction: column;
 	padding: 16px;
 	width: 100%;
-	border-radius: ${(props) => props.theme.radius.borderRadius};
+	border-radius: ${theme.radius.borderRadius};
 	margin: 10px;
 	transition: 0.3s box-shadow;
 	background-color: #fff;
@@ -145,7 +146,7 @@ export const ProductWrapper = styled(motion.div)`
 	`}
 
     &:hover {
-		box-shadow: ${(props) => props.theme.layout.shadow};
+		box-shadow: ${theme.layout.shadow};
 	}
 
 	button {
@@ -194,7 +195,7 @@ export const Tools = styled.div`
 `;
 
 export const RatingColor = styled.span`
-	color: ${({ children, theme }) => {
+	color: ${({ children }) => {
 		if (children) {
 			if (Number(children) > 4) return theme.colors.success;
 			if (Number(children) < 4 && Number(children) > 3) return theme.colors.primary;
@@ -214,7 +215,7 @@ export const Help = styled.button`
 	cursor: pointer;
 	text-transform: uppercase;
 	margin-bottom: 10px;
-	color: ${(props) => props.theme.colors.gray.$5};
+	color: ${theme.colors.gray.$5};
 `;
 
 export const Description = styled.div<{ open: boolean }>`
