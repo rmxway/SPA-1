@@ -2,17 +2,21 @@ import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
 
-interface SortTypes {
+export interface SortTypes {
 	name: 'rating' | 'price' | 'default';
 	toggle?: boolean;
 }
+
+export type TypePages = 'products' | 'favorites';
 
 export interface ProductsState {
 	fetchedItems: IProduct[];
 	reservedItems: IProduct[];
 	total: number;
 	countPerPage: number;
+	countFavorites: number;
 	page: number;
+	typePage: TypePages;
 	error: string;
 	fetching: boolean;
 	sort: SortTypes;
@@ -26,7 +30,9 @@ const initialState: ProductsState = {
 	reservedItems: [],
 	total: 0,
 	page: 1,
+	typePage: 'products',
 	countPerPage: 4,
+	countFavorites: 0,
 	error: '',
 	fetching: true,
 	sort: {
@@ -77,8 +83,6 @@ const anyTogglesInProduct = (
 	toggleInArray(state.fetchedItems);
 };
 
-export type TypePages = 'page' | 'pageFavorites';
-
 const productsReducer = createSlice({
 	name: 'products',
 	initialState,
@@ -97,17 +101,15 @@ const productsReducer = createSlice({
 			initialItems(state, action.payload);
 		},
 		toggleProduct: (state, action: PayloadAction<number>) => {
-			const id = action.payload;
-			anyTogglesInProduct(state, id, 'checked');
+			anyTogglesInProduct(state, action.payload, 'checked');
 		},
 		removeAllToggledProducts: (state) => {
 			state.fetchedItems.forEach((item) => {
 				item.checked = false;
 			});
 		},
-		fetchingImageProduct: (state, action: PayloadAction<{ id: number }>) => {
-			const { id } = action.payload;
-			anyTogglesInProduct(state, id, 'imgFetch', false);
+		fetchingImageProduct: (state, action: PayloadAction<number>) => {
+			anyTogglesInProduct(state, action.payload, 'imgFetch', false);
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
 			const { name, toggle } = action.payload;
@@ -140,8 +142,10 @@ const productsReducer = createSlice({
 			state.fetchedItems = state.reservedItems.filter((item) => item.title.toLowerCase().includes(searchText));
 		},
 		toggleFavorite: (state, action: PayloadAction<number>) => {
-			const id = action.payload;
-			anyTogglesInProduct(state, id, 'favorite');
+			anyTogglesInProduct(state, action.payload, 'favorite');
+
+			state.countFavorites = state.reservedItems.filter((item) => item.favorite).length;
+			if (state.countPerPage === state.countFavorites && state.typePage === 'favorites') state.page = 1;
 		},
 		removeAllFavorites: (state) => {
 			state.reservedItems.forEach((item) => {
@@ -149,9 +153,13 @@ const productsReducer = createSlice({
 			});
 			state.fetchedItems = state.reservedItems;
 		},
-		changePage: (state, action: PayloadAction<{ page: number }>) => {
-			const { page } = action.payload;
-			state.page = page;
+		changePage: (state, action: PayloadAction<number>) => {
+			state.page = action.payload;
+		},
+		changeTypePage: (state, action: PayloadAction<TypePages>) => {
+			if (state.typePage === action.payload) return;
+			state.typePage = action.payload;
+			state.page = 1;
 		},
 	},
 });
@@ -172,6 +180,7 @@ export const {
 	toggleFavorite,
 	removeAllFavorites,
 	changePage,
+	changeTypePage,
 } = actions;
 
 export default reducer;

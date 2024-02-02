@@ -7,9 +7,9 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
-import { IProduct, useAppSelector } from '@/services';
+import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { TypePages } from '@/store/reducers/products';
+import { changeTypePage, TypePages } from '@/store/reducers/products';
 
 import { containerVars, FetchingBlock, Wrapper, WrapperComponent } from './styled';
 
@@ -23,16 +23,18 @@ interface ProductsGridProps extends PropsWithChildren {
 export const ProductsGrid = ({ children, items, pagination, page, keyPage }: ProductsGridProps) => {
 	const { error, countPerPage } = useAppSelector(productsStore);
 	const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
 		if (Array.isArray(items) && items.length > 0) {
 			const array = [...items];
 			const filteredItems = [...array.splice((page - 1) * countPerPage, countPerPage)];
 			setCurrentItems(filteredItems);
+			dispatch(changeTypePage(keyPage));
 		} else {
 			setCurrentItems([]);
 		}
-	}, [page, items, countPerPage]);
+	}, [page, items, countPerPage, keyPage, dispatch]);
 
 	return (
 		<WrapperComponent>
@@ -65,8 +67,8 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 				(currentItems.length === 0 && (
 					<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
 						<LayerBlock $mt>
-							{keyPage === 'page' && `The search did't take a result`}
-							{keyPage === 'pageFavorites' && (
+							{keyPage === 'products' && `The search did't take a result`}
+							{keyPage === 'favorites' && (
 								<>
 									{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
 								</>

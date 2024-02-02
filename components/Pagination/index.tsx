@@ -25,7 +25,7 @@ export const Pagination = ({ items, page }: PaginationProps) => {
 	const countButtons = countPages >= maxCount ? maxCount : countPages;
 
 	const debounceChangePage = debounce((num) => {
-		dispatch(changePage({ page: num }));
+		dispatch(changePage(num));
 		ScrollToTop();
 	}, 200);
 

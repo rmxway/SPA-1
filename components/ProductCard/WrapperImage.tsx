@@ -22,7 +22,7 @@ export const WrapperImages: FC<PropsType> = ({ product, size }) => {
 		e.currentTarget.classList.add('fetched');
 
 		if (idx === 0) {
-			dispatch(fetchingImageProduct({ id: Number(id) }));
+			dispatch(fetchingImageProduct(Number(id)));
 		}
 	};
 

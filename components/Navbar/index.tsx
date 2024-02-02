@@ -17,9 +17,8 @@ interface navbarTypes {
 }
 
 const RenderNavBar = () => {
-	const { fetchedItems } = useAppSelector(productsStore);
+	const { countFavorites } = useAppSelector(productsStore);
 	const { items } = useAppSelector(cartStore);
-	const countFavorites = fetchedItems.filter((item) => item.favorite).length;
 	const countCartItems = items.length;
 
 	return navbarItems.map(({ title, url }) => {

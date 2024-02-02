@@ -25,7 +25,7 @@ export const ContentProducts = ({ products }: PropsProducts) => {
 			<Filter />
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
 			{fetching && <div>Data loading ...</div>}
-			{!!reservedItems.length && <ProductsGrid items={fetchedItems} pagination page={page} keyPage="page" />}
+			{!!reservedItems.length && <ProductsGrid items={fetchedItems} pagination page={page} keyPage="products" />}
 		</Container>
 	);
 };
