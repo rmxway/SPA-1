@@ -1,23 +1,13 @@
 'use client';
 
-import { usePathname, useServerInsertedHTML } from 'next/navigation';
+import { useServerInsertedHTML } from 'next/navigation';
 import React, { useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
-import { navbarItems } from '@/mock/navbar';
-
-import { Template, TemplateProps } from './template';
+import { Template } from './template';
 
 export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
 	const [sheet] = useState(() => new ServerStyleSheet());
-	const pathname = usePathname();
-
-	const getTitle = () => {
-		if (pathname.includes('/product/')) return 'Product';
-		return navbarItems.find((item) => item.url === pathname)?.title;
-	};
-
-	const propsTemplate: TemplateProps = { title: getTitle(), isMain: pathname === '/', children };
 
 	try {
 		useServerInsertedHTML(() => {
@@ -28,11 +18,11 @@ export function StyledComponentsRegistry({ children }: { children: React.ReactNo
 			return <>{styles}</>;
 		});
 
-		if (typeof window !== 'undefined') return <Template {...propsTemplate} />;
+		if (typeof window !== 'undefined') return <Template>{children}</Template>;
 
 		return (
 			<StyleSheetManager sheet={sheet.instance}>
-				<Template {...propsTemplate} />
+				<Template>{children}</Template>
 			</StyleSheetManager>
 		);
 	} catch (error) {

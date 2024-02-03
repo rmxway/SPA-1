@@ -10,6 +10,7 @@ export interface SortTypes {
 export type TypePages = 'products' | 'favorites';
 
 export interface ProductsState {
+	title: string;
 	fetchedItems: IProduct[];
 	reservedItems: IProduct[];
 	total: number;
@@ -26,6 +27,7 @@ export interface ProductsState {
 }
 
 const initialState: ProductsState = {
+	title: '',
 	fetchedItems: [],
 	reservedItems: [],
 	total: 0,
@@ -34,7 +36,7 @@ const initialState: ProductsState = {
 	countPerPage: 4,
 	countFavorites: 0,
 	error: '',
-	fetching: true,
+	fetching: false,
 	sort: {
 		name: 'default',
 		toggle: false,
@@ -92,6 +94,9 @@ const productsReducer = createSlice({
 		},
 		setError: (state, action: PayloadAction<string>) => {
 			state.error = action.payload;
+		},
+		setTitle: (state, action: PayloadAction<string>) => {
+			state.title = action.payload;
 		},
 		addOneProduct: (state, action: PayloadAction<IProduct>) => {
 			state.fetchedItems[0] = action.payload;
@@ -169,6 +174,7 @@ const { actions, reducer } = productsReducer;
 export const {
 	fetching,
 	setError,
+    setTitle,
 	toggleProduct,
 	addOneProduct,
 	addProducts,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
@@ -10,7 +10,7 @@ export const useGetProduct = (serverProduct: IProduct) => {
 	const { fetchedItems, error, fetching } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 
-	useEffect(() => {
+	useLayoutEffect(() => {
 		if (fetchedItems.length === 0) {
 			dispatch(addOneProduct(serverProduct));
 		}

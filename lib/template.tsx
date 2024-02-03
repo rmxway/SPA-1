@@ -7,25 +7,15 @@ import { ReduxProvider } from '@/store/provider';
 import { defaultTheme, GlobalStyles } from '@/theme';
 
 export type TemplateProps = {
-	title?: string;
-	isMain?: boolean;
 	children?: ReactNode | undefined;
 };
 
-export const Template = ({ title = 'Test', isMain, children }: TemplateProps) => (
+export const Template = ({ children }: TemplateProps) => (
 	<ReduxProvider>
 		<ThemeProvider theme={defaultTheme}>
 			<GlobalStyles />
 			<Navbar />
-			<TopBlock $isFont={isMain}>
-				{isMain ? (
-					<>
-						Green Shop <span>| Brand</span>
-					</>
-				) : (
-					title
-				)}
-			</TopBlock>
+			<TopBlock />
 			{children}
 		</ThemeProvider>
 	</ReduxProvider>
