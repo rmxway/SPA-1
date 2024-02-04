@@ -11,7 +11,8 @@ import { TopBlockStyle } from './styled';
 export const TopBlock = () => {
 	const { title: titleStore } = useAppSelector(productsStore);
 	const pathname = usePathname();
-	const $isFont = pathname === '/';
+    const isMain = pathname === '/';
+	const $isFont = isMain || pathname.includes('/product/');
 
 	const getTitle = () => {
 		if (titleStore) return titleStore;
@@ -28,7 +29,7 @@ export const TopBlock = () => {
 							animate={{ y: 0, opacity: 1 }}
 							transition={{ duration: 0.3 }}
 						>
-							{$isFont ? (
+							{isMain ? (
 								<>
 									Green Shop <span>| Brand</span>
 								</>

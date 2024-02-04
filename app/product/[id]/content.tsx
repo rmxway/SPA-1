@@ -6,11 +6,12 @@ import Image from 'next/image';
 import { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { Container, Flexbox, LayerBlock, RatingStars } from '@/components/Layout';
-import { ButtonUI, Loader } from '@/components/ui';
+import { TextToggle } from '@/components';
+import { Flexbox, LayerBlock, RatingStars } from '@/components/Layout';
+import { ButtonUI, Favorite } from '@/components/ui';
 import { currency, IProduct, useAppDispatch } from '@/services';
 import { moveToCart } from '@/store/reducers/combineActions';
-import { setTitle } from '@/store/reducers/products';
+import { setTitle, toggleFavorite } from '@/store/reducers/products';
 
 import { Info, PriceBlock, SideBlock, Wrapper } from './styled';
 import { useGetProduct } from './useGetProduct';
@@ -20,11 +21,11 @@ interface ProductPageProps {
 }
 
 export function ContentProduct({ serverProduct }: ProductPageProps) {
-	const { error, fetching, product } = useGetProduct(serverProduct);
+	const { error, product } = useGetProduct(serverProduct);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(setTitle(product.title));
+		dispatch(setTitle(product.title || 'Error'));
 		return () => {
 			dispatch(setTitle(''));
 		};
@@ -32,72 +33,76 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 
 	return (
 		<Wrapper>
-			<Container>
-				<Loader loading={fetching} />
-				{error || ''}
-				{product && (
-					<Flexbox nowrap gap={30}>
-						<Info>
-							<LayerBlock>
+			{error || ''}
+			{product.title && (
+				<Flexbox gap={30}>
+					<Info>
+						<LayerBlock>
+							<Flexbox nowrap justify="space-between" align="center">
 								<RatingStars rating={Number(product.rating)} />
-								<br />
-								<Swiper slidesPerView={1} spaceBetween={50}>
-									{product.images?.map((image) => (
-										<SwiperSlide key={image}>
-											<Image src={image} width={500} height={500} alt={image} priority />
-										</SwiperSlide>
-									))}
-								</Swiper>
+								<p>
+									<strong>Category:</strong> {product.category}
+								</p>
+							</Flexbox>
 
-								<span>
-									<p>{product.description}</p>
+							<br />
+							<Swiper slidesPerView={1} spaceBetween={50}>
+								{product.images?.map((image) => (
+									<SwiperSlide key={image}>
+										<Image src={image} width={500} height={500} alt={image} priority />
+									</SwiperSlide>
+								))}
+							</Swiper>
+
+							<span>
+								<p>{product.description}</p>
+								<h4>Description:</h4>
+								<TextToggle length={3}>
 									<p>
-										<strong>Category:</strong> {product.category}
+										AMOLED FHD+ punch-hole display with a high screen-to-body ratio provides a more
+										exquisite, immersive experience. From dawn to dusk, OPPO F19’s eye-caring screen
+										continuously adapts to the level that’s gentle for your eyes.
 									</p>
 									<p>
-										Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, cum facere,
-										fugiat suscipit soluta quam consequuntur eius provident deserunt nobis ipsum?
-										Error, saepe at? Totam ipsum quo exercitationem ut consectetur illum tempore
-										repellat rerum vel voluptate neque reprehenderit repudiandae, a deleniti,
-										possimus expedita corrupti. Cupiditate officiis debitis sunt unde, optio
-										accusantium consequuntur voluptas error eius soluta, tenetur a eaque ratione
-										harum esse earum facilis cumque ea quaerat non accusamus repudiandae labore
-										omnis. Obcaecati ratione dolorum consequuntur rerum, cupiditate consectetur,
-										alias quos repellat mollitia quasi quis labore accusantium perferendis illum!
-										Ipsa vitae rem excepturi, modi, voluptas quidem ducimus, in voluptatum
-										architecto aliquid dolor atque consectetur tenetur provident cumque recusandae
-										itaque amet non consequatur tempora ut accusantium nesciunt tempore commodi.
-										Velit, deleniti illo eum incidunt dicta quaerat non exercitationem iste
-										corrupti, totam praesentium, quam illum. Deleniti perferendis soluta magni
-										molestiae veritatis, labore reprehenderit laborum velit inventore exercitationem
-										facilis debitis delectus officia pariatur numquam minus, voluptatum error
-										expedita voluptas? Tempore iure asperiores fugiat autem architecto, esse minus,
-										in accusamus odit, inventore sit placeat cumque quia. Est ex obcaecati rem nihil
-										repudiandae.
+										Amazing Performance at the Tip of Your Finger. Our advanced In-Display
+										Fingerprint Unlock rapidly and accurately scans your finger to instantly unlock
+										at the drop of a fingertip.
 									</p>
-								</span>
-							</LayerBlock>
-						</Info>
-						<SideBlock>
-							<LayerBlock>
-								<PriceBlock>
+									<p>
+										You deserve a phone that acts fast and never acts up. Our self-developed RAM
+										Expansion converts available ROM to RAM to support highly demanding apps and
+										reduce lags whenever necessary. To top it off, enjoy abundant memory and smooth
+										performance with 6GB of RAM and 128GB of ROM.
+									</p>
+								</TextToggle>
+							</span>
+						</LayerBlock>
+					</Info>
+					<SideBlock>
+						<LayerBlock>
+							<PriceBlock>
+								<Flexbox align="center" justify="space-between">
 									<span>
 										{product.price} {currency}
 									</span>
-									<ButtonUI
-										primary
-										animate
-										onClick={() => moveToCart(Number(product?.id))}
-										disabled={product.checked}
-									>
-										{product.checked ? 'Added' : 'Add to cart'}
-									</ButtonUI>
-								</PriceBlock>
-							</LayerBlock>
-						</SideBlock>
-					</Flexbox>
-				)}
-			</Container>
+									<Favorite
+										active={product.favorite}
+										onActive={() => dispatch(toggleFavorite(Number(product.id)))}
+									/>
+								</Flexbox>
+								<ButtonUI
+									primary
+									animate
+									onClick={() => moveToCart(Number(product?.id))}
+									disabled={product.checked}
+								>
+									{product.checked ? 'Added' : 'Add to cart'}
+								</ButtonUI>
+							</PriceBlock>
+						</LayerBlock>
+					</SideBlock>
+				</Flexbox>
+			)}
 		</Wrapper>
 	);
 }

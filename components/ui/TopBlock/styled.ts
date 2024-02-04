@@ -11,9 +11,8 @@ export const TopBlockStyle = styled.div<TopBlockProps>`
 			& h1 {
 				font-size: 3rem;
 				line-height: 0.9;
-				letter-spacing: -3px;
+				letter-spacing: -2px;
 				text-transform: uppercase;
-				font-weight: 900;
 			}
 		`}
 
@@ -25,7 +24,7 @@ export const TopBlockStyle = styled.div<TopBlockProps>`
 	display: flex;
 	align-items: center;
 	margin-bottom: 40px;
-	padding: ${(props) => (props.$isFont ? '50px 0' : '0 0')};
+	padding: ${(props) => (props.$isFont ? '30px 0' : '0 0')};
 	color: ${theme.colors.success};
 
 	transition: 0.2s all;

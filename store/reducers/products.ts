@@ -33,7 +33,7 @@ const initialState: ProductsState = {
 	total: 0,
 	page: 1,
 	typePage: 'products',
-	countPerPage: 4,
+	countPerPage: 12,
 	countFavorites: 0,
 	error: '',
 	fetching: false,
@@ -49,13 +49,6 @@ const initialState: ProductsState = {
 const initialItems = (state: ProductsState, products: IProduct[]) => {
 	if (state.reservedItems.length === products.length) return;
 
-	products = products.map((product) => ({
-		...product,
-		imgFetch: true,
-		checked: false,
-		favorite: false,
-	}));
-
 	// there was some product on the first page
 	if (state.fetchedItems.length === 1) {
 		const index = products.findIndex((product) => product.id === state.fetchedItems[0].id);
@@ -65,7 +58,7 @@ const initialItems = (state: ProductsState, products: IProduct[]) => {
 	state.total = products.length;
 
 	state.fetchedItems = [...products];
-	state.reservedItems = [...state.fetchedItems];
+	state.reservedItems = state.fetchedItems;
 	state.fetching = false;
 	state.error = '';
 };
@@ -83,6 +76,13 @@ const anyTogglesInProduct = (
 
 	toggleInArray(state.reservedItems);
 	toggleInArray(state.fetchedItems);
+};
+
+const resetItems = (state: ProductsState) => {
+	state.page = 1;
+	state.sort.toggle = false;
+	state.search.value = '';
+	state.fetchedItems = state.reservedItems;
 };
 
 const productsReducer = createSlice({
@@ -112,6 +112,7 @@ const productsReducer = createSlice({
 			state.fetchedItems.forEach((item) => {
 				item.checked = false;
 			});
+			state.reservedItems = state.fetchedItems;
 		},
 		fetchingImageProduct: (state, action: PayloadAction<number>) => {
 			anyTogglesInProduct(state, action.payload, 'imgFetch', false);
@@ -124,9 +125,7 @@ const productsReducer = createSlice({
 			state.page = 1;
 
 			if (name === 'default') {
-				state.sort.toggle = false;
-				state.search.value = '';
-				state.fetchedItems = state.reservedItems;
+				resetItems(state);
 			} else {
 				state.fetchedItems.sort((a, b) => {
 					if (name !== undefined && a[name] && b[name]) {
@@ -157,14 +156,16 @@ const productsReducer = createSlice({
 				item.favorite = false;
 			});
 			state.fetchedItems = state.reservedItems;
+			state.countFavorites = 0;
 		},
 		changePage: (state, action: PayloadAction<number>) => {
 			state.page = action.payload;
 		},
 		changeTypePage: (state, action: PayloadAction<TypePages>) => {
 			if (state.typePage === action.payload) return;
+			state.fetchedItems = state.reservedItems;
 			state.typePage = action.payload;
-			state.page = 1;
+			resetItems(state);
 		},
 	},
 });
@@ -174,7 +175,7 @@ const { actions, reducer } = productsReducer;
 export const {
 	fetching,
 	setError,
-    setTitle,
+	setTitle,
 	toggleProduct,
 	addOneProduct,
 	addProducts,

@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
+import { WrapperFavorite } from '@/components/ui/Favorite/styled';
 import { defaultTheme as theme } from '@/theme';
 import { media } from '@/theme/media';
 
@@ -60,38 +61,6 @@ export const WrapperImagesStyled = styled(motion.div)`
 		z-index: 0;
 	}
 
-	/* &:not(:has(${BlockImgItem}:nth-of-type(2))) {
-		${BlockImgItem}:after {
-			display: none;
-		}
-	}
-
-	&:not(:hover) ${BlockImgItem}:first-of-type {
-		&:after {
-			background-color: ${(props) => props.theme.colors.danger};
-		}
-	} */
-
-	/* ${BlockImgItem} {
-		&:after {
-			position: absolute;
-			bottom: 5px;
-			left: 2px;
-			right: 2px;
-			height: 2px;
-			z-index: 1;
-			background-color: ${(props) => props.theme.colors.gray.$3};
-			content: '';
-			transition: all 0.1s;
-		}
-	}
-
-	${BlockImgItem}:hover {
-		&:after {
-			background-color: ${(props) => props.theme.colors.danger};
-		}
-	} */
-
 	@keyframes fetched {
 		from {
 			opacity: 0;
@@ -121,6 +90,12 @@ export const ProductWrapper = styled(motion.div)`
 
 	a {
 		width: 100%;
+	}
+
+	${WrapperFavorite} {
+		position: absolute;
+		top: 0;
+		right: 0;
 	}
 
 	${media.greaterThan('xs')`
@@ -233,10 +208,9 @@ export const Description = styled.div<{ open: boolean }>`
 	text-overflow: ellipsis;
 
 	${(props) =>
-		props.open
-			? css`
-					max-height: 200px;
-					opacity: 1;
-			  `
-			: null}
+		props.open &&
+		css`
+			max-height: 200px;
+			opacity: 1;
+		`}
 `;

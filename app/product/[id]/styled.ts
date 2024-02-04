@@ -1,29 +1,34 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { LayerBlock } from '@/components/Layout';
+import { Container, Flexbox, LayerBlock } from '@/components/Layout';
 import { media } from '@/theme';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(Container)`
 	position: relative;
-	display: flex;
-	flex-wrap: wrap;
-	max-width: 100%;
+
+	${Flexbox} {
+		flex-wrap: wrap;
+	}
 
 	${media.greaterThan('md')`
-        flex-wrap: nowrap;
+        ${Flexbox} {
+            flex-wrap: nowrap;
+        }
     `}
 
 	.swiper {
 		margin-bottom: 20px;
 		border-radius: 10px;
 		border: 1px solid #ddd;
+		min-width: 1%;
+		background-color: ${(props) => props.theme.colors.dark};
 
 		.swiper-slide {
-			height: auto;
 			height: 25vw;
 			min-height: 450px;
 			max-height: 600px;
+			padding: 8px;
 		}
 	}
 
@@ -31,15 +36,14 @@ export const Wrapper = styled.div`
 		height: 100%;
 		width: 100%;
 		display: block;
-		margin: 0;
 		object-position: center;
-		object-fit: cover;
+		object-fit: contain;
 
-		${media.greaterThan('md')`
-            /* width: 100%;
+		/* ${media.greaterThan('md')`
+            width: 100%;
             height: 350px;
-            margin-bottom: 0; */
-        `}
+            margin-bottom: 0;
+        `} */
 	}
 `;
 
@@ -58,7 +62,9 @@ export const ProductImage = styled(Image)`
 `;
 
 export const Info = styled.div`
-	flex-grow: 1;
+	// flex-grow: 1;
+	// width: auto;
+	// max-width: 100%;
 	min-width: 1px;
 
 	span {
@@ -76,25 +82,41 @@ export const Info = styled.div`
 `;
 
 export const SideBlock = styled.div`
+	z-index: 1;
 	position: relative;
+	flex-shrink: 0;
+	width: 300px;
 
 	${LayerBlock} {
 		position: sticky;
 		top: 90px;
 	}
+
+	${media.lessThan('md')`
+        width: 100%;
+
+        ${LayerBlock} {
+            position: fixed;
+            top: auto;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            border-top: 1px solid #ddd;
+            border-radius: 0;
+            margin-bottom: 0;
+        }
+    `}
 `;
 
 export const PriceBlock = styled.div`
-	flex-shrink: 0;
-	width: 200px;
+	position: relative;
 
-	${media.greaterThan('md')`
-        width: 300px;
-    `}
+	${Flexbox} {
+		span {
+			display: block;
+			font-size: 30px;
+		}
 
-	& > span {
-		display: block;
-		font-size: 30px;
 		margin-bottom: 30px;
 	}
 

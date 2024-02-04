@@ -26,11 +26,11 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
+		dispatch(changeTypePage(keyPage));
 		if (Array.isArray(items) && items.length > 0) {
 			const array = [...items];
 			const filteredItems = [...array.splice((page - 1) * countPerPage, countPerPage)];
 			setCurrentItems(filteredItems);
-			dispatch(changeTypePage(keyPage));
 		} else {
 			setCurrentItems([]);
 		}

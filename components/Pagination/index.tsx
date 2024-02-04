@@ -21,8 +21,8 @@ export const Pagination = ({ items, page }: PaginationProps) => {
 	const { countPerPage, fetching } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 	const countPages = Math.ceil(total / countPerPage);
-	const maxCount = 4;
-	const countButtons = countPages >= maxCount ? maxCount : countPages;
+	const maxButtonsCount = 4;
+	const countButtons = countPages >= maxButtonsCount ? maxButtonsCount : countPages;
 
 	const debounceChangePage = debounce((num) => {
 		dispatch(changePage(num));
@@ -30,9 +30,6 @@ export const Pagination = ({ items, page }: PaginationProps) => {
 	}, 200);
 
 	const viewedItems = (): number => {
-		if (!(total % countPerPage)) {
-			return total;
-		}
 		if (countPages !== page) {
 			return page * countPerPage;
 		}
