@@ -19,6 +19,14 @@ const itemVar = {
 	visible: { opacity: 1 },
 };
 
+/**
+ * Button with any properties
+ * @param w100 - {boolean} width 100%
+ * @param inactive - {boolean} pointer-events: none
+ * @param margins - {boolean} margin-right and margin-bottom 10px
+ * @param |boolean param| - success, danger, primary, white, black
+ */
+
 export const ButtonUI = memo(
 	({ children, animate = false, ...props }: PropsWithChildren<ButtonProps & { animate?: boolean }>) => {
 		const memoText = String(children).split('');
@@ -43,7 +51,7 @@ export const ButtonUI = memo(
 				)}
 			</Button>
 		);
-	}
+	},
 );
 
 ButtonUI.displayName = 'ButtonUI';

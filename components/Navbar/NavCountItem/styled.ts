@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { media } from '@/theme';
-
 export const NavCountItemStyled = styled.div`
 	position: relative;
 	display: flex;
@@ -16,11 +14,6 @@ export const NavCountItemStyled = styled.div`
 		font-size: 1.5rem;
 		color: #222;
 	}
-
-	${media.greaterThan('xs')`
-        height: auto;
-        font-size: 1rem;
-    `}
 `;
 
 export default NavCountItemStyled;

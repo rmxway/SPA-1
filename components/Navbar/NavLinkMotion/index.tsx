@@ -2,27 +2,24 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { memo, ReactNode } from 'react';
 
-import { Count } from '../Count';
 import { Line, NavbarItem } from '../styled';
 
-interface NavLinkProps {
+export interface navbarTypes {
 	title?: string;
 	url: string;
 	component?: ReactNode;
-	count?: number;
+	onClick?: () => void;
 }
 
-export const NavLinkMotion = memo(({ title, url, component, count }: NavLinkProps) => {
+export const NavLinkMotion = memo(({ title, url, component, ...props }: navbarTypes) => {
 	const pathname = usePathname();
 	const isActive = pathname === url;
 
 	return (
-		<NavbarItem>
+		<NavbarItem {...props}>
 			<Link href={url} />
 			{title}
 			{component}
-			{count ? <Count {...{ count }} /> : null}
-
 			{isActive ? (
 				<Line
 					layoutId="underline"

@@ -119,21 +119,21 @@ const Button = styled.button<ButtonProps>`
 		cursor: default;
 	}
 
-	${(props) => {
-		if (props?.success) return mixinButton(theme.colors.success);
-		if (props?.danger) return mixinButton(theme.colors.danger);
-		if (props?.primary) return mixinButton(theme.colors.primary, '#6d410a');
-		if (props?.white) return mixinButton('#fff', theme.colors.success);
-		if (props?.black) return mixinButton(theme.colors.dark);
+	${({ success, danger, primary, white, black }) => {
+		if (success) return mixinButton(theme.colors.success);
+		if (danger) return mixinButton(theme.colors.danger);
+		if (primary) return mixinButton(theme.colors.primary, '#6d410a');
+		if (white) return mixinButton('#fff', theme.colors.success);
+		if (black) return mixinButton(theme.colors.dark);
 		return null;
 	}}
 
-	${(props) => {
-		if (props?.w100)
+	${({ w100, inactive }) => {
+		if (w100)
 			return css`
 				width: 100%;
 			`;
-		if (props?.inactive)
+		if (inactive)
 			return css`
 				pointer-events: none;
 			`;

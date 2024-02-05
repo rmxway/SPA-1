@@ -11,13 +11,15 @@ type TextToggleProps = {
 export const TextToggle = ({ length = 2, children }: TextToggleProps) => {
 	const [isOpen, setOpen] = useState(false);
 
+	const height = `${length * 30}px`;
+
 	const handleClick = () => {
 		setOpen((prev) => !prev);
 	};
 
 	return (
 		<WrapperTextToggle $isOpen={isOpen}>
-			<motion.div animate={{ height: isOpen ? 'auto' : `${length * 30}px` }} transition={{ duration: 0.2 }}>
+			<motion.div style={{ height }} animate={{ height: isOpen ? 'auto' : height }}>
 				{children}
 			</motion.div>
 			<button type="button" onClick={handleClick}>
