@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+import { defaultTheme as theme } from '@/theme';
+
 interface ToggleTypes {
 	toggle?: boolean;
 }
@@ -9,13 +11,13 @@ export const Toggle = styled.button<ToggleTypes>`
 	border: none;
 	background: none;
 	position: relative;
-	color: ${(props) => props.theme.colors.gray.$7};
+	color: ${theme.colors.gray.$7};
 	margin-right: 20px;
 	padding-right: 20px;
 	cursor: pointer;
 
 	&:hover {
-		color: ${(props) => props.theme.colors.gray.$9};
+		color: ${theme.colors.gray.$9};
 	}
 
 	input {
@@ -27,7 +29,7 @@ export const Toggle = styled.button<ToggleTypes>`
 	}
 
 	input:checked + label {
-		color: ${(props) => props.theme.colors.danger};
+		color: ${theme.colors.danger};
 
 		i {
 			display: block;

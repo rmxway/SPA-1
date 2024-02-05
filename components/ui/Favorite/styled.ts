@@ -1,27 +1,26 @@
 import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div<{ active?: boolean }>`
-	position: absolute;
+import { defaultTheme as theme } from '@/theme';
+
+export const WrapperFavorite = styled.div<{ active?: boolean }>`
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	width: 40px;
 	height: 40px;
 	cursor: pointer;
-	top: 0;
-	right: 0;
-	z-index: 1;
+	z-index: 2;
 	opacity: 0.5;
 	transition: 0.2s;
 
-    .icofont {
-        font-size: 1.3rem;
-    }
+	.icofont {
+		font-size: 1.3rem;
+	}
 
 	${(props) =>
 		props?.active &&
 		css`
-			color: ${props.theme.colors.danger};
+			color: ${theme.colors.danger};
 			opacity: 1;
 		`}
 
@@ -31,8 +30,8 @@ export const Wrapper = styled.div<{ active?: boolean }>`
 
 	&:hover {
 		opacity: 1;
-		color: ${(props) => props.theme.colors.danger};
+		color: ${theme.colors.danger};
 	}
 `;
 
-export default Wrapper;
+export default WrapperFavorite;

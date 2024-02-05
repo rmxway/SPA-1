@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 
-import { productsUrl } from '@/services';
+import { IProduct, productsUrl } from '@/services';
 
 import { ContentProducts } from './content';
 
@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default async function ProductsPage() {
 	const getProducts = async () => {
 		try {
-			const res = await fetch(productsUrl, { cache: 'default' });
+			const res = await fetch(productsUrl);
 			if (res.ok) return res.json();
 		} catch (error) {
 			// eslint-disable-next-line no-console
@@ -20,7 +20,7 @@ export default async function ProductsPage() {
 		return [];
 	};
 
-	const data = await getProducts();
+	const data: IProduct[] = await getProducts();
 
 	return <ContentProducts products={data} />;
 }

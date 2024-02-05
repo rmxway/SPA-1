@@ -2,6 +2,11 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme';
 
+/**
+ * Adaptive container block
+ * @param {boolean} $pt
+ */
+
 export const Container = styled.div<{ $pt?: boolean }>`
 	position: relative;
 	display: block;
@@ -10,14 +15,14 @@ export const Container = styled.div<{ $pt?: boolean }>`
 	max-width: 100%;
 	margin: 0 auto;
 
-	${(props) =>
-		props.$pt &&
+	${({ $pt }) =>
+		$pt &&
 		css`
 			padding-top: 20px;
 		`}
 
 	${media.greaterThan('sm')`
-		max-width: 768px;
+		max-width: 100%;
 	`}
 
 	${media.greaterThan('md')`

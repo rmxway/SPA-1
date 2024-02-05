@@ -2,6 +2,8 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
+import { WrapperFavorite } from '@/components/ui/Favorite/styled';
+import { defaultTheme as theme } from '@/theme';
 import { media } from '@/theme/media';
 
 export const BlockImgItem = styled.div`
@@ -39,9 +41,8 @@ export const BlockImgItem = styled.div`
 export const WrapperImagesStyled = styled(motion.div)`
 	position: relative;
 	display: flex;
-	align-items: stretch;
 	justify-content: center;
-	height: 200px;
+	height: 180px;
 	text-decoration: none;
 
 	&:after {
@@ -60,51 +61,17 @@ export const WrapperImagesStyled = styled(motion.div)`
 		z-index: 0;
 	}
 
-	&:not(:has(${BlockImgItem}:nth-of-type(2))) {
-		${BlockImgItem}:after {
-			display: none;
-		}
-	}
-
-	&:not(:hover) ${BlockImgItem}:first-of-type {
-		&:after {
-			background-color: ${(props) => props.theme.colors.danger};
-		}
-	}
-
-	${BlockImgItem} {
-		&:after {
-			position: absolute;
-			bottom: 0;
-			left: 2px;
-			right: 2px;
-			height: 2px;
-			z-index: 1;
-			background-color: ${(props) => props.theme.colors.gray.$3};
-			content: '';
-			transition: all 0.1s;
-		}
-	}
-
-	${BlockImgItem}:hover {
-		&:after {
-			background-color: ${(props) => props.theme.colors.danger};
-		}
-	}
-
 	@keyframes fetched {
 		from {
-			filter: blur(10px);
 			opacity: 0;
 		}
 		to {
-			filter: blur(0px);
 			opacity: 1;
 		}
 	}
 
 	.fetched {
-		animation: fetched 0.3s;
+		animation: fetched 0.4s;
 		animation-fill-mode: forwards;
 	}
 `;
@@ -116,7 +83,7 @@ export const ProductWrapper = styled(motion.div)`
 	flex-direction: column;
 	padding: 16px;
 	width: 100%;
-	border-radius: ${(props) => props.theme.radius.borderRadius};
+	border-radius: ${theme.radius.borderRadius};
 	margin: 10px;
 	transition: 0.3s box-shadow;
 	background-color: #fff;
@@ -125,13 +92,19 @@ export const ProductWrapper = styled(motion.div)`
 		width: 100%;
 	}
 
+	${WrapperFavorite} {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
 	${media.greaterThan('xs')`
         width: calc(50% - 20px);
 
         ${WrapperImagesStyled} {
             img {
-                width: 190px;
-                height: 190px;
+                width: 175px;
+                height: 175px;
                 object-fit: contain;
                 object-position: center;
                 margin: auto;
@@ -148,7 +121,7 @@ export const ProductWrapper = styled(motion.div)`
 	`}
 
     &:hover {
-		box-shadow: ${(props) => props.theme.layout.shadow};
+		box-shadow: ${theme.layout.shadow};
 	}
 
 	button {
@@ -162,7 +135,7 @@ export const Title = styled(Link)`
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 1.15;
-	flex-shrink: 0;
+	height: 35px;
 	margin-bottom: 10px;
 	width: 100%;
 	text-decoration: none;
@@ -171,7 +144,6 @@ export const Title = styled(Link)`
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
-	min-height: 35px;
 
 	&:hover {
 		text-decoration: underline;
@@ -186,10 +158,11 @@ export const Price = styled.div`
 export const Tools = styled.div`
 	font-weight: 500;
 	width: 100%;
-	margin: 20px 0;
+	margin: 10px 0 20px;
 	display: flex;
 	flex-direction: column;
 	font-size: 14px;
+	flex-shrink: 0;
 
 	& > span {
 		font-weight: 600;
@@ -197,7 +170,7 @@ export const Tools = styled.div`
 `;
 
 export const RatingColor = styled.span`
-	color: ${({ children, theme }) => {
+	color: ${({ children }) => {
 		if (children) {
 			if (Number(children) > 4) return theme.colors.success;
 			if (Number(children) < 4 && Number(children) > 3) return theme.colors.primary;
@@ -217,23 +190,27 @@ export const Help = styled.button`
 	cursor: pointer;
 	text-transform: uppercase;
 	margin-bottom: 10px;
-	color: ${(props) => props.theme.colors.gray.$5};
+	color: ${theme.colors.gray.$5};
 `;
 
 export const Description = styled.div<{ open: boolean }>`
+	display: -webkit-box;
 	font-size: 14px;
 	line-height: 1.3;
 	text-align: left;
 	max-height: 0;
-	overflow: hidden;
-	transition: 0.3s all;
+	transition: 0.4s all;
 	opacity: 0;
+	width: 100%;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	text-overflow: ellipsis;
 
 	${(props) =>
-		props.open
-			? css`
-					max-height: 400px;
-					opacity: 1;
-			  `
-			: null}
+		props.open &&
+		css`
+			max-height: 200px;
+			opacity: 1;
+		`}
 `;

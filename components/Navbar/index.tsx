@@ -1,45 +1,70 @@
 import Link from 'next/link';
-import { ReactNode } from 'react';
+import { useMemo, useState } from 'react';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
 import { navbarItems } from '@/mock/navbar';
-import { useAppSelector } from '@/services';
+import { useAppSelector, useMediaQuery } from '@/services';
 import { cartStore, productsStore } from '@/store';
+import { breakpoints } from '@/theme';
 
 import { NavCountItem } from './NavCountItem';
-import { NavLinkMotion } from './NavLinkMotion';
-import { Logo, StyledNavbar } from './styled';
-
-interface navbarTypes {
-	title?: string;
-	url: string;
-	component?: ReactNode;
-}
+import { navbarTypes, NavLinkMotion } from './NavLinkMotion';
+import { BurgerButton, Logo, StyledNavbar, variantsWrapperNavbar, WrapperNavbarItems } from './styled';
 
 const RenderNavBar = () => {
-	const { fetchedItems } = useAppSelector(productsStore);
+	const [open, setOpen] = useState(false);
+	const { countFavorites } = useAppSelector(productsStore);
 	const { items } = useAppSelector(cartStore);
-	const countFavorites = fetchedItems.filter((item) => item.favorite).length;
 	const countCartItems = items.length;
 
-	return navbarItems.map(({ title, url }) => {
-		const props: navbarTypes = {
-			title,
-			url,
-		};
+	const match = useMediaQuery(breakpoints.sm);
 
-		// NavCountItem добавляется в пропсы к компоненту NavLinkMotion
+	useMemo(() => {
+		if (!match) setOpen(false);
+	}, [match]);
 
-		if (title === 'Favorites') {
-			props.component = <NavCountItem title="favorite-fill" count={countFavorites} />;
-		}
+	const animatedMobileMenu = () => {
+		if (match) return open ? 'visible' : 'hidden';
+		return undefined;
+	};
 
-		if (title === 'Cart') {
-			props.component = <NavCountItem title="cart" count={countCartItems} />;
-		}
+	const handleClickBurger = () => {
+		setOpen((prev) => !prev);
+	};
 
-		return <NavLinkMotion key={url} {...props} />;
-	});
+	return (
+		<>
+			<BurgerButton black onClick={handleClickBurger} $isOpen={open}>
+				<span />
+				<span />
+				<span />
+			</BurgerButton>
+			<WrapperNavbarItems
+				variants={variantsWrapperNavbar}
+				animate={animatedMobileMenu()}
+				transition={{ duration: 0.3, type: 'spring', stiffness: 250, damping: 20 }}
+			>
+				{navbarItems.map(({ title, url }) => {
+					const props: navbarTypes = {
+						title,
+						url,
+					};
+
+					// NavCountItem добавляется в пропсы к компоненту NavLinkMotion
+
+					if (title === 'Favorites') {
+						props.component = <NavCountItem title="favorite-fill" count={countFavorites} />;
+					}
+
+					if (title === 'Cart') {
+						props.component = <NavCountItem title="cart" count={countCartItems} />;
+					}
+
+					return <NavLinkMotion key={url} {...props} onClick={() => setOpen(false)} />;
+				})}
+			</WrapperNavbarItems>
+		</>
+	);
 };
 
 export const Navbar = () => (

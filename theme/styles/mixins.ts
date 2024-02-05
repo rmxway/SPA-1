@@ -1,19 +1,19 @@
 import { rgba } from 'polished';
 import { css } from 'styled-components';
 
-export const rightHideGradient = (bg = '#ffffff') => css`
+export const hideGradientMixin = (bg = '#ffffff', position = 'right') => css`
 	position: relative;
 
 	&::after {
 		content: '';
 		position: absolute;
 		right: 0;
+		left: 0;
 		bottom: 0;
-		width: 35%;
-		height: 1rem;
+		top: 0;
 
-		background: linear-gradient(to right, ${rgba(bg, 0)} 0%, ${bg} 100%);
+		background: linear-gradient(to ${position}, ${rgba(bg, 0)} 60%, ${bg} 95%);
 	}
 `;
 
-export default rightHideGradient;
+export default hideGradientMixin;

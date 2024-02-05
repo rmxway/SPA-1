@@ -2,39 +2,44 @@ import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
 
+export interface SortTypes {
+	name: 'rating' | 'price' | 'default';
+	toggle?: boolean;
+}
+
+export type TypePages = 'products' | 'favorites';
+
 export interface ProductsState {
+	title: string;
 	fetchedItems: IProduct[];
-	currentItems: IProduct[];
+	reservedItems: IProduct[];
 	total: number;
 	countPerPage: number;
+	countFavorites: number;
 	page: number;
+	typePage: TypePages;
 	error: string;
 	fetching: boolean;
-	sort: {
-		name: string;
-		toggle?: boolean;
-	};
+	sort: SortTypes;
 	search: {
 		value: string;
 	};
 }
 
-interface SortTypes {
-	sort: 'rating' | 'price' | 'reset';
-	toggle?: boolean;
-}
-
 const initialState: ProductsState = {
+	title: '',
 	fetchedItems: [],
-	currentItems: [],
+	reservedItems: [],
 	total: 0,
 	page: 1,
+	typePage: 'products',
 	countPerPage: 12,
+	countFavorites: 0,
 	error: '',
 	fetching: false,
 	sort: {
-		name: '',
-		toggle: true,
+		name: 'default',
+		toggle: false,
 	},
 	search: {
 		value: '',
@@ -42,15 +47,7 @@ const initialState: ProductsState = {
 };
 
 const initialItems = (state: ProductsState, products: IProduct[]) => {
-	if (state.fetchedItems.length === products.length) return;
-
-	products.forEach((product) => {
-		product.imgFetch = true;
-		product.favorite = false;
-		product.checked = false;
-	});
-
-	state.total = products.length;
+	if (state.reservedItems.length === products.length) return;
 
 	// there was some product on the first page
 	if (state.fetchedItems.length === 1) {
@@ -58,12 +55,35 @@ const initialItems = (state: ProductsState, products: IProduct[]) => {
 		products[index] = current(state.fetchedItems[0]);
 	}
 
+	state.total = products.length;
+
 	state.fetchedItems = [...products];
+	state.reservedItems = state.fetchedItems;
 	state.fetching = false;
 	state.error = '';
 };
 
-export type TypePages = 'page' | 'pageFavorites';
+const anyTogglesInProduct = (
+	state: ProductsState,
+	id: number,
+	type: 'checked' | 'favorite' | 'imgFetch',
+	boo?: boolean,
+) => {
+	const toggleInArray = (array: IProduct[]) => {
+		const currentItem = array.find((item) => item.id === id);
+		if (currentItem) currentItem[type] = boo ?? !currentItem[type];
+	};
+
+	toggleInArray(state.reservedItems);
+	toggleInArray(state.fetchedItems);
+};
+
+const resetItems = (state: ProductsState) => {
+	state.page = 1;
+	state.sort.toggle = false;
+	state.search.value = '';
+	state.fetchedItems = state.reservedItems;
+};
 
 const productsReducer = createSlice({
 	name: 'products',
@@ -75,53 +95,77 @@ const productsReducer = createSlice({
 		setError: (state, action: PayloadAction<string>) => {
 			state.error = action.payload;
 		},
+		setTitle: (state, action: PayloadAction<string>) => {
+			state.title = action.payload;
+		},
 		addOneProduct: (state, action: PayloadAction<IProduct>) => {
 			state.fetchedItems[0] = action.payload;
+			state.reservedItems[0] = action.payload;
 		},
 		addProducts: (state, action: PayloadAction<IProduct[]>) => {
 			initialItems(state, action.payload);
 		},
 		toggleProduct: (state, action: PayloadAction<number>) => {
-			const id = action.payload;
-
-			const currentItem = state.fetchedItems.find((item) => item.id === id);
-			if (currentItem) currentItem.checked = !currentItem.checked;
+			anyTogglesInProduct(state, action.payload, 'checked');
 		},
 		removeAllToggledProducts: (state) => {
 			state.fetchedItems.forEach((item) => {
 				item.checked = false;
 			});
+			state.reservedItems = state.fetchedItems;
 		},
-		fetchingImageProduct: (state, action: PayloadAction<{ id: number; fetch: boolean }>) => {
-			const { fetch, id } = action.payload;
-			const el = state.fetchedItems.find((item) => item.id === id);
-			if (el) el.imgFetch = fetch;
+		fetchingImageProduct: (state, action: PayloadAction<number>) => {
+			anyTogglesInProduct(state, action.payload, 'imgFetch', false);
 		},
 		sortProducts: (state, action: PayloadAction<SortTypes>) => {
-			const { sort, toggle } = action.payload;
-			console.log(sort, toggle);
-		},
-		searchProduct: (state, action: PayloadAction<string>) => {
-			state.search.value = action.payload.trim();
+			const { name, toggle } = action.payload;
 
-			// code
+			state.sort.name = name;
+			state.sort.toggle = toggle;
+			state.page = 1;
+
+			if (name === 'default') {
+				resetItems(state);
+			} else {
+				state.fetchedItems.sort((a, b) => {
+					if (name !== undefined && a[name] && b[name]) {
+						return Number(a[name]) > Number(b[name]) ? -1 : 1;
+					}
+					return 0;
+				});
+
+				if (toggle) state.fetchedItems = state.fetchedItems.reverse();
+			}
+		},
+		searchValue: (state, action: PayloadAction<string>) => {
+			state.search.value = action.payload;
+		},
+		searchProducts: (state, action: PayloadAction<string>) => {
+			const searchText = action.payload.toLowerCase().trim();
+			state.page = 1;
+			state.fetchedItems = state.reservedItems.filter((item) => item.title.toLowerCase().includes(searchText));
 		},
 		toggleFavorite: (state, action: PayloadAction<number>) => {
-			const id = action.payload;
-			const currentItem = state.fetchedItems.find((item) => item.id === id);
-			if (currentItem) currentItem.favorite = !currentItem.favorite;
-		},
-		changePage: (state, action: PayloadAction<{ page: number }>) => {
-			const { page } = action.payload;
-			state.page = page;
-		},
-		setCurrentItems: (state, action: PayloadAction<{ items: IProduct[]; page: number }>) => {
-			const { items } = action.payload;
+			anyTogglesInProduct(state, action.payload, 'favorite');
 
-			const filteredItems = items.length
-				? items.splice((state.page - 1) * state.countPerPage, state.countPerPage)
-				: [];
-			state.currentItems = filteredItems;
+			state.countFavorites = state.reservedItems.filter((item) => item.favorite).length;
+			if (state.countPerPage === state.countFavorites && state.typePage === 'favorites') state.page = 1;
+		},
+		removeAllFavorites: (state) => {
+			state.reservedItems.forEach((item) => {
+				item.favorite = false;
+			});
+			state.fetchedItems = state.reservedItems;
+			state.countFavorites = 0;
+		},
+		changePage: (state, action: PayloadAction<number>) => {
+			state.page = action.payload;
+		},
+		changeTypePage: (state, action: PayloadAction<TypePages>) => {
+			if (state.typePage === action.payload) return;
+			state.fetchedItems = state.reservedItems;
+			state.typePage = action.payload;
+			resetItems(state);
 		},
 	},
 });
@@ -131,16 +175,19 @@ const { actions, reducer } = productsReducer;
 export const {
 	fetching,
 	setError,
+	setTitle,
 	toggleProduct,
 	addOneProduct,
 	addProducts,
 	removeAllToggledProducts,
 	fetchingImageProduct,
 	sortProducts,
-	searchProduct,
+	searchValue,
+	searchProducts,
 	toggleFavorite,
+	removeAllFavorites,
 	changePage,
-	setCurrentItems,
+	changeTypePage,
 } = actions;
 
 export default reducer;

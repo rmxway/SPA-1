@@ -27,7 +27,7 @@ export const StyledFilter = styled.div`
 	.title {
 		text-transform: uppercase;
 		font-size: 16px;
-		color: ${(props) => props.theme.colors.gray.$5};
+		color: ${({ theme }) => theme.colors.gray.$5};
 		margin-right: 20px;
 	}
 

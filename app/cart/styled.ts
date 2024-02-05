@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-import { media } from '@/theme';
+import { defaultTheme as theme, media } from '@/theme';
 
 export const contentVariant = {
 	hidden: { opacity: 1 },
@@ -12,6 +12,12 @@ export const contentVariant = {
 			staggerChildren: 0.1,
 		},
 	},
+};
+
+export const trashVariant = {
+	initial: { opacity: 0, y: -10 },
+	visible: { opacity: 1, y: 0 },
+	hidden: { opacity: 0, scale: 0.5 },
 };
 
 export const Cart = styled.div`
@@ -34,8 +40,8 @@ export const Trash = styled(motion.div)`
 	align-items: center;
 	justify-content: center;
 	cursor: pointer;
-	color: ${(props) => props.theme.colors.gray.$6};
-	border-radius: ${(props) => props.theme.radius.borderRadius};
+	color: ${theme.colors.gray.$6};
+	border-radius: ${theme.radius.borderRadius};
 	transition: 0.2s;
 
 	.icofont {
@@ -44,7 +50,7 @@ export const Trash = styled(motion.div)`
 	}
 
 	&:hover {
-		color: ${(props) => props.theme.colors.gray.$9};
+		color: ${theme.colors.gray.$9};
 	}
 `;
 
@@ -68,7 +74,7 @@ export const Sidebar = styled(motion.div)`
 	flex-shrink: 0;
 	padding: 20px;
 	background-color: #fff;
-	border-radius: ${(props) => props.theme.radius.borderRadius};
+	border-radius: ${theme.radius.borderRadius};
 
 	${media.greaterThan('sm')`
         position: sticky;
@@ -101,7 +107,7 @@ export const Total = styled.div`
 	span {
 		font-size: 32px;
 		margin-left: 10px;
-		color: ${(props) => props.theme.colors.dark};
+		color: ${theme.colors.dark};
 	}
 `;
 

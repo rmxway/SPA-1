@@ -1,10 +1,11 @@
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
 import { ButtonUI } from '@/components/ui';
-import { fadeIn, media } from '@/theme';
+import { defaultTheme as theme, fadeIn, media } from '@/theme';
 
 export const Info = styled.div`
-	color: ${(props) => props.theme.colors.gray.$6};
+	color: ${theme.colors.gray.$6};
 	font-size: 0.9rem;
 
 	${media.greaterThan('xs')`
@@ -12,10 +13,11 @@ export const Info = styled.div`
     `}
 `;
 
-export const Wrapper = styled.div`
+export const Wrapper = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 	min-height: 30px;
+	margin-bottom: 20px;
 
 	${media.greaterThan('xs')`
         flex-direction: row;
@@ -31,13 +33,13 @@ export const ArrowButton = styled.button<{ left?: boolean; right?: boolean }>`
 	line-height: 1;
 	height: 26px;
 	padding: 0;
-	border: 1px solid ${(props) => props.theme.colors.gray.$4};
-	border-radius: calc(${(props) => props.theme.radius.borderRadius} * 1.1);
+	border: 1px solid ${theme.colors.gray.$4};
+	border-radius: calc(${theme.radius.borderRadius} * 1.1);
 	margin-right: 2px;
-	color: ${(props) => props.theme.colors.gray.$6};
+	color: ${theme.colors.gray.$6};
 
 	&:hover {
-		color: ${(props) => props.theme.colors.gray.$7};
+		color: ${theme.colors.gray.$7};
 	}
 
 	${media.greaterThan('xs')`

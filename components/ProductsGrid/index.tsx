@@ -7,10 +7,9 @@ import { PropsWithChildren, useEffect, useState } from 'react';
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
-import { Loader } from '@/components/ui';
-import { IProduct, useAppSelector } from '@/services';
+import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { TypePages } from '@/store/reducers/products';
+import { changeTypePage, TypePages } from '@/store/reducers/products';
 
 import { containerVars, FetchingBlock, Wrapper, WrapperComponent } from './styled';
 
@@ -22,10 +21,12 @@ interface ProductsGridProps extends PropsWithChildren {
 }
 
 export const ProductsGrid = ({ children, items, pagination, page, keyPage }: ProductsGridProps) => {
-	const { fetching, error, countPerPage } = useAppSelector(productsStore);
+	const { error, countPerPage } = useAppSelector(productsStore);
 	const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
+	const dispatch = useAppDispatch();
 
 	useEffect(() => {
+		dispatch(changeTypePage(keyPage));
 		if (Array.isArray(items) && items.length > 0) {
 			const array = [...items];
 			const filteredItems = [...array.splice((page - 1) * countPerPage, countPerPage)];
@@ -33,29 +34,23 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 		} else {
 			setCurrentItems([]);
 		}
-	}, [page, items, countPerPage]);
-
-	if (fetching)
-		<WrapperComponent>
-			<Loader loading={fetching} />
-		</WrapperComponent>;
+	}, [page, items, countPerPage, keyPage, dispatch]);
 
 	return (
 		<WrapperComponent>
-			{pagination && !!currentItems.length && <Pagination items={items} page={page} />}
+			{pagination && currentItems.length !== 0 && <Pagination items={items} page={page} />}
 			{!!currentItems.length && (
 				<Wrapper>
 					{children}
 					<LayoutGroup>
-						<FetchingBlock variants={containerVars} animate={fetching ? 'hidden' : 'visible'}>
+						<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
 							{!!currentItems.length &&
-								!fetching &&
 								!error &&
-								currentItems.map((product) => (
+								currentItems.map((product, idx) => (
 									<ProductCard
 										product={product}
 										layout
-										transition={{ duration: 0.5 }}
+										transition={{ duration: 0.3, delay: idx * 0.04 }}
 										variants={containerVars}
 										initial="hidden"
 										animate="visible"
@@ -68,25 +63,19 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 				</Wrapper>
 			)}
 
-			{!currentItems.length && !fetching && !error && (
-				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
-					<LayerBlock $mt>
-						{keyPage === 'page' && `The search did't take a result`}
-						{keyPage === 'pageFavorites' && (
-							<>
-								{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
-							</>
-						)}
-					</LayerBlock>
-				</motion.div>
-			)}
-
-			{/* {pagination && !!currentItems.length && (
-				<>
-					<br />
-					<Pagination items={items} />
-				</>
-			)} */}
+			{items.length > 0 ||
+				(currentItems.length === 0 && (
+					<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
+						<LayerBlock $mt>
+							{keyPage === 'products' && `The search did't take a result`}
+							{keyPage === 'favorites' && (
+								<>
+									{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
+								</>
+							)}
+						</LayerBlock>
+					</motion.div>
+				))}
 		</WrapperComponent>
 	);
 };

@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { darken } from 'polished';
 import styled from 'styled-components';
 
-import { media } from '@/theme';
+import { defaultTheme as theme, media } from '@/theme';
 
 export const cartVariant = {
 	hidden: { y: 20, opacity: 0 },
@@ -32,19 +32,19 @@ export const Item = styled(motion.div)`
 	background-color: #fff;
 	width: 100%;
 	padding: 10px 20px;
-	border-radius: ${(props) => props.theme.radius.borderRadius};
+	border-radius: ${theme.radius.borderRadius};
 	margin-bottom: 10px;
 	transition: 0.2s box-shadow;
 
 	&:hover {
-		box-shadow: ${(props) => props.theme.layout.shadow};
+		box-shadow: ${theme.layout.shadow};
 	}
 
 	img {
 		min-width: 65px;
 		object-fit: cover;
 		margin-right: 20px;
-		border-radius: ${(props) => props.theme.radius.borderRadius};
+		border-radius: ${theme.radius.borderRadius};
 		flex-shrink: 0;
 	}
 `;
@@ -96,7 +96,7 @@ export const Title = styled.div`
 		font-size: 0.9rem;
 		line-height: 1.1;
 		max-height: 34px;
-		color: ${(props) => props.theme.colors.gray.$6};
+		color: ${theme.colors.gray.$6};
 		display: -webkit-box;
 		-webkit-line-clamp: 2;
 		-webkit-box-orient: vertical;
@@ -106,7 +106,7 @@ export const Title = styled.div`
 
 export const Price = styled.div`
 	font-size: 20px;
-    min-width: auto;
+	min-width: auto;
 	text-align: left;
 	margin-top: 10px;
 
@@ -122,7 +122,7 @@ export const Delete = styled.button`
 	top: 7px;
 	right: 7px;
 	flex-shrink: 0;
-	border: 2px solid ${(props) => props.theme.colors.gray.$3};
+	border: 2px solid ${theme.colors.gray.$3};
 	margin-left: 20px;
 	appearance: none;
 	display: flex;
@@ -132,8 +132,10 @@ export const Delete = styled.button`
 	height: 25px;
 	border-radius: 25px;
 	cursor: pointer;
-	transition: 0.1s border-color, color;
-	color: ${(props) => props.theme.colors.gray.$4};
+	transition:
+		0.1s border-color,
+		color;
+	color: ${theme.colors.gray.$4};
 
 	i {
 		position: absolute;
@@ -141,10 +143,10 @@ export const Delete = styled.button`
 	}
 
 	&:hover {
-		border-color: ${(props) => props.theme.colors.danger};
+		border-color: ${theme.colors.danger};
 
 		i:before {
-			color: ${(props) => props.theme.colors.danger};
+			color: ${theme.colors.danger};
 		}
 	}
 
