@@ -25,7 +25,7 @@ const gradients: Gradients = {
 	main: `linear-gradient(150deg, #e8ffb3 0%, ${colors.success} 60%)`,
 };
 
-const defaultTheme: DefaultTheme = {
+export const defaultTheme: DefaultTheme = {
 	name: 'default',
 	colors,
 	gradients,
@@ -38,5 +38,4 @@ const defaultTheme: DefaultTheme = {
 	},
 };
 
-export { defaultTheme };
 export default defaultTheme;

@@ -1,11 +1,10 @@
-import { productsUrl } from '@/services';
+import { productsUrl, protocol } from '@/services';
 import { domainData } from '@/services/domainData';
 
 export const getProduct = async (id: string) => {
-	const { http, host } = await domainData();
-
+	const host = domainData();
 	try {
-		const res = await fetch(`${http}://${host}${productsUrl}/${id}`);
+		const res = await fetch(`${protocol}${host}${productsUrl}/${id}`);
 		if (res.ok) return res.json();
 	} catch (error) {
 		// eslint-disable-next-line no-console

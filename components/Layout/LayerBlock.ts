@@ -1,20 +1,36 @@
 import { motion } from 'framer-motion';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import { media } from '@/theme';
+
+interface LayerBlockProps {
+	$mt?: boolean;
+	$shadow?: boolean;
+	$fixedPadding?: boolean;
+}
 
 /**
  * Layer block with rounded corners and white background
- * @param {boolean} $mt - Margin top 30px
- * @param {boolean} $shadow
+ * @param {?boolean} $mt - Margin top 30px
+ * @param {?boolean} $shadow
+ * @param {?boolean} $fixedPadding
  */
 
-const LayerBlock = styled(motion.div)<{ $mt?: boolean; $shadow?: boolean }>`
-	position: relative;
-	padding: 20px;
-	border-radius: ${({ theme }) => theme.radius.borderRadius};
-	margin-top: ${({ $mt }) => ($mt ? '30px' : 0)};
-	margin-bottom: 20px;
-	background-color: #fff;
-	box-shadow: ${({ $shadow }) => $shadow && `0 0 20px rgba(0,0,0,.3)`};
+const LayerBlock = styled(motion.div)<LayerBlockProps>`
+	${({ theme, $mt, $shadow, $fixedPadding }) => css`
+		position: relative;
+		padding: ${$fixedPadding ? '20px' : 0};
+		background-color: #fff;
+		border-radius: ${theme.radius.borderRadius};
+		margin-top: ${$mt ? '30px' : 0};
+		margin-bottom: 20px;
+
+		box-shadow: ${$shadow && `0 0 20px rgba(0,0,0,.3)`};
+
+		${media.greaterThan('sm')`
+        padding: 20px;
+    `}
+	`}
 `;
 
 export { LayerBlock };

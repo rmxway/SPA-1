@@ -1,21 +1,32 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
-export const WrapperComponent = styled.div`
-	min-height: 600px;
-`;
+import { media } from '@/theme';
 
-export const Wrapper = styled.div`
+export const WrapperComponent = styled.div`
 	position: relative;
-	margin-left: -10px;
-	margin-right: -10px;
+	min-height: 600px;
+	padding-bottom: 50px;
 `;
 
 export const FetchingBlock = styled(motion.div)`
 	position: relative;
-	display: flex;
-	flex-wrap: wrap;
-    align-items: normal;
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 12px;
+
+	${media.greaterThan('xxs')`
+        grid-template-columns: 1fr 1fr;
+    `}
+
+	${media.greaterThan('sm')`
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+    `}
+
+    ${media.greaterThan('md')`
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    `}
 `;
 
 export const containerVars = {

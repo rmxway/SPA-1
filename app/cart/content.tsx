@@ -28,7 +28,7 @@ export const ContentCart = () => {
 	}, [items]);
 
 	return (
-		<Container>
+		<Container $pt>
 			<Cart>
 				<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
 					<AnimatePresence mode="sync">

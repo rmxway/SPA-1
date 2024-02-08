@@ -11,7 +11,7 @@ import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { changeTypePage, TypePages } from '@/store/reducers/products';
 
-import { containerVars, FetchingBlock, Wrapper, WrapperComponent } from './styled';
+import { containerVars, FetchingBlock, WrapperComponent } from './styled';
 
 interface ProductsGridProps extends PropsWithChildren {
 	items: IProduct[];
@@ -40,7 +40,7 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 		<WrapperComponent>
 			{pagination && currentItems.length !== 0 && <Pagination items={items} page={page} />}
 			{!!currentItems.length && (
-				<Wrapper>
+				<>
 					{children}
 					<LayoutGroup>
 						<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
@@ -60,13 +60,13 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 								))}
 						</FetchingBlock>
 					</LayoutGroup>
-				</Wrapper>
+				</>
 			)}
 
 			{items.length > 0 ||
 				(currentItems.length === 0 && (
 					<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
-						<LayerBlock $mt>
+						<LayerBlock $fixedPadding>
 							{keyPage === 'products' && `The search did't take a result`}
 							{keyPage === 'favorites' && (
 								<>

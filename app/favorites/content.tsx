@@ -23,7 +23,7 @@ export const ContentFavorites = () => {
 	};
 
 	return (
-		<Container>
+		<Container $pt>
 			{items.length > 0 && (
 				<Button margins success onClick={handleRemoveAllFavorites}>
 					Delete favorites

@@ -39,7 +39,7 @@ export const Toggle = styled.button<ToggleTypes>`
 	.icofont {
 		position: absolute;
 		right: 0;
-		top: 0;
+		top: -2px;
 		width: 20px;
 		height: 20px;
 		display: none;
