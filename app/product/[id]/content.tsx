@@ -35,7 +35,7 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 		<MobileWhiteBackground>
 			<Wrapper $pt>
 				{error || ''}
-				{product.title && (
+				{product && (
 					<Flexbox gap={30}>
 						<Info>
 							<LayerBlock>
@@ -94,7 +94,6 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 									</Flexbox>
 									<ButtonUI
 										primary
-										animate
 										onClick={() => moveToCart(Number(product?.id))}
 										disabled={product.checked}
 									>

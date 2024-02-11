@@ -1,22 +1,15 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-
 import { Container } from '@/components/Layout';
 import { ProductsGrid } from '@/components/ProductsGrid';
-import { Button } from '@/components/ui/Button/styled';
-import { IProduct, useAppDispatch, useAppSelector } from '@/services';
+import { LinkIcon } from '@/components/ui';
+import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { removeAllFavorites } from '@/store/reducers/products';
+import { favoritesItemsMemoized, removeAllFavorites } from '@/store/reducers/products';
 
 export const ContentFavorites = () => {
-	const { fetchedItems, page } = useAppSelector(productsStore);
-	const [items, setItems] = useState<IProduct[]>([]);
+	const items = favoritesItemsMemoized(useAppSelector(productsStore));
 	const dispatch = useAppDispatch();
-
-	useMemo(() => {
-		setItems(fetchedItems.filter((item) => item.favorite));
-	}, [fetchedItems]);
 
 	const handleRemoveAllFavorites = () => {
 		dispatch(removeAllFavorites());
@@ -25,11 +18,11 @@ export const ContentFavorites = () => {
 	return (
 		<Container $pt>
 			{items.length > 0 && (
-				<Button margins success onClick={handleRemoveAllFavorites}>
+				<LinkIcon icon="trash" onClick={handleRemoveAllFavorites}>
 					Delete favorites
-				</Button>
+				</LinkIcon>
 			)}
-			<ProductsGrid {...{ items }} pagination keyPage="favorites" page={page} />
+			<ProductsGrid {...{ items }} pagination keyPage="favorites" />
 		</Container>
 	);
 };

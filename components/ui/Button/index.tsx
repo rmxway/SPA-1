@@ -1,59 +1,50 @@
-import { AnimatePresence, LayoutGroup, motion } from 'framer-motion';
-import { memo, PropsWithChildren } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 
 import { Button, ButtonProps } from './styled';
 
 const textVar = {
-	hidden: {},
-	visible: {
-		transition: {
-			duration: 0.1,
-			staggerChildren: 0.1,
-			when: 'afterChildren',
-		},
-	},
-};
-
-const itemVar = {
 	hidden: { opacity: 0 },
 	visible: { opacity: 1 },
 };
 
 /**
- * Button with any properties
- * @param w100 - {boolean} width 100%
- * @param inactive - {boolean} pointer-events: none
- * @param margins - {boolean} margin-right and margin-bottom 10px
- * @param |boolean param| - success, danger, primary, white, black
+ * Custom button with some properties.
+ ** Необходимо доработать анимацию
+ * @param {?boolean} w100 - width 100%
+ * @param {?boolean} inactive - pointer-events: none
+ * @param {?boolean} animate - animate inner text (not working)
+ * @param {?boolean} margins - margin-right and margin-bottom 10px
+ * @param {?boolean} (styled boolean params) - success, danger, primary, white, black
  */
 
-export const ButtonUI = memo(
-	({ children, animate = false, ...props }: PropsWithChildren<ButtonProps & { animate?: boolean }>) => {
-		const memoText = String(children).split('');
-		const randIndex = Number(Math.random() * Number(new Date()));
+export const ButtonUI = ({ children, animate = false, ...props }: ButtonProps & { animate?: boolean }) => {
+	const memoText = String(children).split('');
+	// const randIndex = useId();
 
-		return (
-			<Button {...props}>
-				{animate ? (
-					<AnimatePresence initial={false} mode="wait">
-						<LayoutGroup key={randIndex}>
-							<motion.div layout variants={textVar} initial="hidden" animate="visible" exit="hidden">
-								{memoText.map((item) => (
-									<motion.span layout variants={itemVar} key={Number(Math.random())}>
-										{item}
-									</motion.span>
-								))}
-							</motion.div>
-						</LayoutGroup>
-					</AnimatePresence>
-				) : (
-					children
-				)}
-			</Button>
-		);
-	},
-);
+	if (typeof children !== 'string' && typeof children !== 'number') return null;
 
-ButtonUI.displayName = 'ButtonUI';
+	return (
+		<Button {...props}>
+			{animate ? (
+				<AnimatePresence mode="wait">
+					<motion.div layout variants={textVar} initial="hidden" animate="visible" exit="hidden">
+						{memoText.map((item, idx) => (
+							<motion.span
+								layout
+								variants={textVar}
+								transition={{ delay: 0.1 * idx }}
+								key={Number(Math.random())}
+							>
+								{item}
+							</motion.span>
+						))}
+					</motion.div>
+				</AnimatePresence>
+			) : (
+				children
+			)}
+		</Button>
+	);
+};
 
 export default ButtonUI;

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { memo, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 import { Line, NavbarItem } from '../styled';
 
@@ -11,7 +11,7 @@ export interface navbarTypes {
 	onClick?: () => void;
 }
 
-export const NavLinkMotion = memo(({ title, url, component, ...props }: navbarTypes) => {
+export const NavLinkMotion = ({ title, url, component, ...props }: navbarTypes) => {
 	const pathname = usePathname();
 	const isActive = pathname === url;
 
@@ -28,6 +28,6 @@ export const NavLinkMotion = memo(({ title, url, component, ...props }: navbarTy
 			) : null}
 		</NavbarItem>
 	);
-});
+};
 
 export default NavLinkMotion;

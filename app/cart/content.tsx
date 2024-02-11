@@ -1,18 +1,18 @@
 'use client';
 
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { MCartItem } from '@/components';
 import { cartVariant } from '@/components/CartItem/styled';
-import { Container } from '@/components/Layout';
-import { ButtonUI } from '@/components/ui';
+import { Container, LayerBlock } from '@/components/Layout';
+import { ButtonUI, LinkIcon } from '@/components/ui';
 import { currency, useAppSelector } from '@/services';
 import { cartStore } from '@/store';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
-import { Cart, contentVariant, Sidebar, Title, Total, Trash, trashVariant, Wrapper } from './styled';
+import { Cart, contentVariant, Sidebar, Title, Total, Wrapper } from './styled';
 
 export const ContentCart = () => {
 	const { items, totalPrice } = useAppSelector(cartStore);
@@ -33,18 +33,9 @@ export const ContentCart = () => {
 				<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
 					<AnimatePresence mode="sync">
 						{isItems && (
-							<Trash
-								layout
-								key="trash"
-								variants={trashVariant}
-								initial="initial"
-								animate="visible"
-								exit="hidden"
-								onClick={handleTrashAllProducts}
-							>
-								Delete all
-								<i className="icofont icofont-trash" />
-							</Trash>
+							<LinkIcon icon="trash" onClick={handleTrashAllProducts}>
+								Delete All
+							</LinkIcon>
 						)}
 
 						{isItems &&
@@ -59,10 +50,16 @@ export const ContentCart = () => {
 							))}
 
 						{!isItems && (
-							<motion.div layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+							<LayerBlock
+								$fixedPadding
+								layout
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+							>
 								No items, please go to&nbsp;<Link href="/products">products page</Link>
 								<br />
-							</motion.div>
+							</LayerBlock>
 						)}
 					</AnimatePresence>
 				</Wrapper>
