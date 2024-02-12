@@ -19,9 +19,6 @@ const textVar = {
 
 export const ButtonUI = ({ children, animate = false, ...props }: ButtonProps & { animate?: boolean }) => {
 	const memoText = String(children).split('');
-	// const randIndex = useId();
-
-	if (typeof children !== 'string' && typeof children !== 'number') return null;
 
 	return (
 		<Button {...props}>

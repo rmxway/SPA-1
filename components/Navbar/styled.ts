@@ -81,7 +81,7 @@ export const NavbarItem = styled.div`
 		z-index: 1;
 	}
 
-	${media.greaterThan('sm')`
+	${media.greaterThan('md')`
         margin-bottom: 0;
         margin-right: 20px;
         font-size: 20px;
@@ -118,7 +118,7 @@ export const WrapperNavbarItems = styled(motion.div)`
 	overflow: hidden;
 	background-image: ${theme.gradients.main};
 
-	${media.greaterThan('sm')`
+	${media.greaterThan('md')`
         position: relative;
         top: 0;
         height: auto;
@@ -180,7 +180,7 @@ export const BurgerButton = styled(ButtonUI)<{ $isOpen: boolean }>`
 			`}
 	}
 
-	${media.greaterThan('sm')`
+	${media.greaterThan('md')`
         display: none;
     `}
 `;

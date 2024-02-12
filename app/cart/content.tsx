@@ -1,10 +1,10 @@
 'use client';
 
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LayoutGroup } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-import { MCartItem } from '@/components';
+import { CartItem } from '@/components';
 import { cartVariant } from '@/components/CartItem/styled';
 import { Container, LayerBlock } from '@/components/Layout';
 import { ButtonUI, LinkIcon } from '@/components/ui';
@@ -30,42 +30,42 @@ export const ContentCart = () => {
 	return (
 		<Container $pt>
 			<Cart>
-				<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
-					<AnimatePresence mode="sync">
-						{isItems && (
-							<LinkIcon icon="trash" onClick={handleTrashAllProducts}>
-								Delete All
-							</LinkIcon>
-						)}
+				<LayoutGroup>
+					<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
+						<AnimatePresence mode="sync">
+							{isItems && (
+								<LinkIcon icon="trash" onClick={handleTrashAllProducts}>
+									Delete All
+								</LinkIcon>
+							)}
 
-						{isItems &&
-							items.map((item) => (
-								<MCartItem
-									key={item.id}
-									product={item}
+							{isItems &&
+								items.map((item) => (
+									<CartItem
+										key={item.id}
+										product={item}
+										layout
+										variants={cartVariant}
+										exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
+									/>
+								))}
+
+							{!isItems && (
+								<LayerBlock
+									$fixedPadding
 									layout
-									variants={cartVariant}
-									exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
-								/>
-							))}
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+								>
+									No items, please go to&nbsp;<Link href="/products">products page</Link>
+									<br />
+								</LayerBlock>
+							)}
+						</AnimatePresence>
+					</Wrapper>
 
-						{!isItems && (
-							<LayerBlock
-								$fixedPadding
-								layout
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
-							>
-								No items, please go to&nbsp;<Link href="/products">products page</Link>
-								<br />
-							</LayerBlock>
-						)}
-					</AnimatePresence>
-				</Wrapper>
-
-				<AnimatePresence>
-					<Sidebar layout="preserve-aspect" key="sidebar">
+					<Sidebar layout>
 						<Title>Your order</Title>
 						<Total>
 							Total:
@@ -77,7 +77,7 @@ export const ContentCart = () => {
 							Checkout
 						</ButtonUI>
 					</Sidebar>
-				</AnimatePresence>
+				</LayoutGroup>
 			</Cart>
 		</Container>
 	);

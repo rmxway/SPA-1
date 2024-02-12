@@ -1,4 +1,4 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
 
@@ -13,23 +13,39 @@ const initialState: CartState = {
 };
 
 const calculateTotalPrice = (state: CartState) => {
-	const priceArray: number[] = state.items.map((item) => Number(item.price));
-	state.totalPrice = !priceArray.length ? 0 : Number(priceArray.reduce((acc, curr) => acc + curr).toFixed(2));
+	state.totalPrice = !state.items.length ? 0 : Number(state.items.reduce((acc: number, curr) => acc + curr.price, 0));
+};
+
+interface StateAndProps {
+	state: CartState;
+	id: number;
+}
+
+const getCurrentItem = ({ state, id }: StateAndProps) => state.items.find((item) => item.id === id);
+
+const changeCount = ({ state, id, type }: StateAndProps & { type: 'increase' | 'decrease' }) => {
+	const cur = getCurrentItem({ state, id });
+	const sign = type === 'increase' ? '+' : '-';
+	if (cur?.count) cur.count = +`${cur.count} ${sign} 1`;
 };
 
 const cartReducer = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addToCart: (state, action: PayloadAction<IProduct>) => {
-			const uniqElements = new Set([...current(state.items)]);
-			uniqElements.add(action.payload);
-			state.items = Array.from(uniqElements);
+		addToCart: (state, { payload }: PayloadAction<IProduct>) => {
+			state.items.push(payload);
 			calculateTotalPrice(state);
 		},
-		deleteFromCart: (state, action: PayloadAction<number>) => {
-			state.items = current(state).items.filter((item) => item.id !== action.payload);
+		deleteFromCart: (state, { payload }: PayloadAction<number>) => {
+			state.items = state.items.filter((item) => item.id !== payload);
 			calculateTotalPrice(state);
+		},
+		increaseCount: (state, { payload }: PayloadAction<number>) => {
+			changeCount({ state, id: payload, type: 'increase' });
+		},
+		decreaseCount: (state, { payload }: PayloadAction<number>) => {
+			changeCount({ state, id: payload, type: 'decrease' });
 		},
 		trashAll: (state) => {
 			state.items = [];
@@ -40,6 +56,6 @@ const cartReducer = createSlice({
 
 const { actions, reducer } = cartReducer;
 
-export const { addToCart, deleteFromCart, trashAll } = actions;
+export const { addToCart, deleteFromCart, increaseCount, decreaseCount, trashAll } = actions;
 
 export default reducer;

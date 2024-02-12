@@ -17,7 +17,7 @@ const RenderNavBar = () => {
 	const { items } = useAppSelector(cartStore);
 	const countCartItems = items.length;
 
-	const match = useMediaQuery(breakpoints.sm);
+	const match = useMediaQuery(breakpoints.md);
 
 	useMemo(() => {
 		if (!match) setOpen(false);

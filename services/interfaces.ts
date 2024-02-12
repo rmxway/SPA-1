@@ -13,6 +13,7 @@ export interface IProduct {
 	checked?: boolean;
 	imgFetch?: boolean;
 	favorite?: boolean;
+    count?: number;
 }
 
 export interface DataFetch {

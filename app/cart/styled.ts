@@ -34,8 +34,8 @@ export const Wrapper = styled(motion.div)`
 
 	${LinkIconStyle} {
 		position: absolute;
-		right: 0;
-		top: -25px;
+		left: 0;
+		top: -24px;
 	}
 
 	${media.greaterThan('sm')`
@@ -50,20 +50,20 @@ export const Sidebar = styled(motion.div)`
 	margin-top: 10px;
 	min-height: 100px;
 	flex-shrink: 0;
-	padding: 20px;
+	padding: 10px;
 	background-color: #fff;
 	border-radius: ${theme.radius.borderRadius};
 
 	${media.greaterThan('sm')`
         position: sticky;
         top: 90px;
+        padding: 20px;
         margin-top: 0;
         width: 25%;
         min-width: 250px;
 	`}
 
 	button {
-		margin-top: 20px;
 		margin-bottom: 0;
 		width: 100%;
 	}
@@ -74,6 +74,10 @@ export const Title = styled.div`
 	font-weight: 600;
 	margin-bottom: 5px;
 	text-transform: uppercase;
+
+	${media.lessThan('smD')`
+        font-size: 20px;
+    `}
 `;
 
 export const Total = styled.div`
@@ -81,12 +85,21 @@ export const Total = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin-bottom: 10px;
 
 	span {
 		font-size: 32px;
 		margin-left: 10px;
 		color: ${theme.colors.dark};
 	}
+
+	${media.lessThan('smD')`
+        font-size: 20px;
+
+        span {
+            font-size: 26px
+        }
+    `}
 `;
 
 export default Cart;
