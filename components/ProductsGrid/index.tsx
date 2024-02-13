@@ -2,45 +2,38 @@
 
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { PropsWithChildren, useEffect, useState } from 'react';
+import { ReactNode, useEffect } from 'react';
 
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { changeTypePage, TypePages } from '@/store/reducers/products';
+import { changeTypePage, currentItemsMemoized, TypePages } from '@/store/reducers/products';
 
-import { containerVars, FetchingBlock, Wrapper, WrapperComponent } from './styled';
+import { containerVars, FetchingBlock, WrapperComponent } from './styled';
 
-interface ProductsGridProps extends PropsWithChildren {
+interface ProductsGridProps {
 	items: IProduct[];
 	pagination?: boolean;
-	page: number;
 	keyPage: TypePages;
+	children?: ReactNode;
 }
 
-export const ProductsGrid = ({ children, items, pagination, page, keyPage }: ProductsGridProps) => {
-	const { error, countPerPage } = useAppSelector(productsStore);
-	const [currentItems, setCurrentItems] = useState<IProduct[]>([]);
+export const ProductsGrid = ({ children, items, pagination, keyPage }: ProductsGridProps) => {
+	const { error } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
+	const currentItems = currentItemsMemoized(useAppSelector(productsStore), items);
 
 	useEffect(() => {
 		dispatch(changeTypePage(keyPage));
-		if (Array.isArray(items) && items.length > 0) {
-			const array = [...items];
-			const filteredItems = [...array.splice((page - 1) * countPerPage, countPerPage)];
-			setCurrentItems(filteredItems);
-		} else {
-			setCurrentItems([]);
-		}
-	}, [page, items, countPerPage, keyPage, dispatch]);
+	}, [keyPage, dispatch]);
 
 	return (
 		<WrapperComponent>
-			{pagination && currentItems.length !== 0 && <Pagination items={items} page={page} />}
+			{pagination && currentItems.length !== 0 && <Pagination items={items} />}
 			{!!currentItems.length && (
-				<Wrapper>
+				<>
 					{children}
 					<LayoutGroup>
 						<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
@@ -60,13 +53,13 @@ export const ProductsGrid = ({ children, items, pagination, page, keyPage }: Pro
 								))}
 						</FetchingBlock>
 					</LayoutGroup>
-				</Wrapper>
+				</>
 			)}
 
 			{items.length > 0 ||
 				(currentItems.length === 0 && (
 					<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
-						<LayerBlock $mt>
+						<LayerBlock $fixedPadding>
 							{keyPage === 'products' && `The search did't take a result`}
 							{keyPage === 'favorites' && (
 								<>

@@ -1,4 +1,4 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
 
@@ -49,6 +49,10 @@ const initialState: ProductsState = {
 const initialItems = (state: ProductsState, products: IProduct[]) => {
 	if (state.reservedItems.length === products.length) return;
 
+	products.forEach((product) => {
+		product.count = 1;
+	});
+
 	// there was some product on the first page
 	if (state.fetchedItems.length === 1) {
 		const index = products.findIndex((product) => product.id === state.fetchedItems[0].id);
@@ -85,6 +89,22 @@ const resetItems = (state: ProductsState) => {
 	state.fetchedItems = state.reservedItems;
 };
 
+export const favoritesItemsMemoized = createSelector([(state: ProductsState) => state.fetchedItems], (fetchedItems) =>
+	fetchedItems.filter((item) => item.favorite),
+);
+
+export const currentItemsMemoized = createSelector(
+	[
+		(state: ProductsState) => state.page,
+		(state: ProductsState) => state.countPerPage,
+		(state: ProductsState, items: IProduct[]) => items,
+	],
+	(page, countPerPage, items) => {
+		if (!Array.isArray(items) || items.length === 0) return [];
+		return items.filter((_, idx) => idx >= (page - 1) * countPerPage && idx < countPerPage * page);
+	},
+);
+
 const productsReducer = createSlice({
 	name: 'products',
 	initialState,
@@ -100,7 +120,7 @@ const productsReducer = createSlice({
 		},
 		addOneProduct: (state, action: PayloadAction<IProduct>) => {
 			state.fetchedItems[0] = action.payload;
-			state.reservedItems[0] = action.payload;
+			state.reservedItems = state.fetchedItems;
 		},
 		addProducts: (state, action: PayloadAction<IProduct[]>) => {
 			initialItems(state, action.payload);

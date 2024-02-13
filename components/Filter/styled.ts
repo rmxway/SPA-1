@@ -5,11 +5,10 @@ import { media } from '@/theme';
 export const StyledFilter = styled.div`
 	display: flex;
 	align-items: center;
-	margin-bottom: 30px;
+	margin: 30px 0;
 	flex-direction: column;
 	align-items: stretch;
 	flex-grow: 1;
-	margin-top: 20px;
 
 	.search-filter {
 		flex-grow: 1;

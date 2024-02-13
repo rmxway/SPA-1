@@ -6,6 +6,7 @@ import { media } from '@/theme';
 
 export const Wrapper = styled(Container)`
 	position: relative;
+	padding-bottom: 120px;
 
 	${Flexbox} {
 		flex-wrap: wrap;
@@ -25,11 +26,15 @@ export const Wrapper = styled(Container)`
 		background-color: ${(props) => props.theme.colors.dark};
 
 		.swiper-slide {
-			height: 25vw;
-			min-height: 450px;
-			max-height: 600px;
-			padding: 8px;
+			height: 75vw;
 		}
+
+		${media.greaterThan('sm')`
+            .swiper-slide {
+                min-height: 450px;
+                max-height: 550px;
+            }
+        `}
 	}
 
 	img {
@@ -38,12 +43,6 @@ export const Wrapper = styled(Container)`
 		display: block;
 		object-position: center;
 		object-fit: contain;
-
-		/* ${media.greaterThan('md')`
-            width: 100%;
-            height: 350px;
-            margin-bottom: 0;
-        `} */
 	}
 `;
 
@@ -62,9 +61,6 @@ export const ProductImage = styled(Image)`
 `;
 
 export const Info = styled.div`
-	// flex-grow: 1;
-	// width: auto;
-	// max-width: 100%;
 	min-width: 1px;
 
 	span {
@@ -83,27 +79,35 @@ export const Info = styled.div`
 
 export const SideBlock = styled.div`
 	z-index: 1;
-	position: relative;
-	flex-shrink: 0;
-	width: 300px;
 
 	${LayerBlock} {
-		position: sticky;
-		top: 90px;
+		background-color: #fff;
 	}
 
-	${media.lessThan('md')`
+	${media.lessThan('mdD')`
         width: 100%;
 
         ${LayerBlock} {
             position: fixed;
             top: auto;
             bottom: 0;
+            padding: 10px 20px 20px;
             left: 0;
             right: 0;
             border-top: 1px solid #ddd;
             border-radius: 0;
             margin-bottom: 0;
+        }
+    `}
+
+	${media.greaterThan('md')`
+        position: relative;
+        flex-shrink: 0;
+        width: 300px;
+
+        ${LayerBlock} {
+            position: sticky;
+            top: 90px;
         }
     `}
 `;
@@ -117,13 +121,19 @@ export const PriceBlock = styled.div`
 			font-size: 30px;
 		}
 
-		margin-bottom: 30px;
+		margin-bottom: 10px;
 	}
 
 	button {
 		width: 100%;
 		margin: 0;
 	}
+
+	${media.greaterThan('md')`
+        ${Flexbox} {
+            margin-bottom: 30px;
+        }
+    `}
 `;
 
 export default Wrapper;

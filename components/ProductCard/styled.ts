@@ -42,19 +42,20 @@ export const WrapperImagesStyled = styled(motion.div)`
 	position: relative;
 	display: flex;
 	justify-content: center;
-	height: 180px;
+	height: 120px;
 	text-decoration: none;
+	margin: 0 20px;
 
 	&:after {
 		position: absolute;
 		content: '';
 		background-color: white;
-		left: 0;
-		top: 0;
+		left: -1px;
+		top: -1px;
 		pointer-events: none;
 		z-index: -1;
-		height: 100%;
-		width: 100%;
+		height: 102%;
+		width: 102%;
 	}
 
 	&:hover:after {
@@ -70,6 +71,10 @@ export const WrapperImagesStyled = styled(motion.div)`
 		}
 	}
 
+	${media.greaterThan('sm')`
+        height: 170px;
+    `}
+
 	.fetched {
 		animation: fetched 0.4s;
 		animation-fill-mode: forwards;
@@ -81,10 +86,8 @@ export const ProductWrapper = styled(motion.div)`
 	display: flex;
 	align-items: flex-start;
 	flex-direction: column;
-	padding: 16px;
-	width: 100%;
+	padding: 12px;
 	border-radius: ${theme.radius.borderRadius};
-	margin: 10px;
 	transition: 0.3s box-shadow;
 	background-color: #fff;
 
@@ -98,29 +101,19 @@ export const ProductWrapper = styled(motion.div)`
 		right: 0;
 	}
 
-	${media.greaterThan('xs')`
-        width: calc(50% - 20px);
+	${WrapperImagesStyled} {
+		img {
+			min-width: 100px;
+			min-width: 100px;
+			width: 100%;
+			height: 100%;
+			object-fit: contain;
+			object-position: center;
+			margin: auto;
+		}
+	}
 
-        ${WrapperImagesStyled} {
-            img {
-                width: 175px;
-                height: 175px;
-                object-fit: contain;
-                object-position: center;
-                margin: auto;
-            }
-        }
-    `}
-
-	${media.greaterThan('sm')`
-		width: calc(33.33% - 20px);
-	`}
-
-	${media.greaterThan('md')`
-		width: calc(25% - 20px);
-	`}
-
-    &:hover {
+	&:hover {
 		box-shadow: ${theme.layout.shadow};
 	}
 
@@ -129,15 +122,17 @@ export const ProductWrapper = styled(motion.div)`
 		margin-top: 10px;
 		align-self: center;
 	}
+
+	${media.greaterThan('sm')`
+        padding: 16px;
+    `}
 `;
 
 export const Title = styled(Link)`
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: 400;
 	line-height: 1.15;
-	height: 35px;
-	margin-bottom: 10px;
-	width: 100%;
+	flex-basis: 35px;
 	text-decoration: none;
 	color: initial;
 	display: -webkit-box;
@@ -148,11 +143,19 @@ export const Title = styled(Link)`
 	&:hover {
 		text-decoration: underline;
 	}
+
+	${media.greaterThan('xs')`
+        font-size: 16px;
+    `}
 `;
 
 export const Price = styled.div`
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 	margin-bottom: 5px;
+
+	${media.greaterThan('xs')`
+        font-size: 1.5rem;
+    `}
 `;
 
 export const Tools = styled.div`

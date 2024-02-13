@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-const base = css`
+export const base = css`
 	*,
 	*::after,
 	*::before {
@@ -12,11 +12,12 @@ const base = css`
 		overflow-y: scroll;
 		background-color: ${(props) => props.theme.colors.gray.$1};
 		font-size: 1rem;
-		display: block;
+		display: flex;
+        flex-direction: column;
 		padding-top: 70px;
 		line-height: 1.25;
-		padding-bottom: 50px;
 		min-width: 320px;
+        min-height: 100vh;
 	}
 	code {
 		font-family: 'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;
@@ -53,5 +54,4 @@ const base = css`
 	}
 `;
 
-export { base };
 export default base;

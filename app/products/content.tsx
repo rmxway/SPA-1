@@ -14,7 +14,7 @@ type PropsProducts = {
 };
 
 export const ContentProducts = ({ products }: PropsProducts) => {
-	const { fetchedItems, reservedItems, fetching, error, page } = useAppSelector(productsStore);
+	const { fetchedItems, reservedItems, fetching, error } = useAppSelector(productsStore);
 
 	useEffect(() => {
 		placeProductsToRedux(products);
@@ -25,7 +25,7 @@ export const ContentProducts = ({ products }: PropsProducts) => {
 			<Filter />
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
 			{fetching && <div>Data loading ...</div>}
-			{!!reservedItems.length && <ProductsGrid items={fetchedItems} pagination page={page} keyPage="products" />}
+			{!!reservedItems.length && <ProductsGrid items={fetchedItems} pagination keyPage="products" />}
 		</Container>
 	);
 };

@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { FC, Fragment, SyntheticEvent } from 'react';
+import { Fragment, SyntheticEvent } from 'react';
 
 import { Loader } from '@/components/ui';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
@@ -13,7 +13,7 @@ type PropsType = {
 	size: number;
 };
 
-export const WrapperImages: FC<PropsType> = ({ product, size }) => {
+export const WrapperImages = ({ product, size }: PropsType) => {
 	const dispatch = useAppDispatch();
 	const { fetching } = useAppSelector(productsStore);
 	const { id, imgFetch, title, images } = product;

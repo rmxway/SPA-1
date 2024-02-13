@@ -12,14 +12,12 @@ import { ArrowButton, ButtonPagination, Info, Wrapper } from './styled';
 
 interface PaginationProps extends MotionProps {
 	items: IProduct[];
-	page: number;
 }
 
-export const Pagination = ({ items, page }: PaginationProps) => {
-	const total = items.length;
-
-	const { countPerPage, fetching } = useAppSelector(productsStore);
+export const Pagination = ({ items }: PaginationProps) => {
+	const { countPerPage, fetching, page } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
+	const total = items.length;
 	const countPages = Math.ceil(total / countPerPage);
 	const maxButtonsCount = 4;
 	const countButtons = countPages >= maxButtonsCount ? maxButtonsCount : countPages;
@@ -81,6 +79,7 @@ export const Pagination = ({ items, page }: PaginationProps) => {
 							<i className="icofont icofont-arrow-down" /> To begin
 						</ArrowButton>
 					)}
+
 					{renderButtons()}
 
 					{page < countPages && page !== countPages && (
