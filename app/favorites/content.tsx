@@ -18,7 +18,7 @@ export const ContentFavorites = () => {
 	return (
 		<Container $pt>
 			{items.length > 0 && (
-				<LinkIcon icon="trash" onClick={handleRemoveAllFavorites}>
+				<LinkIcon icon="trash" onClick={handleRemoveAllFavorites} style={{ top: '-15px' }}>
 					Delete favorites
 				</LinkIcon>
 			)}

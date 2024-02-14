@@ -9,7 +9,8 @@ import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
-import { changeTypePage, currentItemsMemoized, TypePages } from '@/store/reducers/products';
+import { currentItemsMemoized } from '@/store/reducers/commonSelectors';
+import { changePage, changeTypePage, TypePages } from '@/store/reducers/products';
 
 import { containerVars, FetchingBlock, WrapperComponent } from './styled';
 
@@ -21,7 +22,7 @@ interface ProductsGridProps {
 }
 
 export const ProductsGrid = ({ children, items, pagination, keyPage }: ProductsGridProps) => {
-	const { error } = useAppSelector(productsStore);
+	const { error, page, countPerPage } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 	const currentItems = currentItemsMemoized(useAppSelector(productsStore), items);
 
@@ -31,7 +32,7 @@ export const ProductsGrid = ({ children, items, pagination, keyPage }: ProductsG
 
 	return (
 		<WrapperComponent>
-			{pagination && currentItems.length !== 0 && <Pagination items={items} />}
+			{pagination && currentItems.length !== 0 && <Pagination {...{ changePage, items, countPerPage, page }} />}
 			{!!currentItems.length && (
 				<>
 					{children}
