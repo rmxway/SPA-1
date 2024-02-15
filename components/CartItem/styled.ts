@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { darken } from 'polished';
 import styled from 'styled-components';
@@ -13,14 +13,17 @@ export const cartVariant = {
 	},
 };
 
-export const elementsVars = {
-	hidden: { y: -5, opacity: 0 },
+export const elementsVars: Variants = {
+	hidden: {
+		y: -5,
+		opacity: 0,
+	},
 	visible: {
 		y: 0,
 		opacity: 1,
 		transition: {
-			duration: 0.3,
-			delay: 0.4,
+			duration: 0.2,
+			delay: 0.1,
 		},
 	},
 };

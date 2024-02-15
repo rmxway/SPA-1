@@ -93,40 +93,28 @@ export const favoritesItemsMemoized = createSelector([(state: ProductsState) => 
 	fetchedItems.filter((item) => item.favorite),
 );
 
-export const currentItemsMemoized = createSelector(
-	[
-		(state: ProductsState) => state.page,
-		(state: ProductsState) => state.countPerPage,
-		(state: ProductsState, items: IProduct[]) => items,
-	],
-	(page, countPerPage, items) => {
-		if (!Array.isArray(items) || items.length === 0) return [];
-		return items.filter((_, idx) => idx >= (page - 1) * countPerPage && idx < countPerPage * page);
-	},
-);
-
 const productsReducer = createSlice({
 	name: 'products',
 	initialState,
 	reducers: {
-		fetching: (state, action: PayloadAction<boolean>) => {
-			state.fetching = action.payload;
+		fetching: (state, { payload }: PayloadAction<boolean>) => {
+			state.fetching = payload;
 		},
-		setError: (state, action: PayloadAction<string>) => {
-			state.error = action.payload;
+		setError: (state, { payload }: PayloadAction<string>) => {
+			state.error = payload;
 		},
-		setTitle: (state, action: PayloadAction<string>) => {
-			state.title = action.payload;
+		setTitle: (state, { payload }: PayloadAction<string>) => {
+			state.title = payload;
 		},
-		addOneProduct: (state, action: PayloadAction<IProduct>) => {
-			state.fetchedItems[0] = action.payload;
+		addOneProduct: (state, { payload }: PayloadAction<IProduct>) => {
+			state.fetchedItems[0] = payload;
 			state.reservedItems = state.fetchedItems;
 		},
-		addProducts: (state, action: PayloadAction<IProduct[]>) => {
-			initialItems(state, action.payload);
+		addProducts: (state, { payload }: PayloadAction<IProduct[]>) => {
+			initialItems(state, payload);
 		},
-		toggleProduct: (state, action: PayloadAction<number>) => {
-			anyTogglesInProduct(state, action.payload, 'checked');
+		toggleProduct: (state, { payload }: PayloadAction<number>) => {
+			anyTogglesInProduct(state, payload, 'checked');
 		},
 		removeAllToggledProducts: (state) => {
 			state.fetchedItems.forEach((item) => {
@@ -134,11 +122,11 @@ const productsReducer = createSlice({
 			});
 			state.reservedItems = state.fetchedItems;
 		},
-		fetchingImageProduct: (state, action: PayloadAction<number>) => {
-			anyTogglesInProduct(state, action.payload, 'imgFetch', false);
+		fetchingImageProduct: (state, { payload }: PayloadAction<number>) => {
+			anyTogglesInProduct(state, payload, 'imgFetch', false);
 		},
-		sortProducts: (state, action: PayloadAction<SortTypes>) => {
-			const { name, toggle } = action.payload;
+		sortProducts: (state, { payload }: PayloadAction<SortTypes>) => {
+			const { name, toggle } = payload;
 
 			state.sort.name = name;
 			state.sort.toggle = toggle;
@@ -157,19 +145,23 @@ const productsReducer = createSlice({
 				if (toggle) state.fetchedItems = state.fetchedItems.reverse();
 			}
 		},
-		searchValue: (state, action: PayloadAction<string>) => {
-			state.search.value = action.payload;
+		searchValue: (state, { payload }: PayloadAction<string>) => {
+			state.search.value = payload;
 		},
-		searchProducts: (state, action: PayloadAction<string>) => {
-			const searchText = action.payload.toLowerCase().trim();
+		searchProducts: (state, { payload }: PayloadAction<string>) => {
+			const searchText = payload.toLowerCase().trim();
 			state.page = 1;
 			state.fetchedItems = state.reservedItems.filter((item) => item.title.toLowerCase().includes(searchText));
 		},
-		toggleFavorite: (state, action: PayloadAction<number>) => {
-			anyTogglesInProduct(state, action.payload, 'favorite');
+		toggleFavorite: (state, { payload }: PayloadAction<number>) => {
+			anyTogglesInProduct(state, payload, 'favorite');
 
 			state.countFavorites = state.reservedItems.filter((item) => item.favorite).length;
-			if (state.countPerPage === state.countFavorites && state.typePage === 'favorites') state.page = 1;
+			if (
+				state.countFavorites === state.countPerPage * state.page - state.countPerPage &&
+				state.typePage === 'favorites'
+			)
+				state.page -= 1;
 		},
 		removeAllFavorites: (state) => {
 			state.reservedItems.forEach((item) => {
@@ -178,13 +170,13 @@ const productsReducer = createSlice({
 			state.fetchedItems = state.reservedItems;
 			state.countFavorites = 0;
 		},
-		changePage: (state, action: PayloadAction<number>) => {
-			state.page = action.payload;
+		changePage: (state, { payload }: PayloadAction<number>) => {
+			state.page = payload;
 		},
-		changeTypePage: (state, action: PayloadAction<TypePages>) => {
-			if (state.typePage === action.payload) return;
+		changeTypePage: (state, { payload }: PayloadAction<TypePages>) => {
+			if (state.typePage === payload) return;
 			state.fetchedItems = state.reservedItems;
-			state.typePage = action.payload;
+			state.typePage = payload;
 			resetItems(state);
 		},
 	},
