@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import { CartItem, Pagination } from '@/components';
 import { cartVariant } from '@/components/CartItem/styled';
 import { Container, LayerBlock } from '@/components/Layout';
-import { ButtonUI, LinkIcon } from '@/components/ui';
+import { ButtonUI, LinkIcon, Modal } from '@/components/ui';
 import { currency, useAppSelector } from '@/services';
 import { cartStore } from '@/store';
 import { changePage } from '@/store/reducers/cart';
@@ -17,13 +17,15 @@ import { currentItemsMemoized } from '@/store/reducers/commonSelectors';
 import { Cart, contentVariant, Sidebar, Title, Total, Wrapper } from './styled';
 
 export const ContentCart = () => {
+	const [modalShow, setModalShow] = useState(false);
 	const { items, totalPrice, countPerPage, page } = useAppSelector(cartStore);
 	const [isItems, setIsItems] = useState<boolean>(!!items.length);
 
 	const currentItems = currentItemsMemoized(useAppSelector(cartStore), items);
 
 	const handleTrashAllProducts = () => {
-		setIsItems((prev) => !prev);
+		setIsItems(!!items.length);
+		setModalShow(false);
 		removeAllProducts();
 	};
 
@@ -37,10 +39,18 @@ export const ContentCart = () => {
 				<LayoutGroup>
 					<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
 						{isItems && (
-							<LinkIcon icon="trash" onClick={handleTrashAllProducts}>
+							<LinkIcon icon="trash" initial onClick={() => setModalShow(true)}>
 								Delete All
 							</LinkIcon>
 						)}
+
+						<Modal open={modalShow} onClose={() => setModalShow(false)} title="Delete all">
+							<div>Sure you want to delete all products from cart ?</div>
+							<br />
+							<ButtonUI danger onClick={handleTrashAllProducts}>
+								Delete
+							</ButtonUI>
+						</Modal>
 
 						<AnimatePresence mode="popLayout">
 							{isItems &&
