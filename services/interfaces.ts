@@ -1,3 +1,5 @@
+import icofont from '@/public/assets/fonts/icofont/icofont.json';
+
 export interface IProduct {
 	id: number | null;
 	title: string;
@@ -13,7 +15,7 @@ export interface IProduct {
 	checked?: boolean;
 	imgFetch?: boolean;
 	favorite?: boolean;
-    count?: number;
+	count?: number;
 }
 
 export interface DataFetch {
@@ -22,3 +24,5 @@ export interface DataFetch {
 	skip: number;
 	total: number;
 }
+
+export type Icofont = keyof typeof icofont;

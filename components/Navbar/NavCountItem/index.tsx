@@ -1,18 +1,19 @@
 import { FC } from 'react';
 
+import { Icon } from '@/components/ui';
+import { Icofont } from '@/services';
+
 import { Count } from '../Count';
 import { NavCountItemStyled } from './styled';
 
-type NavCountItemType = 'cart' | 'favorite-fill';
-
 interface NavCountItemProps {
-	title?: NavCountItemType;
+	title?: Icofont;
 	count: number;
 }
 
 export const NavCountItem: FC<NavCountItemProps> = ({ title, count }) => (
 	<NavCountItemStyled>
-		<i className={`icofont icofont-${title?.toLowerCase()}`} />
+		{title && <Icon icon={title} />}
 		{!!count && <Count {...{ count }} />}
 	</NavCountItemStyled>
 );

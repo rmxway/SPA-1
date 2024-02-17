@@ -5,6 +5,7 @@ import { forwardRef, Ref } from 'react';
 
 import { Flexbox, Space } from '@/components/Layout';
 import { containerVars } from '@/components/ProductsGrid/styled';
+import { Icon } from '@/components/ui';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { ScrollToTop } from '@/services/helpers';
 import { productsStore } from '@/store';
@@ -79,7 +80,7 @@ export const Pagination = forwardRef(
 								onClick={() => debounceChangePage(1)}
 								disabled={fetching || !items.length}
 							>
-								<i className="icofont icofont-arrow-down" /> To begin
+								<Icon icon="arrow-down" /> To begin
 							</ArrowButton>
 						)}
 
@@ -91,7 +92,7 @@ export const Pagination = forwardRef(
 								onClick={() => debounceChangePage(countPages)}
 								disabled={fetching || !items.length}
 							>
-								To end <i className="icofont icofont-arrow-down" />
+								To end <Icon icon="arrow-down" />
 							</ArrowButton>
 						)}
 					</Flexbox>

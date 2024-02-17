@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { forwardRef, Ref } from 'react';
 
+import { Icon } from '@/components/ui';
 import { currency, IProduct } from '@/services';
 import { removeFromCart } from '@/store/reducers/combineActions';
 
@@ -29,7 +30,7 @@ export const CartItem = forwardRef(({ product, ...props }: Props, ref: Ref<HTMLD
 				</Price>
 			</WrapperText>
 			<Delete type="button" onClick={() => removeFromCart(Number(product.id))}>
-				<i className="icofont icofont-times-small" />
+				<Icon icon="times-small" />
 			</Delete>
 		</Content>
 	</Item>

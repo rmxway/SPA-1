@@ -1,13 +1,14 @@
 import { HTMLMotionProps } from 'framer-motion';
 import { forwardRef, Ref } from 'react';
 
-import icofont from '@/public/assets/fonts/icofont/icofont.json';
+import { Icon } from '@/components/ui/Icon';
+import { Icofont } from '@/services';
 
 import { LinkIconStyle, linkIconVariant } from './styled';
 
 interface LinkIconProps {
-	icon?: keyof typeof icofont;
-    initial?: boolean;
+	icon?: Icofont;
+	initial?: boolean;
 	onClick?: () => void;
 	children?: React.ReactNode;
 }
@@ -32,7 +33,7 @@ export const LinkIcon = forwardRef(
 			{...props}
 		>
 			{children}
-			{icon && <i className={`icofont icofont-${icon}`} />}
+			{icon && <Icon {...{ icon }} />}
 		</LinkIconStyle>
 	),
 );

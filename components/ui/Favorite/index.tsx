@@ -1,3 +1,5 @@
+import { Icon } from '@/components/ui/Icon';
+
 import { WrapperFavorite } from './styled';
 
 interface FavoriteProps {
@@ -15,7 +17,7 @@ interface FavoriteProps {
 export function Favorite({ active = false, onActive, ...props }: FavoriteProps) {
 	return (
 		<WrapperFavorite {...props} {...{ active }} onClick={onActive}>
-			{!active ? <i className="icofont icofont-favorite-fill" /> : <i className="icofont icofont-favorite" />}
+			<Icon icon={active ? 'favorite' : 'favorite-fill'} />
 		</WrapperFavorite>
 	);
 }
