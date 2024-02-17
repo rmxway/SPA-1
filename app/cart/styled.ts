@@ -19,6 +19,7 @@ export const Cart = styled.div`
 	position: relative;
 	display: flex;
 	align-items: flex-start;
+    gap: 20px;
 	flex-direction: column;
 
 	${media.greaterThan('sm')`
@@ -32,14 +33,13 @@ export const Wrapper = styled(motion.div)`
 	display: flex;
 	flex-direction: column;
 
-	${LinkIconStyle} {
+	& > ${LinkIconStyle} {
 		position: absolute;
 		left: 0;
 		top: -24px;
 	}
 
 	${media.greaterThan('sm')`
-		margin-right: 20px;
 		flex-grow: 1;
 	`}
 `;

@@ -103,7 +103,9 @@ export const SideBlock = styled.div`
 	${media.greaterThan('md')`
         position: relative;
         flex-shrink: 0;
-        width: 300px;
+
+        width: 25%;
+        min-width: 250px;
 
         ${LayerBlock} {
             position: sticky;
