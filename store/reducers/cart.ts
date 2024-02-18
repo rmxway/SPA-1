@@ -25,12 +25,15 @@ const getCurrentItem = ({ state, id }: StateAndProps) => state.items.find((item)
 
 const changeCount = ({ state, id, type }: StateAndProps & { type: 'increase' | 'decrease' }) => {
 	const cur = getCurrentItem({ state, id });
-	const sign = type === 'increase' ? '+' : '-';
-	if (cur?.count) cur.count = +`${cur.count} ${sign} 1`;
+
+	if (cur?.count && type === 'increase') cur.count += 1;
+	if (cur?.count && type === 'decrease') cur.count -= 1;
 };
 
 const calculateTotalPrice = (state: CartState) => {
-	state.totalPrice = !state.items.length ? 0 : Number(state.items.reduce((acc: number, curr) => acc + curr.price, 0));
+	state.totalPrice = !state.items.length
+		? 0
+		: Number(state.items.reduce((acc: number, curr) => acc + curr.price * (curr.count || 1), 0));
 };
 
 const cartReducer = createSlice({
@@ -46,11 +49,13 @@ const cartReducer = createSlice({
 			calculateTotalPrice(state);
 			if (state.items.length === state.countPerPage * state.page - state.countPerPage) state.page -= 1;
 		},
-		increaseCount: (state, { payload }: PayloadAction<number>) => {
-			changeCount({ state, id: payload, type: 'increase' });
+		increaseCount: (state, { payload: id }: PayloadAction<number>) => {
+			changeCount({ state, id, type: 'increase' });
+			calculateTotalPrice(state);
 		},
-		decreaseCount: (state, { payload }: PayloadAction<number>) => {
-			changeCount({ state, id: payload, type: 'decrease' });
+		decreaseCount: (state, { payload: id }: PayloadAction<number>) => {
+			changeCount({ state, id, type: 'decrease' });
+			calculateTotalPrice(state);
 		},
 		trashAll: (state) => {
 			state.items = [];

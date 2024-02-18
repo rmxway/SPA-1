@@ -8,14 +8,12 @@ export const Wrapper = styled(Container)`
 	position: relative;
 	padding-bottom: 120px;
 
-	${Flexbox} {
-		flex-wrap: wrap;
-	}
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 20px;
 
 	${media.greaterThan('md')`
-        ${Flexbox} {
-            flex-wrap: nowrap;
-        }
+        grid-template-columns: 1fr 25%;
     `}
 
 	.swiper {
@@ -102,10 +100,6 @@ export const SideBlock = styled.div`
 
 	${media.greaterThan('md')`
         position: relative;
-        flex-shrink: 0;
-
-        width: 25%;
-        min-width: 250px;
 
         ${LayerBlock} {
             position: sticky;

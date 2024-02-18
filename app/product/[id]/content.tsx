@@ -36,7 +36,7 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 			<Wrapper $pt>
 				{error || ''}
 				{product && (
-					<Flexbox gap={20}>
+					<>
 						<Info>
 							<LayerBlock>
 								<Flexbox nowrap justify="space-between" align="center">
@@ -102,7 +102,7 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 								</PriceBlock>
 							</LayerBlock>
 						</SideBlock>
-					</Flexbox>
+					</>
 				)}
 			</Wrapper>
 		</MobileWhiteBackground>

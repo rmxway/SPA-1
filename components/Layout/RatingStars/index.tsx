@@ -12,11 +12,11 @@ export function RatingStars({ rating, ...props }: RatingTypes) {
 					<Star icon="star" />
 				</Wrapper>
 				<Wrapper width={rating}>
-					<Star icon="star" active />
-					<Star icon="star" active />
-					<Star icon="star" active />
-					<Star icon="star" active />
-					<Star icon="star" active />
+					<Star icon="star" $active />
+					<Star icon="star" $active />
+					<Star icon="star" $active />
+					<Star icon="star" $active />
+					<Star icon="star" $active />
 				</Wrapper>
 			</RatingStarsStyled>
 			<span>{rating}</span>

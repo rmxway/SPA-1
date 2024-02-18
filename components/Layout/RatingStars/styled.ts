@@ -35,11 +35,11 @@ export const Wrapper = styled.div<{ width?: number | null }>`
 	width: ${({ width }) => (typeof width === 'number' ? `calc((100% / 5) * ${width})` : '100%')};
 `;
 
-export const Star = styled(Icon)<{ active?: boolean }>`
+export const Star = styled(Icon)<{ $active?: boolean }>`
 	width: 16px;
 	flex-shrink: 0;
 	margin-right: 1px;
-	color: ${({ active, theme }) => (active ? theme.colors.danger : theme.colors.gray.$3)};
+	color: ${({ $active, theme }) => ($active ? theme.colors.danger : theme.colors.gray.$3)};
 
 	&:last-child {
 		margin-right: 0;
