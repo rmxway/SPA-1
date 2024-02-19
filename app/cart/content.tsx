@@ -51,7 +51,6 @@ export const ContentCart = () => {
 								Delete
 							</ButtonUI>
 						</Modal>
-
 						<AnimatePresence mode="popLayout">
 							{isItems &&
 								currentItems.map((item, idx) => (
@@ -83,7 +82,13 @@ export const ContentCart = () => {
 								<br />
 							</LayerBlock>
 						)}
-						{isItems && <Pagination layout {...{ changePage, items, countPerPage, page }} />}
+						{isItems && (
+							<Pagination
+								layout
+								transition={{ delay: 0.03 }}
+								{...{ changePage, items, countPerPage, page }}
+							/>
+						)}
 					</Wrapper>
 
 					<Sidebar layoutId="sidebar">

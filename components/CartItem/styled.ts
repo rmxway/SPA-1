@@ -1,9 +1,9 @@
 import { motion, Variants } from 'framer-motion';
 import Link from 'next/link';
 import { darken } from 'polished';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { defaultTheme as theme, media } from '@/theme';
+import { media } from '@/theme';
 
 export const cartVariant = {
 	hidden: { y: 20, opacity: 0 },
@@ -29,44 +29,48 @@ export const elementsVars: Variants = {
 };
 
 export const Item = styled(motion.div)`
-	position: relative;
-	display: flex;
-	align-items: stretch;
-	flex-direction: row;
-	background-color: #fff;
-	width: 100%;
-	border-radius: ${theme.radius.borderRadius};
-	margin-bottom: 10px;
-	transition: 0.2s box-shadow;
-	padding-right: 40px;
-
-	&:hover {
-		box-shadow: ${theme.layout.shadow};
-	}
-
-	img {
-		margin: 10px 0 10px 10px;
-		flex-basis: 65px;
-		display: block;
-		object-fit: cover;
+	${({ theme }) => css`
+		position: relative;
+		display: flex;
+		align-items: stretch;
+		flex-direction: row;
+		background-color: #fff;
+		width: 100%;
 		border-radius: ${theme.radius.borderRadius};
-		flex-shrink: 0;
+		margin-bottom: 10px;
+		transition: 0.2s box-shadow;
+		padding-right: 40px;
 
-		${media.lessThan('xsD')`
+		&:hover {
+			box-shadow: ${theme.layout.shadow};
+		}
+
+		img {
+			margin: 10px 0 10px 10px;
+			flex-basis: 65px;
+			display: block;
+			object-fit: cover;
+			border-radius: ${theme.radius.borderRadius};
+			flex-shrink: 0;
+
+			${media.lessThan('xsD')`
             width: 85px;
             height: 85px;
         `}
-	}
+		}
 
-	${media.greaterThan('xs')`
-        padding-right: 10px;
+		${media.greaterThan('xs')`
+        padding-right: 12px;
     `};
+	`}
 `;
 
 export const Content = styled(motion.div)`
-	display: flex;
-	gap: 20px;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-columns: auto 1fr auto;
 	flex-wrap: nowrap;
+	gap: 20px;
 	flex-grow: 1;
 
 	& > a {
@@ -80,15 +84,41 @@ export const Content = styled(motion.div)`
 `;
 
 export const WrapperText = styled.div`
-	display: flex;
-	flex-direction: column;
-	flex-grow: 1;
+	display: grid;
+	grid-auto-flow: dense;
 	gap: 5px;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	grid-template-columns: 1fr;
+
+	& button {
+		width: 20px;
+		height: 20px;
+		border: 1px solid ${({ theme }) => theme.colors.gray.$4};
+		border-radius: 20px;
+		font-size: 1rem;
+		line-height: 1;
+		text-align: center;
+		padding: 0;
+		cursor: pointer;
+		color: ${({ theme }) => theme.colors.gray.$4};
+		transition: 0.2s;
+
+        &:disabled {
+            cursor: default;
+            pointer-events: none;
+            opacity: .6;
+        }
+
+		&:hover {
+			border: 1px solid ${({ theme }) => theme.colors.gray.$6};
+			color: ${({ theme }) => theme.colors.gray.$6};
+		}
+	}
 
 	${media.greaterThan('xs')`
-        flex-direction: row;
+        grid-auto-flow:column;
+
         align-items: center;
         gap: 10px;
         padding: 0;
@@ -96,40 +126,40 @@ export const WrapperText = styled.div`
 `;
 
 export const Title = styled(Link)`
-	display: flex;
-	flex-direction: column;
-	align-self: normal;
-	justify-content: center;
-	color: ${(props) => darken(0.1, props.theme.colors.success)};
-	text-decoration: none;
-	flex-grow: 1;
-	line-height: 1;
-
-	strong {
+	${({ theme }) => css`
 		display: block;
-		margin-bottom: 10px;
+		color: ${darken(0.1, theme.colors.success)};
+		text-decoration: none;
+		flex-grow: 1;
+		line-height: 1;
 
-		${media.greaterThan('xs')`
-            margin-bottom: 5px;
-        `}
-	}
+		strong {
+			display: block;
+			margin-bottom: 10px;
 
-	& strong + span {
-		font-size: 0.9rem;
-		line-height: 1.1;
-		max-height: 34px;
-		color: ${theme.colors.gray.$6};
-		display: -webkit-box;
-		-webkit-line-clamp: 2;
-		-webkit-box-orient: vertical;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
+			${media.greaterThan('xs')`
+                margin-bottom: 5px;
+            `}
+		}
+
+		& strong + span {
+			font-size: 0.9rem;
+			line-height: 1.1;
+			max-height: 34px;
+			color: ${theme.colors.gray.$6};
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+	`}
 `;
 
 export const Count = styled.div`
 	position: relative;
 	flex-shrink: 0;
+	font-size: 14px;
 `;
 
 export const Price = styled.div`
@@ -145,41 +175,43 @@ export const Price = styled.div`
 `;
 
 export const Delete = styled.button`
-	position: absolute;
-	align-self: center;
-	top: 5px;
-	right: 5px;
-	flex-shrink: 0;
-	border: 2px solid ${theme.colors.gray.$3};
-	appearance: none;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 25px;
-	height: 25px;
-	border-radius: 25px;
-	cursor: pointer;
-	transition:
-		0.1s border-color,
-		color;
-	color: ${theme.colors.gray.$4};
-
-	i {
+	${({ theme }) => css`
 		position: absolute;
-		font-size: 1.5rem;
-	}
+		align-self: center;
+		top: 5px;
+		right: 5px;
+		flex-shrink: 0;
+		border: 2px solid ${theme.colors.gray.$3};
+		appearance: none;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 25px;
+		height: 25px;
+		border-radius: 25px;
+		cursor: pointer;
+		transition:
+			0.1s border-color,
+			color;
+		color: ${theme.colors.gray.$4};
 
-	&:hover {
-		border-color: ${theme.colors.danger};
-
-		i:before {
-			color: ${theme.colors.danger};
+		i {
+			position: absolute;
+			font-size: 1.5rem;
 		}
-	}
 
-	${media.greaterThan('xs')`
-        position: relative;
-        top: auto;
-	    right: auto;
-    `}
+		&:hover {
+			border-color: ${theme.colors.danger};
+
+			i:before {
+				color: ${theme.colors.danger};
+			}
+		}
+
+		${media.greaterThan('xs')`
+            position: relative;
+            top: auto;
+            right: auto;
+        `}
+	`}
 `;

@@ -17,38 +17,35 @@ export const contentVariant = {
 
 export const Cart = styled.div`
 	position: relative;
-	display: flex;
-	align-items: flex-start;
-	flex-direction: column;
+	display: grid;
+	grid-template-columns: 1fr;
+    align-items: flex-start;
 
 	${media.greaterThan('sm')`
-	 	flex-direction: row;
-	`}
+        grid-template-columns: 1fr minmax(250px, 25%);
+        gap: 20px;
+    `}
 `;
 
 export const Wrapper = styled(motion.div)`
 	position: relative;
-	width: 100%;
 	display: flex;
 	flex-direction: column;
 
-	${LinkIconStyle} {
+	& > ${LinkIconStyle} {
 		position: absolute;
 		left: 0;
 		top: -24px;
 	}
 
 	${media.greaterThan('sm')`
-		margin-right: 20px;
 		flex-grow: 1;
 	`}
 `;
 
 export const Sidebar = styled(motion.div)`
 	position: relative;
-	width: 100%;
 	margin-top: 10px;
-	min-height: 100px;
 	flex-shrink: 0;
 	padding: 10px;
 	background-color: #fff;
@@ -59,8 +56,6 @@ export const Sidebar = styled(motion.div)`
         top: 90px;
         padding: 20px;
         margin-top: 0;
-        width: 25%;
-        min-width: 250px;
 	`}
 
 	button {

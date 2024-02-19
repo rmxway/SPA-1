@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 
+import { Icon } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { sortProducts } from '@/store/reducers/products';
@@ -42,7 +43,7 @@ const ToggleSort: FC<ComponentTypes> = ({ sort, value, disabled, ...props }) => 
 			/>
 			<label htmlFor={idName}>
 				{value}
-				<i className="icofont icofont-arrow-down" />
+				<Icon icon="arrow-down" />
 			</label>
 		</Toggle>
 	);
