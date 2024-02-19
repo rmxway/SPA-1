@@ -47,7 +47,8 @@ const cartReducer = createSlice({
 		deleteFromCart: (state, { payload }: PayloadAction<number>) => {
 			state.items = state.items.filter((item) => item.id !== payload);
 			calculateTotalPrice(state);
-			if (state.items.length === state.countPerPage * state.page - state.countPerPage) state.page -= 1;
+			if (state.items.length === state.countPerPage * state.page - state.countPerPage && state.page !== 1)
+				state.page -= 1;
 		},
 		increaseCount: (state, { payload: id }: PayloadAction<number>) => {
 			changeCount({ state, id, type: 'increase' });
