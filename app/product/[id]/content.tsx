@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
 import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
-import { ButtonUI, Favorite } from '@/components/ui';
+import { Button, Favorite } from '@/components/ui';
 import { currency, IProduct, useAppDispatch } from '@/services';
 import { moveToCart } from '@/store/reducers/combineActions';
 import { setTitle, toggleFavorite } from '@/store/reducers/products';
@@ -39,7 +39,7 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 					<>
 						<Info>
 							<LayerBlock>
-								<Flexbox nowrap justify="space-between" align="center">
+								<Flexbox $nowrap $justify="space-between" $align="center">
 									<RatingStars rating={Number(product.rating)} />
 									<p>
 										<strong>Category:</strong> {product.category}
@@ -83,7 +83,7 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 						<SideBlock>
 							<LayerBlock>
 								<PriceBlock>
-									<Flexbox align="center" justify="space-between">
+									<Flexbox $align="center" $justify="space-between">
 										<span>
 											{product.price} {currency}
 										</span>
@@ -92,13 +92,13 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
 									</Flexbox>
-									<ButtonUI
-										primary
+									<Button
+										$primary
 										onClick={() => moveToCart(Number(product?.id))}
 										disabled={product.checked}
 									>
 										{product.checked ? 'Added' : 'Add to cart'}
-									</ButtonUI>
+									</Button>
 								</PriceBlock>
 							</LayerBlock>
 						</SideBlock>

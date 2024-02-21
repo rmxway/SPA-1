@@ -14,7 +14,7 @@ interface NavCountItemProps {
 export const NavCountItem: FC<NavCountItemProps> = ({ title, count }) => (
 	<NavCountItemStyled>
 		{title && <Icon icon={title} />}
-		{!!count && <Count {...{ count }} />}
+		<Count {...{ count }} />
 	</NavCountItemStyled>
 );
 

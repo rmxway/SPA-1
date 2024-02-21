@@ -14,8 +14,6 @@ module.exports = {
 		'prettier',
 		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
-		// 'next/core-web-vitals', // for the first time
-		// 'next', // Includes Next.js' base ESLint configuration
 	],
 	plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'prettier', 'react', 'import'],
 	globals: {

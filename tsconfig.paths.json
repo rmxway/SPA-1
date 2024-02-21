@@ -3,10 +3,10 @@
 		"baseUrl": ".",
 		"paths": {
 			"@/*": ["./*"],
+			"@/app/*": ["./app/*"],
 			"@/public/*": ["./public/*"],
 			"@/components/*": ["./components/*"],
 			"@/store/*": ["./store/*"],
-			"@/pages/*": ["./pages/*"],
 			"@/theme/*": ["./theme/*"],
 			"@/services/*": ["./services/*"],
 		}

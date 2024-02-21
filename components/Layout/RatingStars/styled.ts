@@ -17,22 +17,22 @@ export const Block = styled.div`
 	}
 `;
 
-export const RatingStarsStyled = styled.div<RatingTypes>`
+export const RatingStarsStyled = styled.div`
 	position: relative;
 	display: flex;
 	align-items: center;
 	padding-bottom: 3px;
 `;
 
-export const Wrapper = styled.div<{ width?: number | null }>`
-	position: ${({ width }) => (typeof width === 'number' ? 'absolute' : 'relative')};
+export const Wrapper = styled.div<{ $width?: number | null }>`
+	position: ${({ $width }) => (typeof $width === 'number' ? 'absolute' : 'relative')};
 	left: 0;
 	top: 0;
 	display: flex;
 	flex-wrap: nowrap;
 	overflow: hidden;
 	background-color: white;
-	width: ${({ width }) => (typeof width === 'number' ? `calc((100% / 5) * ${width})` : '100%')};
+	width: ${({ $width }) => (typeof $width === 'number' ? `calc((100% / 5) * ${$width})` : '100%')};
 `;
 
 export const Star = styled(Icon)<{ $active?: boolean }>`

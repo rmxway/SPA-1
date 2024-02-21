@@ -2,7 +2,7 @@ import { motion, Variants } from 'framer-motion';
 import { darken } from 'polished';
 import styled, { css } from 'styled-components';
 
-import { ButtonUI } from '@/components/ui';
+import { ButtonStyle } from '@/components/ui/Button/styled';
 import { defaultTheme as theme, media } from '@/theme';
 
 const logoColor = darken(0.3, theme.colors.success);
@@ -143,7 +143,7 @@ export const variantsWrapperNavbar: Variants = {
 	},
 };
 
-export const BurgerButton = styled(ButtonUI)<{ $isOpen: boolean }>`
+export const BurgerButton = styled(ButtonStyle)<{ $isOpen: boolean }>`
 	position: relative;
 	padding: 8px;
 	width: 32px;

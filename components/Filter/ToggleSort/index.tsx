@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Icon } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
@@ -12,7 +12,7 @@ interface ComponentTypes extends React.InputHTMLAttributes<HTMLInputElement> {
 	sort: 'rating' | 'price' | 'default';
 }
 
-const ToggleSort: FC<ComponentTypes> = ({ sort, value, disabled, ...props }) => {
+const ToggleSort = ({ sort, value, disabled, ...props }: ComponentTypes) => {
 	const { name, toggle } = useAppSelector(productsStore).sort;
 	const [checked, setChecked] = useState(false);
 	const idName = `sort-${sort}`;
@@ -31,7 +31,7 @@ const ToggleSort: FC<ComponentTypes> = ({ sort, value, disabled, ...props }) => 
 	};
 
 	return (
-		<Toggle type="button" toggle={toggle} onMouseDown={handleClick} disabled={disabled}>
+		<Toggle type="button" $toggle={toggle} onMouseDown={handleClick} disabled={disabled}>
 			<input
 				{...props}
 				type="radio"

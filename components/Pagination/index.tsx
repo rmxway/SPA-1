@@ -48,9 +48,9 @@ export const Pagination = forwardRef(
 				arrButtons[i] = (
 					<ButtonPagination
 						key={i}
-						success={page === currentPage}
+						$success={page === currentPage}
+						$inactive={fetching}
 						onClick={() => debounceChangePage(currentPage)}
-						inactive={fetching}
 						disabled={!items.length}
 					>
 						{currentPage}
@@ -73,10 +73,10 @@ export const Pagination = forwardRef(
 		return (
 			<Wrapper variants={containerVars} initial="hidden" animate="visible" exit="hidden" {...{ ref }} {...props}>
 				{countPages > 1 && (
-					<Flexbox align="center">
+					<Flexbox $align="center">
 						{page > 1 && (
 							<ArrowButton
-								left
+								$left
 								onClick={() => debounceChangePage(1)}
 								disabled={fetching || !items.length}
 							>
@@ -88,7 +88,7 @@ export const Pagination = forwardRef(
 
 						{page < countPages && page !== countPages && (
 							<ArrowButton
-								right
+								$right
 								onClick={() => debounceChangePage(countPages)}
 								disabled={fetching || !items.length}
 							>

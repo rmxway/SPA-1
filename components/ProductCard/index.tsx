@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { memo, useState } from 'react';
 
 import { RatingStars, Space } from '@/components/Layout';
-import { ButtonUI, Favorite } from '@/components/ui';
+import { Button, Favorite } from '@/components/ui';
 import { currency, IProduct, useAppDispatch } from '@/services';
 import { moveToCart } from '@/store/reducers/combineActions';
 import { toggleFavorite } from '@/store/reducers/products';
@@ -42,9 +42,9 @@ export const ProductCard = memo(({ product, ...props }: ProductType) => {
 				<RatingStars rating={Number(product.rating)} />
 			</Tools>
 			<Title href={link}>{product.title}</Title>
-			<ButtonUI primary onClick={handleChecked} disabled={product.checked}>
+			<Button $primary onClick={handleChecked} disabled={product.checked}>
 				{product.checked ? 'Added' : 'Add to cart'}
-			</ButtonUI>
+			</Button>
 		</ProductWrapper>
 	);
 });

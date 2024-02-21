@@ -34,7 +34,7 @@ const RenderNavBar = () => {
 
 	return (
 		<>
-			<BurgerButton black onClick={handleClickBurger} $isOpen={open}>
+			<BurgerButton $black onClick={handleClickBurger} $isOpen={open}>
 				<span />
 				<span />
 				<span />
@@ -70,7 +70,7 @@ const RenderNavBar = () => {
 export const Navbar = () => (
 	<StyledNavbar>
 		<Container>
-			<Flexbox align="center" nowrap>
+			<Flexbox $align="center" $nowrap>
 				<Logo>
 					<Link href="/" />
 					GS

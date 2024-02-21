@@ -4,7 +4,7 @@ import { media } from '@/theme';
 
 /**
  * Adaptive container block
- * @param {boolean} $pt
+ * @param {boolean} $pt - padding-top: 30px
  */
 
 export const Container = styled.div<{ $pt?: boolean }>`

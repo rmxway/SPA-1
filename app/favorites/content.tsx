@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Container } from '@/components/Layout';
 import { ProductsGrid } from '@/components/ProductsGrid';
-import { ButtonUI, LinkIcon, Modal } from '@/components/ui';
+import { Button, LinkIcon, Modal } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { favoritesItemsMemoized, removeAllFavorites } from '@/store/reducers/products';
@@ -29,9 +29,9 @@ export const ContentFavorites = () => {
 			<Modal open={modalShow} onClose={() => setModalShow(false)} title="Delete favorites">
 				<div>Sure you want to delete all favorites ?</div>
 				<br />
-				<ButtonUI danger onClick={handleRemoveAllFavorites}>
+				<Button $danger onClick={handleRemoveAllFavorites}>
 					Delete
-				</ButtonUI>
+				</Button>
 			</Modal>
 			<ProductsGrid {...{ items }} pagination keyPage="favorites" />
 		</Container>
