@@ -8,7 +8,7 @@
 			"@/components/*": ["./components/*"],
 			"@/store/*": ["./store/*"],
 			"@/theme/*": ["./theme/*"],
-			"@/services/*": ["./services/*"],
+			"@/services/*": ["./services/*"]
 		}
 	}
 }

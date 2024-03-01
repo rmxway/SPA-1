@@ -46,22 +46,23 @@ export const ContentCart = () => {
 							</LinkIcon>
 						)}
 						<AnimatePresence mode="popLayout">
-							{currentItems?.map((item, idx) => (
-								<CartItem
-									layout
-									key={item.id}
-									product={item}
-									variants={cartVariant}
-									initial="hidden"
-									animate="visible"
-									exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
-									transition={{
-										duration: 0.35,
-										dumping: 30,
-										delay: 0.03 * idx,
-									}}
-								/>
-							))}
+							{currentItems?.length !== 0 &&
+								currentItems?.map((item, idx) => (
+									<CartItem
+										layout
+										key={item.id}
+										product={item}
+										variants={cartVariant}
+										initial="hidden"
+										animate="visible"
+										exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
+										transition={{
+											duration: 0.35,
+											dumping: 30,
+											delay: 0.03 * idx,
+										}}
+									/>
+								))}
 						</AnimatePresence>
 
 						{!isItems && (

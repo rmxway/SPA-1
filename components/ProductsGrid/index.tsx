@@ -26,14 +26,15 @@ export const ProductsGrid = ({ children, items, pagination, keyPage }: ProductsG
 	const dispatch = useAppDispatch();
 	const currentItems = currentItemsMemoized(useAppSelector(productsStore), items);
 
+	// ?
 	useEffect(() => {
 		dispatch(changeTypePage(keyPage));
 	}, [keyPage, dispatch]);
 
 	return (
 		<WrapperComponent>
-			{pagination && currentItems.length !== 0 && <Pagination {...{ changePage, items, countPerPage, page }} />}
-			{!!currentItems.length && (
+			{pagination && currentItems?.length !== 0 && <Pagination {...{ changePage, items, countPerPage, page }} />}
+			{currentItems?.length !== 0 && (
 				<>
 					{children}
 					<LayoutGroup>
@@ -57,19 +58,18 @@ export const ProductsGrid = ({ children, items, pagination, keyPage }: ProductsG
 				</>
 			)}
 
-			{items.length > 0 ||
-				(currentItems.length === 0 && (
-					<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
-						<LayerBlock $fixedPadding>
-							{keyPage === 'products' && `The search did't take a result`}
-							{keyPage === 'favorites' && (
-								<>
-									{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
-								</>
-							)}
-						</LayerBlock>
-					</motion.div>
-				))}
+			{currentItems?.length === 0 && (
+				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
+					<LayerBlock $fixedPadding>
+						{keyPage === 'products' && `The search did't take a result`}
+						{keyPage === 'favorites' && (
+							<>
+								{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>
+							</>
+						)}
+					</LayerBlock>
+				</motion.div>
+			)}
 		</WrapperComponent>
 	);
 };
