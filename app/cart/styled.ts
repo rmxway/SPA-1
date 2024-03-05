@@ -35,7 +35,7 @@ export const Wrapper = styled(motion.div)`
 	& > ${LinkIconStyle} {
 		position: absolute;
 		left: 0;
-		top: -24px;
+		top: -30px;
 	}
 
 	${media.greaterThan('sm')`

@@ -2,11 +2,12 @@
 
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { ReactNode, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
+import { SkeletonCard } from '@/components/ProductCard/SkeletonCard';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { currentItemsMemoized } from '@/store/reducers/commonSelectors';
@@ -16,15 +17,19 @@ import { containerVars, FetchingBlock, WrapperComponent } from './styled';
 
 interface ProductsGridProps {
 	items: IProduct[];
+	isLoading?: boolean;
 	pagination?: boolean;
 	keyPage: TypePages;
-	children?: ReactNode;
 }
 
-export const ProductsGrid = ({ children, items, pagination, keyPage }: ProductsGridProps) => {
-	const { error, page, countPerPage } = useAppSelector(productsStore);
+export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: ProductsGridProps) => {
+	const { reservedItems, error, page, countPerPage } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 	const currentItems = currentItemsMemoized(useAppSelector(productsStore), items);
+	const skeletonArr = useCallback(
+		() => new Array<number>(countPerPage).fill(1).map(() => Math.random() * 40),
+		[countPerPage],
+	);
 
 	// ?
 	useEffect(() => {
@@ -33,35 +38,36 @@ export const ProductsGrid = ({ children, items, pagination, keyPage }: ProductsG
 
 	return (
 		<WrapperComponent>
-			{pagination && currentItems?.length !== 0 && <Pagination {...{ changePage, items, countPerPage, page }} />}
-			{currentItems?.length !== 0 && (
-				<>
-					{children}
-					<LayoutGroup>
-						<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
-							{!!currentItems.length &&
-								!error &&
-								currentItems.map((product, idx) => (
-									<ProductCard
-										product={product}
-										layout
-										transition={{ duration: 0.3, delay: idx * 0.04 }}
-										variants={containerVars}
-										initial="hidden"
-										animate="visible"
-										exit="hidden"
-										key={product.id}
-									/>
-								))}
-						</FetchingBlock>
-					</LayoutGroup>
-				</>
-			)}
+			{pagination && <Pagination {...{ changePage, items, isLoading, countPerPage, page }} />}
 
-			{currentItems?.length === 0 && (
+			<LayoutGroup>
+				<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
+					{isLoading && skeletonArr().map((item) => <SkeletonCard key={item} />)}
+					{!isLoading &&
+						!!currentItems.length &&
+						!error &&
+						currentItems.map((product, idx) => (
+							<ProductCard
+								product={product}
+								layout
+								transition={{ duration: 0.3, delay: idx * 0.04 }}
+								variants={containerVars}
+								initial="hidden"
+								animate="visible"
+								exit="hidden"
+								key={product.id}
+							/>
+						))}
+				</FetchingBlock>
+			</LayoutGroup>
+
+			{!currentItems.length && (
 				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">
 					<LayerBlock $fixedPadding>
-						{keyPage === 'products' && `The search did't take a result`}
+						{reservedItems.length !== 0 && keyPage === 'products' && `The search did't take a result`}
+						{reservedItems.length === 0 &&
+							keyPage === 'products' &&
+							`Elements not found. Please contact with the website administrator.`}
 						{keyPage === 'favorites' && (
 							<>
 								{`Nothing was't add to favorites, go to`} <Link href="/products">Products</Link>

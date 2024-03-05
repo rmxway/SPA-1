@@ -209,6 +209,7 @@ export const Description = styled.div<{ open: boolean }>`
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
+    word-break: break-all;
 
 	${(props) =>
 		props.open &&

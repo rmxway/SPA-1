@@ -5,6 +5,8 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
 
+import { api } from './api';
+
 const createNoopStorage = () => ({
 	getItem(key: string): Promise<string | null> {
 		return Promise.resolve(key);
@@ -25,6 +27,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
+	[api.reducerPath]: api.reducer,
 	cart: CartReducer,
 	products: ProductsReducer,
 });
@@ -38,7 +41,7 @@ export const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [PERSIST, FLUSH, REHYDRATE, PAUSE, PURGE, REGISTER],
 			},
-		}),
+		}).concat(api.middleware),
 });
 
 export const makeStore = () => {

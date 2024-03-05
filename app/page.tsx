@@ -5,7 +5,7 @@ import logos from '@/public/assets/img/logos.jpg';
 
 import { ImageLogos } from './styled';
 
-export default function MainPage() {
+export function MainPage() {
 	return (
 		<MobileWhiteBackground>
 			<Container $pt>
@@ -16,7 +16,7 @@ export default function MainPage() {
 						dummyjson.com
 					</a>
 				</p>
-				<ImageLogos src={logos} alt="logos" placeholder="blur" />
+				<ImageLogos src={logos} alt="logos" placeholder="empty" priority />
 				<LayerBlock>
 					<p>Most used package list:</p>
 					<ul>
@@ -34,3 +34,5 @@ export default function MainPage() {
 		</MobileWhiteBackground>
 	);
 }
+
+export default MainPage;

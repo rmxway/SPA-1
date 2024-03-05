@@ -40,8 +40,11 @@ const cartReducer = createSlice({
 	name: 'cart',
 	initialState,
 	reducers: {
-		addToCart: (state, { payload }: PayloadAction<IProduct>) => {
-			state.items.push(payload);
+		addToCart: (state, { payload: item }: PayloadAction<IProduct>) => {
+			state.items.push({
+				...item,
+				count: 1,
+			});
 			calculateTotalPrice(state);
 		},
 		deleteFromCart: (state, { payload }: PayloadAction<number>) => {

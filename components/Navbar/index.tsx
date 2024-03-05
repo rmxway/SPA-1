@@ -8,7 +8,7 @@ import { cartStore, productsStore } from '@/store';
 import { breakpoints } from '@/theme';
 
 import { NavCountItem } from './NavCountItem';
-import { navbarTypes, NavLinkMotion } from './NavLinkMotion';
+import { NavbarProps, NavLink } from './NavLink';
 import { BurgerButton, Logo, StyledNavbar, variantsWrapperNavbar, WrapperNavbarItems } from './styled';
 
 const RenderNavBar = () => {
@@ -45,12 +45,12 @@ const RenderNavBar = () => {
 				transition={{ duration: 0.3, type: 'spring', stiffness: 250, damping: 20 }}
 			>
 				{navbarItems.map(({ title, url }) => {
-					const props: navbarTypes = {
+					const props: NavbarProps = {
 						title,
 						url,
 					};
 
-					// NavCountItem добавляется в пропсы к компоненту NavLinkMotion
+					// NavCountItem добавляется в пропсы к компоненту NavLinkMotion.component
 
 					if (title === 'Favorites') {
 						props.component = <NavCountItem title="favorite-fill" count={countFavorites} />;
@@ -60,7 +60,7 @@ const RenderNavBar = () => {
 						props.component = <NavCountItem title="cart" count={countCartItems} />;
 					}
 
-					return <NavLinkMotion key={url} {...props} onClick={() => setOpen(false)} />;
+					return <NavLink key={url} onClick={() => setOpen(false)} {...props} />;
 				})}
 			</WrapperNavbarItems>
 		</>

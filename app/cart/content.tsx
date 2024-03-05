@@ -41,7 +41,7 @@ export const ContentCart = () => {
 				<LayoutGroup>
 					<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
 						{isItems && (
-							<LinkIcon icon="trash" initial onClick={() => setModalShow(true)}>
+							<LinkIcon icon="trash" onClick={() => setModalShow(true)}>
 								Delete All
 							</LinkIcon>
 						)}

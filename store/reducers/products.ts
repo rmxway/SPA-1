@@ -1,6 +1,7 @@
 import { createSelector, createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
+import { api } from '@/store/api';
 
 export interface SortTypes {
 	name: 'rating' | 'price' | 'default';
@@ -49,10 +50,6 @@ const initialState: ProductsState = {
 const initialItems = (state: ProductsState, products: IProduct[]) => {
 	if (state.reservedItems.length === products.length) return;
 
-	products.forEach((product) => {
-		product.count = 1;
-	});
-
 	// there was some product on the first page
 	if (state.fetchedItems.length === 1) {
 		const index = products.findIndex((product) => product.id === state.fetchedItems[0].id);
@@ -84,6 +81,7 @@ const anyTogglesInProduct = (
 
 const resetItems = (state: ProductsState) => {
 	state.page = 1;
+	state.sort.name = 'default';
 	state.sort.toggle = false;
 	state.search.value = '';
 	state.fetchedItems = state.reservedItems;
@@ -179,6 +177,22 @@ const productsReducer = createSlice({
 			state.typePage = payload;
 			resetItems(state);
 		},
+	},
+	extraReducers: (builder) => {
+		builder
+			.addMatcher(api.endpoints.getProducts.matchPending, (state) => {
+				state.fetching = true;
+			})
+			.addMatcher(
+				api.endpoints.getProducts.matchFulfilled,
+				(state, { payload: items }: PayloadAction<IProduct[]>) => {
+					initialItems(state, items);
+				},
+			)
+			.addMatcher(api.endpoints.getProducts.matchRejected, (state) => {
+				state.error = 'Something went wrong';
+				state.fetching = false;
+			});
 	},
 });
 

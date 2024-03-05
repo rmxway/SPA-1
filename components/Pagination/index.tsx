@@ -1,7 +1,10 @@
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { MotionProps } from 'framer-motion';
 import debounce from 'lodash.debounce';
 import { forwardRef, Ref } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox, Space } from '@/components/Layout';
 import { containerVars } from '@/components/ProductsGrid/styled';
@@ -14,13 +17,14 @@ import { ArrowButton, ButtonPagination, Info, Wrapper } from './styled';
 
 interface PaginationProps extends MotionProps {
 	items: IProduct[];
+	isLoading?: boolean;
 	countPerPage: number;
 	page: number;
 	changePage: ActionCreatorWithPayload<number, string>;
 }
 
 export const Pagination = forwardRef(
-	({ items, countPerPage, page, changePage, ...props }: PaginationProps, ref: Ref<HTMLDivElement>) => {
+	({ items, isLoading, countPerPage, page, changePage, ...props }: PaginationProps, ref: Ref<HTMLDivElement>) => {
 		const { fetching } = useAppSelector(productsStore);
 		const dispatch = useAppDispatch();
 		const total = items.length;
@@ -71,8 +75,17 @@ export const Pagination = forwardRef(
 		};
 
 		return (
-			<Wrapper variants={containerVars} initial="hidden" animate="visible" exit="hidden" {...{ ref }} {...props}>
-				{countPages > 1 && (
+			<Wrapper
+				variants={containerVars}
+				initial="hidden"
+				animate="visible"
+				exit="hidden"
+				$isItems={!!items.length}
+				{...{ ref }}
+				{...props}
+			>
+				{isLoading && <Skeleton inline height={40} width={300} />}
+				{!isLoading && countPages > 1 && (
 					<Flexbox $align="center">
 						{page > 1 && (
 							<ArrowButton
@@ -97,13 +110,13 @@ export const Pagination = forwardRef(
 						)}
 					</Flexbox>
 				)}
-				<br />
 				<Space />
-				{!!items.length && (
+				{!isLoading && !!items.length && (
 					<Info>
 						Shown products: {viewedItems()} from {total}
 					</Info>
 				)}
+				{isLoading && <Skeleton inline height={30} width={300} />}
 			</Wrapper>
 		);
 	},

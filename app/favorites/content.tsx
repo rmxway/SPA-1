@@ -22,7 +22,7 @@ export const ContentFavorites = () => {
 	return (
 		<Container $pt>
 			{items.length > 0 && (
-				<LinkIcon icon="trash" initial onClick={() => setModalShow(true)} style={{ top: '-15px' }}>
+				<LinkIcon icon="trash" onClick={() => setModalShow(true)} style={{ top: '-30px' }}>
 					Delete favorites
 				</LinkIcon>
 			)}
@@ -33,6 +33,7 @@ export const ContentFavorites = () => {
 					Delete
 				</Button>
 			</Modal>
+
 			<ProductsGrid {...{ items }} pagination keyPage="favorites" />
 		</Container>
 	);

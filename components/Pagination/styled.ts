@@ -13,11 +13,14 @@ export const Info = styled.div`
     `}
 `;
 
-export const Wrapper = styled(motion.div)`
+export const Wrapper = styled(motion.div)<{ $isItems: boolean }>`
 	display: flex;
 	flex-direction: column;
-	min-height: 30px;
-	margin-bottom: 20px;
+	${({ $isItems }) =>
+		$isItems &&
+		css`
+			margin-bottom: 20px;
+		`}
 
 	${media.greaterThan('xs')`
         flex-direction: row;

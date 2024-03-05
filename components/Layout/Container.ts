@@ -18,7 +18,7 @@ export const Container = styled.div<{ $pt?: boolean }>`
 	${({ $pt }) =>
 		$pt &&
 		css`
-			padding-top: 30px;
+			padding-top: 40px;
 		`}
 
 	${media.greaterThan('sm')`
