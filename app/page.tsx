@@ -5,7 +5,7 @@ import logos from '@/public/assets/img/logos.jpg';
 
 import { ImageLogos } from './styled';
 
-export function MainPage() {
+export default function MainPage() {
 	return (
 		<MobileWhiteBackground>
 			<Container $pt>
@@ -34,5 +34,3 @@ export function MainPage() {
 		</MobileWhiteBackground>
 	);
 }
-
-export default MainPage;
