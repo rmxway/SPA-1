@@ -48,6 +48,7 @@ const initialState: ProductsState = {
 };
 
 const initialItems = (state: ProductsState, products: IProduct[]) => {
+	state.fetching = false;
 	if (state.reservedItems.length === products.length) return;
 
 	// there was some product on the first page
@@ -60,7 +61,6 @@ const initialItems = (state: ProductsState, products: IProduct[]) => {
 
 	state.fetchedItems = [...products];
 	state.reservedItems = state.fetchedItems;
-	state.fetching = false;
 	state.error = '';
 };
 
@@ -85,6 +85,7 @@ const resetItems = (state: ProductsState) => {
 	state.sort.toggle = false;
 	state.search.value = '';
 	state.fetchedItems = state.reservedItems;
+    state.fetching = false;
 };
 
 export const favoritesItemsMemoized = createSelector([(state: ProductsState) => state.fetchedItems], (fetchedItems) =>

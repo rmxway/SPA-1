@@ -80,7 +80,7 @@ export const Pagination = forwardRef(
 				initial="hidden"
 				animate="visible"
 				exit="hidden"
-				$isItems={!!items.length}
+				$isItems={!!items.length || isLoading === true}
 				{...{ ref }}
 				{...props}
 			>
