@@ -48,20 +48,29 @@ const initialState: ProductsState = {
 };
 
 const initialItems = (state: ProductsState, products: IProduct[]) => {
-	state.fetching = false;
 	if (state.reservedItems.length === products.length) return;
 
-	// there was some product on the first page
+	const items = [...products];
+
+	// there is some product on the first page
 	if (state.fetchedItems.length === 1) {
-		const index = products.findIndex((product) => product.id === state.fetchedItems[0].id);
-		products[index] = current(state.fetchedItems[0]);
+		const index = items.findIndex((product) => product.id === state.fetchedItems[0].id);
+		items[index] = current(state.fetchedItems[0]);
 	}
 
-	state.total = products.length;
+	state.total = items.length;
+	state.fetching = false;
 
-	state.fetchedItems = [...products];
+	state.fetchedItems = [...items];
 	state.reservedItems = state.fetchedItems;
 	state.error = '';
+};
+
+const initialOneProduct = (state: ProductsState, item: IProduct) => {
+	state.fetchedItems[0] = item;
+	state.fetching = false;
+
+	state.reservedItems = state.fetchedItems;
 };
 
 const anyTogglesInProduct = (
@@ -85,7 +94,7 @@ const resetItems = (state: ProductsState) => {
 	state.sort.toggle = false;
 	state.search.value = '';
 	state.fetchedItems = state.reservedItems;
-    state.fetching = false;
+	state.fetching = false;
 };
 
 export const favoritesItemsMemoized = createSelector([(state: ProductsState) => state.fetchedItems], (fetchedItems) =>
@@ -104,13 +113,6 @@ const productsReducer = createSlice({
 		},
 		setTitle: (state, { payload }: PayloadAction<string>) => {
 			state.title = payload;
-		},
-		addOneProduct: (state, { payload }: PayloadAction<IProduct>) => {
-			state.fetchedItems[0] = payload;
-			state.reservedItems = state.fetchedItems;
-		},
-		addProducts: (state, { payload }: PayloadAction<IProduct[]>) => {
-			initialItems(state, payload);
 		},
 		toggleProduct: (state, { payload }: PayloadAction<number>) => {
 			anyTogglesInProduct(state, payload, 'checked');
@@ -181,8 +183,10 @@ const productsReducer = createSlice({
 	},
 	extraReducers: (builder) => {
 		builder
+			// Products
 			.addMatcher(api.endpoints.getProducts.matchPending, (state) => {
 				state.fetching = true;
+				state.fetchedItems = [];
 			})
 			.addMatcher(
 				api.endpoints.getProducts.matchFulfilled,
@@ -193,6 +197,23 @@ const productsReducer = createSlice({
 			.addMatcher(api.endpoints.getProducts.matchRejected, (state) => {
 				state.error = 'Something went wrong';
 				state.fetching = false;
+				state.fetchedItems = [];
+			})
+			// Product
+			.addMatcher(api.endpoints.getProduct.matchPending, (state) => {
+				state.fetching = true;
+				state.fetchedItems = [];
+			})
+			.addMatcher(
+				api.endpoints.getProduct.matchFulfilled,
+				(state, { payload: item }: PayloadAction<IProduct>) => {
+					initialOneProduct(state, item);
+				},
+			)
+			.addMatcher(api.endpoints.getProduct.matchRejected, (state) => {
+				state.error = 'Something went wrong';
+				state.fetching = false;
+				state.fetchedItems = [];
 			});
 	},
 });
@@ -204,8 +225,6 @@ export const {
 	setError,
 	setTitle,
 	toggleProduct,
-	addOneProduct,
-	addProducts,
 	removeAllToggledProducts,
 	fetchingImageProduct,
 	sortProducts,

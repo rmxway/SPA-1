@@ -27,7 +27,7 @@ export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: 
 	const dispatch = useAppDispatch();
 	const currentItems = currentItemsMemoized(useAppSelector(productsStore), items);
 	const skeletonArr = useCallback(
-		() => new Array<number>(countPerPage).fill(1).map(() => Math.random() * 40),
+		() => new Array<number>(countPerPage).fill(NaN).map(() => Math.random() * countPerPage),
 		[countPerPage],
 	);
 

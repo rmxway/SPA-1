@@ -3,29 +3,32 @@
 import 'swiper/css';
 
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
 import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
 import { Button, Favorite } from '@/components/ui';
-import { currency, IProduct, useAppDispatch } from '@/services';
+import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
+import { productsStore } from '@/store';
+import { useGetProductQuery } from '@/store/api';
 import { moveToCart } from '@/store/reducers/combineActions';
+import { productMemoized } from '@/store/reducers/commonSelectors';
 import { setTitle, toggleFavorite } from '@/store/reducers/products';
 
 import { Info, PriceBlock, SideBlock, Wrapper } from './styled';
-import { useGetProduct } from './useGetProduct';
 
-interface ProductPageProps {
-	serverProduct: IProduct;
-}
+export function ContentProduct() {
+	const { id } = useParams<{ id: string }>();
+	const { fetchedItems, error } = useAppSelector(productsStore);
+	useGetProductQuery(id, { skip: fetchedItems.length > 1 });
+	const product: IProduct = productMemoized(useAppSelector(productsStore), id)!;
 
-export function ContentProduct({ serverProduct }: ProductPageProps) {
-	const { error, product } = useGetProduct(serverProduct);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(setTitle(product.title || 'Error'));
+		dispatch(setTitle(product?.title || 'Error'));
 		return () => {
 			dispatch(setTitle(''));
 		};

@@ -32,8 +32,8 @@ module.exports = {
 		'no-shadow': 'off',
 		'no-plusplus': 'off',
 		'no-new': 'off',
-		'camelcase': 1,
-        'no-console': 1,
+		camelcase: 1,
+		'no-console': 1,
 		'react/react-in-jsx-scope': 'off',
 		'react/display-name': 'off',
 		'no-underscore-dangle': 'off',
@@ -70,7 +70,13 @@ module.exports = {
 				tsx: 'never',
 			},
 		],
-
+		'prefer-destructuring': [
+			'error',
+			{
+				object: true,
+				array: false,
+			},
+		],
 		'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
 		'react/function-component-definition': [
 			'off',

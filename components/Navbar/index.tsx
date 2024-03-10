@@ -2,9 +2,11 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
+import { Button } from '@/components/ui';
 import { navbarItems } from '@/mock/navbar';
 import { useAppSelector, useMediaQuery } from '@/services';
 import { cartStore, productsStore } from '@/store';
+import { clearStore } from '@/store/localStore';
 import { breakpoints } from '@/theme';
 
 import { NavCountItem } from './NavCountItem';
@@ -70,7 +72,7 @@ const RenderNavBar = () => {
 export const Navbar = () => (
 	<StyledNavbar>
 		<Container>
-			<Flexbox $align="center" $nowrap>
+			<Flexbox $align="center" $nowrap $gap={10}>
 				<Logo>
 					<Link href="/" />
 					GS
@@ -79,6 +81,9 @@ export const Navbar = () => (
 						Brand
 					</span>
 				</Logo>
+				<Button $black onClick={() => clearStore()} style={{ flexShrink: 0 }}>
+					Clear storage
+				</Button>
 				<Space />
 				<RenderNavBar />
 			</Flexbox>
