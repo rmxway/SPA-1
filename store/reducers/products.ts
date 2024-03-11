@@ -186,7 +186,6 @@ const productsReducer = createSlice({
 			// Products
 			.addMatcher(api.endpoints.getProducts.matchPending, (state) => {
 				state.fetching = true;
-				state.fetchedItems = [];
 			})
 			.addMatcher(
 				api.endpoints.getProducts.matchFulfilled,
