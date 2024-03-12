@@ -11,6 +11,7 @@ module.exports = {
 		'plugin:import/typescript',
 		'plugin:@typescript-eslint/eslint-recommended',
 		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/recommended-type-checked',
 		'prettier',
 		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
@@ -21,11 +22,19 @@ module.exports = {
 		SharedArrayBuffer: 'readonly',
 	},
 	parserOptions: {
+		project: true,
+		tsconfigRootDir: __dirname,
 		ecmaFeatures: {
 			jsx: true,
 		},
 		sourceType: 'module',
 	},
+	overrides: [
+		{
+			files: ['*.js'],
+			extends: ['plugin:@typescript-eslint/disable-type-checked'],
+		},
+	],
 	rules: {
 		'class-methods-use-this': 'off',
 		'no-param-reassign': 'off',
@@ -88,6 +97,7 @@ module.exports = {
 
 		'react/jsx-props-no-spreading': 'off',
 		'react/require-default-props': 'off',
+		'@typescript-eslint/no-redundant-type-constituents': 'off',
 	},
 	settings: {
 		'import/resolver': {

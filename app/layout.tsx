@@ -16,12 +16,12 @@ export const metadata: Metadata = {
 	title: 'Green Shop | Brand',
 };
 
-export const RootLayout = ({ children }: { children: React.ReactNode }) => (
-	<html lang="en">
-		<body className={Font.className}>
-			<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-		</body>
-	</html>
-);
-
-export default RootLayout;
+export default function RootLayout({ children }: { children: React.ReactElement }) {
+	return (
+		<html lang="en">
+			<body className={Font.className}>
+				<StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+			</body>
+		</html>
+	);
+}

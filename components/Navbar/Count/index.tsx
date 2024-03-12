@@ -12,16 +12,20 @@ export const Count = memo(({ count }: CountProps) => {
 	const velocity = transform(Number(count), [0, 2], [0, 4]);
 
 	useEffect(() => {
-		controls.start({
-			scale: count ? 1 : 0,
-			opacity: count ? 1 : 0,
-			transition: {
-				velocity,
-				type: 'spring',
-				stiffness: 150,
-				duration: 0.1,
-			},
-		});
+		controls
+			.start({
+				scale: count ? 1 : 0,
+				opacity: count ? 1 : 0,
+				transition: {
+					velocity,
+					type: 'spring',
+					stiffness: 150,
+					duration: 0.1,
+				},
+			})
+			.catch((e: Error) => {
+				throw new Error(e.message);
+			});
 	}, [controls, count, velocity]);
 
 	return (

@@ -18,7 +18,7 @@ import { Cart, contentVariant, Sidebar, Title, Total, Wrapper } from './styled';
 
 export const ContentCart = () => {
 	const [modalShow, setModalShow] = useState(false);
-	const { items, totalPrice, countPerPage, page } = useAppSelector(cartStore);
+	const { items, totalPrice, page, countPerPage } = useAppSelector(cartStore);
 	const isItems = !!items.length;
 
 	const currentItems = currentItemsMemoized(useAppSelector(cartStore), items);
