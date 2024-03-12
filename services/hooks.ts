@@ -1,13 +1,20 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { TypedUseSelectorHook, useDispatch, useSelector, useStore } from 'react-redux';
 
-import type { AppDispatch, RootState } from '@/store';
+import type { AppDispatch, RootState, RootStore } from '@/store';
 
-export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export const useAppStore: () => RootStore = useStore;
 
+/**
+ * Observable screen width breakpoints and if matched return a boolean value
+ * @param {string}query - string
+ * @returns boolean
+ * @example const match = useMediaQuery('1024px') // return true if screen width from 0 to 1024 px
+ */
 export const useMediaQuery = (query: string) => {
 	const mediaQuery = useMemo(() => {
 		if (typeof window !== 'undefined') {

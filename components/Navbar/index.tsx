@@ -2,13 +2,15 @@ import Link from 'next/link';
 import { useMemo, useState } from 'react';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
+import { Button } from '@/components/ui';
 import { navbarItems } from '@/mock/navbar';
 import { useAppSelector, useMediaQuery } from '@/services';
 import { cartStore, productsStore } from '@/store';
+import { clearStore } from '@/store/localStore';
 import { breakpoints } from '@/theme';
 
 import { NavCountItem } from './NavCountItem';
-import { navbarTypes, NavLinkMotion } from './NavLinkMotion';
+import { NavbarProps, NavLink } from './NavLink';
 import { BurgerButton, Logo, StyledNavbar, variantsWrapperNavbar, WrapperNavbarItems } from './styled';
 
 const RenderNavBar = () => {
@@ -34,7 +36,7 @@ const RenderNavBar = () => {
 
 	return (
 		<>
-			<BurgerButton black onClick={handleClickBurger} $isOpen={open}>
+			<BurgerButton $black onClick={handleClickBurger} $isOpen={open}>
 				<span />
 				<span />
 				<span />
@@ -45,12 +47,12 @@ const RenderNavBar = () => {
 				transition={{ duration: 0.3, type: 'spring', stiffness: 250, damping: 20 }}
 			>
 				{navbarItems.map(({ title, url }) => {
-					const props: navbarTypes = {
+					const props: NavbarProps = {
 						title,
 						url,
 					};
 
-					// NavCountItem добавляется в пропсы к компоненту NavLinkMotion
+					// NavCountItem добавляется в пропсы к компоненту NavLinkMotion.component
 
 					if (title === 'Favorites') {
 						props.component = <NavCountItem title="favorite-fill" count={countFavorites} />;
@@ -60,7 +62,7 @@ const RenderNavBar = () => {
 						props.component = <NavCountItem title="cart" count={countCartItems} />;
 					}
 
-					return <NavLinkMotion key={url} {...props} onClick={() => setOpen(false)} />;
+					return <NavLink key={url} onClick={() => setOpen(false)} {...props} />;
 				})}
 			</WrapperNavbarItems>
 		</>
@@ -70,7 +72,7 @@ const RenderNavBar = () => {
 export const Navbar = () => (
 	<StyledNavbar>
 		<Container>
-			<Flexbox align="center" nowrap>
+			<Flexbox $align="center" $nowrap $gap={10}>
 				<Logo>
 					<Link href="/" />
 					GS
@@ -79,6 +81,9 @@ export const Navbar = () => (
 						Brand
 					</span>
 				</Logo>
+				<Button $black onClick={() => clearStore()} style={{ flexShrink: 0 }}>
+					Clear storage
+				</Button>
 				<Space />
 				<RenderNavBar />
 			</Flexbox>

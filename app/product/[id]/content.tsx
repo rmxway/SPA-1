@@ -3,29 +3,32 @@
 import 'swiper/css';
 
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
 import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
-import { ButtonUI, Favorite } from '@/components/ui';
-import { currency, IProduct, useAppDispatch } from '@/services';
+import { Button, Favorite } from '@/components/ui';
+import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
+import { productsStore } from '@/store';
+import { useGetProductQuery } from '@/store/api';
 import { moveToCart } from '@/store/reducers/combineActions';
+import { productMemoized } from '@/store/reducers/commonSelectors';
 import { setTitle, toggleFavorite } from '@/store/reducers/products';
 
 import { Info, PriceBlock, SideBlock, Wrapper } from './styled';
-import { useGetProduct } from './useGetProduct';
 
-interface ProductPageProps {
-	serverProduct: IProduct;
-}
+export function ContentProduct() {
+	const { id } = useParams<{ id: string }>();
+	const { fetchedItems, error } = useAppSelector(productsStore);
+	useGetProductQuery(id, { skip: fetchedItems.length > 1 });
+	const product: IProduct = productMemoized(useAppSelector(productsStore), id)!;
 
-export function ContentProduct({ serverProduct }: ProductPageProps) {
-	const { error, product } = useGetProduct(serverProduct);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(setTitle(product.title || 'Error'));
+		dispatch(setTitle(product?.title || 'Error'));
 		return () => {
 			dispatch(setTitle(''));
 		};
@@ -39,7 +42,7 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 					<>
 						<Info>
 							<LayerBlock>
-								<Flexbox nowrap justify="space-between" align="center">
+								<Flexbox $nowrap $justify="space-between" $align="center">
 									<RatingStars rating={Number(product.rating)} />
 									<p>
 										<strong>Category:</strong> {product.category}
@@ -83,7 +86,7 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 						<SideBlock>
 							<LayerBlock>
 								<PriceBlock>
-									<Flexbox align="center" justify="space-between">
+									<Flexbox $align="center" $justify="space-between">
 										<span>
 											{product.price} {currency}
 										</span>
@@ -92,13 +95,13 @@ export function ContentProduct({ serverProduct }: ProductPageProps) {
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
 									</Flexbox>
-									<ButtonUI
-										primary
+									<Button
+										$primary
 										onClick={() => moveToCart(Number(product?.id))}
 										disabled={product.checked}
 									>
 										{product.checked ? 'Added' : 'Add to cart'}
-									</ButtonUI>
+									</Button>
 								</PriceBlock>
 							</LayerBlock>
 						</SideBlock>

@@ -1,63 +1,19 @@
 import { darken, desaturate } from 'polished';
 import styled, { css } from 'styled-components';
 
-import { defaultTheme as theme } from '@/theme';
-
 interface CommonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-	w100?: boolean;
-	inactive?: boolean;
-	margins?: boolean;
+	$w100?: boolean;
+	$inactive?: boolean;
+	$margins?: boolean;
 }
 
 export interface Props extends CommonProps {
-	success?: boolean;
-	danger?: boolean;
-	primary?: boolean;
-	white?: boolean;
-	black?: boolean;
+	$success?: boolean | never;
+	$danger?: boolean | never;
+	$primary?: boolean | never;
+	$white?: boolean | never;
+	$black?: boolean | never;
 }
-
-interface SuccessButton extends CommonProps {
-	success?: boolean;
-	danger?: never;
-	primary?: never;
-	white?: never;
-	black?: never;
-}
-
-interface DangerButton extends CommonProps {
-	success?: never;
-	danger?: boolean;
-	primary?: never;
-	white?: never;
-	black?: never;
-}
-
-interface PrimaryButton extends CommonProps {
-	success?: never;
-	danger?: never;
-	primary?: boolean;
-	white?: never;
-	black?: never;
-}
-
-interface WhiteButton extends CommonProps {
-	success?: never;
-	danger?: never;
-	primary?: never;
-	white?: boolean;
-	black?: never;
-}
-
-interface BlackButton extends CommonProps {
-	success?: never;
-	danger?: never;
-	primary?: never;
-	white?: never;
-	black?: boolean;
-}
-
-export type ButtonProps = SuccessButton | DangerButton | PrimaryButton | WhiteButton | BlackButton;
 
 const mixinButton = ($background = '#fff', $color = '#fff') => css`
 	border-color: transparent;
@@ -82,64 +38,60 @@ const mixinButton = ($background = '#fff', $color = '#fff') => css`
 	}
 `;
 
-const Button = styled.button<ButtonProps>`
-	appearance: none;
-	border: 1px solid #aaa;
-	background: none;
-	border-radius: ${theme.radius.borderRadius};
-	padding: 11px 16px 10px;
-	color: #777;
-	font-size: 12px;
-	font-weight: 800;
-	text-transform: uppercase;
+export const ButtonStyle = styled.button<Props>`
+	${({ theme, $margins, $black, $danger, $inactive, $primary, $success, $w100, $white }) => css`
+		appearance: none;
+		border: 1px solid #aaa;
+		background: none;
+		border-radius: ${theme.radius.borderRadius};
+		padding: 11px 16px 10px;
+		color: #777;
+		font-size: 12px;
+		font-weight: 800;
+		text-transform: uppercase;
 
-	${(props) =>
-		props.margins &&
+		${$margins &&
 		css`
 			margin-bottom: 10px;
 			margin-right: 10px;
 		`}
 
-	cursor: pointer;
-	line-height: 1;
-	transition: 0.1s all;
+		cursor: pointer;
+		line-height: 1;
+		transition: 0.1s all;
 
-	&:hover {
-		background-color: #f9f9f9;
-	}
+		&:hover {
+			background-color: #f9f9f9;
+		}
 
-	&:active {
-		background-color: #f1f1f1;
-	}
+		&:active {
+			background-color: #f1f1f1;
+		}
 
-	&:disabled,
-	&:disabled:hover {
-		background-color: ${theme.colors.gray.$2};
-		color: ${theme.colors.gray.$5};
-		cursor: default;
-	}
+		&:disabled,
+		&:disabled:hover {
+			background-color: ${theme.colors.gray.$2};
+			color: ${theme.colors.gray.$5};
+			cursor: default;
+		}
 
-	${({ success, danger, primary, white, black }) => {
-		if (success) return mixinButton(theme.colors.success);
-		if (danger) return mixinButton(theme.colors.danger);
-		if (primary) return mixinButton(theme.colors.primary, '#6d410a');
-		if (white) return mixinButton('#fff', theme.colors.success);
-		if (black) return mixinButton(theme.colors.dark);
-		return null;
-	}}
-
-	${({ w100, inactive }) => {
-		if (w100)
-			return css`
-				width: 100%;
-			`;
-		if (inactive)
-			return css`
-				pointer-events: none;
-			`;
-		return null;
-	}}
+		${() => {
+			if ($success) return mixinButton(theme.colors.success);
+			if ($danger) return mixinButton(theme.colors.danger);
+			if ($primary) return mixinButton(theme.colors.primary, '#6d410a');
+			if ($white) return mixinButton('#fff', theme.colors.success);
+			if ($black) return mixinButton(theme.colors.dark);
+			if ($w100)
+				return css`
+					width: 100%;
+				`;
+			if ($inactive)
+				return css`
+					pointer-events: none;
+				`;
+			return null;
+		}}
+	`}
 `;
 
-export { Button };
-export default Button;
+export default ButtonStyle;

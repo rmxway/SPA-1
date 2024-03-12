@@ -16,7 +16,7 @@ interface FavoriteProps {
 
 export function Favorite({ active = false, onActive, ...props }: FavoriteProps) {
 	return (
-		<WrapperFavorite {...props} {...{ active }} onClick={onActive}>
+		<WrapperFavorite {...props} $active={active} onClick={onActive}>
 			<Icon icon={active ? 'favorite' : 'favorite-fill'} />
 		</WrapperFavorite>
 	);

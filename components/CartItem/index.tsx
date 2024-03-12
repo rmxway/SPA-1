@@ -19,44 +19,42 @@ export const CartItem = forwardRef(({ product, ...props }: Props, ref: Ref<HTMLD
 	const { id, price, title, description, thumbnail, count } = product;
 
 	return (
-		product && (
-			<Item {...props} {...{ ref }}>
-				<Content layout variants={elementsVars}>
-					<Link href={`/product/${id}`}>
-						<Image src={thumbnail} alt={title} width={70} height={70} quality={50} />
-					</Link>
-					<WrapperText>
-						<Title href={`/product/${id}`}>
-							<strong>{title}</strong>
-							<span>{description}</span>
-						</Title>
-						{count && (
-							<Count>
-								<button
-									type="button"
-									disabled={count === 1}
-									onClick={() => dispatch(decreaseCount(Number(id)))}
-								>
-									-
-								</button>{' '}
-								{count}{' '}
-								<button type="button" onClick={() => dispatch(increaseCount(Number(id)))}>
-									+
-								</button>
-							</Count>
-						)}
-						{count && price && (
-							<Price>
-								{count * price} {currency}
-							</Price>
-						)}
-					</WrapperText>
-					<Delete type="button" onClick={() => removeFromCart(Number(id))}>
-						<Icon icon="times-small" />
-					</Delete>
-				</Content>
-			</Item>
-		)
+		<Item {...props} {...{ ref }}>
+			<Content layout variants={elementsVars}>
+				<Link href={`/product/${id}`}>
+					<Image src={thumbnail} alt={title} width={70} height={70} quality={50} />
+				</Link>
+				<WrapperText>
+					<Title href={`/product/${id}`}>
+						<strong>{title}</strong>
+						<span>{description}</span>
+					</Title>
+					{count && (
+						<Count>
+							<button
+								type="button"
+								disabled={count === 1}
+								onClick={() => dispatch(decreaseCount(Number(id)))}
+							>
+								-
+							</button>{' '}
+							{count}{' '}
+							<button type="button" onClick={() => dispatch(increaseCount(Number(id)))}>
+								+
+							</button>
+						</Count>
+					)}
+					{count && price && (
+						<Price>
+							{count * price} {currency}
+						</Price>
+					)}
+				</WrapperText>
+				<Delete type="button" onClick={() => removeFromCart(Number(id))}>
+					<Icon icon="times-small" />
+				</Delete>
+			</Content>
+		</Item>
 	);
 });
 

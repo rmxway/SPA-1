@@ -20,7 +20,7 @@ export function Filter() {
 
 	return (
 		<StyledFilter>
-			<Flexbox align="center" nowrap>
+			<Flexbox $align="center" $nowrap>
 				<div className="title">Sorting</div>
 				<ToggleSort sort="price" value="Price" disabled={!fetchedItems.length} />
 				<ToggleSort sort="rating" value="Rating" disabled={!fetchedItems.length} />

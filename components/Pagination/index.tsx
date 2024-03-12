@@ -1,7 +1,10 @@
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { MotionProps } from 'framer-motion';
 import debounce from 'lodash.debounce';
 import { forwardRef, Ref } from 'react';
+import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox, Space } from '@/components/Layout';
 import { containerVars } from '@/components/ProductsGrid/styled';
@@ -14,13 +17,14 @@ import { ArrowButton, ButtonPagination, Info, Wrapper } from './styled';
 
 interface PaginationProps extends MotionProps {
 	items: IProduct[];
+	isLoading?: boolean;
 	countPerPage: number;
 	page: number;
 	changePage: ActionCreatorWithPayload<number, string>;
 }
 
 export const Pagination = forwardRef(
-	({ items, countPerPage, page, changePage, ...props }: PaginationProps, ref: Ref<HTMLDivElement>) => {
+	({ items, isLoading, countPerPage, page, changePage, ...props }: PaginationProps, ref: Ref<HTMLDivElement>) => {
 		const { fetching } = useAppSelector(productsStore);
 		const dispatch = useAppDispatch();
 		const total = items.length;
@@ -28,7 +32,7 @@ export const Pagination = forwardRef(
 		const maxButtonsCount = 4;
 		const countButtons = countPages >= maxButtonsCount ? maxButtonsCount : countPages;
 
-		const debounceChangePage = debounce((num) => {
+		const debounceChangePage = debounce((num: number) => {
 			dispatch(changePage(num));
 			ScrollToTop();
 		}, 200);
@@ -48,9 +52,9 @@ export const Pagination = forwardRef(
 				arrButtons[i] = (
 					<ButtonPagination
 						key={i}
-						success={page === currentPage}
+						$success={page === currentPage}
+						$inactive={fetching}
 						onClick={() => debounceChangePage(currentPage)}
-						inactive={fetching}
 						disabled={!items.length}
 					>
 						{currentPage}
@@ -71,12 +75,21 @@ export const Pagination = forwardRef(
 		};
 
 		return (
-			<Wrapper variants={containerVars} initial="hidden" animate="visible" exit="hidden" {...{ ref }} {...props}>
-				{countPages > 1 && (
-					<Flexbox align="center">
+			<Wrapper
+				variants={containerVars}
+				initial="hidden"
+				animate="visible"
+				exit="hidden"
+				$isItems={!!items.length || isLoading === true}
+				{...{ ref }}
+				{...props}
+			>
+				{isLoading && <Skeleton inline height={40} width={300} />}
+				{!isLoading && countPages > 1 && (
+					<Flexbox $align="center">
 						{page > 1 && (
 							<ArrowButton
-								left
+								$left
 								onClick={() => debounceChangePage(1)}
 								disabled={fetching || !items.length}
 							>
@@ -88,7 +101,7 @@ export const Pagination = forwardRef(
 
 						{page < countPages && page !== countPages && (
 							<ArrowButton
-								right
+								$right
 								onClick={() => debounceChangePage(countPages)}
 								disabled={fetching || !items.length}
 							>
@@ -97,13 +110,13 @@ export const Pagination = forwardRef(
 						)}
 					</Flexbox>
 				)}
-				<br />
 				<Space />
-				{!!items.length && (
+				{!isLoading && !!items.length && (
 					<Info>
 						Shown products: {viewedItems()} from {total}
 					</Info>
 				)}
+				{isLoading && <Skeleton inline height={30} width={300} />}
 			</Wrapper>
 		);
 	},

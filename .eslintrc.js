@@ -11,11 +11,10 @@ module.exports = {
 		'plugin:import/typescript',
 		'plugin:@typescript-eslint/eslint-recommended',
 		'plugin:@typescript-eslint/recommended',
+		'plugin:@typescript-eslint/recommended-type-checked',
 		'prettier',
 		'plugin:react/recommended',
 		'plugin:react-hooks/recommended',
-		// 'next/core-web-vitals', // for the first time
-		// 'next', // Includes Next.js' base ESLint configuration
 	],
 	plugins: ['@typescript-eslint', 'unused-imports', 'simple-import-sort', 'prettier', 'react', 'import'],
 	globals: {
@@ -23,19 +22,27 @@ module.exports = {
 		SharedArrayBuffer: 'readonly',
 	},
 	parserOptions: {
+		project: true,
+		tsconfigRootDir: __dirname,
 		ecmaFeatures: {
 			jsx: true,
 		},
 		sourceType: 'module',
 	},
+	overrides: [
+		{
+			files: ['*.js'],
+			extends: ['plugin:@typescript-eslint/disable-type-checked'],
+		},
+	],
 	rules: {
 		'class-methods-use-this': 'off',
 		'no-param-reassign': 'off',
 		'no-shadow': 'off',
 		'no-plusplus': 'off',
 		'no-new': 'off',
-		'camelcase': 1,
-        'no-console': 1,
+		camelcase: 1,
+		'no-console': 1,
 		'react/react-in-jsx-scope': 'off',
 		'react/display-name': 'off',
 		'no-underscore-dangle': 'off',
@@ -72,7 +79,13 @@ module.exports = {
 				tsx: 'never',
 			},
 		],
-
+		'prefer-destructuring': [
+			'error',
+			{
+				object: true,
+				array: false,
+			},
+		],
 		'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
 		'react/function-component-definition': [
 			'off',
@@ -84,6 +97,7 @@ module.exports = {
 
 		'react/jsx-props-no-spreading': 'off',
 		'react/require-default-props': 'off',
+		'@typescript-eslint/no-redundant-type-constituents': 'off',
 	},
 	settings: {
 		'import/resolver': {

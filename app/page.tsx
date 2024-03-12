@@ -16,7 +16,7 @@ export default function MainPage() {
 						dummyjson.com
 					</a>
 				</p>
-				<ImageLogos src={logos} alt="logos" placeholder="blur" />
+				<ImageLogos src={logos} alt="logos" placeholder="empty" priority />
 				<LayerBlock>
 					<p>Most used package list:</p>
 					<ul>

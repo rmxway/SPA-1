@@ -1,6 +1,7 @@
 import { createSelector, createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
+import { api } from '@/store/api';
 
 export interface SortTypes {
 	name: 'rating' | 'price' | 'default';
@@ -49,22 +50,27 @@ const initialState: ProductsState = {
 const initialItems = (state: ProductsState, products: IProduct[]) => {
 	if (state.reservedItems.length === products.length) return;
 
-	products.forEach((product) => {
-		product.count = 1;
-	});
+	const items = [...products];
 
-	// there was some product on the first page
+	// there is some product on the first page
 	if (state.fetchedItems.length === 1) {
-		const index = products.findIndex((product) => product.id === state.fetchedItems[0].id);
-		products[index] = current(state.fetchedItems[0]);
+		const index = items.findIndex((product) => product.id === state.fetchedItems[0].id);
+		items[index] = current(state.fetchedItems[0]);
 	}
 
-	state.total = products.length;
-
-	state.fetchedItems = [...products];
-	state.reservedItems = state.fetchedItems;
+	state.total = items.length;
 	state.fetching = false;
+
+	state.fetchedItems = [...items];
+	state.reservedItems = state.fetchedItems;
 	state.error = '';
+};
+
+const initialOneProduct = (state: ProductsState, item: IProduct) => {
+	state.fetchedItems[0] = item;
+	state.fetching = false;
+
+	state.reservedItems = state.fetchedItems;
 };
 
 const anyTogglesInProduct = (
@@ -84,9 +90,11 @@ const anyTogglesInProduct = (
 
 const resetItems = (state: ProductsState) => {
 	state.page = 1;
+	state.sort.name = 'default';
 	state.sort.toggle = false;
 	state.search.value = '';
 	state.fetchedItems = state.reservedItems;
+	state.fetching = false;
 };
 
 export const favoritesItemsMemoized = createSelector([(state: ProductsState) => state.fetchedItems], (fetchedItems) =>
@@ -105,13 +113,6 @@ const productsReducer = createSlice({
 		},
 		setTitle: (state, { payload }: PayloadAction<string>) => {
 			state.title = payload;
-		},
-		addOneProduct: (state, { payload }: PayloadAction<IProduct>) => {
-			state.fetchedItems[0] = payload;
-			state.reservedItems = state.fetchedItems;
-		},
-		addProducts: (state, { payload }: PayloadAction<IProduct[]>) => {
-			initialItems(state, payload);
 		},
 		toggleProduct: (state, { payload }: PayloadAction<number>) => {
 			anyTogglesInProduct(state, payload, 'checked');
@@ -180,6 +181,40 @@ const productsReducer = createSlice({
 			resetItems(state);
 		},
 	},
+	extraReducers: (builder) => {
+		builder
+			// Products
+			.addMatcher(api.endpoints.getProducts.matchPending, (state) => {
+				state.fetching = true;
+			})
+			.addMatcher(
+				api.endpoints.getProducts.matchFulfilled,
+				(state, { payload: items }: PayloadAction<IProduct[]>) => {
+					initialItems(state, items);
+				},
+			)
+			.addMatcher(api.endpoints.getProducts.matchRejected, (state) => {
+				state.error = 'Something went wrong';
+				state.fetching = false;
+				state.fetchedItems = [];
+			})
+			// Product
+			.addMatcher(api.endpoints.getProduct.matchPending, (state) => {
+				state.fetching = true;
+				state.fetchedItems = [];
+			})
+			.addMatcher(
+				api.endpoints.getProduct.matchFulfilled,
+				(state, { payload: item }: PayloadAction<IProduct>) => {
+					initialOneProduct(state, item);
+				},
+			)
+			.addMatcher(api.endpoints.getProduct.matchRejected, (state) => {
+				state.error = 'Something went wrong';
+				state.fetching = false;
+				state.fetchedItems = [];
+			});
+	},
 });
 
 const { actions, reducer } = productsReducer;
@@ -189,8 +224,6 @@ export const {
 	setError,
 	setTitle,
 	toggleProduct,
-	addOneProduct,
-	addProducts,
 	removeAllToggledProducts,
 	fetchingImageProduct,
 	sortProducts,

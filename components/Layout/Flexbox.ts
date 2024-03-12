@@ -1,29 +1,31 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 type FlexboxTypes = {
-	nowrap?: boolean;
-	justify?: 'space-between' | 'center' | 'space-around' | 'flex-start' | 'flex-end';
-	align?: 'center' | 'flex-start' | 'flex-end' | 'stretch';
-	direction?: 'column' | 'row' | 'reverse-column' | 'reverse-row';
-	gap?: number;
+	$align?: 'center' | 'flex-start' | 'flex-end' | 'stretch';
+	$direction?: 'column' | 'row' | 'reverse-column' | 'reverse-row';
+	$gap?: number;
+	$justify?: 'space-between' | 'center' | 'space-around' | 'flex-start' | 'flex-end';
+	$nowrap?: boolean;
 };
 
 /**
  * Flexbox styled component
- * @param {?boolean} nowrap
- * @param {?string} justify
- * @param {?string} align
- * @param {?string} direction
- * @param {?number} gap
+ * @param {?string} $align - 'center' | 'flex-start' | 'flex-end' | 'stretch'
+ * @param {?string} $direction - 'column' | 'row' | 'reverse-column' | 'reverse-row'
+ * @param {?number} $gap
+ * @param {?string} $justify - 'space-between' | 'center' | 'space-around' | 'flex-start' | 'flex-end'
+ * @param {?boolean} $nowrap
  */
 
 const Flexbox = styled.div<FlexboxTypes>`
-	display: flex;
-	flex-wrap: ${({ nowrap }) => (nowrap ? 'nowrap' : 'wrap')};
-	justify-content: ${({ justify }) => justify || 'flex-start'};
-	align-items: ${({ align }) => align || 'stretch'};
-	flex-direction: ${({ direction }) => direction || 'row'};
-	gap: ${({ gap }) => (gap ? `${gap}px` : 0)};
+	${({ $align, $direction, $gap, $justify, $nowrap }) => css`
+		display: flex;
+		flex-wrap: ${$nowrap ? 'nowrap' : 'wrap'};
+		justify-content: ${$justify || 'flex-start'};
+		align-items: ${$align || 'stretch'};
+		flex-direction: ${$direction || 'row'};
+		gap: ${$gap ? `${$gap}px` : 0};
+	`}
 `;
 
 export { Flexbox };

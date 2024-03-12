@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
-import { ButtonUI } from '@/components/ui';
+import { ButtonStyle } from '@/components/ui/Button/styled';
 import { defaultTheme as theme, fadeIn, media } from '@/theme';
 
 export const Info = styled.div`
@@ -13,18 +13,21 @@ export const Info = styled.div`
     `}
 `;
 
-export const Wrapper = styled(motion.div)`
+export const Wrapper = styled(motion.div)<{ $isItems: boolean }>`
 	display: flex;
 	flex-direction: column;
-	min-height: 30px;
-	margin-bottom: 20px;
+	${({ $isItems }) =>
+		$isItems &&
+		css`
+			margin-bottom: 20px;
+		`}
 
 	${media.greaterThan('xs')`
         flex-direction: row;
     `}
 `;
 
-export const ArrowButton = styled.button<{ left?: boolean; right?: boolean }>`
+export const ArrowButton = styled.button<{ $left?: boolean; $right?: boolean }>`
 	text-transform: uppercase;
 	display: inline-flex;
 	align-items: center;
@@ -57,26 +60,26 @@ export const ArrowButton = styled.button<{ left?: boolean; right?: boolean }>`
 		font-size: 1.2rem;
 	}
 
-	${(props) =>
-		props.left &&
-		css`
-			padding-right: 10px;
-			.icofont {
-				transform: rotate(90deg);
-			}
-		`}
-
-	${(props) =>
-		props.right &&
-		css`
-			padding-left: 10px;
-			.icofont {
-				transform: rotate(90deg) scale(1, -1);
-			}
-		`}
+	${({ $left, $right }) => {
+		if ($left)
+			return css`
+				padding-right: 10px;
+				.icofont {
+					transform: rotate(90deg);
+				}
+			`;
+		if ($right)
+			return css`
+				padding-left: 10px;
+				.icofont {
+					transform: rotate(90deg) scale(1, -1);
+				}
+			`;
+		return null;
+	}}
 `;
 
-export const ButtonPagination = styled(ButtonUI)`
+export const ButtonPagination = styled(ButtonStyle)`
 	margin-right: 2px;
 	width: 25px;
 	padding: 6px 0;

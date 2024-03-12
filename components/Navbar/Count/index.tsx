@@ -1,40 +1,42 @@
-import { LayoutGroup, transform, useAnimation } from 'framer-motion';
+import { AnimatePresence, transform, useAnimation } from 'framer-motion';
 import { memo, useEffect } from 'react';
 
-import { CountStyled } from './styled';
+import { CountStyled, countVariants } from './styled';
 
 interface CountProps {
 	count: number | undefined;
 }
 
-const Count = memo(({ count }: CountProps) => {
+export const Count = memo(({ count }: CountProps) => {
 	const controls = useAnimation();
-	const velocity = transform([0, 3], [0, 5]);
+	const velocity = transform(Number(count), [0, 2], [0, 4]);
 
 	useEffect(() => {
-		controls.start({
-			scale: 1,
-			transition: {
-				velocity: velocity(Number(count)),
-				type: 'spring',
-				stiffness: 100,
-				damping: 10,
-			},
-		});
+		controls
+			.start({
+				scale: count ? 1 : 0,
+				opacity: count ? 1 : 0,
+				transition: {
+					velocity,
+					type: 'spring',
+					stiffness: 150,
+					duration: 0.1,
+				},
+			})
+			.catch((e: Error) => {
+				throw new Error(e.message);
+			});
 	}, [controls, count, velocity]);
 
 	return (
-		<LayoutGroup key="count">
+		<AnimatePresence>
 			{count && (
-				<CountStyled animate={controls} exit={{ opacity: 0, scale: 0 }}>
+				<CountStyled layout animate={controls} variants={countVariants} initial="hidden" exit="hidden">
 					{count}
 				</CountStyled>
 			)}
-		</LayoutGroup>
+		</AnimatePresence>
 	);
 });
 
-Count.displayName = 'Count';
-
-export { Count };
 export default Count;

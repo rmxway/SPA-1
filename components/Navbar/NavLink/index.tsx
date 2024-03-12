@@ -1,17 +1,19 @@
+import { MotionProps } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
 import { Line, NavbarItem } from '../styled';
 
-export interface navbarTypes {
+export interface NavbarProps {
 	title?: string;
 	url: string;
 	component?: ReactNode;
-	onClick?: () => void;
 }
 
-export const NavLinkMotion = ({ title, url, component, ...props }: navbarTypes) => {
+type NavbarTypes = NavbarProps & HTMLAttributes<HTMLDivElement> & MotionProps;
+
+export const NavLink = ({ title, url, component, ...props }: NavbarTypes) => {
 	const pathname = usePathname();
 	const isActive = pathname === url;
 
@@ -30,4 +32,4 @@ export const NavLinkMotion = ({ title, url, component, ...props }: navbarTypes) 
 	);
 };
 
-export default NavLinkMotion;
+export default NavLink;

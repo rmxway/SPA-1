@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { defaultTheme as theme } from '@/theme';
 
 interface ToggleTypes {
-	toggle?: boolean;
+	$toggle?: boolean;
 }
 
 export const Toggle = styled.button<ToggleTypes>`
@@ -45,7 +45,7 @@ export const Toggle = styled.button<ToggleTypes>`
 		display: none;
 		line-height: 1.3;
 		transition: 0.2s all;
-		${(props) => (props?.toggle ? 'transform: scale(1, -1);' : '')}
+		${({ $toggle }) => ($toggle ? 'transform: scale(1, -1);' : '')}
 	}
 `;
 

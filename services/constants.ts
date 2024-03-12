@@ -1,7 +1,7 @@
 export const currency = '$';
 
-export const protocol = process.env.PROTOCOL;
+export const isDev = process.env.NODE_ENV === 'development';
 
-export const productsUrl = '/api/products';
+export const protocol = isDev ? 'http' : 'https';
 
 export default currency;

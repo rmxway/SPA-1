@@ -1,3 +1,1 @@
-import { headers } from 'next/headers';
-
-export const domainData = () => headers().get('host');
+export const getHost = typeof window !== 'undefined' ? window.location.host : '';

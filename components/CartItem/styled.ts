@@ -5,8 +5,11 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme';
 
-export const cartVariant = {
-	hidden: { y: 20, opacity: 0 },
+export const cartVariant: Variants = {
+	hidden: {
+		y: 20,
+		opacity: 0,
+	},
 	visible: {
 		y: 0,
 		opacity: 1,
@@ -104,11 +107,11 @@ export const WrapperText = styled.div`
 		color: ${({ theme }) => theme.colors.gray.$4};
 		transition: 0.2s;
 
-        &:disabled {
-            cursor: default;
-            pointer-events: none;
-            opacity: .6;
-        }
+		&:disabled {
+			cursor: default;
+			pointer-events: none;
+			opacity: 0.6;
+		}
 
 		&:hover {
 			border: 1px solid ${({ theme }) => theme.colors.gray.$6};

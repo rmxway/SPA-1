@@ -1,17 +1,18 @@
 import { HTMLMotionProps } from 'framer-motion';
-import { forwardRef, Ref } from 'react';
+import { forwardRef, HTMLAttributes, Ref } from 'react';
 
 import { Icon } from '@/components/ui/Icon';
 import { Icofont } from '@/services';
 
 import { LinkIconStyle, linkIconVariant } from './styled';
 
-interface LinkIconProps {
+interface LinkIconProps extends HTMLAttributes<HTMLDivElement> {
 	icon?: Icofont;
 	initial?: boolean;
 	onClick?: () => void;
-	children?: React.ReactNode;
 }
+
+type LinkIconType = LinkIconProps & HTMLMotionProps<'div'>;
 
 /**
  * Text link with icon from icofont
@@ -21,9 +22,8 @@ interface LinkIconProps {
  */
 
 export const LinkIcon = forwardRef(
-	({ icon, initial, onClick, children, ...props }: LinkIconProps & HTMLMotionProps<'div'>, ref: Ref<HTMLDivElement>) => (
+	({ icon, initial, onClick, children, ...props }: LinkIconType, ref: Ref<HTMLDivElement>) => (
 		<LinkIconStyle
-			layout
 			key="LinkIcon"
 			variants={linkIconVariant}
 			initial={initial && 'initial'}
