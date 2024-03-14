@@ -17,7 +17,7 @@ const RenderNavBar = () => {
 	const [open, setOpen] = useState(false);
 	const { countFavorites } = useAppSelector(productsStore);
 	const { items } = useAppSelector(cartStore);
-	const countCartItems = items.length;
+	const cartItemsCount = useMemo(() => items.reduce((acc, cur) => acc + (cur.count || 1), 0), [items]);
 
 	const match = useMediaQuery(breakpoints.md);
 
@@ -59,7 +59,7 @@ const RenderNavBar = () => {
 					}
 
 					if (title === 'Cart') {
-						props.component = <NavCountItem title="cart" count={countCartItems} />;
+						props.component = <NavCountItem title="cart" count={cartItemsCount} />;
 					}
 
 					return <NavLink key={url} onClick={() => setOpen(false)} {...props} />;
