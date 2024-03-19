@@ -19,7 +19,7 @@ export const Wrapper = styled(motion.div)<{ $isItems: boolean }>`
 	${({ $isItems }) =>
 		$isItems &&
 		css`
-			margin-bottom: 20px;
+			margin-top: 30px;
 		`}
 
 	${media.greaterThan('xs')`

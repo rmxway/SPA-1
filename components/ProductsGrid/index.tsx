@@ -38,8 +38,6 @@ export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: 
 
 	return (
 		<WrapperComponent>
-			{pagination && <Pagination {...{ changePage, items, isLoading, countPerPage, page }} />}
-
 			<LayoutGroup>
 				<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
 					{isLoading && skeletonArr().map((item) => <SkeletonCard key={item} />)}
@@ -60,6 +58,8 @@ export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: 
 						))}
 				</FetchingBlock>
 			</LayoutGroup>
+
+			{pagination && <Pagination {...{ changePage, items, isLoading, countPerPage, page }} />}
 
 			{!currentItems.length && (
 				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">

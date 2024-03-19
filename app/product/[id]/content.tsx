@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
 import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
-import { Button, Favorite } from '@/components/ui';
+import { Button, Favorite, Sticker } from '@/components/ui';
 import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { useGetProductQuery } from '@/store/api';
@@ -42,14 +42,6 @@ export function ContentProduct() {
 					<>
 						<Info>
 							<LayerBlock>
-								<Flexbox $nowrap $justify="space-between" $align="center">
-									<RatingStars rating={Number(product.rating)} />
-									<p>
-										<strong>Category:</strong> {product.category}
-									</p>
-								</Flexbox>
-
-								<br />
 								<Swiper slidesPerView={1} spaceBetween={50}>
 									{product.images?.map((image) => (
 										<SwiperSlide key={image}>
@@ -57,16 +49,18 @@ export function ContentProduct() {
 										</SwiperSlide>
 									))}
 								</Swiper>
-
+								<RatingStars rating={Number(product.rating)} />
 								<span>
 									<p>{product.description}</p>
 									<h4>Description:</h4>
 									<TextToggle length={3}>
 										<p>
-											AMOLED FHD+ punch-hole display with a high screen-to-body ratio provides a
-											more exquisite, immersive experience. From dawn to dusk, OPPO F19’s
-											eye-caring screen continuously adapts to the level that’s gentle for your
-											eyes.
+											{`
+                                                AMOLED FHD+ punch-hole display with a high screen-to-body ratio provides a
+                                                more exquisite, immersive experience. From dawn to dusk, OPPO F19’s
+                                                eye-caring screen continuously adapts to the level that’s gentle for your
+                                                eyes.
+                                            `}
 										</p>
 										<p>
 											Amazing Performance at the Tip of Your Finger. Our advanced In-Display
@@ -86,15 +80,23 @@ export function ContentProduct() {
 						<SideBlock>
 							<LayerBlock>
 								<PriceBlock>
-									<Flexbox $align="center" $justify="space-between">
+									<Flexbox className="side-price" $align="center" $justify="space-between">
 										<span>
-											{product.price} {currency}
+											{product.price} {currency}{' '}
+											<Sticker $danger>-{Math.round(Number(product.discountPercentage))} %</Sticker>
 										</span>
 										<Favorite
 											active={product.favorite}
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
 									</Flexbox>
+									<div>
+										<strong>Category:</strong> {product.category}
+									</div>
+                                    {product.stock && <Sticker $success>In Stock</Sticker>}
+                                    <div>
+										<strong>Available:</strong> {product.stock || 0}
+									</div>
 									<Button
 										$primary
 										onClick={() => moveToCart(Number(product?.id))}

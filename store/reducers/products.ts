@@ -10,6 +10,10 @@ export interface SortTypes {
 
 export type TypePages = 'products' | 'favorites';
 
+interface Category {
+	name: string;
+	active: boolean;
+}
 export interface ProductsState {
 	title: string;
 	fetchedItems: IProduct[];
@@ -17,6 +21,7 @@ export interface ProductsState {
 	total: number;
 	countPerPage: number;
 	countFavorites: number;
+	categories: Category[];
 	page: number;
 	typePage: TypePages;
 	error: string;
@@ -36,6 +41,7 @@ const initialState: ProductsState = {
 	typePage: 'products',
 	countPerPage: 12,
 	countFavorites: 0,
+	categories: [],
 	error: '',
 	fetching: false,
 	sort: {
@@ -60,6 +66,16 @@ const initialItems = (state: ProductsState, products: IProduct[]) => {
 
 	state.total = items.length;
 	state.fetching = false;
+
+	const categories = new Set(items.map((item) => item.category || ''));
+
+	state.categories = [
+		{
+			name: 'all',
+			active: true,
+		},
+		...[...categories].map((item) => ({ name: item, active: false })),
+	];
 
 	state.fetchedItems = [...items];
 	state.reservedItems = state.fetchedItems;
@@ -88,6 +104,20 @@ const anyTogglesInProduct = (
 	toggleInArray(state.fetchedItems);
 };
 
+const calcCategory = (state: ProductsState, name: string, reset?: boolean) => {
+	state.categories.forEach((category) => {
+		category.active = category.name === name;
+	});
+
+	if (reset) return;
+
+	if (name === 'all' || reset) {
+		state.fetchedItems = state.reservedItems;
+	} else {
+		state.fetchedItems = state.reservedItems.filter((item) => item.category === name);
+	}
+};
+
 const resetItems = (state: ProductsState) => {
 	state.page = 1;
 	state.sort.name = 'default';
@@ -95,6 +125,7 @@ const resetItems = (state: ProductsState) => {
 	state.search.value = '';
 	state.fetchedItems = state.reservedItems;
 	state.fetching = false;
+	calcCategory(state, 'all', true);
 };
 
 export const favoritesItemsMemoized = createSelector([(state: ProductsState) => state.fetchedItems], (fetchedItems) =>
@@ -180,6 +211,9 @@ const productsReducer = createSlice({
 			state.typePage = payload;
 			resetItems(state);
 		},
+		changeCategory: (state, { payload: name }: PayloadAction<string>) => {
+			calcCategory(state, name);
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -233,6 +267,7 @@ export const {
 	removeAllFavorites,
 	changePage,
 	changeTypePage,
+	changeCategory,
 } = actions;
 
 export default reducer;

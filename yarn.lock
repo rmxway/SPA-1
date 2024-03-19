@@ -1787,6 +1787,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"countup.js@npm:^2.8.0":
+  version: 2.8.0
+  resolution: "countup.js@npm:2.8.0"
+  checksum: 10/6681de9de9acd0d65b91183af280a462f2fbbc19ac5a90d30ea94e388f12b0d1cc7fa2b63b6bb83adc9dc38f938cd2a41f727a0b2ae7edf0d82f4b2ccb51e98c
+  languageName: node
+  linkType: hard
+
 "cross-spawn@npm:^7.0.0, cross-spawn@npm:^7.0.2":
   version: 7.0.3
   resolution: "cross-spawn@npm:7.0.3"
@@ -5258,6 +5265,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-countup@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "react-countup@npm:6.5.2"
+  dependencies:
+    countup.js: "npm:^2.8.0"
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: 10/e43f079590593575dc85e555f073a971462736d84d9ba7d8f5ce6f3bb74bea3b21c7778cb0a8d1331b28978a5e7a86257f8d0677dca2a4b86c71ea795084cc63
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:^18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -6059,6 +6077,7 @@ __metadata:
     polished: "npm:^4.3.1"
     prettier: "npm:^3.2.5"
     react: "npm:^18.2.0"
+    react-countup: "npm:^6.5.2"
     react-dom: "npm:^18.2.0"
     react-loading-skeleton: "npm:^3.4.0"
     react-redux: "npm:^9.1.0"

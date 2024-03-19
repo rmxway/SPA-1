@@ -1,6 +1,6 @@
 'use client';
 
-import { Filter } from '@/components';
+import { Categories, Filter } from '@/components';
 import { Container, LayerBlock } from '@/components/Layout';
 import { ProductsGrid } from '@/components/ProductsGrid';
 import { useAppSelector } from '@/services';
@@ -14,6 +14,7 @@ export const ContentProducts = () => {
 	return (
 		<Container>
 			<Filter />
+            <Categories />
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
 			<ProductsGrid items={fetchedItems} isLoading={fetching} pagination keyPage="products" />
 		</Container>

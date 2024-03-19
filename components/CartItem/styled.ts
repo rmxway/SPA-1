@@ -163,10 +163,12 @@ export const Count = styled.div`
 	position: relative;
 	flex-shrink: 0;
 	font-size: 14px;
+    font-family: sans-serif;
 `;
 
 export const Price = styled.div`
 	font-size: 20px;
+    font-family: sans-serif;
 	min-width: auto;
 	text-align: left;
 	flex-shrink: 0;

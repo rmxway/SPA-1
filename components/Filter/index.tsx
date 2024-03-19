@@ -20,20 +20,18 @@ export function Filter() {
 
 	return (
 		<StyledFilter>
-			<Flexbox $align="center" $nowrap>
-				<div className="title">Sorting</div>
-				<ToggleSort sort="price" value="Price" disabled={!fetchedItems.length} />
-				<ToggleSort sort="rating" value="Rating" disabled={!fetchedItems.length} />
-				<ToggleSort sort="default" value="Reset" />
-			</Flexbox>
 			<InputUI
 				name="search"
 				placeholder="Search"
-				className="search-filter"
 				value={search.value}
 				onChange={handleChange}
 				disabled={!reservedItems.length && !fetchedItems.length}
 			/>
+			<Flexbox $align="center" $nowrap $justify="flex-end" $gap={20}>
+				<ToggleSort sort="rating" value="Popular" disabled={!fetchedItems.length} />
+				<ToggleSort sort="price" value="Price" disabled={!fetchedItems.length} />
+				<ToggleSort sort="default" value="Reset" />
+			</Flexbox>
 		</StyledFilter>
 	);
 }

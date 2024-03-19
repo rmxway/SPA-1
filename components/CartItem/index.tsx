@@ -2,6 +2,7 @@ import { MotionProps } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { forwardRef, Ref } from 'react';
+import CountUp from 'react-countup';
 
 import { Icon } from '@/components/ui';
 import { currency, IProduct, useAppDispatch } from '@/services';
@@ -46,7 +47,15 @@ export const CartItem = forwardRef(({ product, ...props }: Props, ref: Ref<HTMLD
 					)}
 					{count && price && (
 						<Price>
-							{count * price} {currency}
+							<CountUp
+								startVal={0}
+								end={count * price}
+								useEasing={false}
+								preserveValue
+								duration={0.5}
+								separator=""
+							/>{' '}
+							{currency}
 						</Price>
 					)}
 				</WrapperText>
