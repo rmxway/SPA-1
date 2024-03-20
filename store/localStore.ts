@@ -11,11 +11,13 @@ export const clearStore = () => {
 };
 
 export const checkVersion = () => {
-	const versionName = 'wholeStore-version';
-	const currentVersion = localStorage.getItem(versionName);
-	if (currentVersion !== VERSION) {
-		clearStore();
-		localStorage.setItem(versionName, VERSION);
+	if (isClient) {
+		const versionName = 'wholeStore-version';
+		const currentVersion = localStorage.getItem(versionName);
+		if (currentVersion !== VERSION) {
+			clearStore();
+			localStorage.setItem(versionName, VERSION);
+		}
 	}
 };
 
