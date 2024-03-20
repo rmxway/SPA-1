@@ -9,6 +9,7 @@ export const Category = styled.button<{ $active: boolean }>`
 		cursor: pointer;
 		transition: 0.2s;
 		text-transform: capitalize;
+        color: inherit;
 
 		&:hover {
 			border: 1px solid ${theme.colors.gray.$6};

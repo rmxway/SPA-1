@@ -2,10 +2,11 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
+import { VERSION } from '@/services';
+import { api } from '@/store/api';
+import { checkVersion } from '@/store/localStore';
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
-
-import { api } from './api';
 
 const createNoopStorage = () => ({
 	getItem(key: string): Promise<string | null> {
@@ -24,6 +25,8 @@ const storage = typeof window !== 'undefined' ? createWebStorage('local') : crea
 const persistConfig = {
 	key: 'wholeStore',
 	storage,
+	version: +VERSION,
+	blacklist: ['navigation'],
 };
 
 const rootReducer = combineReducers({
@@ -53,6 +56,8 @@ export const makeStore = () => {
 
 	return store;
 };
+
+checkVersion();
 
 export type RootStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<RootStore['getState']>;
