@@ -13,8 +13,8 @@ export const ContentProducts = () => {
 
 	return (
 		<Container>
-			<Filter />
-            <Categories />
+			<Filter isLoading={fetching} />
+			<Categories isLoading={fetching} />
 			{error ? <LayerBlock>{error}</LayerBlock> : null}
 			<ProductsGrid items={fetchedItems} isLoading={fetching} pagination keyPage="products" />
 		</Container>

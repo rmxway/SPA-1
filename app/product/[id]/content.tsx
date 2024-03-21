@@ -80,23 +80,22 @@ export function ContentProduct() {
 						<SideBlock>
 							<LayerBlock>
 								<PriceBlock>
-									<Flexbox className="side-price" $align="center" $justify="space-between">
+									<Flexbox className="side-price">
 										<span>
 											{product.price} {currency}{' '}
-											<Sticker $danger>-{Math.round(Number(product.discountPercentage))} %</Sticker>
+											<Sticker $danger>
+												-{Math.round(Number(product.discountPercentage))} %
+											</Sticker>
 										</span>
 										<Favorite
 											active={product.favorite}
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
 									</Flexbox>
-									<div>
-										<strong>Category:</strong> {product.category}
-									</div>
-                                    {product.stock && <Sticker $success>In Stock</Sticker>}
-                                    <div>
-										<strong>Available:</strong> {product.stock || 0}
-									</div>
+									<Flexbox className="side-info">
+										<Sticker>{product.category}</Sticker>
+										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
+									</Flexbox>
 									<Button
 										$primary
 										onClick={() => moveToCart(Number(product?.id))}

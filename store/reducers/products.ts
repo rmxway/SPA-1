@@ -44,7 +44,7 @@ const initialState: ProductsState = {
 	countFavorites: 0,
 	categories: [],
 	error: '',
-	fetching: false,
+	fetching: true,
 	sort: {
 		name: 'default',
 		toggle: false,
@@ -56,6 +56,7 @@ const initialState: ProductsState = {
 
 const initialItems = (state: ProductsState, response: ResponseProducts) => {
 	const { data, categories } = response;
+    state.fetching = false;
 
 	if (state.reservedItems.length === data.length) return;
 
@@ -66,7 +67,6 @@ const initialItems = (state: ProductsState, response: ResponseProducts) => {
 	}
 
 	state.total = data.length;
-	state.fetching = false;
 
 	state.categories.push(
 		...categories.map((item) => ({

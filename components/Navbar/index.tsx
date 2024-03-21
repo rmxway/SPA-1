@@ -1,74 +1,12 @@
 import Link from 'next/link';
-import { useMemo, useState } from 'react';
 
 import { Container, Flexbox, Space } from '@/components/Layout';
-import { navbarItems } from '@/mock/navbar';
-import { useAppSelector, useMediaQuery } from '@/services';
-import { cartStore, productsStore } from '@/store';
-import { breakpoints } from '@/theme';
 
-import { NavCountItem } from './NavCountItem';
-import { NavbarProps, NavLink } from './NavLink';
-import { BurgerButton, Logo, StyledNavbar, variantsWrapperNavbar, WrapperNavbarItems } from './styled';
-
-const RenderNavBar = () => {
-	const [open, setOpen] = useState(false);
-	const { countFavorites } = useAppSelector(productsStore);
-	const { items } = useAppSelector(cartStore);
-	const cartItemsCount = useMemo(() => items.reduce((acc, cur) => acc + (cur.count || 1), 0), [items]);
-
-	const match = useMediaQuery(breakpoints.md);
-
-	useMemo(() => {
-		if (!match) setOpen(false);
-	}, [match]);
-
-	const animatedMobileMenu = () => {
-		if (match) return open ? 'visible' : 'hidden';
-		return undefined;
-	};
-
-	const handleClickBurger = () => {
-		setOpen((prev) => !prev);
-	};
-
-	return (
-		<>
-			<BurgerButton $black onClick={handleClickBurger} $isOpen={open}>
-				<span />
-				<span />
-				<span />
-			</BurgerButton>
-			<WrapperNavbarItems
-				variants={variantsWrapperNavbar}
-				animate={animatedMobileMenu()}
-				transition={{ duration: 0.3, type: 'spring', stiffness: 250, damping: 20 }}
-			>
-				{navbarItems.map(({ title, url }) => {
-					const props: NavbarProps = {
-						title,
-						url,
-					};
-
-					// NavCountItem добавляется в пропсы к компоненту NavLinkMotion.component
-
-					if (title === 'Favorites') {
-						props.component = <NavCountItem title="favorite-fill" count={countFavorites} />;
-					}
-
-					if (title === 'Cart') {
-						props.component = <NavCountItem title="cart" count={cartItemsCount} />;
-					}
-
-					return <NavLink key={url} onClick={() => setOpen(false)} {...props} />;
-				})}
-			</WrapperNavbarItems>
-		</>
-	);
-};
+import { RenderNavbar } from './RenderNavbar';
+import { Logo, StyledNavbar } from './styled';
 
 export const Navbar = () => (
-	<StyledNavbar>
+	<StyledNavbar layoutRoot>
 		<Container>
 			<Flexbox $align="center" $nowrap $gap={10}>
 				<Logo>
@@ -80,7 +18,7 @@ export const Navbar = () => (
 					</span>
 				</Logo>
 				<Space />
-				<RenderNavBar />
+				<RenderNavbar />
 			</Flexbox>
 		</Container>
 	</StyledNavbar>

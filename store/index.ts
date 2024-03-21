@@ -4,7 +4,6 @@ import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
 import { VERSION } from '@/services';
 import { api } from '@/store/api';
-import { checkVersion } from '@/store/localStore';
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
 
@@ -56,8 +55,6 @@ export const makeStore = () => {
 
 	return store;
 };
-
-checkVersion();
 
 export type RootStore = ReturnType<typeof makeStore>;
 export type RootState = ReturnType<RootStore['getState']>;

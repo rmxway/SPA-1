@@ -11,7 +11,7 @@ import { TopBlockStyle } from './styled';
 export const TopBlock = () => {
 	const { title: titleStore } = useAppSelector(productsStore);
 	const pathname = usePathname();
-    const isMain = pathname === '/';
+	const isMain = pathname === '/';
 	const $isFont = isMain || pathname.includes('/product/');
 
 	const getTitle = () => {

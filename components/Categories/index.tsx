@@ -1,3 +1,6 @@
+import { FC } from 'react';
+import Skeleton from 'react-loading-skeleton';
+
 import { Flexbox } from '@/components/Layout';
 import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
@@ -5,7 +8,9 @@ import { changeCategory } from '@/store/reducers/products';
 
 import { Category } from './styled';
 
-export const Categories = () => {
+const skeletonArray = [...new Set(new Array(15).fill('').map(() => Math.round(Math.random() * (200 - 50 + 1) + 100)))];
+
+export const Categories: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 	const { categories } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 
@@ -14,18 +19,23 @@ export const Categories = () => {
 	};
 
 	return (
-		<Flexbox $justify="flex-start" $gap={4} style={{ marginBottom: '40px' }}>
-			{categories.map((category) => (
-				<Category
-					$active={category.active}
-					type="button"
-					key={category.name}
-					onClick={() => handleClick(category.name)}
-				>
-					{category.name}
-				</Category>
-			))}
-		</Flexbox>
+		<>
+			<h5>Categories</h5>
+			<Flexbox $justify="flex-start" $gap={4} style={{ marginBottom: '40px' }}>
+				{isLoading
+					? skeletonArray.map((el) => <Skeleton key={el} inline borderRadius={8} height={31} width={el} />)
+					: categories.map((category) => (
+							<Category
+								$active={category.active}
+								type="button"
+								key={category.name}
+								onClick={() => handleClick(category.name)}
+							>
+								{category.name}
+							</Category>
+						))}
+			</Flexbox>
+		</>
 	);
 };
 export default Categories;

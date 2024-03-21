@@ -1,9 +1,9 @@
 import { MotionProps } from 'framer-motion';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { HTMLAttributes, ReactNode } from 'react';
+import { FC, HTMLAttributes, ReactNode } from 'react';
 
-import { Line, NavbarItem } from '../styled';
+import { NavbarItem } from '../styled';
 
 export interface NavbarProps {
 	title?: string;
@@ -13,7 +13,7 @@ export interface NavbarProps {
 
 type NavbarTypes = NavbarProps & HTMLAttributes<HTMLDivElement> & MotionProps;
 
-export const NavLink = ({ title, url, component, ...props }: NavbarTypes) => {
+export const NavLink: FC<NavbarTypes> = ({ title, url, component, children, ...props }) => {
 	const pathname = usePathname();
 	const isActive = pathname === url;
 
@@ -22,12 +22,7 @@ export const NavLink = ({ title, url, component, ...props }: NavbarTypes) => {
 			<Link href={url} />
 			{title}
 			{component}
-			{isActive ? (
-				<Line
-					layoutId="underline"
-					transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}
-				/>
-			) : null}
+			{isActive && children}
 		</NavbarItem>
 	);
 };

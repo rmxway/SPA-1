@@ -7,7 +7,7 @@ import { media } from '@/theme';
 
 export const Wrapper = styled(Container)`
 	position: relative;
-	padding-bottom: 120px;
+	padding-bottom: 160px;
 
 	display: grid;
 	grid-template-columns: 1fr;
@@ -15,6 +15,7 @@ export const Wrapper = styled(Container)`
 
 	${media.greaterThan('md')`
         grid-template-columns: 1fr 25%;
+        padding-bottom: 0;
     `}
 
 	.swiper {
@@ -114,17 +115,35 @@ export const PriceBlock = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	width: 100%;
 	gap: 20px;
 
-	.side-price {
-		span {
-			display: block;
-			font-family: sans-serif;
-			font-size: 30px;
+	.side {
+		&-price {
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+
+			span {
+				display: block;
+				font-family: sans-serif;
+				font-size: 30px;
+			}
+
+			${WrapperSticker} {
+				bottom: 20px;
+			}
 		}
 
-		${WrapperSticker} {
-			bottom: 20px;
+		&-info {
+			flex-direction: row;
+			align-items: center;
+			gap: 5px;
+
+			${media.greaterThan('md')`
+                flex-direction: column;
+                align-items: flex-start;
+            `}
 		}
 	}
 
