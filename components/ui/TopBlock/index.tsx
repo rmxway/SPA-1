@@ -1,5 +1,6 @@
 import { LayoutGroup, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useCallback } from 'react';
 
 import { Container } from '@/components/Layout';
 import { navbarItems } from '@/mock/navbar';
@@ -14,16 +15,16 @@ export const TopBlock = () => {
 	const isMain = pathname === '/';
 	const $isFont = isMain || pathname.includes('/product/');
 
-	const getTitle = () => {
+	const getTitle = useCallback(() => {
 		if (titleStore) return titleStore;
 		return navbarItems.find((item) => item.url === pathname)?.title;
-	};
+	}, [pathname, titleStore]);
 
 	return (
 		<TopBlockStyle {...{ $isFont }}>
 			<Container>
 				<LayoutGroup>
-					{getTitle() && (
+					{getTitle && (
 						<motion.h1
 							initial={{ y: -10, opacity: 0 }}
 							animate={{ y: 0, opacity: 1 }}

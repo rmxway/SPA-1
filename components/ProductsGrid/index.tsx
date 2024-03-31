@@ -2,7 +2,7 @@
 
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
@@ -31,8 +31,7 @@ export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: 
 		[countPerPage],
 	);
 
-	// ?
-	useEffect(() => {
+	useCallback(() => {
 		dispatch(changeTypePage(keyPage));
 	}, [keyPage, dispatch]);
 

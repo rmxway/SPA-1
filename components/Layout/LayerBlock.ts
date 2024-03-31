@@ -28,8 +28,8 @@ const LayerBlock = styled(motion.div)<LayerBlockProps>`
 		box-shadow: ${$shadow && `0 0 20px rgba(0,0,0,.3)`};
 
 		${media.greaterThan('sm')`
-        padding: 20px;
-    `}
+            padding: 20px;
+        `}
 	`}
 `;
 

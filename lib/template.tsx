@@ -1,4 +1,6 @@
-import { ReactNode } from 'react';
+'use client';
+
+import { memo, ReactNode } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import { Navbar } from '@/components';
@@ -14,7 +16,7 @@ export type TemplateProps = {
 
 checkVersion(store);
 
-export const Template = ({ children }: TemplateProps) => (
+export const Template = memo(({ children }: TemplateProps) => (
 	<ReduxProvider>
 		<ThemeProvider theme={defaultTheme}>
 			<GlobalStyles />
@@ -23,6 +25,6 @@ export const Template = ({ children }: TemplateProps) => (
 			{children}
 		</ThemeProvider>
 	</ReduxProvider>
-);
+));
 
 export default Template;

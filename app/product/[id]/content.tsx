@@ -55,12 +55,10 @@ export function ContentProduct() {
 									<h4>Description:</h4>
 									<TextToggle length={3}>
 										<p>
-											{`
-                                                AMOLED FHD+ punch-hole display with a high screen-to-body ratio provides a
-                                                more exquisite, immersive experience. From dawn to dusk, OPPO F19’s
-                                                eye-caring screen continuously adapts to the level that’s gentle for your
-                                                eyes.
-                                            `}
+											AMOLED FHD+ punch-hole display with a high screen-to-body ratio provides a
+											more exquisite, immersive experience. From dawn to dusk, OPP F19’s
+											eye-caring screen continuously adapts to the level that’s gentle for your
+											eyes.
 										</p>
 										<p>
 											Amazing Performance at the Tip of Your Finger. Our advanced In-Display

@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox } from '@/components/Layout';
@@ -12,13 +12,20 @@ import { StyledFilter } from './styled';
 import { ToggleSort } from './ToggleSort';
 
 export const Filter: FC<{ isLoading: boolean }> = ({ isLoading }) => {
-	const { fetchedItems, reservedItems, search } = useAppSelector(productsStore);
+	const { fetchedItems, reservedItems } = useAppSelector(productsStore);
+	const [value, setValue] = useState('');
+
 	const dispatch = useAppDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const searchText = e.target.value;
-		dispatch(searchValue(searchText));
-		debounceFunction(() => dispatch(searchProducts(searchText)));
+
+		setValue(searchText);
+
+		debounceFunction(() => {
+			dispatch(searchProducts(searchText));
+			dispatch(searchValue(searchText));
+		});
 	};
 
 	return (
@@ -29,7 +36,7 @@ export const Filter: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 				<InputUI
 					name="search"
 					placeholder="Search"
-					value={search.value}
+					value={value}
 					onChange={handleChange}
 					disabled={!reservedItems.length && !fetchedItems.length}
 				/>
@@ -46,7 +53,7 @@ export const Filter: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 					<>
 						<ToggleSort sort="rating" value="Popular" disabled={!fetchedItems.length} />
 						<ToggleSort sort="price" value="Price" disabled={!fetchedItems.length} />
-						<ToggleSort sort="default" value="Reset" />
+						<ToggleSort sort="default" value="Reset" onClick={() => setValue('')} />
 					</>
 				)}
 			</Flexbox>

@@ -1,4 +1,4 @@
-import { createSelector, createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
 import { api, ResponseProducts } from '@/store/api';
@@ -56,7 +56,7 @@ const initialState: ProductsState = {
 
 const initialItems = (state: ProductsState, response: ResponseProducts) => {
 	const { data, categories } = response;
-    state.fetching = false;
+	state.fetching = false;
 
 	if (state.reservedItems.length === data.length) return;
 
@@ -129,10 +129,6 @@ const resetItems = (state: ProductsState, category = true) => {
 	state.fetching = false;
 	if (category) calcCategory(state, 'all', true);
 };
-
-export const favoritesItemsMemoized = createSelector([(state: ProductsState) => state.fetchedItems], (fetchedItems) =>
-	fetchedItems.filter((item) => item.favorite),
-);
 
 const productsReducer = createSlice({
 	name: 'products',

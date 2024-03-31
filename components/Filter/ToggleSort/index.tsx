@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+'use client';
+
+import React, { useRef } from 'react';
 
 import { Icon } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
@@ -10,36 +12,39 @@ import { Toggle } from './styled';
 interface ComponentTypes extends React.InputHTMLAttributes<HTMLInputElement> {
 	value: string;
 	sort: 'rating' | 'price' | 'default';
+	onClick?: () => void;
 }
 
-const ToggleSort = ({ sort, value, disabled, ...props }: ComponentTypes) => {
-	const { name, toggle } = useAppSelector(productsStore).sort;
-	const [checked, setChecked] = useState(false);
+const ToggleSort = ({ sort, value, disabled, onClick, ...props }: ComponentTypes) => {
+	const { sort: productsSort, search, categories } = useAppSelector(productsStore);
+	const checked = useRef(false);
 	const idName = `sort-${sort}`;
 	const dispatch = useAppDispatch();
 
-	const handleClick = (e: React.MouseEvent) => {
-		e.preventDefault();
+	const handleClick = () => {
+        onClick?.();
+
+		if (sort === 'default' && productsSort.name === sort && search.value === '' && categories[0].active) return;
 
 		if (sort === 'default') {
 			dispatch(sortProducts({ name: sort }));
 			return;
 		}
 
-		setChecked((prev) => !prev);
-		dispatch(sortProducts({ name: sort, toggle: !checked }));
+		checked.current = !checked.current;
+		dispatch(sortProducts({ name: sort, toggle: checked.current }));
 	};
 
 	return (
-		<Toggle type="button" $toggle={toggle} onMouseDown={handleClick} disabled={disabled}>
+		<Toggle type="button" $toggle={productsSort.toggle} onMouseDown={handleClick} disabled={disabled}>
 			<input
-				{...props}
 				type="radio"
 				disabled={disabled}
 				name="sort"
 				id={idName}
-				checked={name !== 'default' && name === sort}
+				checked={productsSort.name !== 'default' && productsSort.name === sort}
 				onChange={() => null}
+				{...props}
 			/>
 			<label htmlFor={idName}>
 				{value}
