@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styled from 'styled-components';
 
+import { Wrapper as WrapperPagination } from '@/components/Pagination/styled';
 import { LinkIconStyle } from '@/components/ui/LinkIcon/styled';
 import { defaultTheme as theme, media } from '@/theme';
 
@@ -20,6 +21,10 @@ export const Cart = styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
     align-items: flex-start;
+
+    ${WrapperPagination} {
+        margin-top: 0;
+    }
 
 	${media.greaterThan('sm')`
         grid-template-columns: 1fr minmax(250px, 25%);
@@ -76,14 +81,15 @@ export const Title = styled.div`
 `;
 
 export const Total = styled.div`
-	font-size: 22px;
+	font-size: 1.3rem;
+    font-family: sans-serif;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	margin-bottom: 10px;
 
 	span {
-		font-size: 32px;
+		font-size: 1.6rem;
 		margin-left: 10px;
 		color: ${theme.colors.dark};
 	}
@@ -92,7 +98,7 @@ export const Total = styled.div`
         font-size: 20px;
 
         span {
-            font-size: 26px
+            font-size: 1.8rem
         }
     `}
 `;

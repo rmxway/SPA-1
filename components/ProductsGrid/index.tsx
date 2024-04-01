@@ -2,7 +2,7 @@
 
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useCallback, useEffect } from 'react';
+import { useCallback } from 'react';
 
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
@@ -31,15 +31,12 @@ export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: 
 		[countPerPage],
 	);
 
-	// ?
-	useEffect(() => {
+	useCallback(() => {
 		dispatch(changeTypePage(keyPage));
 	}, [keyPage, dispatch]);
 
 	return (
 		<WrapperComponent>
-			{pagination && <Pagination {...{ changePage, items, isLoading, countPerPage, page }} />}
-
 			<LayoutGroup>
 				<FetchingBlock variants={containerVars} animate="visible" initial="hidden">
 					{isLoading && skeletonArr().map((item) => <SkeletonCard key={item} />)}
@@ -60,6 +57,8 @@ export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: 
 						))}
 				</FetchingBlock>
 			</LayoutGroup>
+
+			{pagination && <Pagination {...{ changePage, items, isLoading, countPerPage, page }} />}
 
 			{!currentItems.length && (
 				<motion.div variants={containerVars} initial="hidden" animate="visible" exit="hidden">

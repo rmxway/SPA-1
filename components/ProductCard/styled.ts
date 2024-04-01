@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styled, { css } from 'styled-components';
 
 import { WrapperFavorite } from '@/components/ui/Favorite/styled';
+import { WrapperSticker } from '@/components/ui/Sticker/styled';
 import { defaultTheme as theme } from '@/theme';
 import { media } from '@/theme/media';
 
@@ -44,7 +45,7 @@ export const WrapperImagesStyled = styled(motion.div)`
 	justify-content: center;
 	height: 120px;
 	text-decoration: none;
-	margin: 0 20px;
+	margin-bottom: 20px;
 
 	&:after {
 		position: absolute;
@@ -101,6 +102,13 @@ export const ProductWrapper = styled(motion.div)`
 		right: 0;
 	}
 
+	${WrapperSticker} {
+		position: absolute;
+		z-index: 10;
+		top: 10px;
+		left: 10px;
+	}
+
 	${WrapperImagesStyled} {
 		img {
 			min-width: 100px;
@@ -119,7 +127,6 @@ export const ProductWrapper = styled(motion.div)`
 
 	button {
 		width: 100%;
-		margin-top: 10px;
 		align-self: center;
 	}
 
@@ -129,41 +136,58 @@ export const ProductWrapper = styled(motion.div)`
 `;
 
 export const Title = styled(Link)`
-	font-size: 14px;
-	font-weight: 400;
-	line-height: 1.15;
-	flex-basis: 35px;
 	text-decoration: none;
 	color: initial;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	div {
+		line-height: 1.15;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+
+		&::first-letter {
+			text-transform: uppercase;
+		}
+	}
+
+	span {
+		display: block;
+		color: ${theme.colors.gray.$6};
+		font-size: 0.9rem;
+		font-weight: 400;
+	}
 
 	&:hover {
 		text-decoration: underline;
 	}
 
 	${media.greaterThan('xs')`
-        font-size: 16px;
+        font-size: 1rem;
+        font-weight: 600;
     `}
 `;
 
 export const Price = styled.div`
+	font-family: sans-serif;
 	font-size: 1.3rem;
-	margin-bottom: 5px;
 
 	${media.greaterThan('xs')`
-        font-size: 1.5rem;
+        font-size: 1.6rem;
+        font-weight: 100;
+        color: ${theme.colors.dark};
     `}
 `;
 
 export const Tools = styled.div`
 	font-weight: 500;
 	width: 100%;
-	margin: 10px 0 20px;
+	margin: 20px 0;
 	display: flex;
 	flex-direction: column;
+	gap: 5px;
 	font-size: 14px;
 	flex-shrink: 0;
 
@@ -209,7 +233,7 @@ export const Description = styled.div<{ open: boolean }>`
 	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	text-overflow: ellipsis;
-    word-break: break-all;
+	word-break: break-all;
 
 	${(props) =>
 		props.open &&

@@ -1,14 +1,14 @@
 import { MotionProps } from 'framer-motion';
 import Link from 'next/link';
-import { memo, useState } from 'react';
+import { memo } from 'react';
 
 import { RatingStars, Space } from '@/components/Layout';
-import { Button, Favorite } from '@/components/ui';
+import { Button, Favorite, Sticker } from '@/components/ui';
 import { currency, IProduct, useAppDispatch } from '@/services';
 import { moveToCart } from '@/store/reducers/combineActions';
 import { toggleFavorite } from '@/store/reducers/products';
 
-import { Description, Help, Price, ProductWrapper, Title, Tools } from './styled';
+import { Price, ProductWrapper, Title, Tools } from './styled';
 import { WrapperImages } from './WrapperImage';
 
 interface ProductType extends MotionProps {
@@ -16,7 +16,6 @@ interface ProductType extends MotionProps {
 }
 
 export const ProductCard = memo(({ product, ...props }: ProductType) => {
-	const [viewDescription, setViewDescription] = useState<boolean>(false);
 	const link = `/product/${product.id}`;
 	const dispatch = useAppDispatch();
 
@@ -26,22 +25,22 @@ export const ProductCard = memo(({ product, ...props }: ProductType) => {
 
 	return (
 		<ProductWrapper {...props}>
+			{product.discountPercentage && <Sticker $danger>-{Math.round(product.discountPercentage)}%</Sticker>}
 			<Favorite onActive={() => dispatch(toggleFavorite(Number(product.id)))} active={product.favorite} />
 			<Link href={link}>
 				<WrapperImages product={product} size={300} />
 			</Link>
-			<Help type="button" onClick={() => setViewDescription((prev) => !prev)}>
-				Description {viewDescription ? '-' : '+'}
-			</Help>
-			<Description open={viewDescription}>{product.description}</Description>
+			<Title href={link}>
+				<div>{product.title}</div>
+				<span>{product.brand}</span>
+			</Title>
 			<Space />
 			<Tools>
+				<RatingStars rating={Number(product.rating)} />
 				<Price>
 					{product.price} {currency}
 				</Price>
-				<RatingStars rating={Number(product.rating)} />
 			</Tools>
-			<Title href={link}>{product.title}</Title>
 			<Button $primary onClick={handleChecked} disabled={product.checked}>
 				{product.checked ? 'Added' : 'Add to cart'}
 			</Button>

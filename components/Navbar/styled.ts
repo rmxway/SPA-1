@@ -1,13 +1,12 @@
 import { motion, Variants } from 'framer-motion';
 import { darken } from 'polished';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-import { ButtonStyle } from '@/components/ui/Button/styled';
 import { defaultTheme as theme, media } from '@/theme';
 
 const logoColor = darken(0.3, theme.colors.success);
 
-export const StyledNavbar = styled.div`
+export const StyledNavbar = styled(motion.div)`
 	position: fixed;
 	top: 0;
 	z-index: 100;
@@ -17,15 +16,6 @@ export const StyledNavbar = styled.div`
 	text-align: center;
 	display: flex;
 	align-items: center;
-
-	.search {
-		flex-grow: 1;
-		margin-right: 30px;
-
-		input {
-			width: 100%;
-		}
-	}
 `;
 
 export const Logo = styled.div`
@@ -142,45 +132,3 @@ export const variantsWrapperNavbar: Variants = {
 		opacity: 0,
 	},
 };
-
-export const BurgerButton = styled(ButtonStyle)<{ $isOpen: boolean }>`
-	position: relative;
-	padding: 8px;
-	width: 32px;
-	height: 32px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: ${({ $isOpen }) => ($isOpen ? 'center' : 'space-between')};
-
-	span {
-		display: inline-block;
-		height: 2px;
-		border-radius: 50px;
-		min-width: 20px;
-		background-color: ${theme.colors.success};
-		transition: all 0.2s;
-
-		${({ $isOpen }) =>
-			$isOpen &&
-			css`
-				&:first-child {
-					transform: rotate(45deg);
-					transform-origin: 7px;
-				}
-
-				&:nth-child(2) {
-					opacity: 0;
-				}
-
-				&:last-child {
-					transform: rotate(-45deg);
-					transform-origin: 7px;
-				}
-			`}
-	}
-
-	${media.greaterThan('md')`
-        display: none;
-    `}
-`;

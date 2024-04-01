@@ -1,7 +1,7 @@
-import { createSelector, createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
-import { api } from '@/store/api';
+import { api, ResponseProducts } from '@/store/api';
 
 export interface SortTypes {
 	name: 'rating' | 'price' | 'default';
@@ -10,6 +10,11 @@ export interface SortTypes {
 
 export type TypePages = 'products' | 'favorites';
 
+interface Category {
+	name: 'all' | string;
+	active: boolean;
+}
+
 export interface ProductsState {
 	title: string;
 	fetchedItems: IProduct[];
@@ -17,6 +22,7 @@ export interface ProductsState {
 	total: number;
 	countPerPage: number;
 	countFavorites: number;
+	categories: Category[];
 	page: number;
 	typePage: TypePages;
 	error: string;
@@ -36,8 +42,9 @@ const initialState: ProductsState = {
 	typePage: 'products',
 	countPerPage: 12,
 	countFavorites: 0,
+	categories: [],
 	error: '',
-	fetching: false,
+	fetching: true,
 	sort: {
 		name: 'default',
 		toggle: false,
@@ -47,21 +54,30 @@ const initialState: ProductsState = {
 	},
 };
 
-const initialItems = (state: ProductsState, products: IProduct[]) => {
-	if (state.reservedItems.length === products.length) return;
+const initialItems = (state: ProductsState, response: ResponseProducts) => {
+	const { data, categories } = response;
+	state.fetching = false;
 
-	const items = [...products];
+	if (state.reservedItems.length === data.length) return;
 
 	// there is some product on the first page
 	if (state.fetchedItems.length === 1) {
-		const index = items.findIndex((product) => product.id === state.fetchedItems[0].id);
-		items[index] = current(state.fetchedItems[0]);
+		const index = data.findIndex((product) => product.id === state.fetchedItems[0].id);
+		data[index] = current(state.fetchedItems[0]);
 	}
 
-	state.total = items.length;
-	state.fetching = false;
+	state.total = data.length;
 
-	state.fetchedItems = [...items];
+	state.categories.push(
+		...categories.map((item) => ({
+			name: item,
+			active: false,
+		})),
+	);
+
+	state.categories[0].active = true;
+
+	state.fetchedItems = [...data];
 	state.reservedItems = state.fetchedItems;
 	state.error = '';
 };
@@ -88,18 +104,31 @@ const anyTogglesInProduct = (
 	toggleInArray(state.fetchedItems);
 };
 
-const resetItems = (state: ProductsState) => {
+const calcCategory = (state: ProductsState, name: string, reset?: boolean) => {
+	state.categories.forEach((category) => {
+		category.active = category.name === name;
+	});
+
+	state.page = 1;
+
+	if (reset) return;
+
+	if (name === 'all' || reset) {
+		state.fetchedItems = state.reservedItems;
+	} else {
+		state.fetchedItems = state.reservedItems.filter((item) => item.category === name);
+	}
+};
+
+const resetItems = (state: ProductsState, category = true) => {
 	state.page = 1;
 	state.sort.name = 'default';
 	state.sort.toggle = false;
 	state.search.value = '';
 	state.fetchedItems = state.reservedItems;
 	state.fetching = false;
+	if (category) calcCategory(state, 'all', true);
 };
-
-export const favoritesItemsMemoized = createSelector([(state: ProductsState) => state.fetchedItems], (fetchedItems) =>
-	fetchedItems.filter((item) => item.favorite),
-);
 
 const productsReducer = createSlice({
 	name: 'products',
@@ -151,7 +180,7 @@ const productsReducer = createSlice({
 		},
 		searchProducts: (state, { payload }: PayloadAction<string>) => {
 			const searchText = payload.toLowerCase().trim();
-			state.page = 1;
+			calcCategory(state, 'all');
 			state.fetchedItems = state.reservedItems.filter((item) => item.title.toLowerCase().includes(searchText));
 		},
 		toggleFavorite: (state, { payload }: PayloadAction<number>) => {
@@ -180,6 +209,10 @@ const productsReducer = createSlice({
 			state.typePage = payload;
 			resetItems(state);
 		},
+		changeCategory: (state, { payload: name }: PayloadAction<string>) => {
+			resetItems(state, false);
+			calcCategory(state, name);
+		},
 	},
 	extraReducers: (builder) => {
 		builder
@@ -189,8 +222,8 @@ const productsReducer = createSlice({
 			})
 			.addMatcher(
 				api.endpoints.getProducts.matchFulfilled,
-				(state, { payload: items }: PayloadAction<IProduct[]>) => {
-					initialItems(state, items);
+				(state, { payload: response }: PayloadAction<ResponseProducts>) => {
+					initialItems(state, response);
 				},
 			)
 			.addMatcher(api.endpoints.getProducts.matchRejected, (state) => {
@@ -233,6 +266,7 @@ export const {
 	removeAllFavorites,
 	changePage,
 	changeTypePage,
+	changeCategory,
 } = actions;
 
 export default reducer;

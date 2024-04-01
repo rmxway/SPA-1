@@ -3,6 +3,7 @@
 import { AnimatePresence, LayoutGroup } from 'framer-motion';
 import Link from 'next/link';
 import { useState } from 'react';
+import CountUp from 'react-countup';
 
 import { CartItem, Pagination } from '@/components';
 import { cartVariant } from '@/components/CartItem/styled';
@@ -91,7 +92,8 @@ export const ContentCart = () => {
 						<Total>
 							Total:
 							<span>
-								{totalPrice} {currency}
+								<CountUp startVal={0} end={totalPrice} preserveValue duration={1} separator="" />{' '}
+								{currency}
 							</span>
 						</Total>
 						<Button $primary disabled={totalPrice === 0}>

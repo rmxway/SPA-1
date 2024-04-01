@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { Container, Flexbox, LayerBlock } from '@/components/Layout';
+import { Container, LayerBlock } from '@/components/Layout';
+import { WrapperSticker } from '@/components/ui/Sticker/styled';
 import { media } from '@/theme';
 
 export const Wrapper = styled(Container)`
 	position: relative;
-	padding-bottom: 120px;
+	padding-bottom: 160px;
 
 	display: grid;
 	grid-template-columns: 1fr;
@@ -14,6 +15,7 @@ export const Wrapper = styled(Container)`
 
 	${media.greaterThan('md')`
         grid-template-columns: 1fr 25%;
+        padding-bottom: 0;
     `}
 
 	.swiper {
@@ -110,26 +112,45 @@ export const SideBlock = styled.div`
 
 export const PriceBlock = styled.div`
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	gap: 20px;
 
-	${Flexbox} {
-		span {
-			display: block;
-			font-size: 30px;
+	.side {
+		&-price {
+			align-items: center;
+			justify-content: space-between;
+			width: 100%;
+
+			span {
+				display: block;
+				font-family: sans-serif;
+				font-size: 30px;
+			}
+
+			${WrapperSticker} {
+				bottom: 20px;
+			}
 		}
 
-		margin-bottom: 10px;
+		&-info {
+			flex-direction: row;
+			align-items: center;
+			gap: 5px;
+
+			${media.greaterThan('md')`
+                flex-direction: column;
+                align-items: flex-start;
+            `}
+		}
 	}
 
 	button {
 		width: 100%;
 		margin: 0;
 	}
-
-	${media.greaterThan('md')`
-        ${Flexbox} {
-            margin-bottom: 30px;
-        }
-    `}
 `;
 
 export default Wrapper;

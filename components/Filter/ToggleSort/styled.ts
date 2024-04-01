@@ -12,9 +12,13 @@ export const Toggle = styled.button<ToggleTypes>`
 	background: none;
 	position: relative;
 	color: ${theme.colors.gray.$7};
-	margin-right: 20px;
 	padding-right: 20px;
+	padding-left: 0;
 	cursor: pointer;
+
+	&:last-child {
+		padding-right: 0;
+	}
 
 	&:hover {
 		color: ${theme.colors.gray.$9};

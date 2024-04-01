@@ -84,6 +84,13 @@ export const Pagination = forwardRef(
 				{...{ ref }}
 				{...props}
 			>
+				{!isLoading && !!items.length && (
+					<Info>
+						Shown products: {viewedItems()} from {total}
+					</Info>
+				)}
+				{isLoading && <Skeleton inline height={30} width={300} />}
+				<Space />
 				{isLoading && <Skeleton inline height={40} width={300} />}
 				{!isLoading && countPages > 1 && (
 					<Flexbox $align="center">
@@ -110,13 +117,6 @@ export const Pagination = forwardRef(
 						)}
 					</Flexbox>
 				)}
-				<Space />
-				{!isLoading && !!items.length && (
-					<Info>
-						Shown products: {viewedItems()} from {total}
-					</Info>
-				)}
-				{isLoading && <Skeleton inline height={30} width={300} />}
 			</Wrapper>
 		);
 	},

@@ -1,11 +1,15 @@
 {
     "language": "en,ru",
     "version": "0.2",
-    "ignorePaths": [],
+    "ignorePaths": [
+        "./mock/items.json"
+    ],
     "dictionaryDefinitions": [],
     "dictionaries": [],
     "words": [
+        "AMOLED",
         "backgrd",
+        "countup",
         "desaturate",
         "dummyjson",
         "fakestoreapi",
