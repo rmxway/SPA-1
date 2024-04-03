@@ -1,6 +1,6 @@
 import { MotionProps } from 'framer-motion';
 import Link from 'next/link';
-import { memo } from 'react';
+import { FC } from 'react';
 
 import { RatingStars, Space } from '@/components/Layout';
 import { Button, Favorite, Sticker } from '@/components/ui';
@@ -15,7 +15,7 @@ interface ProductType extends MotionProps {
 	product: IProduct;
 }
 
-export const ProductCard = memo(({ product, ...props }: ProductType) => {
+export const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 	const link = `/product/${product.id}`;
 	const dispatch = useAppDispatch();
 
@@ -46,6 +46,6 @@ export const ProductCard = memo(({ product, ...props }: ProductType) => {
 			</Button>
 		</ProductWrapper>
 	);
-});
+};
 
 export default ProductCard;

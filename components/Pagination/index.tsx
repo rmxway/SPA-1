@@ -1,9 +1,7 @@
-import 'react-loading-skeleton/dist/skeleton.css';
-
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { MotionProps } from 'framer-motion';
 import debounce from 'lodash.debounce';
-import { forwardRef, Ref } from 'react';
+import { forwardRef } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox, Space } from '@/components/Layout';
@@ -13,7 +11,8 @@ import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { ScrollToTop } from '@/services/helpers';
 import { productsStore } from '@/store';
 
-import { ArrowButton, ButtonPagination, Info, Wrapper } from './styled';
+import { RenderButtons } from './RenderButtons';
+import { ArrowButton, Info, Wrapper } from './styled';
 
 interface PaginationProps extends MotionProps {
 	items: IProduct[];
@@ -23,8 +22,8 @@ interface PaginationProps extends MotionProps {
 	changePage: ActionCreatorWithPayload<number, string>;
 }
 
-export const Pagination = forwardRef(
-	({ items, isLoading, countPerPage, page, changePage, ...props }: PaginationProps, ref: Ref<HTMLDivElement>) => {
+export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
+	({ items, isLoading, countPerPage, page, changePage, ...props }, ref) => {
 		const { fetching } = useAppSelector(productsStore);
 		const dispatch = useAppDispatch();
 		const total = items.length;
@@ -42,36 +41,6 @@ export const Pagination = forwardRef(
 				return page * countPerPage;
 			}
 			return total;
-		};
-
-		const AllButtons = (): React.ReactNode[] => {
-			const arrButtons: React.ReactNode[] = Array.from({ length: countPages });
-
-			for (let i = 0; i < countPages; i++) {
-				const currentPage = i + 1;
-				arrButtons[i] = (
-					<ButtonPagination
-						key={i}
-						$success={page === currentPage}
-						$inactive={fetching}
-						onClick={() => debounceChangePage(currentPage)}
-						disabled={!items.length}
-					>
-						{currentPage}
-					</ButtonPagination>
-				);
-			}
-
-			return arrButtons;
-		};
-
-		const renderButtons = (): React.ReactNode[] => {
-			const arButtons = AllButtons();
-
-			const start = page - 3 < 0 ? 0 : page - 3;
-			const end = page <= 2 ? countButtons : page + 1;
-
-			return arButtons.slice(start, end);
 		};
 
 		return (
@@ -104,7 +73,7 @@ export const Pagination = forwardRef(
 							</ArrowButton>
 						)}
 
-						{renderButtons()}
+						<RenderButtons {...{ countPages, countButtons, page, fetching, items, debounceChangePage }} />
 
 						{page < countPages && page !== countPages && (
 							<ArrowButton

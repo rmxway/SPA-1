@@ -17,8 +17,12 @@ export const RenderNavbar: FC = () => {
 
 	const match = useMediaQuery(breakpoints.md);
 
+	const closeMenu = () => {
+		setOpen(false);
+	};
+
 	useMemo(() => {
-		if (!match) setOpen(false);
+		if (!match) closeMenu();
 	}, [match]);
 
 	const animatedMobileMenu = () => {
@@ -55,7 +59,7 @@ export const RenderNavbar: FC = () => {
 					}
 
 					return (
-						<NavLink key={url} onClick={() => setOpen(false)} {...props}>
+						<NavLink key={url} onClick={closeMenu} {...props}>
 							<Line
 								layoutId="underline"
 								transition={{ duration: 0.2, type: 'spring', stiffness: 200, damping: 22 }}

@@ -1,9 +1,9 @@
 import { FC } from 'react';
 
+import { Count } from '@/components/Navbar/Count';
 import { Icon } from '@/components/ui';
 import { Icofont } from '@/services';
 
-import { Count } from '../Count';
 import { NavCountItemStyled } from './styled';
 
 interface NavCountItemProps {

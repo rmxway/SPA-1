@@ -1,7 +1,7 @@
 import { MotionProps } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
-import { forwardRef, Ref } from 'react';
+import { forwardRef } from 'react';
 
 import { Icon } from '@/components/ui';
 import { currency, IProduct, useAppDispatch } from '@/services';
@@ -14,7 +14,7 @@ interface Props extends MotionProps {
 	product: IProduct;
 }
 
-export const CartItem = forwardRef(({ product, ...props }: Props, ref: Ref<HTMLDivElement>) => {
+export const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }, ref) => {
 	const dispatch = useAppDispatch();
 	const { id, price, title, description, thumbnail, count } = product;
 

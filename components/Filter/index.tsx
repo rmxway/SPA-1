@@ -14,7 +14,6 @@ import { ToggleSort } from './ToggleSort';
 export const Filter: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 	const { fetchedItems, reservedItems } = useAppSelector(productsStore);
 	const [value, setValue] = useState('');
-
 	const dispatch = useAppDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,6 +25,10 @@ export const Filter: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 			dispatch(searchProducts(searchText));
 			dispatch(searchValue(searchText));
 		});
+	};
+
+	const resetInput = () => {
+		setValue('');
 	};
 
 	return (
@@ -53,7 +56,7 @@ export const Filter: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 					<>
 						<ToggleSort sort="rating" value="Popular" disabled={!fetchedItems.length} />
 						<ToggleSort sort="price" value="Price" disabled={!fetchedItems.length} />
-						<ToggleSort sort="default" value="Reset" onClick={() => setValue('')} />
+						<ToggleSort sort="default" value="Reset" onClick={resetInput} />
 					</>
 				)}
 			</Flexbox>

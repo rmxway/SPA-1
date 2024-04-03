@@ -1,6 +1,6 @@
 import { LayoutGroup, motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import { useCallback } from 'react';
+import { useMemo } from 'react';
 
 import { Container } from '@/components/Layout';
 import { navbarItems } from '@/mock/navbar';
@@ -15,7 +15,7 @@ export const TopBlock = () => {
 	const isMain = pathname === '/';
 	const $isFont = isMain || pathname.includes('/product/');
 
-	const getTitle = useCallback(() => {
+	const getTitle = useMemo(() => {
 		if (titleStore) return titleStore;
 		return navbarItems.find((item) => item.url === pathname)?.title;
 	}, [pathname, titleStore]);
@@ -35,7 +35,7 @@ export const TopBlock = () => {
 									Green Shop <span>| Brand</span>
 								</>
 							) : (
-								getTitle()
+								getTitle
 							)}
 						</motion.h1>
 					)}

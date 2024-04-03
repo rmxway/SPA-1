@@ -1,4 +1,4 @@
-import { ElementType } from 'react';
+import { ElementType, FC } from 'react';
 
 import { Icofont } from '@/services';
 
@@ -17,6 +17,6 @@ interface IconProps {
  * @returns
  */
 
-export const Icon = ({ as: Tag = 'i', icon = 'cart', size, className, ...props }: IconProps) => (
+export const Icon: FC<IconProps> = ({ as: Tag = 'i', icon = 'cart', size, className, ...props }) => (
 	<Tag className={`icofont icofont-${icon} ${className}`} {...props} style={{ fontSize: `${size}px` }} />
 );

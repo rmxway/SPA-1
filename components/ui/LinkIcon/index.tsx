@@ -1,5 +1,5 @@
 import { HTMLMotionProps } from 'framer-motion';
-import { forwardRef, HTMLAttributes, Ref } from 'react';
+import { forwardRef, HTMLAttributes } from 'react';
 
 import { Icon } from '@/components/ui/Icon';
 import { Icofont } from '@/services';
@@ -21,8 +21,8 @@ type LinkIconType = LinkIconProps & HTMLMotionProps<'div'>;
  * @param {function} onClick - event
  */
 
-export const LinkIcon = forwardRef(
-	({ icon, initial, onClick, children, ...props }: LinkIconType, ref: Ref<HTMLDivElement>) => (
+export const LinkIcon = forwardRef<HTMLDivElement, LinkIconType>(
+	({ icon, initial, onClick, children, ...props }, ref) => (
 		<LinkIconStyle
 			key="LinkIcon"
 			variants={linkIconVariant}

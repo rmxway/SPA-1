@@ -1,3 +1,5 @@
+import { FC } from 'react';
+
 import { Icon } from '@/components/ui/Icon';
 
 import { WrapperFavorite } from './styled';
@@ -14,12 +16,10 @@ interface FavoriteProps {
  * @returns
  */
 
-export function Favorite({ active = false, onActive, ...props }: FavoriteProps) {
-	return (
-		<WrapperFavorite {...props} $active={active} onClick={onActive}>
-			<Icon icon={active ? 'favorite' : 'favorite-fill'} />
-		</WrapperFavorite>
-	);
-}
+export const Favorite: FC<FavoriteProps> = ({ active = false, onActive, ...props }) => (
+	<WrapperFavorite {...props} $active={active} onClick={onActive}>
+		<Icon icon={active ? 'favorite' : 'favorite-fill'} />
+	</WrapperFavorite>
+);
 
 export default Favorite;

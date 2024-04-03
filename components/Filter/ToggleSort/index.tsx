@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { FC, useRef } from 'react';
 
 import { Icon } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
@@ -9,20 +9,20 @@ import { sortProducts } from '@/store/reducers/products';
 
 import { Toggle } from './styled';
 
-interface ComponentTypes extends React.InputHTMLAttributes<HTMLInputElement> {
+interface ToggleProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	value: string;
 	sort: 'rating' | 'price' | 'default';
 	onClick?: () => void;
 }
 
-const ToggleSort = ({ sort, value, disabled, onClick, ...props }: ComponentTypes) => {
+const ToggleSort: FC<ToggleProps> = ({ sort, value, disabled, onClick, ...props }) => {
 	const { sort: productsSort, search, categories } = useAppSelector(productsStore);
 	const checked = useRef(false);
 	const idName = `sort-${sort}`;
 	const dispatch = useAppDispatch();
 
 	const handleClick = () => {
-        onClick?.();
+		onClick?.();
 
 		if (sort === 'default' && productsSort.name === sort && search.value === '' && categories[0].active) return;
 
@@ -36,12 +36,12 @@ const ToggleSort = ({ sort, value, disabled, onClick, ...props }: ComponentTypes
 	};
 
 	return (
-		<Toggle type="button" $toggle={productsSort.toggle} onMouseDown={handleClick} disabled={disabled}>
+		<Toggle type="button" $toggle={productsSort.toggle} onClick={handleClick} disabled={disabled}>
 			<input
+				id={idName}
 				type="radio"
 				disabled={disabled}
 				name="sort"
-				id={idName}
 				checked={productsSort.name !== 'default' && productsSort.name === sort}
 				onChange={() => null}
 				{...props}

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC, HTMLAttributes, ReactNode } from 'react';
 
-import { NavbarItem } from '../styled';
+import { NavbarItem } from '@/components/Navbar/styled';
 
 export interface NavbarProps {
 	title?: string;

@@ -1,9 +1,9 @@
-import { forwardRef, PropsWithChildren, Ref } from 'react';
+import { forwardRef, PropsWithChildren } from 'react';
 
 import { WrapperSticker, WrapperStickerProps } from './styled';
 
-export const Sticker = forwardRef(
-	({ children, ...props }: WrapperStickerProps & PropsWithChildren, ref: Ref<HTMLDivElement>) => (
+export const Sticker = forwardRef<HTMLDivElement, WrapperStickerProps & PropsWithChildren>(
+	({ children, ...props }, ref) => (
 		<WrapperSticker {...props} ref={ref}>
 			{children}
 		</WrapperSticker>

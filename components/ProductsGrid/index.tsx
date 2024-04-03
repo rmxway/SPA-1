@@ -1,8 +1,10 @@
 'use client';
 
+import 'react-loading-skeleton/dist/skeleton.css';
+
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { useCallback } from 'react';
+import { memo, useCallback } from 'react';
 
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
@@ -22,7 +24,7 @@ interface ProductsGridProps {
 	keyPage: TypePages;
 }
 
-export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: ProductsGridProps) => {
+export const ProductsGrid = memo(({ items, isLoading = false, pagination, keyPage }: ProductsGridProps) => {
 	const { reservedItems, error, page, countPerPage } = useAppSelector(productsStore);
 	const dispatch = useAppDispatch();
 	const currentItems = currentItemsMemoized(useAppSelector(productsStore), items);
@@ -77,6 +79,6 @@ export const ProductsGrid = ({ items, isLoading = false, pagination, keyPage }: 
 			)}
 		</WrapperComponent>
 	);
-};
+});
 
 export default ProductsGrid;
