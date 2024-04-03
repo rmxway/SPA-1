@@ -2,7 +2,12 @@ import { FC } from 'react';
 
 import { BurgerButtonStyled } from './styled';
 
-export const BurgerButton: FC<{ clickBurger(): void; open: boolean }> = ({ clickBurger, open }) => (
+interface BurgerButtonProps {
+	clickBurger: () => void;
+	open: boolean;
+}
+
+export const BurgerButton: FC<BurgerButtonProps> = ({ clickBurger, open }) => (
 	<BurgerButtonStyled $black onClick={clickBurger} $isOpen={open}>
 		<span />
 		<span />

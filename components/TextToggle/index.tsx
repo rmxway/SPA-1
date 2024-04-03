@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ReactNode, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 
 import { WrapperTextToggle } from './styled';
 
@@ -10,7 +10,7 @@ type TextToggleProps = {
 	children?: ReactNode;
 };
 
-export const TextToggle = ({ length = 2, children }: TextToggleProps) => {
+export const TextToggle: FC<TextToggleProps> = ({ length = 2, children }) => {
 	const [isOpen, setOpen] = useState(false);
 
 	const height = `${length * 30}px`;

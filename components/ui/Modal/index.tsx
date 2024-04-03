@@ -1,7 +1,7 @@
 'use client';
 
 import { AnimatePresence } from 'framer-motion';
-import { UIEvent, useRef } from 'react';
+import { FC, UIEvent, useRef } from 'react';
 
 import { LinkIcon } from '@/components/ui/LinkIcon';
 
@@ -14,7 +14,7 @@ interface ModalProps {
 	children: React.ReactNode;
 }
 
-export const Modal = ({ open, onClose, title, children }: ModalProps) => {
+export const Modal: FC<ModalProps> = ({ open, onClose, title, children }) => {
 	const wrapperRef = useRef(null);
 
 	const handleClose = (e: UIEvent) => {

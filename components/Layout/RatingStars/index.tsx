@@ -1,27 +1,25 @@
+import { FC } from 'react';
+
 import { Block, RatingStarsStyled, RatingTypes, Star, Wrapper } from './styled';
 
-export function RatingStars({ rating, ...props }: RatingTypes) {
-	return (
-		<Block {...props}>
-			<RatingStarsStyled>
-				<Wrapper>
-					<Star icon="star" />
-					<Star icon="star" />
-					<Star icon="star" />
-					<Star icon="star" />
-					<Star icon="star" />
-				</Wrapper>
-				<Wrapper $width={rating}>
-					<Star icon="star" $active />
-					<Star icon="star" $active />
-					<Star icon="star" $active />
-					<Star icon="star" $active />
-					<Star icon="star" $active />
-				</Wrapper>
-			</RatingStarsStyled>
-			<span>{rating}</span>
-		</Block>
-	);
-}
+const stars = new Array(5).fill('').map((_, idx) => idx + 1);
+
+export const RatingStars: FC<RatingTypes> = ({ rating, ...props }) => (
+	<Block {...props}>
+		<RatingStarsStyled>
+			<Wrapper>
+				{stars.map((star) => (
+					<Star icon="star" key={star} />
+				))}
+			</Wrapper>
+			<Wrapper $width={rating}>
+				{stars.map((star) => (
+					<Star icon="star" $active key={star} />
+				))}
+			</Wrapper>
+		</RatingStarsStyled>
+		<span>{rating}</span>
+	</Block>
+);
 
 export default RatingStars;

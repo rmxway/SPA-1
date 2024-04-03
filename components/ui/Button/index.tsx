@@ -1,4 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
+import { FC } from 'react';
 
 import { ButtonStyle, Props } from './styled';
 
@@ -17,7 +18,7 @@ const textVar = {
  * @param {?boolean} (styled boolean params) - $success, $danger, $primary, $white, $black
  */
 
-export const Button = ({ children, $animate = false, ...props }: Props & { $animate?: boolean }) => {
+export const Button: FC<Props & { $animate?: boolean }> = ({ children, $animate = false, ...props }) => {
 	const memoText = String(children).split('');
 
 	return (

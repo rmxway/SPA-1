@@ -4,7 +4,7 @@ import { memo, useEffect } from 'react';
 import { CountStyled, countVariants } from './styled';
 
 interface CountProps {
-	count: number | undefined;
+	count?: number;
 }
 
 export const Count = memo(({ count }: CountProps) => {

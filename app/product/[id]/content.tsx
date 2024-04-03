@@ -19,7 +19,7 @@ import { setTitle, toggleFavorite } from '@/store/reducers/products';
 
 import { Info, PriceBlock, SideBlock, Wrapper } from './styled';
 
-export function ContentProduct() {
+export const ContentProduct = () => {
 	const { id } = useParams<{ id: string }>();
 	const { fetchedItems, error } = useAppSelector(productsStore);
 	useGetProductQuery(id, { skip: fetchedItems.length > 1 });
