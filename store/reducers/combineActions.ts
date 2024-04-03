@@ -1,6 +1,6 @@
 import { store } from '@/store';
 import { addToCart, deleteFromCart, trashAll } from '@/store/reducers/cart';
-import { removeAllToggledProducts, toggleProduct } from '@/store/reducers/products';
+import { changeCategory, removeAllToggledProducts, sortProducts, toggleProduct } from '@/store/reducers/products';
 
 const { dispatch } = store;
 
@@ -22,4 +22,14 @@ export const removeFromCart = (id: number) => {
 export const removeAllProducts = () => {
 	dispatch(trashAll());
 	dispatch(removeAllToggledProducts());
+};
+
+export const changeCategoryWithSort = (name: string) => {
+	const { products } = store.getState();
+	dispatch(changeCategory(name));
+
+	if (products.sort.name !== 'default') {
+		const { name: sortName, toggle } = products.sort;
+		dispatch(sortProducts({ name: sortName, toggle }));
+	}
 };

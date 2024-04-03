@@ -17,6 +17,12 @@ export const Category = styled.button<{ $active: boolean }>`
 			opacity: 0.9;
 		}
 
+		&:disabled {
+			opacity: 0.5;
+			background-color: ${theme.colors.gray.$5};
+			pointer-events: none;
+		}
+
 		${$active &&
 		css`
 			background-color: ${theme.colors.success};

@@ -28,9 +28,7 @@ export interface ProductsState {
 	error: string;
 	fetching: boolean;
 	sort: SortTypes;
-	search: {
-		value: string;
-	};
+	search: string;
 }
 
 const initialState: ProductsState = {
@@ -49,9 +47,7 @@ const initialState: ProductsState = {
 		name: 'default',
 		toggle: false,
 	},
-	search: {
-		value: '',
-	},
+	search: '',
 };
 
 const initialItems = (state: ProductsState, response: ResponseProducts) => {
@@ -124,7 +120,7 @@ const resetItems = (state: ProductsState, category = true) => {
 	state.page = 1;
 	state.sort.name = 'default';
 	state.sort.toggle = false;
-	state.search.value = '';
+	state.search = '';
 	state.fetchedItems = state.reservedItems;
 	state.fetching = false;
 	if (category) calcCategory(state, 'all', true);
@@ -176,7 +172,7 @@ const productsReducer = createSlice({
 			}
 		},
 		searchValue: (state, { payload }: PayloadAction<string>) => {
-			state.search.value = payload;
+			state.search = payload;
 		},
 		searchProducts: (state, { payload }: PayloadAction<string>) => {
 			const searchText = payload.toLowerCase().trim();
@@ -210,7 +206,6 @@ const productsReducer = createSlice({
 			resetItems(state);
 		},
 		changeCategory: (state, { payload: name }: PayloadAction<string>) => {
-			resetItems(state, false);
 			calcCategory(state, name);
 		},
 	},

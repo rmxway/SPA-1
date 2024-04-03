@@ -10,12 +10,14 @@ export default function MainPage() {
 	return (
 		<>
 			<ImageForest
-				src={forest}
+				src={forest.src}
+				width={forest.width}
+				height={forest.height}
+				blurDataURL={forest.blurDataURL}
 				placeholder="blur"
-				blurDataURL={`./${forest.blurDataURL}`}
+				quality={80}
+				sizes="(max-width: 1000px) 1000px, 100vw"
 				alt="forest"
-				quality={60}
-				priority
 			/>
 			<Container $pt>
 				<LayerBlock $fixedPadding>
@@ -28,11 +30,12 @@ export default function MainPage() {
 					</p>
 					<ImageLogos
 						src={logos}
+						width={logos.width}
+						height={logos.height}
+						blurDataURL={logos.blurDataURL}
 						placeholder="blur"
-						blurDataURL={`./${logos.blurDataURL}`}
+						quality={80}
 						alt="logos"
-						quality={60}
-						priority
 					/>
 				</LayerBlock>
 

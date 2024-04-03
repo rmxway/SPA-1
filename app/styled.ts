@@ -5,15 +5,15 @@ import { fadeIn } from '@/theme';
 
 export const ImageForest = styled(Image)`
 	position: absolute;
+	top: 0;
 	left: 0;
 	right: 0;
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
 	z-index: -1;
-	background-color: aqua;
+	background-color: #cad7b2;
 	opacity: 0;
-	filter: hue-rotate(60deg);
 
 	${fadeIn}
 	animation-fill-mode: forwards;
