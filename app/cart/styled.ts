@@ -1,17 +1,18 @@
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import styled from 'styled-components';
 
 import { Wrapper as WrapperPagination } from '@/components/Pagination/styled';
 import { LinkIconStyle } from '@/components/ui/LinkIcon/styled';
 import { defaultTheme as theme, media } from '@/theme';
 
-export const contentVariant = {
-	hidden: { opacity: 1 },
+export const contentVariant: Variants = {
+	hidden: {
+		opacity: 0,
+	},
 	visible: {
 		opacity: 1,
 		transition: {
-			delayChildren: 0.2,
-			staggerChildren: 0.1,
+			staggerChildren: 0.2,
 		},
 	},
 };
@@ -20,11 +21,12 @@ export const Cart = styled.div`
 	position: relative;
 	display: grid;
 	grid-template-columns: 1fr;
-    align-items: flex-start;
+	align-items: flex-start;
+	padding-bottom: 50px;
 
-    ${WrapperPagination} {
-        margin-top: 0;
-    }
+	${WrapperPagination} {
+		margin-top: 0;
+	}
 
 	${media.greaterThan('sm')`
         grid-template-columns: 1fr minmax(250px, 25%);
@@ -82,7 +84,7 @@ export const Title = styled.div`
 
 export const Total = styled.div`
 	font-size: 1.3rem;
-    font-family: sans-serif;
+	font-family: sans-serif;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import CountUp from 'react-countup';
 
 import { CartItem, Pagination } from '@/components';
-import { cartVariant } from '@/components/CartItem/styled';
+import { fadeVariant } from '@/components/CartItem/styled';
 import { Container, LayerBlock } from '@/components/Layout';
 import { Button, LinkIcon, Modal } from '@/components/ui';
 import { currency, useAppSelector } from '@/services';
@@ -40,28 +40,24 @@ export const ContentCart = () => {
 			</Modal>
 			<Cart>
 				<LayoutGroup>
-					<Wrapper variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
+					<Wrapper layoutRoot variants={contentVariant} initial="hidden" animate="visible" key="wrapper">
 						{isItems && (
 							<LinkIcon icon="trash" onClick={() => setModalShow(true)}>
 								Delete All
 							</LinkIcon>
 						)}
-						<AnimatePresence mode="popLayout">
+
+						<AnimatePresence mode="popLayout" presenceAffectsLayout>
 							{currentItems?.length !== 0 &&
-								currentItems?.map((item, idx) => (
+								currentItems?.map((item, i) => (
 									<CartItem
 										layout
 										key={item.id}
 										product={item}
-										variants={cartVariant}
+										variants={fadeVariant(i)}
 										initial="hidden"
 										animate="visible"
 										exit={{ opacity: 0, scale: isItems ? 0.9 : 1 }}
-										transition={{
-											duration: 0.35,
-											dumping: 30,
-											delay: 0.03 * idx,
-										}}
 									/>
 								))}
 						</AnimatePresence>
@@ -70,21 +66,16 @@ export const ContentCart = () => {
 							<LayerBlock
 								$fixedPadding
 								layout
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								exit={{ opacity: 0 }}
+								variants={fadeVariant()}
+								initial="hidden"
+								animate="visible"
+								exit="hidden"
 							>
 								No items, please go to&nbsp;<Link href="/products">products page</Link>
 								<br />
 							</LayerBlock>
 						)}
-						{isItems && (
-							<Pagination
-								layout
-								transition={{ delay: 0.03 }}
-								{...{ changePage, items, countPerPage, page }}
-							/>
-						)}
+						{isItems && <Pagination layout {...{ changePage, items, countPerPage, page }} />}
 					</Wrapper>
 
 					<Sidebar layoutId="sidebar">

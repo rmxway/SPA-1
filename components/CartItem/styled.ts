@@ -5,7 +5,7 @@ import styled, { css } from 'styled-components';
 
 import { media } from '@/theme';
 
-export const cartVariant: Variants = {
+export const fadeVariant = (i: number = 1): Variants => ({
 	hidden: {
 		y: 20,
 		opacity: 0,
@@ -13,8 +13,13 @@ export const cartVariant: Variants = {
 	visible: {
 		y: 0,
 		opacity: 1,
+		transition: {
+			duration: 0.35,
+			dumping: 30,
+			delay: i * 0.075,
+		},
 	},
-};
+});
 
 export const elementsVars: Variants = {
 	hidden: {
@@ -100,9 +105,11 @@ export const WrapperText = styled.div`
 		border: 1px solid ${({ theme }) => theme.colors.gray.$4};
 		border-radius: 20px;
 		font-size: 1rem;
-		line-height: 1;
+
 		text-align: center;
 		padding: 0;
+		padding-bottom: 2px;
+		line-height: 1;
 		cursor: pointer;
 		color: ${({ theme }) => theme.colors.gray.$4};
 		transition: 0.2s;
@@ -159,16 +166,21 @@ export const Title = styled(Link)`
 	`}
 `;
 
-export const Count = styled.div`
+export const CountWrapper = styled.div`
 	position: relative;
 	flex-shrink: 0;
 	font-size: 14px;
-    font-family: sans-serif;
+	font-family: sans-serif;
+`;
+
+export const Count = styled(motion.div)`
+	display: inline-block;
+	padding-right: 5px;
 `;
 
 export const Price = styled.div`
 	font-size: 20px;
-    font-family: sans-serif;
+	font-family: sans-serif;
 	min-width: auto;
 	text-align: left;
 	flex-shrink: 0;

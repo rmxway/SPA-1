@@ -4,16 +4,16 @@ import 'react-loading-skeleton/dist/skeleton.css';
 
 import { LayoutGroup, motion } from 'framer-motion';
 import Link from 'next/link';
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useEffect } from 'react';
 
 import { Pagination } from '@/components';
 import { LayerBlock } from '@/components/Layout';
 import { ProductCard } from '@/components/ProductCard';
 import { SkeletonCard } from '@/components/ProductCard/SkeletonCard';
-import { IProduct, useAppDispatch, useAppSelector } from '@/services';
+import { IProduct, TypePages, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { currentItemsMemoized } from '@/store/reducers/commonSelectors';
-import { changePage, changeTypePage, TypePages } from '@/store/reducers/products';
+import { changePage, changeTypePage } from '@/store/reducers/products';
 
 import { containerVars, FetchingBlock, WrapperComponent } from './styled';
 
@@ -33,7 +33,7 @@ export const ProductsGrid = memo(({ items, isLoading = false, pagination, keyPag
 		[countPerPage],
 	);
 
-	useCallback(() => {
+	useEffect(() => {
 		dispatch(changeTypePage(keyPage));
 	}, [keyPage, dispatch]);
 

@@ -25,4 +25,34 @@ export interface DataFetch {
 	total: number;
 }
 
+export interface SortTypes {
+	name: 'rating' | 'price' | 'default';
+	toggle?: boolean;
+}
+
+export type TypePages = 'products' | 'favorites';
+
+export interface Category {
+	name: 'all' | string;
+	active: boolean;
+}
+
+export interface ProductsState {
+	title: string;
+	fetchedItems: IProduct[];
+	reservedItems: IProduct[];
+	total: number;
+	countPerPage: number;
+	countFavorites: number;
+	categories: Category[];
+	page: number;
+	productsPage: number;
+	favoritesPage: number;
+	typePage: TypePages;
+	error: string;
+	fetching: boolean;
+	sort: SortTypes;
+	search: string;
+}
+
 export type Icofont = keyof typeof icofont;

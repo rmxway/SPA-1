@@ -1,35 +1,15 @@
-import { createSlice, current, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IProduct } from '@/services';
+import { IProduct, ProductsState, SortTypes, TypePages } from '@/services';
 import { api, ResponseProducts } from '@/store/api';
-
-export interface SortTypes {
-	name: 'rating' | 'price' | 'default';
-	toggle?: boolean;
-}
-
-export type TypePages = 'products' | 'favorites';
-
-interface Category {
-	name: 'all' | string;
-	active: boolean;
-}
-
-export interface ProductsState {
-	title: string;
-	fetchedItems: IProduct[];
-	reservedItems: IProduct[];
-	total: number;
-	countPerPage: number;
-	countFavorites: number;
-	categories: Category[];
-	page: number;
-	typePage: TypePages;
-	error: string;
-	fetching: boolean;
-	sort: SortTypes;
-	search: string;
-}
+import {
+	anyTogglesInProduct,
+	calcCategory,
+	changeCurrentPage,
+	initialItems,
+	initialOneProduct,
+	resetItems,
+} from '@/store/reducers/productsHelpers';
 
 const initialState: ProductsState = {
 	title: '',
@@ -37,6 +17,8 @@ const initialState: ProductsState = {
 	reservedItems: [],
 	total: 0,
 	page: 1,
+	productsPage: 1,
+	favoritesPage: 1,
 	typePage: 'products',
 	countPerPage: 12,
 	countFavorites: 0,
@@ -48,82 +30,6 @@ const initialState: ProductsState = {
 		toggle: false,
 	},
 	search: '',
-};
-
-const initialItems = (state: ProductsState, response: ResponseProducts) => {
-	const { data, categories } = response;
-	state.fetching = false;
-
-	if (state.reservedItems.length === data.length) return;
-
-	// there is some product on the first page
-	if (state.fetchedItems.length === 1) {
-		const index = data.findIndex((product) => product.id === state.fetchedItems[0].id);
-		data[index] = current(state.fetchedItems[0]);
-	}
-
-	state.total = data.length;
-
-	state.categories.push(
-		...categories.map((item) => ({
-			name: item,
-			active: false,
-		})),
-	);
-
-	state.categories[0].active = true;
-
-	state.fetchedItems = [...data];
-	state.reservedItems = state.fetchedItems;
-	state.error = '';
-};
-
-const initialOneProduct = (state: ProductsState, item: IProduct) => {
-	state.fetchedItems[0] = item;
-	state.fetching = false;
-
-	state.reservedItems = state.fetchedItems;
-};
-
-const anyTogglesInProduct = (
-	state: ProductsState,
-	id: number,
-	type: 'checked' | 'favorite' | 'imgFetch',
-	boo?: boolean,
-) => {
-	const toggleInArray = (array: IProduct[]) => {
-		const currentItem = array.find((item) => item.id === id);
-		if (currentItem) currentItem[type] = boo ?? !currentItem[type];
-	};
-
-	toggleInArray(state.reservedItems);
-	toggleInArray(state.fetchedItems);
-};
-
-const calcCategory = (state: ProductsState, name: string, reset?: boolean) => {
-	state.categories.forEach((category) => {
-		category.active = category.name === name;
-	});
-
-	state.page = 1;
-
-	if (reset) return;
-
-	if (name === 'all' || reset) {
-		state.fetchedItems = state.reservedItems;
-	} else {
-		state.fetchedItems = state.reservedItems.filter((item) => item.category === name);
-	}
-};
-
-const resetItems = (state: ProductsState, category = true) => {
-	state.page = 1;
-	state.sort.name = 'default';
-	state.sort.toggle = false;
-	state.search = '';
-	state.fetchedItems = state.reservedItems;
-	state.fetching = false;
-	if (category) calcCategory(state, 'all', true);
 };
 
 const productsReducer = createSlice({
@@ -196,14 +102,16 @@ const productsReducer = createSlice({
 			state.fetchedItems = state.reservedItems;
 			state.countFavorites = 0;
 		},
-		changePage: (state, { payload }: PayloadAction<number>) => {
-			state.page = payload;
-		},
 		changeTypePage: (state, { payload }: PayloadAction<TypePages>) => {
 			if (state.typePage === payload) return;
-			state.fetchedItems = state.reservedItems;
 			state.typePage = payload;
-			resetItems(state);
+			changeCurrentPage(state);
+			resetItems(state, true, false);
+		},
+		changePage: (state, { payload }: PayloadAction<number>) => {
+			if (state.typePage === 'favorites') state.favoritesPage = payload;
+			if (state.typePage === 'products') state.productsPage = payload;
+			changeCurrentPage(state);
 		},
 		changeCategory: (state, { payload: name }: PayloadAction<string>) => {
 			calcCategory(state, name);
