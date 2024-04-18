@@ -32,8 +32,8 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
 		const countButtons = countPages >= maxButtonsCount ? maxButtonsCount : countPages;
 
 		const debounceChangePage = debounce((num: number) => {
-			dispatch(changePage(num));
 			ScrollToTop();
+			dispatch(changePage(num));
 		}, 200);
 
 		const viewedItems = (): number => {
@@ -55,7 +55,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
 			>
 				{!isLoading && !!items.length && (
 					<Info>
-						Shown products: {viewedItems()} from {total}
+						{viewedItems()} / {total}
 					</Info>
 				)}
 				{isLoading && <Skeleton inline height={30} width={300} />}

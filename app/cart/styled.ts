@@ -52,7 +52,7 @@ export const Wrapper = styled(motion.div)`
 
 export const Sidebar = styled(motion.div)`
 	position: relative;
-	margin-top: 10px;
+	margin-top: 30px;
 	flex-shrink: 0;
 	padding: 10px;
 	background-color: #fff;

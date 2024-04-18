@@ -60,11 +60,6 @@ export const Item = styled(motion.div)`
 			object-fit: cover;
 			border-radius: ${theme.radius.borderRadius};
 			flex-shrink: 0;
-
-			${media.lessThan('xsD')`
-            width: 85px;
-            height: 85px;
-        `}
 		}
 
 		${media.greaterThan('xs')`

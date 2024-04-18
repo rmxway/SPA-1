@@ -4,7 +4,7 @@ import { changeCategory, removeAllToggledProducts, sortProducts, toggleProduct }
 
 const { dispatch } = store;
 
-export const moveToCart = (id: number) => {
+export const moveToCart = (id: number): void => {
 	const { products } = store.getState();
 	dispatch(toggleProduct(id));
 	const addedProduct = products.reservedItems.find((item) => item.id === id);
@@ -14,17 +14,17 @@ export const moveToCart = (id: number) => {
 	}
 };
 
-export const removeFromCart = (id: number) => {
+export const removeFromCart = (id: number): void => {
 	dispatch(toggleProduct(id));
 	dispatch(deleteFromCart(id));
 };
 
-export const removeAllProducts = () => {
+export const removeAllProducts = (): void => {
 	dispatch(trashAll());
 	dispatch(removeAllToggledProducts());
 };
 
-export const changeCategoryWithSort = (name: string) => {
+export const changeCategoryWithSort = (name: string): void => {
 	const { products } = store.getState();
 	dispatch(changeCategory(name));
 
