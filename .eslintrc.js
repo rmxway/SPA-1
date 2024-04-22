@@ -59,7 +59,6 @@ module.exports = {
 				devDependencies: true,
 			},
 		],
-		'@typescript-eslint/no-shadow': 'error',
 		'unused-imports/no-unused-imports': 'error',
 		'unused-imports/no-unused-vars': [
 			'warn',
@@ -96,7 +95,18 @@ module.exports = {
 		],
 		'react/jsx-props-no-spreading': 'off',
 		'react/require-default-props': 'off',
+		'@typescript-eslint/no-shadow': 'error',
 		'@typescript-eslint/no-redundant-type-constituents': 'off',
+		'@typescript-eslint/no-misused-promises': [
+			2,
+			{
+				checksVoidReturn: {
+					attributes: false,
+				},
+			},
+		],
+		'jsx-a11y/label-has-associated-control': 'off',
+		'jsx-a11y/label-has-for': 'off',
 	},
 	settings: {
 		'import/resolver': {
