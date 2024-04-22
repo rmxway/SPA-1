@@ -21,6 +21,7 @@ export interface Colors {
 
 export interface Gradients {
 	main: string;
+    dark: string;
 }
 
 interface Layout {

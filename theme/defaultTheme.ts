@@ -23,6 +23,7 @@ const colors: Colors = {
 
 const gradients: Gradients = {
 	main: `linear-gradient(150deg, #e8ffb3 0%, ${colors.success} 60%)`,
+    dark: `linear-gradient(150deg, ${colors.success} 0%, ${colors.label} 60%)`
 };
 
 export const defaultTheme: DefaultTheme = {

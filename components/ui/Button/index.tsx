@@ -3,27 +3,33 @@ import { FC } from 'react';
 
 import { ButtonStyle, Props } from './styled';
 
+import icons from '@/public/assets/fonts/icofont/icofont.json';
+import { Icon } from '@/components/ui';
+
 const textVar = {
 	hidden: { opacity: 0 },
 	visible: { opacity: 1 },
 };
+
+type ButtonProps = Props & { animate?: boolean; icon?: keyof typeof icons };
 
 /**
  * Custom button with some properties.
  ** Необходимо доработать анимацию
  * @param {?boolean} $w100 - width 100%
  * @param {?boolean} $inactive - pointer-events: none
- * @param {?boolean} $animate - animate inner text (not working)
  * @param {?boolean} $margins - margin-right and margin-bottom 10px
+ * @param {?boolean} animate - animate inner text (not working)
+ * @param {?boolean} icon - select icon
  * @param {?boolean} (styled boolean params) - $success, $danger, $primary, $white, $black
  */
 
-export const Button: FC<Props & { $animate?: boolean }> = ({ children, $animate = false, ...props }) => {
+export const Button: FC<ButtonProps> = ({ children, animate = false, icon, ...props }) => {
 	const memoText = String(children).split('');
 
 	return (
 		<ButtonStyle {...props}>
-			{$animate ? (
+			{animate ? (
 				<AnimatePresence mode="wait">
 					<motion.div layout variants={textVar} initial="hidden" animate="visible" exit="hidden">
 						{memoText.map((item, idx) => (
@@ -41,6 +47,7 @@ export const Button: FC<Props & { $animate?: boolean }> = ({ children, $animate 
 			) : (
 				children
 			)}
+			{icon && <Icon {...{ icon }} />}
 		</ButtonStyle>
 	);
 };
