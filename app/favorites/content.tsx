@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { Container } from '@/components/Layout';
-import { ProductsGrid } from '@/components/ProductsGrid';
+import { ProductsGrid } from '@/modules/products';
 import { Button, LinkIcon, Modal } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';

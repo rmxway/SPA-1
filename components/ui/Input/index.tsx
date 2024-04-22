@@ -1,18 +1,33 @@
-import React, { FC } from 'react';
+import React, { forwardRef } from 'react';
+import { IMaskInput } from 'react-imask';
+
+import { ErrorMessage } from '@/components/ui/ErrorMessage';
+import { Label } from '@/components/ui/Label';
+import { OrderFields } from '@/modules/cart/services/schemaOrder';
 
 import { InputWrapper } from './styled';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps {
 	label?: string;
-	name: string;
+	mask?: string;
+	name: keyof OrderFields;
+	error?: string;
+	className?: string;
 }
 
-export const InputUI: FC<InputProps> = ({ name, label, className, ...props }) => (
-	<InputWrapper {...{ className }}>
-		{label && <label htmlFor={name}>{label}</label>}
+export const InputUI = forwardRef<HTMLInputElement, InputProps>(
+	({ name, label, mask, error, className, ...props }, ref) => (
+		<InputWrapper {...{ className }}>
+			{label && <Label {...{ label, name }} />}
+			{mask ? (
+				<IMaskInput {...props} {...{ mask, name }} type="text" autoComplete="off" inputRef={ref} />
+			) : (
+				<input {...props} {...{ ref, name }} id={name} type="text" autoComplete="off" />
+			)}
 
-		<input {...props} id={name} type="text" autoComplete="off" />
-	</InputWrapper>
+			{error && <ErrorMessage {...{ error }} />}
+		</InputWrapper>
+	),
 );
 
 export default InputUI;

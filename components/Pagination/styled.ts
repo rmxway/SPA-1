@@ -19,8 +19,8 @@ export const Wrapper = styled(motion.div)<{ $isItems: boolean }>`
 	flex-direction: column;
 
 	${Flexbox} {
-        margin-top: 10px;
-    }
+		margin-top: 10px;
+	}
 
 	${({ $isItems }) =>
 		$isItems &&
@@ -93,7 +93,6 @@ export const ButtonPagination = styled(ButtonStyle)`
 	margin-right: 2px;
 	width: 25px;
 	padding: 6px 0;
-	text-align: center;
 	line-height: 1;
 
 	&,

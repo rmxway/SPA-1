@@ -5,13 +5,15 @@ import { media } from '@/theme';
 /**
  * Adaptive container block
  * @param {boolean} $pt - padding-top: 30px
+ * @param {boolean} $flex - display: flex; flex-direction: column
  */
 
-export const Container = styled.div<{ $pt?: boolean }>`
+export const Container = styled.div<{ $pt?: boolean; $flex?: boolean }>`
 	position: relative;
 	display: block;
 	padding: 0 20px;
 	width: 100%;
+	flex-grow: 1;
 	max-width: 100%;
 	margin: 0 auto;
 
@@ -19,6 +21,13 @@ export const Container = styled.div<{ $pt?: boolean }>`
 		$pt &&
 		css`
 			padding-top: 40px;
+		`}
+
+	${({ $flex }) =>
+		$flex &&
+		css`
+			display: flex;
+			flex-direction: column;
 		`}
 
 	${media.greaterThan('sm')`

@@ -5,7 +5,7 @@ import { forwardRef } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox, Space } from '@/components/Layout';
-import { containerVars } from '@/components/ProductsGrid/styled';
+import { containerVars } from '@/modules/products/ProductsGrid/styled';
 import { Icon } from '@/components/ui';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { ScrollToTop } from '@/services/helpers';
@@ -53,7 +53,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
 				{...{ ref }}
 				{...props}
 			>
-				{!isLoading && !!items.length && (
+				{!isLoading && countPages > 1 && (
 					<Info>
 						{viewedItems()} / {total}
 					</Info>

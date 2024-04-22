@@ -17,7 +17,7 @@ import { moveToCart } from '@/store/reducers/combineActions';
 import { productMemoized } from '@/store/reducers/commonSelectors';
 import { setTitle, toggleFavorite } from '@/store/reducers/products';
 
-import { Info, PriceBlock, SideBlock, Wrapper } from './styled';
+import { Info, PriceBlock, SideBlock, Wrapper } from '@/modules/product/styled';
 
 export const ContentProduct = () => {
 	const { id } = useParams<{ id: string }>();
@@ -109,6 +109,6 @@ export const ContentProduct = () => {
 			</Wrapper>
 		</MobileWhiteBackground>
 	);
-}
+};
 
 export default ContentProduct;

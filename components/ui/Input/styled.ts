@@ -3,19 +3,15 @@ import styled from 'styled-components';
 import { defaultTheme as theme } from '@/theme';
 
 const InputWrapper = styled.div`
-	label {
-		display: block;
-		margin-bottom: 5px;
-		color: ${theme.colors.label};
-		text-transform: uppercase;
-		font-size: 10px;
-	}
+    position: relative;
+    padding-bottom: 10px;
 
 	input {
 		padding: 11px 16px 10px;
 		border-radius: ${theme.radius.borderRadius};
 		border: 1px solid #aaa;
-		background-color: #f9f9f9;
+		background-color: #fff;
+        width: 100%;
 
 		&:active,
 		&:focus {
