@@ -9,7 +9,7 @@ import {
 	initialItems,
 	initialOneProduct,
 	resetItems,
-} from '@/store/reducers/productsHelpers';
+} from '@/store/reducers/products/helpers';
 
 const initialState: ProductsState = {
 	title: '',

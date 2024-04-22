@@ -1,7 +1,7 @@
 import icofont from '@/public/assets/fonts/icofont/icofont.json';
 
 export interface IProduct {
-	id: number | null;
+	id: number;
 	title: string;
 	description: string;
 	brand?: string;
@@ -53,6 +53,14 @@ export interface ProductsState {
 	fetching: boolean;
 	sort: SortTypes;
 	search: string;
+}
+
+export interface CartState {
+	items: IProduct[];
+	totalPrice: number;
+	countPerPage: number;
+	page: number;
+	step: number;
 }
 
 export type Icofont = keyof typeof icofont;
