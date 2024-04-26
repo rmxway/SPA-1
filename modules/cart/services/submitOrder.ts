@@ -1,5 +1,7 @@
 import { SubmitHandler } from 'react-hook-form';
 
+import { protocol } from '@/services';
+import { getHost } from '@/services/domainData';
 import { store } from '@/store';
 
 import { OrderFields } from './schemaOrder';
@@ -17,7 +19,7 @@ export const submitOrder: SubmitHandler<OrderFields> = async (data): Promise<voi
 	Object.assign(data, { products: { items, totalPrice } });
 
 	try {
-		const res = await fetch('http://localhost:3000/api/order', {
+		const res = await fetch(`${protocol}://${getHost}/api/order`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(data),
