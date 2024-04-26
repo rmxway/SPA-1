@@ -1,5 +1,6 @@
-import { emailRegex, phoneRegex } from '@/services/regexes';
 import { boolean, InferType, object, string } from 'yup';
+
+import { emailRegex, phoneRegex } from '@/services/regexes';
 
 export const schemaOrder = object({
 	name: string().min(3, 'Must be at least 3 symbols').required('Name is required').trim(),

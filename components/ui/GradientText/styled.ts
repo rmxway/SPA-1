@@ -1,5 +1,6 @@
-import { Gradients } from '@/@types/styled';
 import styled, { css } from 'styled-components';
+
+import { Gradients } from '@/@types/styled';
 
 export const GradientTextStyled = styled.div<{ $size?: number; $gradient?: keyof Gradients }>`
 	${({ theme, $size, $gradient }) => css`

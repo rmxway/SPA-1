@@ -1,13 +1,15 @@
-import { Button, GradientText, Icon } from '@/components/ui';
-import { WrapperFinal } from './styled';
-import { memo, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+
+import { Button, GradientText, Icon } from '@/components/ui';
+import { TableProducts } from '@/modules/cart/StepForm';
 import { useAppDispatch } from '@/services';
 import { changeStep } from '@/store/reducers/cart';
-import { TableProducts } from '../StepForm';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
-export const StepFinal = memo(() => {
+import { WrapperFinal } from './styled';
+
+export const StepFinal = () => {
 	const router = useRouter();
 	const dispatch = useAppDispatch();
 
@@ -15,20 +17,21 @@ export const StepFinal = memo(() => {
 		router.push('/products');
 	};
 
-	useEffect(() => {
-		return () => {
-            removeAllProducts();
+	useEffect(
+		() => () => {
+			removeAllProducts();
 			dispatch(changeStep(1));
-		};
-	}, []);
+		},
+		[dispatch],
+	);
 
 	return (
 		<WrapperFinal>
-            <TableProducts />
+			<TableProducts />
 			<Icon icon="favorite" size={75} as="i" />
 			<div>
 				<GradientText size={40} style={{ marginBottom: 20 }} gradient="dark">
-					<strong>{`Congratulations :)`}</strong>
+					<strong>Congratulations :)</strong>
 				</GradientText>
 				<p>You have been made an order and our manager will contact you shortly</p>
 			</div>
@@ -38,5 +41,5 @@ export const StepFinal = memo(() => {
 			</Button>
 		</WrapperFinal>
 	);
-});
+};
 export default StepFinal;

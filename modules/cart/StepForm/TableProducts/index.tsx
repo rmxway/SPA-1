@@ -1,13 +1,14 @@
-import { currency, useAppSelector } from '@/services';
-import { Product, WrapperProducts } from '@/modules/cart/StepForm/styled';
-import { cartStore } from '@/store';
-import { Flexbox } from '@/components/Layout';
 import { FC } from 'react';
 
-export const TableProducts: FC<{ full?: boolean }> = ({ full }) => {
+import { Flexbox } from '@/components/Layout';
+import { Product, WrapperProducts } from '@/modules/cart/StepForm/styled';
+import { currency, useAppSelector } from '@/services';
+import { cartStore } from '@/store';
+
+export const TableProducts: FC<{ fGrow?: boolean }> = ({ fGrow }) => {
 	const { items, totalPrice } = useAppSelector(cartStore);
 	return (
-		<WrapperProducts $full={full}>
+		<WrapperProducts $fGrow={fGrow}>
 			<Product>
 				<div>Title</div>
 				<div>Count</div>

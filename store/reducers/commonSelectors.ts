@@ -1,8 +1,7 @@
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
 
 import { IProduct } from '@/services';
-import { ProductsState } from '@/services/interfaces';
-import { CartState } from '@/store/reducers/cart';
+import { CartState, ProductsState } from '@/services/interfaces';
 
 type stateType = CartState | ProductsState;
 

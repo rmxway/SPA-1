@@ -1,7 +1,8 @@
 import { FC } from 'react';
 
-import { GradientTextStyled } from './styled';
 import { Gradients } from '@/@types/styled';
+
+import { GradientTextStyled } from './styled';
 
 interface GradientTextProps extends React.HTMLAttributes<HTMLDivElement> {
 	size?: number;

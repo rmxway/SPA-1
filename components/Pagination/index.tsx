@@ -5,8 +5,8 @@ import { forwardRef } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox, Space } from '@/components/Layout';
-import { containerVars } from '@/modules/products/ProductsGrid/styled';
 import { Icon } from '@/components/ui';
+import { containerVars } from '@/modules/products/ProductsGrid/styled';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { ScrollToTop } from '@/services/helpers';
 import { productsStore } from '@/store';

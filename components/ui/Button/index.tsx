@@ -1,10 +1,10 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { FC } from 'react';
 
-import { ButtonStyle, Props } from './styled';
-
+import { Icon } from '@/components/ui/Icon';
 import icons from '@/public/assets/fonts/icofont/icofont.json';
-import { Icon } from '@/components/ui';
+
+import { ButtonStyle, Props } from './styled';
 
 const textVar = {
 	hidden: { opacity: 0 },

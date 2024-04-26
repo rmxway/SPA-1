@@ -34,12 +34,12 @@ export const WrapperForm = styled.div`
 	}
 `;
 
-export const WrapperProducts = styled.div<{ $full?: boolean }>`
-	${({ theme, $full }) => css`
+export const WrapperProducts = styled.div<{ $fGrow?: boolean }>`
+	${({ theme, $fGrow }) => css`
 		position: relative;
 		display: flex;
 		flex-direction: column;
-		${$full &&
+		${$fGrow &&
 		css`
 			flex-grow: 1;
 		`}

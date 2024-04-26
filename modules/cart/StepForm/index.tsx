@@ -1,14 +1,18 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { Flexbox, Grid } from '@/components/Layout';
+
+import { Flexbox } from '@/components/Layout';
 import { Button } from '@/components/ui';
 import { OrderFields, schemaOrder } from '@/modules/cart/services/schemaOrder';
 import { submitOrder } from '@/modules/cart/services/submitOrder';
+import { TableProducts } from '@/modules/cart/StepForm/TableProducts';
 import { useAppDispatch } from '@/services';
 import { changeStep } from '@/store/reducers/cart';
+
 import { InputOrder, SwitchOrder } from './helpers';
 import { WrapperForm, WrapperStepForm } from './styled';
-import { TableProducts } from '@/modules/cart/StepForm/';
+
+export * from '@/modules/cart/StepForm/TableProducts';
 
 export const StepForm = () => {
 	const {
@@ -82,10 +86,8 @@ export const StepForm = () => {
 						</Flexbox>
 					</form>
 				</WrapperForm>
-				<TableProducts full />
+				<TableProducts fGrow />
 			</WrapperStepForm>
 		</>
 	);
 };
-
-export * from '@/modules/cart/StepForm/TableProducts';
