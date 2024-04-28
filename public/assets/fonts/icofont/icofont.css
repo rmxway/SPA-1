@@ -1,8 +1,8 @@
 @font-face {
     font-family: 'icofont';
-    src: url(".//icofont.ttf?b387a2368b68b73c00f6c39f0e072e17") format("truetype"),
-url(".//icofont.woff?b387a2368b68b73c00f6c39f0e072e17") format("woff"),
-url(".//icofont.woff2?b387a2368b68b73c00f6c39f0e072e17") format("woff2");
+    src: url(".//icofont.ttf?27c48101dccfae6dff11c1e8472e2b6e") format("truetype"),
+url(".//icofont.woff?27c48101dccfae6dff11c1e8472e2b6e") format("woff"),
+url(".//icofont.woff2?27c48101dccfae6dff11c1e8472e2b6e") format("woff2");
 }
 
 i[class^='icofont-']:before, i[class*=' icofont-']:before {
@@ -17,33 +17,33 @@ i[class^='icofont-']:before, i[class*=' icofont-']:before {
     -moz-osx-font-smoothing: grayscale;
 }
 
-.icofont-arrow-down:before {
+.icofont-trash:before {
     content: '\f101';
 }
-.icofont-arrow-up:before {
+.icofont-times-small:before {
     content: '\f102';
 }
-.icofont-cart:before {
+.icofont-star:before {
     content: '\f103';
 }
-.icofont-favorite-fill:before {
+.icofont-star-filled:before {
     content: '\f104';
 }
-.icofont-favorite:before {
+.icofont-nophoto:before {
     content: '\f105';
 }
-.icofont-nophoto:before {
+.icofont-favorite:before {
     content: '\f106';
 }
-.icofont-star-filled:before {
+.icofont-favorite-fill:before {
     content: '\f107';
 }
-.icofont-star:before {
+.icofont-cart:before {
     content: '\f108';
 }
-.icofont-times-small:before {
+.icofont-arrow-up:before {
     content: '\f109';
 }
-.icofont-trash:before {
+.icofont-arrow-down:before {
     content: '\f10a';
 }

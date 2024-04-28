@@ -15,6 +15,7 @@ export const TopBlockStyle = styled.div<TopBlockProps>`
 		color: ${theme.colors.success};
 
 		transition: 0.2s all;
+        z-index: 1;
 
 		h1 {
 			font-size: 24px;

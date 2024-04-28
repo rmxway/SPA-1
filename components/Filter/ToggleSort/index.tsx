@@ -24,7 +24,7 @@ const ToggleSort: FC<ToggleProps> = ({ sort, value, disabled, onClick, ...props 
 	const handleClick = () => {
 		onClick?.();
 
-		if (sort === 'default' && productsSort.name === sort && search.value === '' && categories[0].active) return;
+		if (sort === 'default' && productsSort.name === sort && search === '' && categories[0].active) return;
 
 		if (sort === 'default') {
 			dispatch(sortProducts({ name: sort }));

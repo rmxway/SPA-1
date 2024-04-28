@@ -6,6 +6,7 @@
 			"@/app/*": ["./app/*"],
 			"@/public/*": ["./public/*"],
 			"@/components/*": ["./components/*"],
+            "@/modules/*": ["./modules/*"],
 			"@/store/*": ["./store/*"],
 			"@/theme/*": ["./theme/*"],
 			"@/services/*": ["./services/*"]

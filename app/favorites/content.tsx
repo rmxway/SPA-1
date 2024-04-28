@@ -3,8 +3,8 @@
 import { useState } from 'react';
 
 import { Container } from '@/components/Layout';
-import { ProductsGrid } from '@/components/ProductsGrid';
 import { Button, LinkIcon, Modal } from '@/components/ui';
+import { ProductsGrid } from '@/modules/products';
 import { useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { favoritesItemsMemoized } from '@/store/reducers/commonSelectors';

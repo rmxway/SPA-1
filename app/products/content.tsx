@@ -4,7 +4,7 @@ import { memo } from 'react';
 
 import { Categories, Filter } from '@/components';
 import { Container, LayerBlock } from '@/components/Layout';
-import { ProductsGrid } from '@/components/ProductsGrid';
+import { ProductsGrid } from '@/modules/products';
 import { useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { useGetProductsQuery } from '@/store/api';

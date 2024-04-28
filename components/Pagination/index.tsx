@@ -5,8 +5,8 @@ import { forwardRef } from 'react';
 import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox, Space } from '@/components/Layout';
-import { containerVars } from '@/components/ProductsGrid/styled';
 import { Icon } from '@/components/ui';
+import { containerVars } from '@/modules/products/ProductsGrid/styled';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { ScrollToTop } from '@/services/helpers';
 import { productsStore } from '@/store';
@@ -32,8 +32,8 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
 		const countButtons = countPages >= maxButtonsCount ? maxButtonsCount : countPages;
 
 		const debounceChangePage = debounce((num: number) => {
-			dispatch(changePage(num));
 			ScrollToTop();
+			dispatch(changePage(num));
 		}, 200);
 
 		const viewedItems = (): number => {
@@ -53,9 +53,9 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
 				{...{ ref }}
 				{...props}
 			>
-				{!isLoading && !!items.length && (
+				{!isLoading && countPages > 1 && (
 					<Info>
-						Shown products: {viewedItems()} from {total}
+						{viewedItems()} / {total}
 					</Info>
 				)}
 				{isLoading && <Skeleton inline height={30} width={300} />}

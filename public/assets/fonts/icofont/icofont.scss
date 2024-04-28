@@ -2,9 +2,9 @@ $icofont-font: 'icofont';
 
 @font-face {
     font-family: $icofont-font;
-    src: url(".//icofont.ttf?b387a2368b68b73c00f6c39f0e072e17") format("truetype"),
-url(".//icofont.woff?b387a2368b68b73c00f6c39f0e072e17") format("woff"),
-url(".//icofont.woff2?b387a2368b68b73c00f6c39f0e072e17") format("woff2");
+    src: url(".//icofont.ttf?27c48101dccfae6dff11c1e8472e2b6e") format("truetype"),
+url(".//icofont.woff?27c48101dccfae6dff11c1e8472e2b6e") format("woff"),
+url(".//icofont.woff2?27c48101dccfae6dff11c1e8472e2b6e") format("woff2");
     font-weight: normal;
     font-style: normal;
     font-display: block;
@@ -23,45 +23,45 @@ url(".//icofont.woff2?b387a2368b68b73c00f6c39f0e072e17") format("woff2");
 }
 
 $icofont-map: (
-    'arrow-down': '\f101',
-    'arrow-up': '\f102',
-    'cart': '\f103',
-    'favorite-fill': '\f104',
-    'favorite': '\f105',
-    'nophoto': '\f106',
-    'star-filled': '\f107',
-    'star': '\f108',
-    'times-small': '\f109',
-    'trash': '\f10a',
+    'trash': '\f101',
+    'times-small': '\f102',
+    'star': '\f103',
+    'star-filled': '\f104',
+    'nophoto': '\f105',
+    'favorite': '\f106',
+    'favorite-fill': '\f107',
+    'cart': '\f108',
+    'arrow-up': '\f109',
+    'arrow-down': '\f10a',
 );
 
-.icofont-arrow-down:before {
-    content: map-get($icofont-map, 'arrow-down');
-}
-.icofont-arrow-up:before {
-    content: map-get($icofont-map, 'arrow-up');
-}
-.icofont-cart:before {
-    content: map-get($icofont-map, 'cart');
-}
-.icofont-favorite-fill:before {
-    content: map-get($icofont-map, 'favorite-fill');
-}
-.icofont-favorite:before {
-    content: map-get($icofont-map, 'favorite');
-}
-.icofont-nophoto:before {
-    content: map-get($icofont-map, 'nophoto');
-}
-.icofont-star-filled:before {
-    content: map-get($icofont-map, 'star-filled');
-}
-.icofont-star:before {
-    content: map-get($icofont-map, 'star');
+.icofont-trash:before {
+    content: map-get($icofont-map, 'trash');
 }
 .icofont-times-small:before {
     content: map-get($icofont-map, 'times-small');
 }
-.icofont-trash:before {
-    content: map-get($icofont-map, 'trash');
+.icofont-star:before {
+    content: map-get($icofont-map, 'star');
+}
+.icofont-star-filled:before {
+    content: map-get($icofont-map, 'star-filled');
+}
+.icofont-nophoto:before {
+    content: map-get($icofont-map, 'nophoto');
+}
+.icofont-favorite:before {
+    content: map-get($icofont-map, 'favorite');
+}
+.icofont-favorite-fill:before {
+    content: map-get($icofont-map, 'favorite-fill');
+}
+.icofont-cart:before {
+    content: map-get($icofont-map, 'cart');
+}
+.icofont-arrow-up:before {
+    content: map-get($icofont-map, 'arrow-up');
+}
+.icofont-arrow-down:before {
+    content: map-get($icofont-map, 'arrow-down');
 }

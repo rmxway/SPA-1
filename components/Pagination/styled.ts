@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 
+import { Flexbox } from '@/components/Layout/Flexbox';
 import { ButtonStyle } from '@/components/ui/Button/styled';
 import { defaultTheme as theme, fadeIn, media } from '@/theme';
 
@@ -16,6 +17,11 @@ export const Info = styled.div`
 export const Wrapper = styled(motion.div)<{ $isItems: boolean }>`
 	display: flex;
 	flex-direction: column;
+
+	${Flexbox} {
+		margin-top: 10px;
+	}
+
 	${({ $isItems }) =>
 		$isItems &&
 		css`
@@ -24,6 +30,10 @@ export const Wrapper = styled(motion.div)<{ $isItems: boolean }>`
 
 	${media.greaterThan('xs')`
         flex-direction: row;
+
+        ${Flexbox} {
+            margin-top: 0;
+        }
     `}
 `;
 
@@ -83,7 +93,6 @@ export const ButtonPagination = styled(ButtonStyle)`
 	margin-right: 2px;
 	width: 25px;
 	padding: 6px 0;
-	text-align: center;
 	line-height: 1;
 
 	&,

@@ -1,6 +1,8 @@
 'use client';
 
-import { Container, LayerBlock } from '@/components/Layout';
+import Image from 'next/image';
+
+import { Container, Flexbox, LayerBlock } from '@/components/Layout';
 import forest from '@/public/assets/img/forest.jpg';
 import logos from '@/public/assets/img/logos.jpg';
 
@@ -9,43 +11,71 @@ import { ImageForest, ImageLogos } from './styled';
 export default function MainPage() {
 	return (
 		<>
-			<ImageForest
-				src={forest}
-				placeholder="blur"
-				blurDataURL={`./${forest.blurDataURL}`}
-				alt="forest"
-				quality={60}
-				priority
-			/>
+			<ImageForest>
+				<Image
+					src={forest.src}
+                    fill
+					blurDataURL={forest.blurDataURL}
+					placeholder="blur"
+					quality={80}
+					sizes="(max-width: 1000px) 1000px, 100vw"
+					alt="forest"
+				/>
+			</ImageForest>
 			<Container $pt>
-				<LayerBlock $fixedPadding>
-					<p>
-						Simple SPA with fake products. <br />
-						Used <code>create-next-app</code> and service{' '}
-						<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
-							dummyjson.com
-						</a>
-					</p>
-					<ImageLogos
+				<h3>
+					E-commerce SPA with fake products. <br />
+				</h3>
+				<p>
+					Used <code>create-next-app</code> and service{' '}
+					<a href="https://dummyjson.com" target="_blank" rel="noreferrer">
+						dummyjson.com
+					</a>
+				</p>
+				<ImageLogos>
+					<Image
 						src={logos}
+						width={logos.width}
+						height={logos.height}
+						blurDataURL={logos.blurDataURL}
 						placeholder="blur"
-						blurDataURL={`./${logos.blurDataURL}`}
+						quality={80}
 						alt="logos"
-						quality={60}
-						priority
 					/>
-				</LayerBlock>
+				</ImageLogos>
+
+				<br />
 
 				<LayerBlock $fixedPadding>
-					<p>Most used package list:</p>
+					<Flexbox $gap={50}>
+						<div>
+							<h4>Features:</h4>
+							<ul>
+								<li>Search</li>
+								<li>Sorting by: Price, Popularity</li>
+								<li>Filter by category</li>
+								<li>Add to cart</li>
+								<li>Add to favorites</li>
+								<li>Pagination</li>
+								<li>Cart</li>
+							</ul>
+						</div>
+						<div>
+							<h4>Will be added later:</h4>
+							<ul>
+								<li>User login</li>
+								<li>Form order</li>
+							</ul>
+						</div>
+					</Flexbox>
+				</LayerBlock>
+				<LayerBlock $fixedPadding>
+					<h4>Other tools:</h4>
 					<ul>
-						<li>React</li>
-						<li>Next.js</li>
-						<li>Typescript</li>
-						<li>Redux Toolkit</li>
-						<li>Styled Components</li>
 						<li>Swiper</li>
 						<li>Framer Motion</li>
+						<li>ESLint</li>
+						<li>Prettier</li>
 						<li>API from dummyjson.com</li>
 					</ul>
 				</LayerBlock>

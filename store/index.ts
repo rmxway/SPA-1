@@ -1,8 +1,7 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
+import { Action, combineReducers, configureStore } from '@reduxjs/toolkit';
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
-import { VERSION } from '@/services';
 import { api } from '@/store/api';
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
@@ -24,17 +23,26 @@ const storage = typeof window !== 'undefined' ? createWebStorage('local') : crea
 const persistConfig = {
 	key: 'wholeStore',
 	storage,
-	version: +VERSION,
-	blacklist: ['navigation'],
+	version: 1,
 };
 
-const rootReducer = combineReducers({
-	[api.reducerPath]: api.reducer,
-	cart: CartReducer,
+const appReducer = combineReducers({
 	products: ProductsReducer,
+	cart: CartReducer,
+	[api.reducerPath]: api.reducer,
 });
 
-const persistedReducers = persistReducer(persistConfig, rootReducer);
+const rootReducer = (state: ReturnType<typeof appReducer>, action: Action) => {
+	switch (action.type) {
+		case 'store/clear':
+			localStorage.removeItem('persist:wholeStore');
+			return undefined;
+		default:
+			return appReducer(state, action);
+	}
+};
+
+const persistedReducers = persistReducer(persistConfig, rootReducer as typeof appReducer);
 
 export const store = configureStore({
 	reducer: persistedReducers,
@@ -45,6 +53,8 @@ export const store = configureStore({
 			},
 		}).concat(api.middleware),
 });
+
+export const persistor = persistStore(store);
 
 export const makeStore = () => {
 	const isServer = typeof window === 'undefined';

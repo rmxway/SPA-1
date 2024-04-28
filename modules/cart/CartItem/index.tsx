@@ -8,7 +8,7 @@ import { currency, IProduct, useAppDispatch } from '@/services';
 import { decreaseCount, increaseCount } from '@/store/reducers/cart';
 import { removeFromCart } from '@/store/reducers/combineActions';
 
-import { Content, Count, Delete, elementsVars, Item, Price, Title, WrapperText } from './styled';
+import { Content, Count, CountWrapper, Delete, elementsVars, Item, Price, Title, WrapperText } from './styled';
 
 interface Props extends MotionProps {
 	product: IProduct;
@@ -30,7 +30,7 @@ export const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }
 						<span>{description}</span>
 					</Title>
 					{count && (
-						<Count>
+						<CountWrapper>
 							<button
 								type="button"
 								disabled={count === 1}
@@ -38,11 +38,11 @@ export const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }
 							>
 								-
 							</button>{' '}
-							{count}{' '}
+							<Count>{count}</Count>
 							<button type="button" onClick={() => dispatch(increaseCount(Number(id)))}>
 								+
 							</button>
-						</Count>
+						</CountWrapper>
 					)}
 					{count && price && (
 						<Price>

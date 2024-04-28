@@ -1,12 +1,14 @@
-import { Store } from 'redux';
+import { createAction } from '@reduxjs/toolkit';
 
 import { VERSION } from '@/services';
-import { debounceFunction } from '@/services/helpers';
 import { RootStore } from '@/store';
 import { fetching } from '@/store/reducers/products';
 
 export const storeName = 'persist:wholeStore';
+const versionName = 'wholeStore-version';
 const isClient = typeof window !== 'undefined';
+
+const clearStorageAction = createAction('store/clear');
 
 export const clearStore = () => {
 	if (isClient) localStorage.removeItem(storeName);
@@ -14,11 +16,11 @@ export const clearStore = () => {
 
 export const checkVersion = (store: RootStore) => {
 	if (isClient) {
-		const versionName = 'wholeStore-version';
 		const currentVersion = localStorage.getItem(versionName);
+
 		if (currentVersion !== VERSION) {
-			clearStore();
 			localStorage.setItem(versionName, VERSION);
+			store.dispatch(clearStorageAction());
 		} else {
 			const unsubscribe = store.subscribe(() => {
 				if (store.getState().products.total >= 1) {
@@ -28,8 +30,4 @@ export const checkVersion = (store: RootStore) => {
 			});
 		}
 	}
-};
-
-export const listener = (store: Store): void => {
-	if (isClient) debounceFunction(() => localStorage.setItem(storeName, JSON.stringify(store.getState())));
 };

@@ -10,14 +10,13 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { TextToggle } from '@/components';
 import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
 import { Button, Favorite, Sticker } from '@/components/ui';
+import { Info, PriceBlock, SideBlock, Wrapper } from '@/modules/product/styled';
 import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
 import { productsStore } from '@/store';
 import { useGetProductQuery } from '@/store/api';
 import { moveToCart } from '@/store/reducers/combineActions';
 import { productMemoized } from '@/store/reducers/commonSelectors';
 import { setTitle, toggleFavorite } from '@/store/reducers/products';
-
-import { Info, PriceBlock, SideBlock, Wrapper } from './styled';
 
 export const ContentProduct = () => {
 	const { id } = useParams<{ id: string }>();
@@ -109,6 +108,6 @@ export const ContentProduct = () => {
 			</Wrapper>
 		</MobileWhiteBackground>
 	);
-}
+};
 
 export default ContentProduct;

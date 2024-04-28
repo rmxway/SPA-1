@@ -1,18 +1,40 @@
-import React, { FC } from 'react';
+import React, { forwardRef } from 'react';
+import { IMaskInput, ReactElementProps } from 'react-imask';
+
+import { ErrorMessage } from '@/components/ui/ErrorMessage';
+import { Label } from '@/components/ui/Label';
 
 import { InputWrapper } from './styled';
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps {
 	label?: string;
+	mask?: string;
 	name: string;
+	error?: string;
+	className?: string;
 }
 
-export const InputUI: FC<InputProps> = ({ name, label, className, ...props }) => (
-	<InputWrapper {...{ className }}>
-		{label && <label htmlFor={name}>{label}</label>}
+type ReactInputProps = ReactElementProps<HTMLInputElement>;
 
-		<input {...props} id={name} type="text" autoComplete="off" />
-	</InputWrapper>
+export const InputUI = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
+	({ name, label, mask, error, className, ...props }, ref) => (
+		<InputWrapper {...{ className }}>
+			{label && <Label {...{ label, name }} />}
+			{mask ? (
+				<IMaskInput
+					{...(props as ReactInputProps)}
+					{...{ name, mask }}
+					type="text"
+					autoComplete="off"
+					inputRef={ref}
+				/>
+			) : (
+				<input {...props} {...{ ref, name }} id={name} type="text" autoComplete="off" />
+			)}
+
+			{error && <ErrorMessage {...{ error }} />}
+		</InputWrapper>
+	),
 );
 
 export default InputUI;
