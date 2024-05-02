@@ -4,7 +4,7 @@ import { Colors, Gradients } from '@/@types/styled';
 
 const colors: Colors = {
 	primary: '#fdd01a',
-	success: '#01e48d',
+	success: '#00d184',
 	danger: '#e54f5e',
 	label: '#5c323e',
 	dark: '#222',

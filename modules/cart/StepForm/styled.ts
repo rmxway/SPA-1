@@ -73,7 +73,7 @@ export const Product = styled.div`
 		text-align: left;
 	}
 
-	i {
+	span {
 		font-style: normal;
 		font-weight: 600;
 		font-size: 0.8rem;

@@ -11,14 +11,15 @@ export interface InputProps {
 	mask?: string;
 	name: string;
 	error?: string;
+	success?: boolean;
 	className?: string;
 }
 
 type ReactInputProps = ReactElementProps<HTMLInputElement>;
 
-export const InputUI = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
-	({ name, label, mask, error, className, ...props }, ref) => (
-		<InputWrapper {...{ className }}>
+export const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
+	({ name, label, mask, error, success, className, ...props }, ref) => (
+		<InputWrapper {...{ className }} $error={!!error} $success={success}>
 			{label && <Label {...{ label, name }} />}
 			{mask ? (
 				<IMaskInput
@@ -37,4 +38,4 @@ export const InputUI = forwardRef<HTMLInputElement, InputProps & React.InputHTML
 	),
 );
 
-export default InputUI;
+export default Input;

@@ -19,13 +19,13 @@ export const StepForm = () => {
 		register,
 		handleSubmit,
 		reset,
-		formState: { errors, isValid, isDirty },
+		formState: { errors, isValid, isDirty, dirtyFields },
 	} = useForm<OrderFields>({
 		resolver: yupResolver(schemaOrder),
 		mode: 'all',
 	});
 
-	const inputCommonProps = { errors, register };
+	const inputCommonProps = { errors, register, dirtyFields };
 
 	const dispatch = useAppDispatch();
 

@@ -1,29 +1,50 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import { defaultTheme as theme } from '@/theme';
+interface InputWrapperProps {
+	$error?: boolean;
+	$success?: boolean;
+}
 
-const InputWrapper = styled.div`
-    position: relative;
-    padding-bottom: 10px;
+const InputWrapper = styled.div<InputWrapperProps>`
+	${({ theme, $error, $success }) => css`
+		position: relative;
+		padding-bottom: 10px;
+		background-color: none;
 
-	input {
-		padding: 11px 16px 10px;
-		border-radius: ${theme.radius.borderRadius};
-		border: 1px solid #aaa;
-		background-color: #fff;
-        width: 100%;
+		input[type='text'] {
+			padding: 11px 16px 10px;
+			border-radius: ${theme.radius.borderRadius};
+			width: 100%;
+			transition: 0.2s all;
 
-		&:active,
-		&:focus {
-			border-color: ${theme.colors.success};
-			outline: none;
+			border: 1px solid #aaa;
+			background-color: #fff;
+
+			${$error &&
+			css`
+				border: 1px solid ${theme.colors.danger};
+				background-color: ${theme.colors.danger}11;
+			`}
+
+			${$success &&
+			css`
+				border: 1px solid ${theme.colors.success};
+				background-color: ${theme.colors.success}11;
+			`}
+
+
+			&:active,
+			&:focus {
+				border-color: ${!$error && theme.colors.success};
+				outline: none;
+			}
+
+			&:disabled {
+				background-color: ${theme.colors.gray.$3};
+				opacity: 0.8;
+			}
 		}
-
-		&:disabled {
-			background-color: ${theme.colors.gray.$3};
-			opacity: 0.8;
-		}
-	}
+	`}
 `;
 
 export { InputWrapper };

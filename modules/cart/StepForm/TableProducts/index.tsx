@@ -23,14 +23,13 @@ export const TableProducts: FC<{ fGrow?: boolean }> = ({ fGrow }) => {
 							{currency} {price}
 							{count && count > 1 && (
 								<>
-									&nbsp;<i>({count * price})</i>
+									&nbsp;<span>({count * price})</span>
 								</>
 							)}
 						</Flexbox>
 					</Product>
 				))}
 			<p>
-				Total:{' '}
 				<span>
 					{currency} {totalPrice}
 				</span>
