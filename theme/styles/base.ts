@@ -13,11 +13,11 @@ export const base = css`
 		background-color: ${(props) => props.theme.colors.gray.$1};
 		font-size: 1rem;
 		display: flex;
-        flex-direction: column;
+		flex-direction: column;
 		padding-top: 70px;
 		line-height: 1.25;
 		min-width: 320px;
-        min-height: 100vh;
+		min-height: 100vh;
 	}
 	code {
 		font-family: 'source-code-pro', 'Menlo', 'Monaco', 'Consolas', 'Courier New', monospace;

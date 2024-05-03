@@ -10,7 +10,7 @@
 		"build": "next build",
 		"start": "next start",
 		"lint": "next lint",
-		"pretty": "npx prettier --write ./src",
+		"pretty": "npx prettier --write .",
 		"icofont": "fantasticon -n icofont -p icofont --normalize"
 	},
 	"dependencies": {

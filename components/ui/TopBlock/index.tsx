@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
 
 import { Container } from '@/components/Layout';
+import { GradientText } from '@/components/ui/GradientText';
 import { navbarItems } from '@/mock/navbar';
 import { useAppSelector } from '@/services';
 import { productsStore } from '@/store';
@@ -13,31 +14,34 @@ export const TopBlock = () => {
 	const { title: titleStore } = useAppSelector(productsStore);
 	const pathname = usePathname();
 	const isMain = pathname === '/';
+
 	const $isFont = isMain || pathname.includes('/product/');
 
-	const getTitle = useMemo(() => {
-		if (titleStore) return titleStore;
-		return navbarItems.find((item) => item.url === pathname)?.title;
-	}, [pathname, titleStore]);
+	const getTitle = useMemo(
+		() => titleStore || navbarItems.find((item) => item.url === pathname)?.title,
+		[pathname, titleStore],
+	);
 
 	return (
 		<TopBlockStyle {...{ $isFont }}>
 			<Container>
 				<LayoutGroup>
 					{getTitle && (
-						<motion.h1
-							initial={{ y: -10, opacity: 0 }}
-							animate={{ y: 0, opacity: 1 }}
-							transition={{ duration: 0.3 }}
-						>
-							{isMain ? (
-								<>
-									Green Shop <span>| Brand</span>
-								</>
-							) : (
-								getTitle
-							)}
-						</motion.h1>
+						<GradientText>
+							<motion.h1
+								initial={{ y: -10, opacity: 0 }}
+								animate={{ y: 0, opacity: 1 }}
+								transition={{ duration: 0.3 }}
+							>
+								{isMain ? (
+									<>
+										Green Shop <span>| Brand</span>
+									</>
+								) : (
+									getTitle
+								)}
+							</motion.h1>
+						</GradientText>
 					)}
 				</LayoutGroup>
 			</Container>

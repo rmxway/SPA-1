@@ -14,7 +14,7 @@ export default function MainPage() {
 			<ImageForest>
 				<Image
 					src={forest.src}
-                    fill
+					fill
 					blurDataURL={forest.blurDataURL}
 					placeholder="blur"
 					quality={80}

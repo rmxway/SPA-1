@@ -20,7 +20,7 @@ export const WrapperSwitcher = styled.div`
 			background-color: ${theme.colors.gray.$3};
 			background-image: none;
 			transition: all 0.4s;
-            transition-timing-function: ease;
+			transition-timing-function: ease;
 
 			&:after {
 				content: '';
@@ -30,7 +30,7 @@ export const WrapperSwitcher = styled.div`
 				border-radius: 25px;
 				background-color: #fff;
 				transition: all 0.25s;
-                transition-timing-function: ease;
+				transition-timing-function: ease;
 			}
 		}
 

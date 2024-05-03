@@ -1,4 +1,4 @@
-import { IProduct } from "@/services";
+import { IProduct } from '@/services';
 
 export const productsJSON: IProduct[] = [
 	{

@@ -1,29 +1,27 @@
 {
-    "language": "en,ru",
-    "version": "0.2",
-    "ignorePaths": [
-        "./mock/items.json"
-    ],
-    "dictionaryDefinitions": [],
-    "dictionaries": [],
-    "words": [
-        "AMOLED",
-        "backgrd",
-        "countup",
-        "desaturate",
-        "dummyjson",
-        "fakestoreapi",
-        "fantasticon",
-        "Flexbox",
-        "icofont",
-        "nophoto",
-        "persistor",
-        "reduxjs",
-        "regexes",
-        "Swiper",
-        "truetype",
-        "wayer"
-    ],
-    "ignoreWords": [],
-    "import": []
+	"language": "en,ru",
+	"version": "0.2",
+	"ignorePaths": ["./mock/items.json"],
+	"dictionaryDefinitions": [],
+	"dictionaries": [],
+	"words": [
+		"AMOLED",
+		"backgrd",
+		"countup",
+		"desaturate",
+		"dummyjson",
+		"fakestoreapi",
+		"fantasticon",
+		"Flexbox",
+		"icofont",
+		"nophoto",
+		"persistor",
+		"reduxjs",
+		"regexes",
+		"Swiper",
+		"truetype",
+		"wayer"
+	],
+	"ignoreWords": [],
+	"import": []
 }

@@ -11,11 +11,36 @@ export const WrapperFinal = styled.div`
 	align-items: center;
 	text-align: center;
 
-	i {
-		color: ${({ theme }) => theme.colors.danger};
+	@keyframes ding {
+		0% {
+			transform: scale(1);
+		}
+		15% {
+			transform: scale(1.1);
+		}
+		30% {
+			transform: scale(1);
+		}
+		45% {
+			transform: scale(1.2);
+		}
+		80% {
+			transform: scale(1);
+		}
+		100% {
+			transform: scale(1);
+		}
 	}
 
-    p {
-        font-size: 1.2rem;
-    }
+	i {
+		color: ${({ theme }) => theme.colors.danger};
+		animation: ding 1.5s linear;
+		animation-direction: normal;
+		animation-iteration-count: infinite;
+		animation-timing-function: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+	}
+
+	p {
+		font-size: 1.2rem;
+	}
 `;

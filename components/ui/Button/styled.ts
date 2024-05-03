@@ -49,9 +49,9 @@ export const ButtonStyle = styled.button<Props>`
 		font-size: 12px;
 		font-weight: 800;
 		text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		${$margins &&
 		css`
@@ -95,13 +95,13 @@ export const ButtonStyle = styled.button<Props>`
 			return null;
 		}}
 
-        i {
-            position: relative;
-            line-height: 0;
-            top: -2px;
-            margin-left: 5px;
-            font-size: 1rem;
-        }
+		i {
+			position: relative;
+			line-height: 0;
+			top: -2px;
+			margin-left: 5px;
+			font-size: 1rem;
+		}
 	`}
 `;
 
