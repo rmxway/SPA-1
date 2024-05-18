@@ -3,7 +3,7 @@
 import { Container } from '@/components/Layout';
 import { StepCart, StepFinal, StepForm } from '@/modules/cart';
 import { useAppSelector } from '@/services';
-import { cartStore } from '@/store';
+import { cartStore } from '@/store/types';
 
 export const ContentCart = () => {
 	const { step } = useAppSelector(cartStore);

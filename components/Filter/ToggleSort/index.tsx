@@ -4,8 +4,8 @@ import React, { FC, useRef } from 'react';
 
 import { Icon } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
-import { productsStore } from '@/store';
 import { sortProducts } from '@/store/reducers/products';
+import { productsStore } from '@/store/types';
 
 import { Toggle } from './styled';
 

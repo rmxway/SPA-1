@@ -12,11 +12,11 @@ import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/compo
 import { Button, Favorite, Sticker } from '@/components/ui';
 import { Info, PriceBlock, SideBlock, Wrapper } from '@/modules/product/styled';
 import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
-import { productsStore } from '@/store';
 import { useGetProductQuery } from '@/store/api';
 import { moveToCart } from '@/store/reducers/combineActions';
 import { productMemoized } from '@/store/reducers/commonSelectors';
 import { setTitle, toggleFavorite } from '@/store/reducers/products';
+import { productsStore } from '@/store/types';
 
 export const ContentProduct = () => {
 	const { id } = useParams<{ id: string }>();

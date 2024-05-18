@@ -5,8 +5,8 @@ import { Flexbox } from '@/components/Layout';
 import { Input } from '@/components/ui';
 import { useAppDispatch, useAppSelector } from '@/services';
 import { debounceFunction } from '@/services/helpers';
-import { productsStore } from '@/store';
 import { searchProducts, searchValue } from '@/store/reducers/products';
+import { productsStore } from '@/store/types';
 
 import { StyledFilter } from './styled';
 import { ToggleSort } from './ToggleSort';

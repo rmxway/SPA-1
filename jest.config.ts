@@ -200,7 +200,7 @@ const config: Config = {
 	// watchPathIgnorePatterns: [],
 
 	// Whether to use watchman for file crawling
-	// watchman: true,
+	watchman: true,
 };
 
 export default createJestConfig(config);

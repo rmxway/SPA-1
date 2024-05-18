@@ -1,8 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
 
 import { VERSION } from '@/services';
-import { RootStore } from '@/store';
 import { fetching } from '@/store/reducers/products';
+import { RootStore } from '@/store/types';
 
 export const storeName = 'persist:wholeStore';
 const versionName = 'wholeStore-version';

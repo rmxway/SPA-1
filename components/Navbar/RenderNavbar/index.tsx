@@ -6,7 +6,7 @@ import { NavbarProps, NavLink } from '@/components/Navbar/NavLink';
 import { Line, variantsWrapperNavbar, WrapperNavbarItems } from '@/components/Navbar/styled';
 import { navbarItems } from '@/mock/navbar';
 import { useAppSelector, useMediaQuery } from '@/services';
-import { cartStore, productsStore } from '@/store';
+import { cartStore, productsStore } from '@/store/types';
 import { breakpoints } from '@/theme';
 
 export const RenderNavbar: FC = () => {

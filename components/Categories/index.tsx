@@ -3,8 +3,8 @@ import Skeleton from 'react-loading-skeleton';
 
 import { Flexbox } from '@/components/Layout';
 import { useAppSelector } from '@/services';
-import { productsStore } from '@/store';
 import { changeCategoryWithSort } from '@/store/reducers/combineActions';
+import { productsStore } from '@/store/types';
 
 import { Category, WrapperCategory } from './styled';
 

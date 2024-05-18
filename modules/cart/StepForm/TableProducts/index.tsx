@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { Flexbox } from '@/components/Layout';
 import { Product, WrapperProducts } from '@/modules/cart/StepForm/styled';
 import { currency, useAppSelector } from '@/services';
-import { cartStore } from '@/store';
+import { cartStore } from '@/store/types';
 
 export const TableProducts: FC<{ fGrow?: boolean }> = ({ fGrow }) => {
 	const { items, totalPrice } = useAppSelector(cartStore);

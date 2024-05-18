@@ -11,10 +11,10 @@ import { Button, LinkIcon, Modal } from '@/components/ui';
 import { CartItem } from '@/modules/cart/CartItem';
 import { fadeVariant } from '@/modules/cart/CartItem/styled';
 import { currency, useAppDispatch, useAppSelector } from '@/services';
-import { cartStore } from '@/store';
 import { changePage, changeStep } from '@/store/reducers/cart';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 import { currentItemsMemoized } from '@/store/reducers/commonSelectors';
+import { cartStore } from '@/store/types';
 
 import { Cart, contentVariant, Sidebar, Title, Total, Wrapper } from './styled';
 

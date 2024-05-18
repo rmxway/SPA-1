@@ -6,7 +6,7 @@ import { Container } from '@/components/Layout';
 import { GradientText } from '@/components/ui/GradientText';
 import { navbarItems } from '@/mock/navbar';
 import { useAppSelector } from '@/services';
-import { productsStore } from '@/store';
+import { productsStore } from '@/store/types';
 
 import { TopBlockStyle } from './styled';
 

@@ -3,8 +3,8 @@ import { Fragment, SyntheticEvent } from 'react';
 
 import { Loader } from '@/components/ui';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
-import { productsStore } from '@/store';
 import { fetchingImageProduct } from '@/store/reducers/products';
+import { productsStore } from '@/store/types';
 
 import { BlockImgItem, WrapperImagesStyled } from './styled';
 

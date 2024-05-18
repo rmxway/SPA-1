@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input/UI Render is fine 1`] = `
+<div>
+  <div
+    class="sc-b751b822-0 fLcuAf"
+  >
+    <label
+      class="sc-e139325-0 jZsVGL"
+      for="phone"
+    >
+      Phone
+    </label>
+    <input
+      autocomplete="off"
+      name="phone"
+      type="text"
+      value=""
+    />
+    <div
+      class="sc-98140c93-0 hmmwvB"
+    >
+      <span>
+        Your phone is not correct
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input/UI Type masked phone number is fine 1`] = `
+<div>
+  <div
+    class="sc-b751b822-0 jUFPkP"
+  >
+    <label
+      class="sc-e139325-0 jZsVGL"
+      for="phone"
+    >
+      Phone
+    </label>
+    <input
+      autocomplete="off"
+      name="phone"
+      type="text"
+      value=""
+    />
+  </div>
+</div>
+`;
