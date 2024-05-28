@@ -94,7 +94,7 @@ export const StepCart: FC = () => {
 								{currency}
 							</span>
 						</Total>
-						<Button $primary disabled={totalPrice === 0} onClick={nextStep}>
+						<Button $success disabled={totalPrice === 0} onClick={nextStep}>
 							Checkout
 						</Button>
 					</Sidebar>

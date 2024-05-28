@@ -8,7 +8,7 @@ interface BurgerButtonProps {
 }
 
 export const BurgerButton: FC<BurgerButtonProps> = ({ clickBurger, open }) => (
-	<BurgerButtonStyled $black onClick={clickBurger} $isOpen={open}>
+	<BurgerButtonStyled $success onClick={clickBurger} $isOpen={open}>
 		<span />
 		<span />
 		<span />

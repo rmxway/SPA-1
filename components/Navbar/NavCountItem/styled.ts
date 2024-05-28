@@ -12,7 +12,6 @@ export const NavCountItemStyled = styled.div`
 		margin-top: -10px;
 		margin-left: 3px;
 		font-size: 1.5rem;
-		color: #222;
 	}
 `;
 

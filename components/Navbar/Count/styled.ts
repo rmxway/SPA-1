@@ -9,9 +9,9 @@ export const CountStyled = styled(motion.div)`
 		right: -14px;
 		width: 22px;
 		height: 22px;
-		background-color: ${theme.colors.dark};
-		border: 2px solid ${theme.colors.success};
-		color: #fff;
+		background-color: ${theme.colors.success};
+		border: 2px solid ${theme.colors.dark};
+		color: ${theme.colors.dark};
 		font-size: 11px;
 		text-align: center;
 		font-weight: 900;

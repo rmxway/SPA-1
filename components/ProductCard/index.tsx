@@ -41,7 +41,7 @@ export const ProductCard: FC<ProductType> = ({ product, ...props }) => {
 					{product.price} {currency}
 				</Price>
 			</Tools>
-			<Button $primary onClick={handleChecked} disabled={product.checked}>
+			<Button $primary icon='cart' onClick={handleChecked} disabled={product.checked}>
 				{product.checked ? 'Added' : 'Add to cart'}
 			</Button>
 		</ProductWrapper>

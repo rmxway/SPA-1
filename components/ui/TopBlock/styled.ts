@@ -6,7 +6,7 @@ export type TopBlockProps = { $isFont?: boolean };
 
 export const TopBlockStyle = styled.div<TopBlockProps>`
 	${({ theme, $isFont }) => css`
-		background: linear-gradient(170deg, ${theme.colors.gray.$8} 30%, ${theme.colors.success} 100%);
+		background-image: linear-gradient(185deg, ${theme.colors.gray.$6} 30%, ${theme.colors.success} 100%);
 		margin-top: 0;
 		min-height: 60px;
 		display: flex;
@@ -36,7 +36,7 @@ export const TopBlockStyle = styled.div<TopBlockProps>`
 			}
 		`}
 
-		${media.greaterThan('sm')`
+		${media.greaterThan('md')`
             padding: ${$isFont ? '40px 0' : '0 0'};
             min-height: 80px;
 

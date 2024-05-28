@@ -13,11 +13,12 @@ export const WrapperSticker = styled.div<WrapperStickerProps>`
 		display: inline-block;
 		text-transform: none;
 		font-style: normal;
-		font-size: 12px;
+		font-size: 11px;
+		line-height: 1;
 		font-family: sans-serif;
 		font-weight: 600;
 		padding: 4px 8px;
-		border-radius: ${theme.radius.borderRadius};
+		border-radius: 4px;
 
 		${$primary &&
 		css`

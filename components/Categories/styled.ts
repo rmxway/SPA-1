@@ -52,7 +52,7 @@ export const Category = styled.button<{ $active: boolean }>`
 		background-color: ${theme.colors.gray.$4};
 		font-weight: 600;
 		font-size: 0.8rem;
-		color: inherit;
+		color: #333;
 		white-space: nowrap;
 
 		&:hover {
@@ -60,14 +60,14 @@ export const Category = styled.button<{ $active: boolean }>`
 		}
 
 		&:disabled {
-			opacity: 0.5;
-			background-color: ${theme.colors.gray.$5};
+			opacity: 0.4;
 			pointer-events: none;
 		}
 
 		${$active &&
 		css`
-			background-color: ${theme.colors.success};
+			color: ${theme.colors.success};
+			background-color: ${theme.colors.dark};
 		`}
 
 		${media.lessThan('mdD')`

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { fadeIn } from '@/theme';
+import { fadeIn, media } from '@/theme';
 
 export const ImageForest = styled.div`
 	position: fixed;
@@ -48,8 +48,19 @@ export const ImageLogos = styled.div`
 	img {
 		mix-blend-mode: multiply;
 		max-width: 100%;
+		height: auto;
 		margin: 30px 0;
 		object-position: left;
 		object-fit: contain;
 	}
+
+	${media.lessThan('md')`
+        &:before {
+            filter: blur(6svw);
+        }
+
+        img {
+            margin: 20px 0 10px;
+        }
+    `}
 `;

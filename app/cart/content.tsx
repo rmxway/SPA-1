@@ -9,7 +9,7 @@ export const ContentCart = () => {
 	const { step } = useAppSelector(cartStore);
 
 	return (
-		<Container $pt $flex>
+		<Container $pt $pb $flex>
 			{step === 1 && <StepCart />}
 			{step === 2 && <StepForm />}
 			{step === 3 && <StepFinal />}

@@ -21,7 +21,7 @@ type ButtonProps = Props & { animate?: boolean; icon?: keyof typeof icons };
  * @param {?boolean} $margins - margin-right and margin-bottom 10px
  * @param {?boolean} animate - animate inner text (not working)
  * @param {?boolean} icon - select icon
- * @param {?boolean} (styled boolean params) - $success, $danger, $primary, $white, $black
+ * @param {?boolean} (styled boolean params) - $success, $danger, $primary, $white, $dark
  */
 
 export const Button: FC<ButtonProps> = ({ children, animate = false, icon, ...props }) => {

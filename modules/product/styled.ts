@@ -7,7 +7,7 @@ import { media } from '@/theme';
 
 export const Wrapper = styled(Container)`
 	position: relative;
-	padding-bottom: 160px;
+	padding-bottom: 60px;
 
 	display: grid;
 	grid-template-columns: 1fr;
@@ -91,7 +91,7 @@ export const SideBlock = styled.div`
             position: fixed;
             top: auto;
             bottom: 0;
-            padding: 10px 20px 20px;
+            padding: 10px 20px 5px;
             left: 0;
             right: 0;
             border-top: 1px solid #ddd;
@@ -112,40 +112,45 @@ export const SideBlock = styled.div`
 
 export const PriceBlock = styled.div`
 	position: relative;
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
+	display: grid;
 	width: 100%;
-	gap: 20px;
+	gap: 10px;
+	grid-template-columns: 1fr 150px;
+	align-items: start;
+	grid-auto-flow: column;
 
 	.side {
 		&-price {
-			align-items: center;
-			justify-content: space-between;
-			width: 100%;
+			grid-template-columns: 1fr;
 
 			span {
 				display: block;
 				font-family: sans-serif;
-				font-size: 30px;
+				font-size: 26px;
 			}
 
 			${WrapperSticker} {
-				bottom: 20px;
+				bottom: 18px;
 			}
 		}
 
 		&-info {
-			flex-direction: row;
-			align-items: center;
+			display: none;
 			gap: 5px;
-
-			${media.greaterThan('md')`
-                flex-direction: column;
-                align-items: flex-start;
-            `}
 		}
 	}
+
+	${media.greaterThan('md')`
+        grid-template-columns: 1fr;
+        align-items: start;
+        grid-auto-flow: dense;
+
+        .side-info {
+            display: grid;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    `}
 
 	button {
 		width: 100%;

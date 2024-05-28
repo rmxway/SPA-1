@@ -36,7 +36,7 @@ export const StepFinal = () => {
 				<p>You have been made an order and our manager will contact you shortly</p>
 			</div>
 
-			<Button animate $black onClick={handleBackToProducts}>
+			<Button animate $dark onClick={handleBackToProducts}>
 				Go to products
 			</Button>
 		</WrapperFinal>

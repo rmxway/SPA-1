@@ -22,7 +22,6 @@ export const Cart = styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
 	align-items: flex-start;
-	padding-bottom: 50px;
 
 	${WrapperPagination} {
 		margin-top: 0;

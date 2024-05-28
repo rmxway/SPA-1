@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
-import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
+import { Grid, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
 import { Button, Favorite, Sticker } from '@/components/ui';
 import { Info, PriceBlock, SideBlock, Wrapper } from '@/modules/product/styled';
 import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
@@ -75,9 +75,9 @@ export const ContentProduct = () => {
 							</LayerBlock>
 						</Info>
 						<SideBlock>
-							<LayerBlock>
+							<LayerBlock $fixedPadding>
 								<PriceBlock>
-									<Flexbox className="side-price">
+									<Grid className="side-price" $direction="column">
 										<span>
 											{product.price} {currency}{' '}
 											<Sticker $danger>
@@ -88,15 +88,16 @@ export const ContentProduct = () => {
 											active={product.favorite}
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
-									</Flexbox>
-									<Flexbox className="side-info">
+									</Grid>
+									<Grid className="side-info">
 										<Sticker>{product.category}</Sticker>
 										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
-									</Flexbox>
+									</Grid>
 									<Button
 										$primary
 										onClick={() => moveToCart(Number(product?.id))}
 										disabled={product.checked}
+										icon="cart"
 									>
 										{product.checked ? 'Added' : 'Add to cart'}
 									</Button>

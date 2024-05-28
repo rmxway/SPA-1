@@ -15,7 +15,7 @@ export const TopBlock = () => {
 	const pathname = usePathname();
 	const isMain = pathname === '/';
 
-	const $isFont = isMain || pathname.includes('/product/');
+	const $isFont = isMain;
 
 	const getTitle = useMemo(
 		() => titleStore || navbarItems.find((item) => item.url === pathname)?.title,
@@ -27,7 +27,7 @@ export const TopBlock = () => {
 			<Container>
 				<LayoutGroup>
 					{getTitle && (
-						<GradientText>
+						<GradientText gradient="softDark">
 							<motion.h1
 								initial={{ y: -10, opacity: 0 }}
 								animate={{ y: 0, opacity: 1 }}
