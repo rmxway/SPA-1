@@ -59,7 +59,7 @@ export const Sidebar = styled(motion.div)`
 
 	${media.greaterThan('sm')`
         position: sticky;
-        top: 90px;
+        top: 20px;
         padding: 20px;
         margin-top: 0;
 	`}

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 
 import { defaultTheme as theme, media } from '@/theme';
 
+import { CountStyled } from './Count/styled';
+
 const logoColor = theme.colors.success;
 
 export const StyledNavbar = styled(motion.div)`
@@ -64,7 +66,7 @@ export const Line = styled(motion.div)`
 	right: 0;
 	height: 2px;
 	border-radius: 3px;
-	background-color: ${theme.colors.success};
+	background-color: ${theme.colors.dark};
 `;
 
 export const NavbarItem = styled.div`
@@ -95,6 +97,14 @@ export const NavbarItem = styled.div`
 		margin-right: 0;
 	}
 
+	${media.lessThan('mdD')`
+        ${CountStyled} {
+            background-color: ${theme.colors.dark};
+            border-color: ${lighten(0.28, theme.colors.success)};
+            color: #fff;
+        }
+    `}
+
 	${media.greaterThan('md')`
         margin-bottom: 0;
         margin-right: 20px;
@@ -103,6 +113,10 @@ export const NavbarItem = styled.div`
 
         &:hover {
             color: ${lighten(0.3, theme.colors.success)};
+        }
+
+        ${Line} {
+            background-color: ${theme.colors.success};
         }
     `}
 `;
@@ -117,7 +131,7 @@ export const WrapperNavbarItems = styled(motion.div)`
 	width: 100%;
 	height: 0;
 	overflow: hidden;
-	background-image: ${theme.gradients.main};
+	background-image: ${theme.gradients.softDark('210deg')};
 
 	${media.greaterThan('md')`
         position: relative;

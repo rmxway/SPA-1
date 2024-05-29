@@ -3,12 +3,13 @@ import styled, { css } from 'styled-components';
 interface InputWrapperProps {
 	$error?: boolean;
 	$success?: boolean;
+	$noPaddings?: boolean;
 }
 
 const InputWrapper = styled.div<InputWrapperProps>`
-	${({ theme, $error, $success }) => css`
+	${({ theme, $error, $success, $noPaddings }) => css`
 		position: relative;
-		padding-bottom: 10px;
+		padding-bottom: ${$noPaddings ? 0 : '10px'};
 		background-color: none;
 
 		input[type='text'] {

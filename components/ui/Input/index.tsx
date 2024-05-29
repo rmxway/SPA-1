@@ -12,14 +12,15 @@ export interface InputProps {
 	name: string;
 	error?: string;
 	success?: boolean;
+	noPadding?: boolean;
 	className?: string;
 }
 
 type ReactInputProps = ReactElementProps<HTMLInputElement>;
 
 export const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
-	({ name, label, mask, error, success, className, ...props }, ref) => (
-		<InputWrapper {...{ className }} $error={!!error} $success={success}>
+	({ name, label, mask, error, success, noPadding, className, ...props }, ref) => (
+		<InputWrapper {...{ className }} $error={!!error} $success={success} $noPaddings={noPadding}>
 			{label && <Label {...{ label, name }} />}
 			{mask ? (
 				<IMaskInput

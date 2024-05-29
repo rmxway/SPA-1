@@ -89,7 +89,7 @@ export const ContentProduct = () => {
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
 									</Grid>
-									<Grid className="side-info">
+									<Grid className="side-info" $direction='column' $gap={8}>
 										<Sticker>{product.category}</Sticker>
 										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
 									</Grid>

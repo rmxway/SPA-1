@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styled from 'styled-components';
 
-import { Container, LayerBlock } from '@/components/Layout';
+import { Container, Grid, LayerBlock } from '@/components/Layout';
 import { WrapperSticker } from '@/components/ui/Sticker/styled';
 import { media } from '@/theme';
 
@@ -91,10 +91,10 @@ export const SideBlock = styled.div`
             position: fixed;
             top: auto;
             bottom: 0;
-            padding: 10px 20px 5px;
+            padding: 10px 20px;
             left: 0;
             right: 0;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #eee;
             border-radius: 0;
             margin-bottom: 0;
         }
@@ -105,26 +105,25 @@ export const SideBlock = styled.div`
 
         ${LayerBlock} {
             position: sticky;
-            top: 90px;
+            top: 20px;
         }
     `}
 `;
 
-export const PriceBlock = styled.div`
+export const PriceBlock = styled(Grid)`
 	position: relative;
-	display: grid;
-	width: 100%;
-	gap: 10px;
-	grid-template-columns: 1fr 150px;
-	align-items: start;
-	grid-auto-flow: column;
+	align-items: center;
+	gap: 16px;
+	grid-auto-flow: dense;
+	grid-template-columns: 1fr 120px;
 
 	.side {
 		&-price {
 			grid-template-columns: 1fr;
 
 			span {
-				display: block;
+				display: inline-block;
+				align-self: center;
 				font-family: sans-serif;
 				font-size: 26px;
 			}
@@ -136,7 +135,6 @@ export const PriceBlock = styled.div`
 
 		&-info {
 			display: none;
-			gap: 5px;
 		}
 	}
 
@@ -156,6 +154,17 @@ export const PriceBlock = styled.div`
 		width: 100%;
 		margin: 0;
 	}
+
+	${media.greaterThan('md')`
+        grid-auto-flow: row;
+	    grid-template-columns: 1fr;
+
+        .side-info {
+            display: grid;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    `}
 `;
 
 export default Wrapper;

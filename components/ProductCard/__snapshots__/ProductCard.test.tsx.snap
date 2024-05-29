@@ -3,10 +3,10 @@
 exports[`ProductCard: Render card 1`] = `
 <div>
   <div
-    class="sc-aa1a80d5-2 jKSa-DS"
+    class="sc-aa1a80d5-2 bwgOIx"
   >
     <div
-      class="sc-40eb1df3-0 iFzIHX"
+      class="sc-7d6be7a8-0 kWmuZn"
     >
       -
       13
@@ -102,7 +102,7 @@ exports[`ProductCard: Render card 1`] = `
         </span>
       </div>
       <div
-        class="sc-aa1a80d5-4 gxLoUE"
+        class="sc-aa1a80d5-4 cZhELX"
       >
         549
          
@@ -110,9 +110,12 @@ exports[`ProductCard: Render card 1`] = `
       </div>
     </div>
     <button
-      class="sc-55b3843f-0 fprZsQ"
+      class="sc-6ffd862-0 fWVoxy"
     >
       Add to cart
+      <i
+        class="icofont icofont-cart "
+      />
     </button>
   </div>
 </div>

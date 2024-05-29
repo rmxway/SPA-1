@@ -14,7 +14,8 @@ export const ModalWrapper = styled(motion.div)`
 		width: 100%;
 		height: 100%;
 		z-index: 999;
-		background-color: ${theme.colors.dark}7;
+		background-color: ${theme.colors.dark}aa;
+		backdrop-filter: blur(5px);
 		cursor: pointer;
 	`}
 `;

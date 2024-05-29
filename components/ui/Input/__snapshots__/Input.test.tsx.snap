@@ -3,10 +3,10 @@
 exports[`Input/UI Render is fine 1`] = `
 <div>
   <div
-    class="sc-b751b822-0 fLcuAf"
+    class="sc-86fc186b-0 fdUrvC"
   >
     <label
-      class="sc-e139325-0 jZsVGL"
+      class="sc-f296cf62-0 ewMWJz"
       for="phone"
     >
       Phone
@@ -31,10 +31,10 @@ exports[`Input/UI Render is fine 1`] = `
 exports[`Input/UI Type masked phone number is fine 1`] = `
 <div>
   <div
-    class="sc-b751b822-0 jUFPkP"
+    class="sc-86fc186b-0 edSOQW"
   >
     <label
-      class="sc-e139325-0 jZsVGL"
+      class="sc-f296cf62-0 ewMWJz"
       for="phone"
     >
       Phone

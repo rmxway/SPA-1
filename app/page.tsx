@@ -2,15 +2,15 @@
 
 import Image from 'next/image';
 
-import { Container, Grid, LayerBlock } from '@/components/Layout';
+import { Container, LayerBlock } from '@/components/Layout';
 import logos from '@/public/assets/img/logos.jpg';
 
-import { ImageLogos } from './styled';
+import { FirstBlock, ImageLogos, SecondBlock } from './styled';
 
 export default function MainPage() {
 	return (
 		<Container $pt>
-			<Grid $direction="column" $templateColumns="1fr 1fr" $align="center" $gap={20}>
+			<FirstBlock $direction="row" $gap={20}>
 				<div>
 					<h3>
 						E-commerce SPA with fake products. <br />
@@ -33,12 +33,12 @@ export default function MainPage() {
 						alt="logos"
 					/>
 				</ImageLogos>
-			</Grid>
+			</FirstBlock>
 
 			<br />
 
-			<LayerBlock $fixedPadding>
-				<Grid $gap={50} $direction="column" $templateColumns="1fr 1fr 1fr">
+			<SecondBlock $templateColumns="1fr">
+				<LayerBlock $fixedPadding>
 					<div>
 						<h4>Features:</h4>
 						<ul>
@@ -52,12 +52,8 @@ export default function MainPage() {
 							<li>Form order</li>
 						</ul>
 					</div>
-					<div>
-						<h4>Will be added later:</h4>
-						<ul>
-							<li>User login</li>
-						</ul>
-					</div>
+				</LayerBlock>
+				<LayerBlock $fixedPadding>
 					<div>
 						<h4>Other tools:</h4>
 						<ul>
@@ -67,8 +63,8 @@ export default function MainPage() {
 							<li>API from dummyjson.com</li>
 						</ul>
 					</div>
-				</Grid>
-			</LayerBlock>
+				</LayerBlock>
+			</SecondBlock>
 		</Container>
 	);
 }

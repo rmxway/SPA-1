@@ -41,6 +41,7 @@ export const Filter: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 					placeholder="Search"
 					value={value}
 					onChange={handleChange}
+					noPadding
 					disabled={!reservedItems.length && !fetchedItems.length}
 				/>
 			)}
