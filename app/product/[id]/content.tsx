@@ -8,15 +8,15 @@ import { useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
-import { Flexbox, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
+import { Grid, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
 import { Button, Favorite, Sticker } from '@/components/ui';
 import { Info, PriceBlock, SideBlock, Wrapper } from '@/modules/product/styled';
 import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
-import { productsStore } from '@/store';
 import { useGetProductQuery } from '@/store/api';
 import { moveToCart } from '@/store/reducers/combineActions';
 import { productMemoized } from '@/store/reducers/commonSelectors';
 import { setTitle, toggleFavorite } from '@/store/reducers/products';
+import { productsStore } from '@/store/types';
 
 export const ContentProduct = () => {
 	const { id } = useParams<{ id: string }>();
@@ -75,31 +75,34 @@ export const ContentProduct = () => {
 							</LayerBlock>
 						</Info>
 						<SideBlock>
-							<LayerBlock>
+							<LayerBlock $fixedPadding>
 								<PriceBlock>
-									<Flexbox className="side-price">
+									<Grid className="side-price" $direction="column">
 										<span>
 											{product.price} {currency}{' '}
 											<Sticker $danger>
 												-{Math.round(Number(product.discountPercentage))} %
 											</Sticker>
 										</span>
+									</Grid>
+									<Grid className="side-info" $direction="column" $gap={8}>
+										<Sticker>{product.category}</Sticker>
+										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
+									</Grid>
+									<Grid $direction="column" $templateColumns="1fr 30px" $gap={5}>
+										<Button
+											$primary
+											onClick={() => moveToCart(Number(product?.id))}
+											disabled={product.checked}
+											icon="cart"
+										>
+											{product.checked ? 'Added' : 'Add to cart'}
+										</Button>
 										<Favorite
 											active={product.favorite}
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
-									</Flexbox>
-									<Flexbox className="side-info">
-										<Sticker>{product.category}</Sticker>
-										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
-									</Flexbox>
-									<Button
-										$primary
-										onClick={() => moveToCart(Number(product?.id))}
-										disabled={product.checked}
-									>
-										{product.checked ? 'Added' : 'Add to cart'}
-									</Button>
+									</Grid>
 								</PriceBlock>
 							</LayerBlock>
 						</SideBlock>

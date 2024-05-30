@@ -4,10 +4,17 @@ import { useServerInsertedHTML } from 'next/navigation';
 import React, { useState } from 'react';
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components';
 
-import { Template } from './template';
+import { JestTemplate, Template } from '@/lib';
 
-export function StyledComponentsRegistry({ children }: { children: React.ReactNode }) {
+interface StyledRegistryProps {
+	isJest?: boolean;
+	children: React.ReactNode;
+}
+
+export function StyledComponentsRegistry({ isJest, children }: StyledRegistryProps) {
 	const [sheet] = useState(() => new ServerStyleSheet());
+
+	const Tag = isJest ? JestTemplate : Template;
 
 	try {
 		useServerInsertedHTML(() => {
@@ -18,11 +25,11 @@ export function StyledComponentsRegistry({ children }: { children: React.ReactNo
 			return <>{styles}</>;
 		});
 
-		if (typeof window !== 'undefined') return <Template>{children}</Template>;
+		if (typeof window !== 'undefined') return <Tag>{children}</Tag>;
 
 		return (
 			<StyleSheetManager sheet={sheet.instance}>
-				<Template>{children}</Template>
+				<Tag>{children}</Tag>
 			</StyleSheetManager>
 		);
 	} catch (error) {

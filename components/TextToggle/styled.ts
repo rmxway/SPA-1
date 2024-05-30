@@ -14,12 +14,12 @@ export const WrapperTextToggle = styled.div<{ $isOpen?: boolean }>`
 		margin-bottom: 12px;
 		color: ${({ theme }) => theme.colors.gray.$7};
 
-        &:after {
-            bottom: 0;
-            left: 0; right: 0;
-            ${({ $isOpen }) => !$isOpen && hideGradientMixin('#fff', 'bottom')}
-        }
-
+		&:after {
+			bottom: 0;
+			left: 0;
+			right: 0;
+			${({ $isOpen }) => !$isOpen && hideGradientMixin('#fff', 'bottom')}
+		}
 	}
 
 	button {

@@ -11,9 +11,9 @@ export default function UIPage() {
 				<Flexbox $gap={10}>
 					<Sticker>Default</Sticker>
 					<Sticker $primary>Primary</Sticker>
-                    <Sticker $danger>Danger</Sticker>
-                    <Sticker $dark>Dark</Sticker>
-                    <Sticker $success>Success</Sticker>
+					<Sticker $danger>Danger</Sticker>
+					<Sticker $dark>Dark</Sticker>
+					<Sticker $success>Success</Sticker>
 				</Flexbox>
 			</LayerBlock>
 		</Container>

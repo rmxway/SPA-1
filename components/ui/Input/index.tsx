@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, InputHTMLAttributes } from 'react';
 import { IMaskInput, ReactElementProps } from 'react-imask';
 
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
@@ -11,25 +11,33 @@ export interface InputProps {
 	mask?: string;
 	name: string;
 	error?: string;
-	className?: string;
+	success?: boolean;
+	noPadding?: boolean;
 }
+interface TargetType {
+	target: {
+		name: string;
+		value: string;
+	};
+}
+type ChangeType = (e: TargetType) => void;
 
-type ReactInputProps = ReactElementProps<HTMLInputElement>;
-
-export const InputUI = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
-	({ name, label, mask, error, className, ...props }, ref) => (
-		<InputWrapper {...{ className }}>
+export const Input = forwardRef<HTMLInputElement, InputProps & InputHTMLAttributes<HTMLInputElement>>(
+	({ name, label, mask, error, success, noPadding, className, onChange, ...props }, ref) => (
+		<InputWrapper {...{ className }} $error={!!error} $success={success} $noPaddings={noPadding}>
 			{label && <Label {...{ label, name }} />}
 			{mask ? (
 				<IMaskInput
-					{...(props as ReactInputProps)}
 					{...{ name, mask }}
 					type="text"
-					autoComplete="off"
+					onAccept={(value) => {
+						(onChange as ChangeType)?.({ target: { name, value } });
+					}}
 					inputRef={ref}
+					{...(props as ReactElementProps<HTMLInputElement>)}
 				/>
 			) : (
-				<input {...props} {...{ ref, name }} id={name} type="text" autoComplete="off" />
+				<input {...props} {...{ ref, name, onChange }} id={name} type="text" />
 			)}
 
 			{error && <ErrorMessage {...{ error }} />}
@@ -37,4 +45,4 @@ export const InputUI = forwardRef<HTMLInputElement, InputProps & React.InputHTML
 	),
 );
 
-export default InputUI;
+export default Input;

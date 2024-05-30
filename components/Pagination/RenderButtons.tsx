@@ -24,7 +24,7 @@ export const RenderButtons = memo<RenderButtonsProps>((props) => {
 			arrButtons[i] = (
 				<ButtonPagination
 					key={i}
-					$success={page === currentPage}
+					$dark={page === currentPage}
 					$inactive={fetching}
 					onClick={() => debounceChangePage(currentPage)}
 					disabled={!items.length}

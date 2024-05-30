@@ -18,7 +18,7 @@ export const BurgerButtonStyled = styled(ButtonStyle)<{ $isOpen: boolean }>`
 		height: 2px;
 		border-radius: 50px;
 		min-width: 20px;
-		background-color: ${theme.colors.success};
+		background-color: ${theme.colors.dark};
 		transition: all 0.2s;
 
 		${({ $isOpen }) =>

@@ -6,6 +6,8 @@ import { api } from '@/store/api';
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
 
+import { middlewares } from './thunks';
+
 const createNoopStorage = () => ({
 	getItem(key: string): Promise<string | null> {
 		return Promise.resolve(key);
@@ -51,7 +53,7 @@ export const store = configureStore({
 			serializableCheck: {
 				ignoredActions: [PERSIST, FLUSH, REHYDRATE, PAUSE, PURGE, REGISTER],
 			},
-		}).concat(api.middleware),
+		}).concat(api.middleware, ...middlewares),
 });
 
 export const persistor = persistStore(store);
@@ -65,10 +67,3 @@ export const makeStore = () => {
 
 	return store;
 };
-
-export type RootStore = ReturnType<typeof makeStore>;
-export type RootState = ReturnType<RootStore['getState']>;
-export type AppDispatch = RootStore['dispatch'];
-
-export const cartStore = (state: RootState) => state.cart;
-export const productsStore = (state: RootState) => state.products;

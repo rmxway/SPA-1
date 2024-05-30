@@ -4,11 +4,18 @@ import { media } from '@/theme';
 
 /**
  * Adaptive container block
- * @param {boolean} $pt - padding-top: 30px
+ * @param {boolean} $pt - padding-top: 40px
+ * @param {boolean} $pb - padding-top: 40px
  * @param {boolean} $flex - display: flex; flex-direction: column
  */
 
-export const Container = styled.div<{ $pt?: boolean; $flex?: boolean }>`
+interface ContainerProps {
+	$pt?: boolean;
+	$pb?: boolean;
+	$flex?: boolean;
+}
+
+export const Container = styled.div<ContainerProps>`
 	position: relative;
 	display: block;
 	padding: 0 20px;
@@ -21,6 +28,12 @@ export const Container = styled.div<{ $pt?: boolean; $flex?: boolean }>`
 		$pt &&
 		css`
 			padding-top: 40px;
+		`}
+
+	${({ $pb }) =>
+		$pb &&
+		css`
+			padding-bottom: 40px;
 		`}
 
 	${({ $flex }) =>

@@ -8,8 +8,7 @@ import { Flexbox, Space } from '@/components/Layout';
 import { Icon } from '@/components/ui';
 import { containerVars } from '@/modules/products/ProductsGrid/styled';
 import { IProduct, useAppDispatch, useAppSelector } from '@/services';
-import { ScrollToTop } from '@/services/helpers';
-import { productsStore } from '@/store';
+import { productsStore } from '@/store/types';
 
 import { RenderButtons } from './RenderButtons';
 import { ArrowButton, Info, Wrapper } from './styled';
@@ -32,7 +31,6 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
 		const countButtons = countPages >= maxButtonsCount ? maxButtonsCount : countPages;
 
 		const debounceChangePage = debounce((num: number) => {
-			ScrollToTop();
 			dispatch(changePage(num));
 		}, 200);
 

@@ -5,17 +5,11 @@ import { media } from '@/theme';
 
 export const StyledFilter = styled.div`
 	display: flex;
-	margin: 30px 0;
+	margin: 30px 0 10px;
 	flex-direction: column;
 	align-items: stretch;
 	justify-content: flex-start;
 	gap: 20px;
-
-	${media.greaterThan('xs')`
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    `}
 
 	${InputWrapper} {
 		margin-top: 20px;
@@ -30,12 +24,22 @@ export const StyledFilter = styled.div`
 		&:has(input:focus) {
 			flex-grow: 1;
 		}
+	}
 
-		${media.greaterThan('xs')`
+	${media.greaterThan('xs')`
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        ${InputWrapper} {
             margin-top: 0;
             width: auto;
-        `}
-	}
+        }
+    `}
+
+    ${media.greaterThan('md')`
+        margin: 30px 0;
+    `}
 `;
 
 export default StyledFilter;

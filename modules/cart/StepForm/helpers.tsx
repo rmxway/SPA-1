@@ -1,24 +1,29 @@
-import { FC } from 'react';
 import type { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-import { InputProps, InputUI, Switcher } from '@/components/ui';
+import { Input, InputProps, Switcher } from '@/components/ui';
 import { OrderFields } from '@/modules/cart/services/schemaOrder';
+
+type Fields = Partial<Record<keyof OrderFields, boolean>>;
 
 interface WithErrorProps extends React.InputHTMLAttributes<HTMLInputElement> {
 	errors: FieldErrors<OrderFields>;
+	dirtyFields: Fields;
 	register: UseFormRegister<OrderFields>;
 	name: keyof OrderFields;
 }
 type InputOrderProps = Pick<InputProps, 'mask' | 'label'> & WithErrorProps;
 type SwitcherOrderProps = Omit<InputOrderProps, 'placeholder'>;
+type ComponentType = typeof Input | typeof Switcher;
 
-// TODO: доработать типы и создать HOC
-export const InputOrder: FC<InputOrderProps> = ({ errors, name, register, ...props }) => {
-	const error = name && errors && errors[name] && errors[name]?.message;
-	return <InputUI {...props} {...{ name, error }} {...register(name)} />;
-};
+function FormField<T extends WithErrorProps>(Component: ComponentType) {
+	return ({ errors, name, register, dirtyFields, ...props }: T) => {
+		const error = name && errors && errors[name] && errors[name]?.message;
+		const success = !error && dirtyFields[name];
+		const successNeeded = name !== 'toApartment' ? { success } : null;
 
-export const SwitchOrder: FC<SwitcherOrderProps> = ({ errors, name, register, ...props }) => {
-	const error = name && errors && errors[name] && errors[name]?.message;
-	return <Switcher {...props} {...{ name, error }} {...register(name)} />;
-};
+		return <Component {...props} {...{ name, error }} {...successNeeded} {...register(name)} />;
+	};
+}
+
+export const InputOrder = FormField<InputOrderProps>(Input);
+export const SwitchOrder = FormField<SwitcherOrderProps>(Switcher);

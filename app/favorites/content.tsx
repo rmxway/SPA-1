@@ -6,9 +6,9 @@ import { Container } from '@/components/Layout';
 import { Button, LinkIcon, Modal } from '@/components/ui';
 import { ProductsGrid } from '@/modules/products';
 import { useAppDispatch, useAppSelector } from '@/services';
-import { productsStore } from '@/store';
 import { favoritesItemsMemoized } from '@/store/reducers/commonSelectors';
 import { removeAllFavorites } from '@/store/reducers/products';
+import { productsStore } from '@/store/types';
 
 export const ContentFavorites = () => {
 	const [modalShow, setModalShow] = useState(false);

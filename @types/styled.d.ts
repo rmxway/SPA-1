@@ -18,11 +18,8 @@ export interface Colors {
 		$9: string;
 	};
 }
-
-export interface Gradients {
-	main: string;
-    dark: string;
-}
+type GradientsType = 'main' | 'dark' | 'softDark';
+export type Gradients = Record<GradientsType, (deg?: string) => string>;
 
 interface Layout {
 	containerWidth: string;

@@ -2,16 +2,13 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
 import { Button, GradientText, Icon } from '@/components/ui';
-import { TableProducts } from '@/modules/cart/StepForm';
-import { useAppDispatch } from '@/services';
-import { changeStep } from '@/store/reducers/cart';
+import { TableProducts } from '@/modules/cart/StepForm/TableProducts';
 import { removeAllProducts } from '@/store/reducers/combineActions';
 
 import { WrapperFinal } from './styled';
 
 export const StepFinal = () => {
 	const router = useRouter();
-	const dispatch = useAppDispatch();
 
 	const handleBackToProducts = () => {
 		router.push('/products');
@@ -20,9 +17,8 @@ export const StepFinal = () => {
 	useEffect(
 		() => () => {
 			removeAllProducts();
-			dispatch(changeStep(1));
 		},
-		[dispatch],
+		[],
 	);
 
 	return (
@@ -36,7 +32,7 @@ export const StepFinal = () => {
 				<p>You have been made an order and our manager will contact you shortly</p>
 			</div>
 
-			<Button animate $black onClick={handleBackToProducts}>
+			<Button animate $dark onClick={handleBackToProducts}>
 				Go to products
 			</Button>
 		</WrapperFinal>

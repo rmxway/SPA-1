@@ -9,7 +9,14 @@ interface GradientTextProps extends React.HTMLAttributes<HTMLDivElement> {
 	gradient?: keyof Gradients;
 }
 
-export const GradientText: FC<GradientTextProps> = ({ size, gradient, children, ...props }) => (
+/**
+ *
+ * @param gradient(Gradients) - main, dark
+ * @param size(number) - size in pixels
+ * @returns
+ */
+
+export const GradientText: FC<GradientTextProps> = ({ size, gradient = 'main', children, ...props }) => (
 	<GradientTextStyled $size={size} $gradient={gradient} {...props}>
 		{children}
 	</GradientTextStyled>

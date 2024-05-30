@@ -1,21 +1,28 @@
 import { motion, Variants } from 'framer-motion';
-import { darken } from 'polished';
+import { lighten } from 'polished';
 import styled from 'styled-components';
 
 import { defaultTheme as theme, media } from '@/theme';
 
-const logoColor = darken(0.3, theme.colors.success);
+import { CountStyled } from './Count/styled';
+
+const logoColor = theme.colors.success;
 
 export const StyledNavbar = styled(motion.div)`
-	position: fixed;
+	position: relative;
 	top: 0;
 	z-index: 100;
 	width: 100%;
 	height: 70px;
-	background-color: ${theme.colors.success};
+	background-color: ${theme.colors.dark};
 	text-align: center;
 	display: flex;
 	align-items: center;
+	border-bottom: 1px solid ${theme.colors.gray.$8};
+
+	${media.lessThan('mdD')`
+        position: fixed;
+    `}
 `;
 
 export const Logo = styled.div`
@@ -47,42 +54,8 @@ export const Logo = styled.div`
 		display: flex;
 		align-items: center;
 		padding: 2px 10px;
-		color: ${theme.colors.success};
+		color: ${theme.colors.dark};
 		margin-left: 10px;
-	}
-`;
-
-export const NavbarItem = styled.div`
-	position: relative;
-	display: flex;
-	margin-right: 10px;
-	font-size: 1.5rem;
-	color: #222;
-	text-decoration: none;
-	margin-bottom: 10px;
-	border-bottom: 2px solid transparent;
-
-	a {
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 100%;
-		height: 100%;
-		z-index: 1;
-	}
-
-	${media.greaterThan('md')`
-        margin-bottom: 0;
-        margin-right: 20px;
-        font-size: 20px;
-    `}
-
-	&:hover {
-		color: #444;
-	}
-
-	&:last-child {
-		margin-right: 0;
 	}
 `;
 
@@ -96,6 +69,58 @@ export const Line = styled(motion.div)`
 	background-color: ${theme.colors.dark};
 `;
 
+export const NavbarItem = styled.div`
+	position: relative;
+	display: flex;
+	margin-right: 10px;
+	font-size: 1.5rem;
+	color: ${theme.colors.dark};
+	text-decoration: none;
+	margin-bottom: 10px;
+	border-bottom: 2px solid transparent;
+	transition: all 0.2s;
+
+	a {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+	}
+
+	&:hover {
+		color: ${lighten(0.2, theme.colors.dark)};
+	}
+
+	&:last-child {
+		margin-right: 0;
+	}
+
+	${media.lessThan('mdD')`
+        ${CountStyled} {
+            background-color: ${theme.colors.dark};
+            border-color: ${lighten(0.28, theme.colors.success)};
+            color: #fff;
+        }
+    `}
+
+	${media.greaterThan('md')`
+        margin-bottom: 0;
+        margin-right: 20px;
+        font-size: 20px;
+        color: ${logoColor};
+
+        &:hover {
+            color: ${lighten(0.3, theme.colors.success)};
+        }
+
+        ${Line} {
+            background-color: ${theme.colors.success};
+        }
+    `}
+`;
+
 export const WrapperNavbarItems = styled(motion.div)`
 	position: fixed;
 	right: 0;
@@ -106,7 +131,7 @@ export const WrapperNavbarItems = styled(motion.div)`
 	width: 100%;
 	height: 0;
 	overflow: hidden;
-	background-image: ${theme.gradients.main};
+	background-image: ${theme.gradients.softDark('210deg')};
 
 	${media.greaterThan('md')`
         position: relative;

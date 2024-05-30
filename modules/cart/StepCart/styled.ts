@@ -22,7 +22,6 @@ export const Cart = styled.div`
 	display: grid;
 	grid-template-columns: 1fr;
 	align-items: flex-start;
-	padding-bottom: 50px;
 
 	${WrapperPagination} {
 		margin-top: 0;
@@ -60,7 +59,7 @@ export const Sidebar = styled(motion.div)`
 
 	${media.greaterThan('sm')`
         position: sticky;
-        top: 90px;
+        top: 20px;
         padding: 20px;
         margin-top: 0;
 	`}
