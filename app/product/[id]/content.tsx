@@ -84,23 +84,25 @@ export const ContentProduct = () => {
 												-{Math.round(Number(product.discountPercentage))} %
 											</Sticker>
 										</span>
+									</Grid>
+									<Grid className="side-info" $direction="column" $gap={8}>
+										<Sticker>{product.category}</Sticker>
+										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
+									</Grid>
+									<Grid $direction="column" $templateColumns="1fr 30px" $gap={5}>
+										<Button
+											$primary
+											onClick={() => moveToCart(Number(product?.id))}
+											disabled={product.checked}
+											icon="cart"
+										>
+											{product.checked ? 'Added' : 'Add to cart'}
+										</Button>
 										<Favorite
 											active={product.favorite}
 											onActive={() => dispatch(toggleFavorite(Number(product.id)))}
 										/>
 									</Grid>
-									<Grid className="side-info" $direction='column' $gap={8}>
-										<Sticker>{product.category}</Sticker>
-										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
-									</Grid>
-									<Button
-										$primary
-										onClick={() => moveToCart(Number(product?.id))}
-										disabled={product.checked}
-										icon="cart"
-									>
-										{product.checked ? 'Added' : 'Add to cart'}
-									</Button>
 								</PriceBlock>
 							</LayerBlock>
 						</SideBlock>

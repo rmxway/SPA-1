@@ -12,14 +12,11 @@ import { changeStep } from '@/store/reducers/cart';
 import { InputOrder, SwitchOrder } from './helpers';
 import { WrapperForm, WrapperStepForm } from './styled';
 
-export * from '@/modules/cart/StepForm/TableProducts';
-
 export const StepForm = () => {
 	const {
 		register,
 		handleSubmit,
-		reset,
-		formState: { errors, isValid, isDirty, dirtyFields },
+		formState: { errors, isValid, dirtyFields },
 	} = useForm<OrderFields>({
 		resolver: yupResolver(schemaOrder),
 		mode: 'all',
@@ -34,8 +31,10 @@ export const StepForm = () => {
 	};
 
 	const onSubmit: SubmitHandler<OrderFields> = (data) => {
-		submitOrder(data);
-		dispatch(changeStep(3));
+		if (data && isValid) {
+			submitOrder(data);
+			dispatch(changeStep(3));
+		}
 	};
 
 	return (
@@ -47,11 +46,7 @@ export const StepForm = () => {
 			<br />
 			<WrapperStepForm $gap={40} $templateColumns="1fr 1fr">
 				<WrapperForm>
-					<form
-						onSubmit={handleSubmit(onSubmit)}
-						onReset={() => reset({}, { keepTouched: true, keepValues: true })}
-						autoComplete="off"
-					>
+					<form onSubmit={handleSubmit(onSubmit)}>
 						<Flexbox $gap={10}>
 							<InputOrder label="Name *" placeholder="Mary" name="name" {...inputCommonProps} />
 							<InputOrder label="Surname *" placeholder="Climber" name="surname" {...inputCommonProps} />
@@ -70,18 +65,13 @@ export const StepForm = () => {
 							/>
 							<InputOrder
 								label="Delivery address *"
-								placeholder="ul. Lenina, 22"
+								placeholder="Main street, 32"
 								name="deliveryAddress"
 								{...inputCommonProps}
 							/>
 							<SwitchOrder label="To apartment" name="toApartment" {...inputCommonProps} />
-						</Flexbox>
-						<Flexbox $gap={10}>
 							<Button type="submit" $success disabled={!isValid}>
 								Submit
-							</Button>
-							<Button type="reset" disabled={!isDirty}>
-								Reset
 							</Button>
 						</Flexbox>
 					</form>

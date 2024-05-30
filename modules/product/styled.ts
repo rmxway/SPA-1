@@ -113,9 +113,9 @@ export const SideBlock = styled.div`
 export const PriceBlock = styled(Grid)`
 	position: relative;
 	align-items: center;
-	gap: 16px;
+	gap: 4px;
 	grid-auto-flow: dense;
-	grid-template-columns: 1fr 120px;
+	grid-template-columns: 1fr 170px;
 
 	.side {
 		&-price {
@@ -142,6 +142,7 @@ export const PriceBlock = styled(Grid)`
         grid-template-columns: 1fr;
         align-items: start;
         grid-auto-flow: dense;
+        gap: 16px;
 
         .side-info {
             display: grid;

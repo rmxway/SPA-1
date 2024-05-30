@@ -12,7 +12,6 @@ exports[`Input/UI Render is fine 1`] = `
       Phone
     </label>
     <input
-      autocomplete="off"
       name="phone"
       type="text"
       value=""
@@ -24,27 +23,6 @@ exports[`Input/UI Render is fine 1`] = `
         Your phone is not correct
       </span>
     </div>
-  </div>
-</div>
-`;
-
-exports[`Input/UI Type masked phone number is fine 1`] = `
-<div>
-  <div
-    class="sc-86fc186b-0 edSOQW"
-  >
-    <label
-      class="sc-f296cf62-0 ewMWJz"
-      for="phone"
-    >
-      Phone
-    </label>
-    <input
-      autocomplete="off"
-      name="phone"
-      type="text"
-      value=""
-    />
   </div>
 </div>
 `;

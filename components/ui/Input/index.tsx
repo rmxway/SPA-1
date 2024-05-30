@@ -1,5 +1,5 @@
 import React, { forwardRef } from 'react';
-import { IMaskInput, ReactElementProps } from 'react-imask';
+import { IMaskInput } from 'react-imask';
 
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
 import { Label } from '@/components/ui/Label';
@@ -14,24 +14,25 @@ export interface InputProps {
 	success?: boolean;
 	noPadding?: boolean;
 	className?: string;
+	onChange?: (event: { target: { name: string; value: string } }) => void;
 }
 
-type ReactInputProps = ReactElementProps<HTMLInputElement>;
-
-export const Input = forwardRef<HTMLInputElement, InputProps & React.InputHTMLAttributes<HTMLInputElement>>(
-	({ name, label, mask, error, success, noPadding, className, ...props }, ref) => (
+export const Input = forwardRef<HTMLInputElement, InputProps>(
+	({ name, label, mask, error, success, noPadding, className, onChange, ...props }, ref) => (
 		<InputWrapper {...{ className }} $error={!!error} $success={success} $noPaddings={noPadding}>
 			{label && <Label {...{ label, name }} />}
 			{mask ? (
 				<IMaskInput
-					{...(props as ReactInputProps)}
 					{...{ name, mask }}
 					type="text"
-					autoComplete="off"
+					onAccept={(value) => {
+						onChange?.({ target: { name, value } });
+					}}
 					inputRef={ref}
+					{...props}
 				/>
 			) : (
-				<input {...props} {...{ ref, name }} id={name} type="text" autoComplete="off" />
+				<input {...props} {...{ ref, name, onChange }} id={name} type="text" />
 			)}
 
 			{error && <ErrorMessage {...{ error }} />}

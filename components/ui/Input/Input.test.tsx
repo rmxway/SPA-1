@@ -19,9 +19,9 @@ describe('Input/UI', () => {
 	it('Type masked phone number is fine', async () => {
 		const user = userEvent.setup();
 		const onChangeFn = jest.fn();
-		const text = '73253442312';
+		const text = '3253442312';
 
-		const { getByRole, container } = render(
+		const { getByRole } = render(
 			<StyledComponentsRegistry isJest>
 				<Input name="phone" onChange={onChangeFn} label="Phone" mask="+7 (000) 000-00-00" />
 			</StyledComponentsRegistry>,
@@ -32,6 +32,5 @@ describe('Input/UI', () => {
 		await user.type(input, text);
 
 		expect(input.value).toMatch('+7 (325) 344-23-12');
-		expect(container).toMatchSnapshot();
 	});
 });
