@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { IMaskInput } from 'react-imask';
+import React, { forwardRef, InputHTMLAttributes } from 'react';
+import { IMaskInput, ReactElementProps } from 'react-imask';
 
 import { ErrorMessage } from '@/components/ui/ErrorMessage';
 import { Label } from '@/components/ui/Label';
@@ -13,11 +13,16 @@ export interface InputProps {
 	error?: string;
 	success?: boolean;
 	noPadding?: boolean;
-	className?: string;
-	onChange?: (event: { target: { name: string; value: string } }) => void;
 }
+interface TargetType {
+	target: {
+		name: string;
+		value: string;
+	};
+}
+type ChangeType = (e: TargetType) => void;
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
+export const Input = forwardRef<HTMLInputElement, InputProps & InputHTMLAttributes<HTMLInputElement>>(
 	({ name, label, mask, error, success, noPadding, className, onChange, ...props }, ref) => (
 		<InputWrapper {...{ className }} $error={!!error} $success={success} $noPaddings={noPadding}>
 			{label && <Label {...{ label, name }} />}
@@ -26,10 +31,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 					{...{ name, mask }}
 					type="text"
 					onAccept={(value) => {
-						onChange?.({ target: { name, value } });
+						(onChange as ChangeType)?.({ target: { name, value } });
 					}}
 					inputRef={ref}
-					{...props}
+					{...(props as ReactElementProps<HTMLInputElement>)}
 				/>
 			) : (
 				<input {...props} {...{ ref, name, onChange }} id={name} type="text" />
