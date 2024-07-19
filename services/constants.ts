@@ -1,6 +1,6 @@
 export const currency = '$';
 
-export const VERSION = '1.020';
+export const VERSION = '1.2';
 
 export const isDev = process.env.NODE_ENV === 'development';
 

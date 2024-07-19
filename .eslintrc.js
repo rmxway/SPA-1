@@ -97,7 +97,7 @@ module.exports = {
 		'react/require-default-props': 'off',
 		'@typescript-eslint/no-shadow': 'error',
 		'@typescript-eslint/no-redundant-type-constituents': 'off',
-        '@typescript-eslint/no-unsafe-argument': 'off',
+		'@typescript-eslint/no-unsafe-argument': 'off',
 		'@typescript-eslint/no-misused-promises': [
 			2,
 			{

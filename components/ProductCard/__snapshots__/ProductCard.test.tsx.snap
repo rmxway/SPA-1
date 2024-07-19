@@ -3,114 +3,114 @@
 exports[`ProductCard: Render card 1`] = `
 <div>
   <div
-    class="sc-aa1a80d5-2 bwgOIx"
+    class="sc-aa1a80d5-2 bWWIfb"
   >
     <div
-      class="sc-7d6be7a8-0 kWmuZn"
+      class="sc-7d6be7a8-0 kzlrqJ"
     >
       -
-      13
+      0
       %
     </div>
     <div
-      class="sc-d8b47b8e-0 ljkNVa"
+      class="sc-d8b47b8e-0 gDyAOM"
     >
       <i
         class="icofont icofont-favorite-fill "
       />
     </div>
     <a
-      href="/product/1"
+      href="/product/6"
     >
       <div
-        class="sc-aa1a80d5-1 foSqEw"
-        id="wrapper-1"
+        class="sc-aa1a80d5-1 fVfJIC"
+        id="wrapper-6"
       >
         <div
-          class="sc-91434ab0-0 bojwYG"
+          class="sc-91434ab0-0 NzyZw"
         >
           <div
-            class="sc-91434ab0-1 knnmfW"
+            class="sc-91434ab0-1 kzBAtY"
           />
         </div>
       </div>
     </a>
     <a
-      class="sc-aa1a80d5-3 dyripq"
-      href="/product/1"
+      class="sc-aa1a80d5-3 eofkaM"
+      href="/product/6"
     >
       <div>
-        iPhone 9
+        Calvin Klein CK One
       </div>
       <span>
-        Apple
+        Calvin Klein
       </span>
     </a>
     <span
-      class="sc-a1f6370b-0 bNBLyi"
+      class="sc-a1f6370b-0 goVLkk"
     />
     <div
-      class="sc-aa1a80d5-5 gIVGrt"
+      class="sc-aa1a80d5-5 gwhwNr"
     >
       <div
-        class="sc-be016b9b-0 fzNlrf"
+        class="sc-be016b9b-0 hGlQTV"
       >
         <div
-          class="sc-be016b9b-1 fRXBkE"
+          class="sc-be016b9b-1 fHjwaS"
         >
           <div
-            class="sc-be016b9b-2 giSYRi"
+            class="sc-be016b9b-2 fMxAWE"
           >
             <i
-              class="icofont icofont-star sc-be016b9b-3 iOsvtu"
+              class="icofont icofont-star sc-be016b9b-3 fICwyA"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 iOsvtu"
+              class="icofont icofont-star sc-be016b9b-3 fICwyA"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 iOsvtu"
+              class="icofont icofont-star sc-be016b9b-3 fICwyA"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 iOsvtu"
+              class="icofont icofont-star sc-be016b9b-3 fICwyA"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 iOsvtu"
+              class="icofont icofont-star sc-be016b9b-3 fICwyA"
             />
           </div>
           <div
-            class="sc-be016b9b-2 dSjeWV"
+            class="sc-be016b9b-2 etYehl"
           >
             <i
-              class="icofont icofont-star sc-be016b9b-3 fmVvMT"
+              class="icofont icofont-star sc-be016b9b-3 fnkWPB"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 fmVvMT"
+              class="icofont icofont-star sc-be016b9b-3 fnkWPB"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 fmVvMT"
+              class="icofont icofont-star sc-be016b9b-3 fnkWPB"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 fmVvMT"
+              class="icofont icofont-star sc-be016b9b-3 fnkWPB"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 fmVvMT"
+              class="icofont icofont-star sc-be016b9b-3 fnkWPB"
             />
           </div>
         </div>
         <span>
-          4.69
+          4.85
         </span>
       </div>
       <div
-        class="sc-aa1a80d5-4 cZhELX"
+        class="sc-aa1a80d5-4 jSVhXR"
       >
-        549
+        49.99
          
         $
       </div>
     </div>
     <button
-      class="sc-6ffd862-0 fWVoxy"
+      class="sc-6ffd862-0 bkeQbQ"
     >
       Add to cart
       <i
