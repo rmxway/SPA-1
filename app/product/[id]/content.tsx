@@ -1,10 +1,12 @@
 'use client';
 
 import 'swiper/css';
+import 'swiper/css/pagination';
 
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
+import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
@@ -41,7 +43,15 @@ export const ContentProduct = () => {
 					<>
 						<Info>
 							<LayerBlock>
-								<Swiper slidesPerView={1} spaceBetween={50}>
+								<Swiper
+									pagination={{
+										dynamicBullets: true,
+                                        clickable: true,
+									}}
+									modules={[Pagination]}
+									slidesPerView={1}
+									spaceBetween={50}
+								>
 									{product.images?.map((image) => (
 										<SwiperSlide key={image}>
 											<Image src={image} width={500} height={500} alt={image} priority />

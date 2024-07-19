@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { Container, Grid, LayerBlock } from '@/components/Layout';
 import { WrapperSticker } from '@/components/ui/Sticker/styled';
-import { media } from '@/theme';
+import { defaultTheme as theme, media } from '@/theme';
 
 export const Wrapper = styled(Container)`
 	position: relative;
@@ -23,10 +23,13 @@ export const Wrapper = styled(Container)`
 		border-radius: 10px;
 		border: 1px solid #ddd;
 		min-width: 1%;
-		background-color: ${(props) => props.theme.colors.dark};
 
 		.swiper-slide {
 			height: 75vw;
+		}
+
+		.swiper-pagination-bullet-active {
+			background-color: ${theme.colors.dark};
 		}
 
 		${media.greaterThan('sm')`
