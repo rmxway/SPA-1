@@ -12,7 +12,7 @@ type FlexboxTypes = {
  * Flexbox styled component
  * @param {?string} $align - 'center' | 'flex-start' | 'flex-end' | 'stretch'
  * @param {?string} $direction - 'column' | 'row' | 'reverse-column' | 'reverse-row'
- * @param {?number} $gap
+ * @param {?number} $gap - this property doesn't work in Safari
  * @param {?string} $justify - 'space-between' | 'center' | 'space-around' | 'flex-start' | 'flex-end'
  * @param {?boolean} $nowrap
  */

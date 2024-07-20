@@ -2,6 +2,7 @@ import { Action, combineReducers, configureStore } from '@reduxjs/toolkit';
 import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 
+import { VERSION } from '@/services';
 import { api } from '@/store/api';
 import CartReducer from '@/store/reducers/cart';
 import ProductsReducer from '@/store/reducers/products';
@@ -25,7 +26,7 @@ const storage = typeof window !== 'undefined' ? createWebStorage('local') : crea
 const persistConfig = {
 	key: 'wholeStore',
 	storage,
-	version: 1,
+	version: +VERSION,
 };
 
 const appReducer = combineReducers({

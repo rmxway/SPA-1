@@ -106,7 +106,6 @@ const productsReducer = createSlice({
 			if (state.typePage === payload) return;
 			state.typePage = payload;
 			changeCurrentPage(state);
-			resetItems(state, true, false);
 		},
 		changePage: (state, { payload }: PayloadAction<number>) => {
 			if (state.typePage === 'favorites') state.favoritesPage = payload;
@@ -115,6 +114,9 @@ const productsReducer = createSlice({
 		},
 		changeCategory: (state, { payload: name }: PayloadAction<string>) => {
 			calcCategory(state, name);
+		},
+		resetItemsAction: (state) => {
+			resetItems(state);
 		},
 	},
 	extraReducers: (builder) => {
@@ -167,6 +169,7 @@ export const {
 	searchProducts,
 	toggleFavorite,
 	removeAllFavorites,
+	resetItemsAction,
 	changePage,
 	changeTypePage,
 	changeCategory,

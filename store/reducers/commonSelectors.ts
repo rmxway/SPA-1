@@ -17,8 +17,8 @@ export const currentItemsMemoized = typedCommonCreateSelector(
 );
 
 export const productMemoized = typedProductsCreateSelector(
-	[(state) => state.fetchedItems, (_, id: string) => id],
-	(fetchedItems, id) => fetchedItems.find((item) => item.id === Number(id)),
+	[(state) => state.reservedItems, (_, id: string) => id],
+	(reservedItems, id) => reservedItems.find((item) => item.id === Number(id)),
 );
 
 export const favoritesItemsMemoized = typedProductsCreateSelector([(state) => state.fetchedItems], (fetchedItems) =>
