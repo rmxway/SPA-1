@@ -13,7 +13,7 @@ type TextToggleProps = {
 export const TextToggle: FC<TextToggleProps> = ({ length = 2, children }) => {
 	const [isOpen, setOpen] = useState(false);
 
-	const height = `${length * 30}px`;
+	const height = `${length * 35}px`;
 
 	const handleClick = () => {
 		setOpen((prev) => !prev);

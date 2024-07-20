@@ -138,6 +138,10 @@ export const PriceBlock = styled(Grid)`
 
 		&-info {
 			display: none;
+
+            ${WrapperSticker} {
+               margin: 0 8px 8px 0;
+            }
 		}
 	}
 
@@ -148,9 +152,7 @@ export const PriceBlock = styled(Grid)`
         gap: 16px;
 
         .side-info {
-            display: grid;
-            flex-direction: column;
-            align-items: flex-start;
+            display: flex;
         }
     `}
 
@@ -162,12 +164,6 @@ export const PriceBlock = styled(Grid)`
 	${media.greaterThan('md')`
         grid-auto-flow: row;
 	    grid-template-columns: 1fr;
-
-        .side-info {
-            display: grid;
-            flex-direction: column;
-            align-items: flex-start;
-        }
     `}
 `;
 

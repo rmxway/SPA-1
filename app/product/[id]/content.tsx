@@ -10,7 +10,7 @@ import { Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import { TextToggle } from '@/components';
-import { Grid, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
+import { Flexbox, Grid, LayerBlock, MobileWhiteBackground, RatingStars } from '@/components/Layout';
 import { Button, Favorite, Sticker } from '@/components/ui';
 import { Info, PriceBlock, SideBlock, Wrapper } from '@/modules/product/styled';
 import { currency, IProduct, useAppDispatch, useAppSelector } from '@/services';
@@ -46,7 +46,7 @@ export const ContentProduct = () => {
 								<Swiper
 									pagination={{
 										dynamicBullets: true,
-                                        clickable: true,
+										clickable: true,
 									}}
 									modules={[Pagination]}
 									slidesPerView={1}
@@ -59,26 +59,36 @@ export const ContentProduct = () => {
 									))}
 								</Swiper>
 								<RatingStars rating={Number(product.rating)} />
+								<br />
 								<span>
-									<p>{product.description}</p>
-									<h4>Description:</h4>
+									{product.brand && (
+										<Grid $gap={8} $direction="column">
+											<h5>Brand:</h5>
+											<p>{product.brand}</p>
+										</Grid>
+									)}
+									{product.returnPolicy && (
+										<Grid $gap={8} $direction="column">
+											<h5>Return Policy:</h5>
+											<p>{product.returnPolicy}</p>
+										</Grid>
+									)}
+
+									<h5>Description:</h5>
 									<TextToggle length={3}>
+										<p>{product.description}</p>
 										<p>
-											AMOLED FHD+ punch-hole display with a high screen-to-body ratio provides a
-											more exquisite, immersive experience. From dawn to dusk, OPP F19’s
-											eye-caring screen continuously adapts to the level that’s gentle for your
-											eyes.
-										</p>
-										<p>
-											Amazing Performance at the Tip of Your Finger. Our advanced In-Display
-											Fingerprint Unlock rapidly and accurately scans your finger to instantly
-											unlock at the drop of a fingertip.
-										</p>
-										<p>
-											You deserve a phone that acts fast and never acts up. Our self-developed RAM
-											Expansion converts available ROM to RAM to support highly demanding apps and
-											reduce lags whenever necessary. To top it off, enjoy abundant memory and
-											smooth performance with 6GB of RAM and 128GB of ROM.
+											Lorem ipsum dolor sit amet consectetur, adipisicing elit. Provident
+											consequuntur dolorem odio at sunt asperiores harum ducimus consequatur
+											placeat, quidem illo facilis eveniet esse vel, totam mollitia ab accusantium
+											culpa voluptatem, aperiam ipsa quibusdam! Accusamus dolorem vero aspernatur
+											explicabo! Itaque quasi tempora aspernatur laborum pariatur. Quos,
+											necessitatibus id! Atque aliquid eius dolores facere autem rem illum libero?
+											Quasi, est, beatae quisquam deserunt molestias nam sequi modi sapiente quas
+											officia aperiam numquam aut vero quia nisi rem, necessitatibus fugiat. Iure
+											molestias perferendis ad, obcaecati veniam fuga molestiae? Rem amet ea
+											asperiores eaque odio, quaerat architecto vero sint voluptatibus itaque
+											voluptatum ab.
 										</p>
 									</TextToggle>
 								</span>
@@ -95,10 +105,10 @@ export const ContentProduct = () => {
 											</Sticker>
 										</span>
 									</Grid>
-									<Grid className="side-info" $direction="column" $gap={8}>
-										<Sticker>{product.category}</Sticker>
+									<Flexbox className="side-info">
 										{product.stock && <Sticker $success>In Stock: {product.stock}</Sticker>}
-									</Grid>
+										{product.tags && product.tags.map((tag) => <Sticker key={tag}>{tag}</Sticker>)}
+									</Flexbox>
 									<Grid $direction="column" $templateColumns="1fr 30px" $gap={5}>
 										<Button
 											$primary

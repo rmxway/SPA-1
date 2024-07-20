@@ -5,7 +5,7 @@ type GridTypes = {
 	$templateRows?: string;
 	$justify?: 'space-between' | 'center' | 'space-around' | 'flex-start' | 'flex-end';
 	$align?: 'center' | 'flex-start' | 'flex-end' | 'stretch';
-	$direction?: 'column' | 'row';
+	$direction?: 'column' | 'row' | 'dense';
 	$gap?: number;
 };
 

@@ -32,10 +32,12 @@ export const initialItems = (state: ProductsState, response: ResponseProducts) =
 };
 
 export const initialOneProduct = (state: ProductsState, item: IProduct) => {
-	state.fetchedItems[0] = item;
-	state.fetching = false;
+	if (state.reservedItems.length === 0) {
+		state.fetchedItems[0] = item;
+		state.fetching = false;
 
-	state.reservedItems = state.fetchedItems;
+		state.reservedItems = state.fetchedItems;
+	}
 };
 
 export const anyTogglesInProduct = (
