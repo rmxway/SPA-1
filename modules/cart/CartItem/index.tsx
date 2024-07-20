@@ -22,7 +22,7 @@ export const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }
 		<Item {...props} {...{ ref }}>
 			<Content layout variants={elementsVars}>
 				<Link href={`/product/${id}`}>
-					<Image src={thumbnail} alt={title} width={70} height={70} quality={50} />
+					{thumbnail && <Image src={thumbnail} alt={title} width={70} height={70} quality={50} />}
 				</Link>
 				<WrapperText>
 					<Title href={`/product/${id}`}>
