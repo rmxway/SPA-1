@@ -63,10 +63,10 @@ export const Product = styled.div`
 	position: relative;
 	display: grid;
 	gap: 20px;
-	grid-template-columns: 1fr 60px 90px;
+	grid-template-columns: 1fr 100px 100px;
 	text-align: center;
 	align-items: center;
-	margin-bottom: 20px;
+	margin-bottom: 12px;
 	font-size: 0.9rem;
 
 	div:first-child {
