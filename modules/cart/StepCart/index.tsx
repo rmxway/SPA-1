@@ -90,7 +90,7 @@ export const StepCart: FC = () => {
 						<Total>
 							Total:
 							<span>
-								<CountUp startVal={0} end={totalPrice} preserveValue duration={1} separator="" />{' '}
+								<CountUp startVal={0} end={totalPrice} duration={0.5} decimals={2} preserveValue />{' '}
 								{currency}
 							</span>
 						</Total>

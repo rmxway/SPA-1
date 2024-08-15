@@ -46,7 +46,7 @@ export const CartItem = forwardRef<HTMLDivElement, Props>(({ product, ...props }
 					)}
 					{count && price && (
 						<Price>
-							{count * price} {currency}
+							{(count * price).toFixed(2)} {currency}
 						</Price>
 					)}
 				</WrapperText>

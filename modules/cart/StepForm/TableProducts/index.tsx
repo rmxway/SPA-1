@@ -19,11 +19,13 @@ export const TableProducts: FC<{ fGrow?: boolean }> = ({ fGrow }) => {
 					<Product key={id}>
 						<div>{title}</div>
 						<div>{count || 1}</div>
-						<Flexbox $nowrap $justify="center">
-							{currency} {price}
+						<Flexbox $nowrap $align="center" $direction="column">
+							<div>
+								{currency}&nbsp;{price}&nbsp;
+							</div>
 							{count && count > 1 && (
 								<>
-									&nbsp;<span>({count * price})</span>
+									<span>({(count * price).toFixed(2)})</span>
 								</>
 							)}
 						</Flexbox>
@@ -31,7 +33,7 @@ export const TableProducts: FC<{ fGrow?: boolean }> = ({ fGrow }) => {
 				))}
 			<p>
 				<span>
-					{currency} {totalPrice}
+					{currency} {totalPrice.toFixed(2)}
 				</span>
 			</p>
 		</WrapperProducts>
