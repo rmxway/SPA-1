@@ -24,11 +24,10 @@ export default function MainPage() {
 				</div>
 				<ImageLogos>
 					<Image
-						src={logos}
+						src={logos.src}
 						width={logos.width}
 						height={logos.height}
-						blurDataURL={logos.blurDataURL}
-						placeholder="blur"
+						priority
 						quality={80}
 						alt="logos"
 					/>

@@ -9,7 +9,12 @@ interface LoaderTypes {
 export const Loader: FC<LoaderTypes> = ({ loading }) =>
 	loading ? (
 		<Wrapper>
-			<StyledLoader />
+			<StyledLoader>
+				<span />
+				<span />
+				<span />
+                <span />
+			</StyledLoader>
 		</Wrapper>
 	) : null;
 
