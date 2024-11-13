@@ -40,12 +40,7 @@ export const initialOneProduct = (state: ProductsState, item: IProduct) => {
 	}
 };
 
-export const anyTogglesInProduct = (
-	state: ProductsState,
-	id: number,
-	type: 'checked' | 'favorite' | 'imgFetch',
-	boo?: boolean,
-) => {
+export const anyTogglesInProduct = (state: ProductsState, id: number, type: 'checked' | 'favorite', boo?: boolean) => {
 	const toggleInArray = (array: IProduct[]) => {
 		const currentItem = array.find((item) => item.id === id);
 		if (currentItem) currentItem[type] = boo ?? !currentItem[type];

@@ -39,7 +39,6 @@ export interface IProduct {
 	images: string[];
 	thumbnail?: string;
 	checked?: boolean;
-	imgFetch?: boolean;
 	favorite?: boolean;
 	count?: number;
 }

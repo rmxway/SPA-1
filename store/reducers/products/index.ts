@@ -54,9 +54,6 @@ const productsReducer = createSlice({
 			});
 			state.reservedItems = state.fetchedItems;
 		},
-		fetchingImageProduct: (state, { payload }: PayloadAction<number>) => {
-			anyTogglesInProduct(state, payload, 'imgFetch', false);
-		},
 		sortProducts: (state, { payload }: PayloadAction<SortTypes>) => {
 			const { name, toggle } = payload;
 
@@ -163,7 +160,6 @@ export const {
 	setTitle,
 	toggleProduct,
 	removeAllToggledProducts,
-	fetchingImageProduct,
 	sortProducts,
 	searchValue,
 	searchProducts,
