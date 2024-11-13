@@ -1,9 +1,8 @@
 import Image from 'next/image';
-import { Fragment, SyntheticEvent } from 'react';
+import { Fragment, SyntheticEvent, useState } from 'react';
 
 import { Loader } from '@/components/ui';
-import { IProduct, useAppDispatch, useAppSelector } from '@/services';
-import { fetchingImageProduct } from '@/store/reducers/products';
+import { IProduct, useAppSelector } from '@/services';
 import { productsStore } from '@/store/types';
 
 import { BlockImgItem, WrapperImagesStyled } from './styled';
@@ -14,21 +13,21 @@ type PropsType = {
 };
 
 export const WrapperImages = ({ product, size }: PropsType) => {
-	const dispatch = useAppDispatch();
+	const [isLoad, setIsLoad] = useState(true);
 	const { fetching } = useAppSelector(productsStore);
-	const { id, imgFetch, title, images } = product;
+	const { id, title, images } = product;
 
 	const handleOnLoad = (e: SyntheticEvent<HTMLImageElement>, idx: number) => {
 		e.currentTarget.classList.add('fetched');
 
 		if (idx === 0) {
-			dispatch(fetchingImageProduct(Number(id)));
+			setIsLoad(false);
 		}
 	};
 
 	return (
 		<WrapperImagesStyled id={`wrapper-${id}`}>
-			<Loader loading={imgFetch ?? true} />
+			<Loader loading={isLoad} />
 
 			{!fetching &&
 				images?.map((image, idx) => (

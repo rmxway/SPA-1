@@ -1,4 +1,4 @@
-import { darken } from 'polished';
+// import { darken } from 'polished';
 import styled from 'styled-components';
 
 import { defaultTheme as theme } from '@/theme';
@@ -22,55 +22,40 @@ export const Wrapper = styled.div<{ background?: boolean }>`
 export const StyledLoader = styled.div`
 	@keyframes rotateLoading {
 		0% {
-			transform: rotate(0deg);
+			transform: rotate(-90deg);
 		}
 		100% {
-			transform: rotate(23040deg);
+			transform: rotate(630deg);
 		}
 	}
 
-	@keyframes changeColors {
-		0% {
-			background: ${theme.colors.primary};
-		}
-		33% {
-			background: ${theme.colors.primary};
-		}
-		66% {
-			background: ${darken(0.05, theme.colors.primary)};
-		}
-		100% {
-			background: ${theme.colors.primary};
-		}
-	}
-	animation-name: rotateLoading;
-	animation-duration: 5s;
-	animation-direction: forwards;
-	animation-iteration-count: infinite;
-	animation-timing-function: ease-in-out;
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	mix-blend-mode: multiply;
 
-	&:before {
-		content: '';
+	span {
 		position: absolute;
-		width: 30px;
-		height: 30px;
-		border-radius: 100%;
-		margin: 0;
-		background: ${theme.colors.primary};
-		mask-image: linear-gradient(to left, transparent 50%, black 100%);
-		animation: changeColors 3s forwards infinite linear;
-	}
+		display: block;
+		width: 5px;
+		height: 5px;
+		border-radius: 20px;
+		background-color: ${theme.colors.gray.$4};
+		margin-left: -20px;
+		transform-origin: 20px 0;
+		animation-name: rotateLoading;
+		animation-duration: 2.5s;
+		animation-direction: forwards;
+		animation-iteration-count: infinite;
+		animation-timing-function: cubic-bezier(0.1, 0.25, 0.35, 0.65);
 
-	&::after {
-		content: '';
-		position: absolute;
-		width: 25px;
-		height: 25px;
-		border-radius: 100%;
-		background-color: #fff;
+		&:nth-child(n + 2) {
+			animation-delay: 0.15s;
+		}
+
+		&:nth-child(n + 3) {
+			animation-delay: 0.3s;
+		}
+
+		&:nth-child(n + 4) {
+			animation-delay: 0.45s;
+		}
 	}
 `;
