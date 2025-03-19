@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { FC } from 'react';
+import { FC, PropsWithChildren } from 'react';
 
 import { Icon } from '@/components/ui/Icon';
 import icons from '@/public/assets/fonts/icofont/icofont.json';
@@ -11,7 +11,7 @@ const textVar = {
 	visible: { opacity: 1 },
 };
 
-type ButtonProps = Props & { animate?: boolean; icon?: keyof typeof icons };
+type ButtonProps = Props & PropsWithChildren & { animate?: boolean; icon?: keyof typeof icons };
 
 /**
  * Custom button with some properties.
@@ -25,14 +25,14 @@ type ButtonProps = Props & { animate?: boolean; icon?: keyof typeof icons };
  */
 
 export const Button: FC<ButtonProps> = ({ children, animate = false, icon, ...props }) => {
-	const memoText = String(children).split('');
+	const memoText = typeof children === 'string' ? children.split('') : [''];
 
 	return (
 		<ButtonStyle {...props}>
 			{animate ? (
 				<AnimatePresence mode="wait">
 					<motion.div layout variants={textVar} initial="hidden" animate="visible" exit="hidden">
-						{memoText.map((item, idx) => (
+						{memoText?.map((item, idx) => (
 							<motion.span
 								layout
 								variants={textVar}

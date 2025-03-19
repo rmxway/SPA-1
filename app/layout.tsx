@@ -7,7 +7,7 @@ import { StyledComponentsRegistry } from '@/lib/registry';
 
 const Font = Roboto({
 	weight: ['100', '400', '700'],
-	subsets: ['latin'],
+	subsets: ['cyrillic'],
 	preload: true,
 	display: 'swap',
 });
