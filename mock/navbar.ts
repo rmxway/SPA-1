@@ -1,4 +1,6 @@
-type TitleType = 'Main' | 'Products' | 'Favorites' | 'Cart';
+import { isDev } from '@/services';
+
+type TitleType = 'Main' | 'Products' | 'Favorites' | 'Cart' | 'UI';
 interface NavbarItemType {
 	title: TitleType;
 	url: string;
@@ -22,5 +24,11 @@ export const navbarItems: NavbarItemType[] = [
 		url: '/cart',
 	},
 ];
+
+if (isDev)
+	navbarItems.splice(1, 0, {
+		title: 'UI',
+		url: '/ui',
+	});
 
 export default navbarItems;

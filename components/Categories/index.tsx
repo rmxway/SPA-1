@@ -13,10 +13,6 @@ const skeletonArray = [...new Set(new Array(15).fill('').map(() => Math.round(Ma
 export const Categories: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 	const { categories, search } = useAppSelector(productsStore);
 
-	const handleClick = (name: string) => {
-		changeCategoryWithSort(name);
-	};
-
 	return (
 		<>
 			<h5>Categories</h5>
@@ -32,7 +28,7 @@ export const Categories: FC<{ isLoading: boolean }> = ({ isLoading }) => {
 									type="button"
 									key={category.name}
 									disabled={search.length !== 0}
-									onClick={() => handleClick(category.name)}
+									onClick={() => changeCategoryWithSort(category.name)}
 								>
 									{category.name}
 								</Category>

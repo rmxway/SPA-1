@@ -3,28 +3,28 @@
 exports[`Favorite page test: Render text 1`] = `
 <div>
   <div
-    class="sc-cda6c8d6-0 UJcba"
+    class="sc-cda6c8d6-0 faFXox"
   >
     <div
-      class="sc-4a960974-0 gYCZSK"
+      class="sc-4a960974-0 fSQjaF"
     >
       <div
-        class="sc-4a960974-1 dSpCWT"
+        class="sc-4a960974-1 btJdTY"
         style="opacity: 0;"
       />
       <div
-        class="sc-59cb1f7b-1 htCiWY"
+        class="sc-59cb1f7b-1 fnJQvv"
         style="opacity: 0;"
       >
         <span
-          class="sc-a1f6370b-0 iBLzpN"
+          class="sc-a1f6370b-0 bNHuca"
         />
       </div>
       <div
         style="opacity: 0;"
       >
         <div
-          class="sc-9bb5e335-0 pKrJJ"
+          class="sc-9bb5e335-0 jssCAC"
         >
           Nothing was't add to favorites, go to
            
