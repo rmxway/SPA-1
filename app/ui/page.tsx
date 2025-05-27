@@ -1,7 +1,7 @@
 'use client';
 
 import { Container, Flexbox, Grid, LayerBlock } from '@/components/Layout';
-import ProductCard from '@/components/ProductCard';
+import { ProductCard } from '@/components/ProductCard';
 import { mockProduct } from '@/components/ProductCard/mockProduct';
 import { Button, Sticker } from '@/components/ui';
 
