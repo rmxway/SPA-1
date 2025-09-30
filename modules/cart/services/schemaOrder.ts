@@ -14,7 +14,7 @@ export const schemaOrder = object({
 		.trim()
 		.matches(emailRegex, { message: 'Email address must be valid', excludeEmptyString: true }),
 	deliveryAddress: string().required('Address is required'),
-	toApartment: boolean(),
+	toApartment: boolean().required(),
 });
 
 export type OrderFields = InferType<typeof schemaOrder>;

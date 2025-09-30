@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $icofont-font: 'icofont';
 
 @font-face {
@@ -36,32 +38,32 @@ $icofont-map: (
 );
 
 .icofont-trash:before {
-    content: map-get($icofont-map, 'trash');
+    content: map.get($icofont-map, 'trash');
 }
 .icofont-times-small:before {
-    content: map-get($icofont-map, 'times-small');
+    content: map.get($icofont-map, 'times-small');
 }
 .icofont-star:before {
-    content: map-get($icofont-map, 'star');
+    content: map.get($icofont-map, 'star');
 }
 .icofont-star-filled:before {
-    content: map-get($icofont-map, 'star-filled');
+    content: map.get($icofont-map, 'star-filled');
 }
 .icofont-nophoto:before {
-    content: map-get($icofont-map, 'nophoto');
+    content: map.get($icofont-map, 'nophoto');
 }
 .icofont-favorite:before {
-    content: map-get($icofont-map, 'favorite');
+    content: map.get($icofont-map, 'favorite');
 }
 .icofont-favorite-fill:before {
-    content: map-get($icofont-map, 'favorite-fill');
+    content: map.get($icofont-map, 'favorite-fill');
 }
 .icofont-cart:before {
-    content: map-get($icofont-map, 'cart');
+    content: map.get($icofont-map, 'cart');
 }
 .icofont-arrow-up:before {
-    content: map-get($icofont-map, 'arrow-up');
+    content: map.get($icofont-map, 'arrow-up');
 }
 .icofont-arrow-down:before {
-    content: map-get($icofont-map, 'arrow-down');
+    content: map.get($icofont-map, 'arrow-down');
 }

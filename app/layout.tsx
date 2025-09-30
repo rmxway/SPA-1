@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 	title: 'Green Shop | Brand',
 };
 
-export default function RootLayout({ children }: { children: React.ReactElement }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
 			<body className={Font.className}>

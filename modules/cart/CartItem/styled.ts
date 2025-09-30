@@ -15,7 +15,7 @@ export const fadeVariant = (i: number = 1): Variants => ({
 		opacity: 1,
 		transition: {
 			duration: 0.35,
-			dumping: 30,
+			damping: 30,
 			delay: i * 0.075,
 		},
 	},
