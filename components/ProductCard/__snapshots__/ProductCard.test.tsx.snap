@@ -1,19 +1,19 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`ProductCard: Render card 1`] = `
 <div>
   <div
-    class="sc-aa1a80d5-2 jiLtrl"
+    class="sc-aa1a80d5-2 jpYUlY"
   >
     <div
-      class="sc-7d6be7a8-0 eJiwRD"
+      class="sc-7d6be7a8-0 hNnrTe"
     >
       -
       0
       %
     </div>
     <div
-      class="sc-d8b47b8e-0 iUTjpq"
+      class="sc-d8b47b8e-0 favzof"
     >
       <i
         class="icofont icofont-favorite-fill "
@@ -23,14 +23,14 @@ exports[`ProductCard: Render card 1`] = `
       href="/product/6"
     >
       <div
-        class="sc-aa1a80d5-1 yXAtc"
+        class="sc-aa1a80d5-1 eoQhEx"
         id="wrapper-6"
       >
         <div
-          class="sc-83cf1764-0 kMSSKk"
+          class="sc-83cf1764-0 flRvsd"
         >
           <div
-            class="sc-83cf1764-1 eJysPF"
+            class="sc-83cf1764-1 fACrBg"
           >
             <span />
             <span />
@@ -41,7 +41,7 @@ exports[`ProductCard: Render card 1`] = `
       </div>
     </a>
     <a
-      class="sc-aa1a80d5-3 lhjMQK"
+      class="sc-aa1a80d5-3 dcqcWn"
       href="/product/6"
     >
       <div>
@@ -52,53 +52,53 @@ exports[`ProductCard: Render card 1`] = `
       </span>
     </a>
     <span
-      class="sc-a1f6370b-0 bNHuca"
+      class="sc-a1f6370b-0 eaxihD"
     />
     <div
-      class="sc-aa1a80d5-5 fJuBdl"
+      class="sc-aa1a80d5-5 hnsjMU"
     >
       <div
-        class="sc-be016b9b-0 kLwWUH"
+        class="sc-be016b9b-0 jRatsa"
       >
         <div
-          class="sc-be016b9b-1 jtWDCg"
+          class="sc-be016b9b-1 cLEppR"
         >
           <div
-            class="sc-be016b9b-2 hJGlva"
+            class="sc-be016b9b-2 zIUAT"
           >
             <i
-              class="icofont icofont-star sc-be016b9b-3 cbnaQi"
+              class="icofont icofont-star sc-be016b9b-3 jFGxFv"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 cbnaQi"
+              class="icofont icofont-star sc-be016b9b-3 jFGxFv"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 cbnaQi"
+              class="icofont icofont-star sc-be016b9b-3 jFGxFv"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 cbnaQi"
+              class="icofont icofont-star sc-be016b9b-3 jFGxFv"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 cbnaQi"
+              class="icofont icofont-star sc-be016b9b-3 jFGxFv"
             />
           </div>
           <div
-            class="sc-be016b9b-2 kYUKwf"
+            class="sc-be016b9b-2 gJXuIu"
           >
             <i
-              class="icofont icofont-star sc-be016b9b-3 eEXtXb"
+              class="icofont icofont-star sc-be016b9b-3 bfjFi"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 eEXtXb"
+              class="icofont icofont-star sc-be016b9b-3 bfjFi"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 eEXtXb"
+              class="icofont icofont-star sc-be016b9b-3 bfjFi"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 eEXtXb"
+              class="icofont icofont-star sc-be016b9b-3 bfjFi"
             />
             <i
-              class="icofont icofont-star sc-be016b9b-3 eEXtXb"
+              class="icofont icofont-star sc-be016b9b-3 bfjFi"
             />
           </div>
         </div>
@@ -107,7 +107,7 @@ exports[`ProductCard: Render card 1`] = `
         </span>
       </div>
       <div
-        class="sc-aa1a80d5-4 eIilVj"
+        class="sc-aa1a80d5-4 bwgMlO"
       >
         49.99
          
@@ -115,7 +115,7 @@ exports[`ProductCard: Render card 1`] = `
       </div>
     </div>
     <button
-      class="sc-6ffd862-0 NMUwC"
+      class="sc-6ffd862-0 hdBPUn"
     >
       Add to cart
       <i
