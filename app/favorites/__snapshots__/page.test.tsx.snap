@@ -1,30 +1,30 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Favorite page test: Render text 1`] = `
 <div>
   <div
-    class="sc-cda6c8d6-0 faFXox"
+    class="sc-cda6c8d6-0 dznKZc"
   >
     <div
-      class="sc-4a960974-0 fSQjaF"
+      class="sc-4a960974-0 eLHqHA"
     >
       <div
-        class="sc-4a960974-1 btJdTY"
+        class="sc-4a960974-1 cRcfHJ"
         style="opacity: 0;"
       />
       <div
-        class="sc-59cb1f7b-1 fnJQvv"
+        class="sc-59cb1f7b-1 bNgzPu"
         style="opacity: 0;"
       >
         <span
-          class="sc-a1f6370b-0 bNHuca"
+          class="sc-a1f6370b-0 eaxihD"
         />
       </div>
       <div
         style="opacity: 0;"
       >
         <div
-          class="sc-9bb5e335-0 jssCAC"
+          class="sc-9bb5e335-0 fBsTCf"
         >
           Nothing was't add to favorites, go to
            

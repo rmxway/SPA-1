@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Button/UI: Render is fine 1`] = `
 <div>
   <button
-    class="sc-6ffd862-0 dRGSr"
+    class="sc-6ffd862-0 dAtpxe"
   >
     Button
   </button>
